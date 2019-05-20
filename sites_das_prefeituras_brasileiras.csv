@@ -358,7 +358,7 @@ codigo_ibge,uf,nome,url
 2913002,BA,Ibitiara,https://ibitiara.ba.gov.br
 2913101,BA,Ibititá,http://ibitita.ba.gov.br
 2913200,BA,Ibotirama,https://ibotirama.ba.gov.br
-2913309,BA,Ichu,
+2913309,BA,Ichu,https://domunicipio.com/cidade.php?q=1&id=19
 2913408,BA,Igaporã,https://igapora.ba.gov.br
 2913457,BA,Igrapiúna,http://igrapiuna.ba.gov.br
 2913507,BA,Iguaí,http://iguai.ba.gov.br
@@ -1369,7 +1369,7 @@ codigo_ibge,uf,nome,url
 3102506,MG,Amparo do Serra,https://amparodoserra.mg.gov.br
 3102605,MG,Andradas,http://andradas.mg.gov.br
 3102803,MG,Andrelândia,https://andrelandia.mg.gov.br
-3102852,MG,Angelândia,
+3102852,MG,Angelândia,http://cidadesmg.com.br/portaltransparencia/faces/user/portal.xhtml?Param=Angelandia
 3102902,MG,Antônio Carlos,http://www.municipioantoniocarlos.mg.gov.br
 3103009,MG,Antônio Dias,http://www.antoniodias.mg.gov.br
 3103108,MG,Antônio Prado de Minas,https://antoniopradodeminas.mg.gov.br
@@ -3299,7 +3299,7 @@ codigo_ibge,uf,nome,url
 4107538,PR,Entre Rios do Oeste,http://www.entreriosdooeste.pr.gov.br
 4107405,PR,Enéas Marques,https://eneasmarques.pr.gov.br
 4107520,PR,Esperança Nova,http://esperancanova.pr.gov.br
-4107546,PR,Espigão Alto do Iguaçu,
+4107546,PR,Espigão Alto do Iguaçu,http://www.espigaoaltodoiguacu.pr.gov.br/site
 4107553,PR,Farol,https://farol.pr.gov.br
 4107603,PR,Faxinal,http://faxinal.pr.gov.br
 4107652,PR,Fazenda Rio Grande,https://fazendariogrande.pr.gov.br
@@ -4448,7 +4448,7 @@ codigo_ibge,uf,nome,url
 4202131,SC,Bela Vista do Toldo,https://www.pmbvt.sc.gov.br
 4202156,SC,Belmonte,https://belmonte.sc.gov.br
 4202206,SC,Benedito Novo,https://beneditonovo.sc.gov.br
-4202305,SC,Biguaçu,
+4202305,SC,Biguaçu,http://www.bigua.sc.gov.br
 4202404,SC,Blumenau,https://blumenau.sc.gov.br
 4202438,SC,Bocaina do Sul,https://www.bocaina.sc.gov.br
 4202503,SC,Bom Jardim da Serra,http://bomjardimdaserra.sc.gov.br
@@ -4947,7 +4947,7 @@ codigo_ibge,uf,nome,url
 3514924,SP,Elisiário,https://elisiario.sp.gov.br
 3514957,SP,Embaúba,https://embauba.sp.gov.br
 3515004,SP,Embu das Artes,http://embudasartes.sp.gov.br
-3515103,SP,Embu-Guaçu,
+3515103,SP,Embu-Guaçu,http://embuguacu.sp.gov.br
 3515129,SP,Emilianópolis,https://www.emilianopolis.sp.gov.br
 3515152,SP,Engenheiro Coelho,https://engenheirocoelho.sp.gov.br
 3515186,SP,Espírito Santo do Pinhal,https://www.pinhal.sp.gov.br
@@ -5297,7 +5297,7 @@ codigo_ibge,uf,nome,url
 3546108,SP,Santa Clara d'Oeste,http://santaclaradoeste.sp.gov.br
 3546207,SP,Santa Cruz da Conceição,http://santacruzdaconceicao.sp.gov.br
 3546256,SP,Santa Cruz da Esperança,
-3546306,SP,Santa Cruz das Palmeiras,
+3546306,SP,Santa Cruz das Palmeiras,http://www.scpalmeiras.sp.gov.br
 3546405,SP,Santa Cruz do Rio Pardo,https://santacruzdoriopardo.sp.gov.br
 3546504,SP,Santa Ernestina,https://santaernestina.sp.gov.br
 3546603,SP,Santa Fé do Sul,https://santafedosul.sp.gov.br
