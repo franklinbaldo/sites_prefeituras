@@ -1,0 +1,33 @@
+name: Lighthouse Accessibility Audit
+
+on:
+  schedule:
+    - cron: '0 3 * * 1' # Every Monday at 3 AM UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run accessibility audit script
+        run: node collect-accessibility-data.js
+
+      - name: Commit accessibility results
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update accessibility results
+          file_pattern: accessibility-results.json
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions Bot <actions@github.com>
