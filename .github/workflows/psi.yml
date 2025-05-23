@@ -1,0 +1,35 @@
+name: 🚀 Coleta PSI
+
+on:
+  schedule:
+    - cron: '0 3 * * *'    # todo dia às 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PSI_KEY: ${{ secrets.PSI_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Coletar dados PSI
+        run: node collect-psi.js
+
+      - name: Commit e push dos resultados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add data/psi-results.json
+          git commit -m "chore: atualiza PSI data"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
