@@ -1,14 +1,35 @@
-# Auditoria de Acessibilidade de Sites de Prefeituras Brasileiras
+# Auditoria de Sites de Prefeituras Brasileiras com PageSpeed Insights
 
 ## Overview/Purpose
 
-This project aims to automatically audit the accessibility of Brazilian city (prefeitura) websites using Google Lighthouse. The results are then processed and displayed as a ranked list, making it easier to assess the current state of web accessibility across these public portals.
+This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection, including metrics for performance, accessibility, SEO, and best practices, with controlled parallelism. The results are processed and can be used to assess the current state of these public portals.
 
 This project was elaborated as part of a Master's dissertation research focusing on evaluating the transparency and accessibility of municipal websites.
 
+## Master's Dissertation
+
+This repository and its findings are a result of academic research developed during a Master's program. The related publications are:
+
+```
+@article{silveira2023using,
+  title={USING AUTOMATED ACCESSIBILITY METERING TOOLS IN TRANSPARENCY RANKINGS IN BRAZIL.},
+  author={Silveira Baldo, Franklin and Veludo Watanabe, Carolina Yukari and Ton Tiussi, Denise},
+  journal={Direito da Cidade},
+  volume={15},
+  number={3},
+  year={2023}
+}
+
+@article{baldo2019acessibilidade,
+  title={Acessibilidade web para indicadores de transpar{\^e}ncia},
+  author={Baldo, Franklin Silveira},
+  year={2019}
+}
+```
+
 ## How it Works
 
-The project uses a combination of a data file, a GitHub Action, and a Node.js script to collect and present accessibility data.
+The project uses a combination of a data file, a GitHub Action, and a Node.js script to collect and present data from the PageSpeed Insights API.
 
 ### Data Source
 
@@ -16,45 +37,45 @@ The primary list of websites to be audited is sourced from the `sites_das_prefei
 
 ### GitHub Action Workflow
 
-A GitHub Action, defined in `.github/workflows/lighthouse-audit.yml`, automates the accessibility auditing process. This workflow:
-- Runs on a schedule (currently configured for every Monday at 3 AM UTC).
+A GitHub Action, defined in `.github/workflows/psi.yml`, automates the data collection process. This workflow:
+- Runs on a schedule (currently configured for daily at 3 AM UTC).
 - Can also be triggered manually via the GitHub Actions tab.
 
 The main steps performed by the workflow are:
 1.  **Checkout Repository:** Checks out the latest version of the repository.
-2.  **Set up Node.js:** Configures the environment with a specific version of Node.js (currently v18).
-3.  **Install Dependencies:** Installs the necessary Node.js packages defined in `package.json` (e.g., Lighthouse, CSV parser) using `npm install`.
-4.  **Run Accessibility Audit Script:** Executes the `collect-accessibility-data.js` script.
-    - This script reads URLs from the `sites_das_prefeituras_brasileiras.csv`.
-    - It then runs Lighthouse accessibility audits for each URL.
-    - The script saves the collected accessibility scores and related metadata to `accessibility-results.json`.
-5.  **Commit Accessibility Results:** The updated `accessibility-results.json` file is automatically committed back to the repository. This ensures that the results are version-controlled and reflect the latest audit.
+2.  **Set up Node.js:** Configures the environment with Node.js (currently v18).
+3.  **Install Dependencies:** Installs the necessary Node.js packages defined in `package.json` using `npm ci`.
+4.  **Run PSI Data Collection Script:** Executes the `collect-psi.js` script.
+5.  **Commit Results:** The updated `data/psi-results.json` file is automatically committed back to the repository. This ensures that the results are version-controlled and reflect the latest audit.
 
-### Data Collection Script (`collect-accessibility-data.js`)
+### Data Collection Script (`collect-psi.js`)
 
 This Node.js script is the core of the data collection process. It performs the following actions:
 - Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
-- For each URL, it launches a headless instance of Chrome and uses the Lighthouse library to perform an accessibility audit.
-- It extracts the overall accessibility score (0-100) and other relevant information (city name, UF, IBGE code, URL, audit timestamp, and any error messages if the audit fails).
-- The script is currently configured to process a limited number of URLs (`urlLimit` variable within the script) for initial setup, testing, and to manage resource consumption during early development. This limit can be adjusted to process more or all sites.
-- The results are compiled into a JSON array and saved to the `accessibility-results.json` file.
+- For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
+- It manages the API requests with controlled parallelism (currently up to 4 simultaneous requests) to avoid rate limiting and efficiently process the URLs.
+- The script collects the following key metrics for the mobile strategy:
+    - Performance score
+    - Accessibility score
+    - SEO score
+    - Best Practices score
+- The results, along with the URL and a timestamp, are compiled into a JSON array and saved to the `data/psi-results.json` file.
 
 ### Results Storage
 
-The audit findings are stored in `accessibility-results.json`. Each entry in this JSON file represents the audit result for a specific municipality and includes:
-- `codigo_ibge`: IBGE code of the municipality.
-- `nome_municipio`: Name of the municipality.
-- `uf`: State (Unidade Federativa).
+The audit findings are stored in `data/psi-results.json`. Each entry in this JSON file represents the audit result for a specific municipality and includes:
 - `url`: The audited URL.
-- `accessibility_score`: The Lighthouse accessibility score (0-100). This will be `null` if an error occurred during the audit.
-- `error_message`: A brief error message if the audit failed for that URL.
-- `audit_timestamp`: The date and time when the audit was performed.
+- `performance`: The PSI Performance score (0-1).
+- `accessibility`: The PSI Accessibility score (0-1).
+- `seo`: The PSI SEO score (0-1).
+- `bestPractices`: The PSI Best Practices score (0-1).
+- `timestamp`: The date and time when the audit was performed.
 
 ## Viewing the Results
 
-The accessibility audit results are displayed on a simple web page generated by this repository and hosted using GitHub Pages. The `index.html` file at the root of this repository loads the `accessibility-results.json` data and presents it in a sortable table.
+The collected data is stored in `data/psi-results.json`. The `index.html` file at the root of this repository loads this data and presents it, allowing for exploration of the findings.
 
-**The live site can be accessed at: [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/)** (Note: Replace with your actual GitHub Pages URL if different, or keep this as a placeholder if you haven't set it up yet under this exact username/repo combination).
+**The live site can be accessed at: [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/)**
 
 To enable GitHub Pages for this repository if it's not already active, or if you've forked this repository:
 
@@ -69,18 +90,17 @@ It might take a few minutes for the site to build and become live.
 
 ## Current Limitations & Future Work
 
--   **Limited URL Processing:** The `collect-accessibility-data.js` script currently processes a small subset of URLs from the CSV file for testing and development purposes. This limit needs to be increased or removed to audit all listed municipalities.
--   **Error Handling:** While basic error handling is in place, it could be expanded to provide more detailed diagnostics or retry mechanisms.
--   **Resource Consumption:** Running Lighthouse for a large number of sites can be resource-intensive. The workflow and script may need optimization for large-scale audits.
--   **Data Visualization:** The current presentation is a simple table. Future enhancements could include charts, graphs, or more advanced filtering options to better visualize the accessibility landscape.
--   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track accessibility scores over time could be a valuable addition.
+-   **Error Handling:** The script includes basic error handling for API requests, but more sophisticated retry mechanisms with backoff could be implemented.
+-   **Data Visualization:** The current presentation via `index.html` can be further enhanced with charts, graphs, or more advanced filtering options.
+-   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track scores over time could be a valuable addition.
+-   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated.
 
 ## Contributing
 
 Contributions are welcome! Here are a few ways you can help:
 
 -   **Updating the Website List:** If you find inaccuracies in `sites_das_prefeituras_brasileiras.csv` or want to add new official municipal websites, please feel free to submit a pull request with your changes.
--   **Improving Scripts & Workflow:** Enhancements to the `collect-accessibility-data.js` script, the GitHub Actions workflow, or the `index.html` presentation are welcome.
+-   **Improving Scripts & Workflow:** Enhancements to the `collect-psi.js` script, the GitHub Actions workflow, or the `index.html` presentation are welcome.
 -   **Bug Fixes & Feature Requests:** If you encounter any issues or have ideas for new features, please open an issue on GitHub.
 
 When contributing, please ensure your changes are well-tested and follow the general coding style of the project.
