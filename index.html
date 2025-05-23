@@ -3,26 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking de Acessibilidade de Prefeituras</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Mapa de Acessibilidade do Brasil</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVL9nwEpmc8pZGPUmr0HummzFFNigGzPalHrZbbFfc4JAUhCReBeL3FPA=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Ranking de Acessibilidade de Prefeituras</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Cidade</th>
-                <th>UF</th>
-                <th>IBGE</th>
-                <th>URL</th>
-                <th>Pontuação de Acessibilidade (0-100)</th>
-                <th>Data da Auditoria</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Dados serão injetados aqui pelo script.js -->
-        </tbody>
-    </table>
-    <script src="script.js"></script>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
