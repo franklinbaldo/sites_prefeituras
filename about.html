@@ -18,24 +18,33 @@
     <main>
         <section id="goals">
             <h2>Nossos Objetivos</h2>
-            <p>Placeholder para descrição dos objetivos do projeto. Explicar a importância da acessibilidade em sites de prefeituras e o que o projeto visa alcançar com a visualização desses dados.</p>
+            <p>Este projeto tem como principal objetivo lançar luz sobre o estado da acessibilidade digital dos portais online das prefeituras brasileiras. Acreditamos que o acesso à informação e aos serviços municipais online é um direito fundamental de todos os cidadãos, incluindo pessoas com deficiência. Um site acessível garante que todos possam navegar, entender e interagir com o conteúdo digital de forma independente e eficaz.</p>
+            <p>Através da coleta e visualização de dados de acessibilidade, buscamos conscientizar gestores públicos, desenvolvedores e a sociedade civil sobre a importância da inclusão digital. Nossa plataforma visa identificar desafios comuns, destacar boas práticas e fornecer um panorama que possa embasar ações para a melhoria contínua da acessibilidade dos serviços públicos digitais no Brasil.</p>
+            <p>Esperamos que esta ferramenta sirva como um recurso valioso para pesquisadores, jornalistas, cidadãos e, principalmente, para as próprias prefeituras, incentivando a adoção de design universal e práticas de desenvolvimento web acessíveis.</p>
         </section>
 
         <section id="methodology">
             <h2>Metodologia de Coleta de Dados</h2>
-            <p>Placeholder para explicar como os dados de acessibilidade são coletados. Detalhar as ferramentas utilizadas (ex: PageSpeed Insights API), os critérios de avaliação, a frequência de coleta, e como os municípios/sites são selecionados.</p>
-            <p>Exemplo: Utilizamos a API do Google PageSpeed Insights para analisar automaticamente os sites das prefeituras listados em [fonte da lista de sites]. As métricas de acessibilidade reportadas pelo Lighthouse são então processadas e armazenadas para visualização no mapa.</p>
+            <p>A coleta de dados de acessibilidade para este projeto é realizada (ou será realizada) de forma automatizada, buscando abranger o maior número possível de sites de prefeituras brasileiras. Utilizamos ferramentas de análise de renome para avaliar a conformidade das páginas web com as diretrizes de acessibilidade.</p>
+            <p>A principal ferramenta empregada é o Lighthouse, uma ferramenta de código aberto automatizada do Google para melhorar a qualidade de páginas web. Especificamente, focamos na pontuação de acessibilidade que o Lighthouse gera, a qual é baseada em uma série de verificações contra as Diretrizes de Acessibilidade para Conteúdo Web (WCAG). Embora a análise automatizada não capture todas as nuances da acessibilidade (testes manuais são cruciais para uma avaliação completa), ela fornece um panorama valioso e escalável do estado atual.</p>
+            <p>O processo envolve a execução programática do Lighthouse (potencialmente através da API do PageSpeed Insights ou scripts customizados como o `collect-psi.js` encontrado neste repositório) para cada site municipal identificado em nossa lista de fontes. As pontuações de acessibilidade são então coletadas, armazenadas e processadas para serem visualizadas em nosso mapa interativo. Pretendemos realizar coletas periódicas para acompanhar a evolução da acessibilidade desses portais ao longo do tempo.</p>
         </section>
 
         <section id="data-sources">
             <h2>Fontes de Dados</h2>
-            <p>Placeholder para listar as fontes de dados utilizadas no projeto. Isso pode incluir a origem da lista de sites das prefeituras, bases de dados geográficas para os mapas, etc.</p>
-            <p>Exemplo: A lista de sites de prefeituras foi obtida de [nome da fonte/link]. Os dados geográficos dos municípios brasileiros são provenientes do IBGE.</p>
+            <p>Para a realização deste projeto, utilizamos (ou pretendemos utilizar) as seguintes fontes de dados primárias:</p>
+            <ul>
+                <li><strong>Lista de Websites de Prefeituras:</strong> A relação dos endereços eletrônicos (URLs) dos sites das prefeituras brasileiras é um componente crucial. Esta lista pode ser originada de fontes públicas governamentais, iniciativas da comunidade de dados abertos ou compilações acadêmicas (<em>será necessário especificar a fonte exata quando definida</em>, por exemplo, o arquivo `sites_das_prefeituras_brasileiras.csv` presente neste repositório).</li>
+                <li><strong>Dados Geográficos (GeoJSON):</strong> Para a visualização dos dados no mapa, utilizamos arquivos no formato GeoJSON que definem as fronteiras geográficas dos estados e/ou municípios brasileiros. Estes dados são tipicamente fornecidos por órgãos oficiais como o Instituto Brasileiro de Geografia e Estatística (IBGE) (<em>ex: `brasil-estados.geojson`, `brasil-municipios.geojson` - atualmente estes arquivos no repositório estão vazios e necessitam ser populados com dados válidos do IBGE ou fonte similar</em>).</li>
+                <li><strong>Resultados de Testes de Acessibilidade:</strong> Os dados de acessibilidade propriamente ditos são gerados pela execução das ferramentas de análise (como o Lighthouse) sobre os sites listados. Estes resultados são armazenados e processados para exibição (<em>ex: `test-psi-results.json` pode ser um exemplo de arquivo de armazenamento temporário ou de resultados de teste</em>).</li>
+            </ul>
+            <p>A transparência e a confiabilidade das fontes são fundamentais para a credibilidade do projeto. Nos esforçamos para utilizar dados de fontes reconhecidas e, sempre que possível, abertas.</p>
         </section>
 
         <section id="contact">
-            <h2>Contato</h2>
-            <p>Placeholder para informações de contato ou links para o repositório do projeto (ex: GitHub).</p>
+            <h2>Contato e Contribuições</h2>
+            <p>Este é um projeto em desenvolvimento e agradecemos seu interesse. Para mais detalhes sobre o projeto, sugestões, reporte de problemas ou oportunidades de contribuição, por favor visite nosso repositório no GitHub. Lá você encontrará informações sobre como entrar em contato com os mantenedores ou abrir uma "issue" para discussão.</p>
+            <p>O link para o repositório do projeto pode ser encontrado no rodapé desta página.</p>
         </section>
     </main>
 
