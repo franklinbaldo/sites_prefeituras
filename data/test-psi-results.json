@@ -1,0 +1,18 @@
+[
+  {
+    "url": "http://example.com",
+    "performance": 0.9,
+    "accessibility": 0.8,
+    "seo": 0.7,
+    "bestPractices": 0.95,
+    "timestamp": "2025-05-30T03:34:14.053Z"
+  },
+  {
+    "url": "http://another-example.com",
+    "performance": 0.9,
+    "accessibility": 0.8,
+    "seo": 0.7,
+    "bestPractices": 0.95,
+    "timestamp": "2025-05-30T03:34:14.054Z"
+  }
+]

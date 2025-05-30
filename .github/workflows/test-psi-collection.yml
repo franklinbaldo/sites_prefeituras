@@ -1,0 +1,98 @@
+name: Test PSI Collection Script
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches:
+      - 'feat/*'
+      - 'fix/*'
+  workflow_dispatch:
+
+jobs:
+  test-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run script in test mode
+        env:
+          PSI_KEY: "test_key_workflow" # Dummy key for the script's check
+        run: node collect-psi.js --test
+
+      - name: Verify test output file existence
+        run: |
+          if [ -f "data/test-psi-results.json" ]; then
+            echo "data/test-psi-results.json found."
+          else
+            echo "data/test-psi-results.json not found!"
+            exit 1
+          fi
+
+      - name: Verify test output file content (array length)
+        run: |
+          echo "Verifying content of data/test-psi-results.json..."
+          # Expected 2 results because only successful mock calls are saved
+          # http://example.com and http://another-example.com
+          # http://invalid-url-that-does-not-exist-hopefully.com causes an error and is not saved.
+          # "not_a_url" and "" are filtered out before fetchPSI.
+          RESULT_COUNT=$(jq 'length' data/test-psi-results.json)
+          if [ "$RESULT_COUNT" -eq 2 ]; then
+            echo "JSON array has 2 elements as expected."
+          else
+            echo "Error: JSON array does not have 2 elements. Found: $RESULT_COUNT"
+            cat data/test-psi-results.json # Print content for debugging
+            exit 1
+          fi
+
+      - name: Verify test output file content (structure of one result)
+        run: |
+          echo "Verifying structure of the first result in data/test-psi-results.json..."
+          # Check for presence of key fields in the first element of the array
+          jq -e '
+            .[0] | has("url") and
+            .[0] | has("performance") and
+            .[0] | has("accessibility") and
+            .[0] | has("seo") and
+            .[0] | has("bestPractices") and
+            .[0] | has("timestamp")
+          ' data/test-psi-results.json
+          if [ $? -eq 0 ]; then
+            echo "First result has the expected structure."
+          else
+            echo "Error: First result does not have the expected structure."
+            cat data/test-psi-results.json # Print content for debugging
+            exit 1
+          fi
+          # Check that the URL is one of the expected successful ones
+          FIRST_URL=$(jq -r '.[0].url' data/test-psi-results.json)
+          if [ "$FIRST_URL" == "http://example.com" ] || [ "$FIRST_URL" == "http://another-example.com" ]; then
+            echo "First URL is one of the expected successful URLs: $FIRST_URL"
+          else
+            echo "Error: First URL is not one of the expected ones. Found: $FIRST_URL"
+            cat data/test-psi-results.json
+            exit 1
+          fi
+
+
+      - name: Verify no production output file created
+        run: |
+          if [ -f "data/psi-results.json" ]; then
+            echo "Error: Production file data/psi-results.json was created during test mode!"
+            exit 1
+          else
+            echo "Production file data/psi-results.json was not created, as expected."
+          fi
