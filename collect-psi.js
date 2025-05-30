@@ -7,6 +7,21 @@ import { parse as csvParse } from 'csv-parse/sync';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
 
+const ERROR_LOG_FILE = 'psi_errors.log';
+
+// Function to log errors to a file
+function logErrorToFile(errorMessage) {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${errorMessage}\n`;
+  try {
+    fs.appendFileSync(ERROR_LOG_FILE, logMessage);
+  } catch (err) {
+    // If logging to file fails, log to console as a fallback
+    console.error(`Fallback: Failed to write to ${ERROR_LOG_FILE}: ${err.message}`);
+    console.error(`Fallback: Original error: ${errorMessage}`);
+  }
+}
+
 // This function will be unit tested
 export async function originalFetchPSI(url, apiKey, fetchFn) {
   const endpoint = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed`
@@ -68,19 +83,28 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     const csv = fs.readFileSync(inputCsvFile, 'utf-8'); // fs will be mocked in tests
     const rows = csvParse(csv, { columns: true, skip_empty_lines: true });
     urlsToProcess = rows.map(r => r['Endereço Eletrônico']).filter(u => u && u.startsWith('http'));
+    if (urlsToProcess.length === 0) {
+      const message = `Nenhuma URL válida encontrada em ${inputCsvFile}. Verifique o formato do arquivo e o cabeçalho 'Endereço Eletrônico'.`;
+      console.warn(`⚠️ ${message}`);
+      logErrorToFile(message);
+      // No need to return immediately, script will just say "Nenhum resultado para gravar." later.
+    }
   } catch (err) {
-    console.error(`❌ Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`);
-    // In a real scenario, might want to process.exit(1) here too, or handle more gracefully
-    return; // Exit function if CSV processing fails
+    const errorMessage = `Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`;
+    console.error(`❌ ${errorMessage}`);
+    logErrorToFile(errorMessage);
+    // In a real scenario, might want to process.exit(1) here too.
+    // For now, returning as per original logic to prevent further processing if CSV is unreadable.
+    return;
   }
-  
+
   console.log(`ℹ️ Writing results to: ${outputJsonFile}`);
 
   // Use externalFetchPSI if provided (for unit tests), otherwise choose based on mode
-  const fetchPSI = externalFetchPSI 
+  const fetchPSI = externalFetchPSI
     ? externalFetchPSI
-    : isTestMode 
-      ? scriptMockFetchPSI 
+    : isTestMode
+      ? scriptMockFetchPSI
       : (url) => originalFetchPSI(url, API_KEY, fetch); // Pass API_KEY and global fetch
 
   const limit = pLimit(4);
@@ -92,7 +116,9 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
         console.log(`✅ ${url} → ${data.performance}`);
         results.push(data);
       } catch (err) {
-        console.warn(`❌ erro em ${url}: ${err.message}`);
+        const errorMsg = `erro em ${url}: ${err.message}`;
+        console.warn(`❌ ${errorMsg}`);
+        logErrorToFile(`Error for URL ${url}: ${err.message}`);
       }
     })
   );

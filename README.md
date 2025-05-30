@@ -46,7 +46,13 @@ The main steps performed by the workflow are:
 2.  **Set up Node.js:** Configures the environment with Node.js (currently v18).
 3.  **Install Dependencies:** Installs the necessary Node.js packages defined in `package.json` using `npm ci`.
 4.  **Run PSI Data Collection Script:** Executes the `collect-psi.js` script.
-5.  **Commit Results:** The updated `data/psi-results.json` file is automatically committed back to the repository. This ensures that the results are version-controlled and reflect the latest audit.
+5.  **Error Handling and Reporting:**
+    *   If the `collect-psi.js` script encounters errors during its run (e.g., unable to fetch PSI data for a specific URL, network issues, 404 errors from target sites), these errors are logged into a file named `psi_errors.log`.
+    *   If `psi_errors.log` is generated and contains errors, the workflow will:
+        *   Create a `TODO.md` file at the root of the repository. This file includes the contents of `psi_errors.log`, a timestamp of when the errors were logged, and a direct link to the specific GitHub Actions workflow run that detected them.
+        *   Commit this `TODO.md` file to a dedicated branch named `psi-error-reports`.
+    *   This error reporting mechanism allows for tracking and manual review of URLs or issues that consistently fail. It helps in identifying outdated URLs or other problems that need investigation, without halting the entire data collection process.
+6.  **Commit Results:** Successfully collected PSI data points are compiled into `data/psi-results.json`. This file is automatically committed back to the main branch of the repository, ensuring that results are version-controlled and reflect the latest successful audits, even if some URLs encountered errors.
 
 ### Data Collection Script (`collect-psi.js`)
 
@@ -90,7 +96,7 @@ It might take a few minutes for the site to build and become live.
 
 ## Current Limitations & Future Work
 
--   **Error Handling:** The script includes basic error handling for API requests, but more sophisticated retry mechanisms with backoff could be implemented.
+-   **Error Handling & Reporting:** The script logs errors encountered during URL processing to `psi_errors.log`. The GitHub workflow then processes this log to create a `TODO.md` on the `psi-error-reports` branch for review (as described above). While individual errors are reported, more sophisticated in-script retry mechanisms with backoff for transient network issues could still be beneficial.
 -   **Data Visualization:** The current presentation via `index.html` can be further enhanced with charts, graphs, or more advanced filtering options.
 -   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track scores over time could be a valuable addition.
 -   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated.
