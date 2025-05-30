@@ -2,10 +2,154 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    line-height: 1.6; /* Improve readability */
+}
+
+header {
+    background-color: #f4f4f4; /* Light grey background */
+    padding: 1em 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Subtle border */
+}
+
+header h1 {
+    margin: 0;
+    color: #333; /* Darker text color */
+}
+
+#project-description {
+    padding: 1.5em 1em;
+    margin: 0 2em; /* Add some horizontal margin */
+    text-align: center; /* Center the description text */
+}
+
+main {
+    padding: 1em;
+    display: flex; /* Using flex to center map container if needed or manage multiple children later */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+}
+
+#map-container {
+    width: 80%; /* Or a fixed width like 900px, depending on preference */
+    max-width: 1000px; /* Max width for larger screens */
+    margin: 0 auto; /* Center the map container */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add a subtle shadow */
 }
 
 #map {
-    height: 100vh;
-    width: 100vw;
-    border: 1px solid black; /* For debugging purposes, can be removed later */
+    height: 500px; /* Adjust height as needed */
+    width: 100%; /* Map will take full width of its container */
+    border: 1px solid #ccc; /* Lighter border */
+}
+
+#controls-container {
+    margin-top: 20px; /* Add some space above the button */
+    text-align: center; /* Center the button */
+}
+
+#export-data-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff; /* Blue color, common for actions */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#export-data-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Header navigation on index.html */
+.header-nav {
+    text-align: center; /* Center the 'Saiba mais' link below the main title */
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.header-nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Nav in about.html: body > nav */
+html[lang="pt-BR"] body > nav {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+
+html[lang="pt-BR"] body > nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500; /* Changed from bold to 500 for consistency */
+}
+
+html[lang="pt-BR"] body > nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sections in about.html: body > main > section */
+html[lang="pt-BR"] body > main > section {
+    padding: 1.5em;
+    margin: 1em auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    border-radius: 4px;
+}
+
+/* Headings in about.html sections */
+html[lang="pt-BR"] body > main > section h2 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.3em;
+    margin-top: 0;
+}
+
+/* Footer styling */
+footer {
+    background-color: #343a40; /* Dark background for footer */
+    color: #f8f9fa; /* Light text color */
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px; /* Space above the footer */
+    border-top: 3px solid #007bff; /* Accent color border */
+}
+
+/* New Footer CSS */
+.footer-copyright {
+    margin: 5px 0 8px 0; /* top | horizontal | bottom */
+    font-size: 0.9em;
+}
+
+.footer-links {
+    font-size: 0.9em; /* Match copyright font size */
+    margin-top: 5px;
+}
+
+.footer-links a {
+    color: #f8f9fa;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: #ced4da;
+    text-decoration: underline;
+}
+
+.footer-link-separator {
+    color: #6c757d;
+    margin: 0 5px;
 }
