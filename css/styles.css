@@ -127,17 +127,29 @@ footer {
     border-top: 3px solid #007bff; /* Accent color border */
 }
 
-footer p {
-    margin: 5px 0;
+/* New Footer CSS */
+.footer-copyright {
+    margin: 5px 0 8px 0; /* top | horizontal | bottom */
     font-size: 0.9em;
 }
 
-footer a#repo-link {
-    color: #f8f9fa; /* Light link color */
+.footer-links {
+    font-size: 0.9em; /* Match copyright font size */
+    margin-top: 5px;
+}
+
+.footer-links a {
+    color: #f8f9fa;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: #ced4da;
     text-decoration: underline;
 }
 
-footer a#repo-link:hover {
-    color: #ced4da; /* Lighter link color on hover */
-    text-decoration: none;
+.footer-link-separator {
+    color: #6c757d;
+    margin: 0 5px;
 }
