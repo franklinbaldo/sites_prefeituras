@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Acessibilidade do Brasil</title>
+    <title>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVL9nwEpmc8pZGPUmr0HummzFFNigGzPalHrZbbFfc4JAUhCReBeL3FPA=="
           crossorigin=""/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="map"></div>
+    <header>
+        <h1>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
+    </header>
+
+    <section id="project-description">
+        <p>Este projeto visualiza dados de acessibilidade dos sites das prefeituras do Brasil. Navegue pelo mapa para explorar os dados e clique nas áreas para obter mais informações.</p>
+    </section>
+
+    <main>
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <div id="controls-container">
+            <button id="export-data-btn">Exportar Dados</button>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
