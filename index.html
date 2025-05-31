@@ -3,14 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Acessibilidade do Brasil</title>
+    <title>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVL9nwEpmc8pZGPUmr0HummzFFNigGzPalHrZbbFfc4JAUhCReBeL3FPA=="
           crossorigin=""/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="map"></div>
+    <header>
+        <h1>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
+        <nav class="header-nav">
+            <a href="about.html">Saiba mais sobre o projeto</a>
+        </nav>
+    </header>
+
+    <section id="project-description">
+        <p>Este projeto visualiza dados de acessibilidade dos sites das prefeituras do Brasil. Navegue pelo mapa para explorar os dados e clique nas áreas para obter mais informações.</p>
+    </section>
+
+    <main>
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <div id="controls-container">
+            <button id="export-data-btn">Exportar Dados</button>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -18,5 +36,15 @@
     <script src="js/data-processor.js"></script>
     <script src="js/map-controller.js"></script>
     <script src="js/main.js"></script>
+    <footer>
+    <p class="footer-copyright">© 2024 Mapa de Acessibilidade Brasil. Todos os direitos reservados.</p>
+    <div class="footer-links">
+        <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a>
+        <span class="footer-link-separator">|</span>
+        <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a>
+        <span class="footer-link-separator">|</span>
+        <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
+    </div>
+    </footer>
 </body>
 </html>

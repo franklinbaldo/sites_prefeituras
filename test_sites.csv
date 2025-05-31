@@ -1,0 +1,6 @@
+"Nome do Município","UF","Código IBGE","Endereço Eletrônico","Observação"
+"Test City 1","TS","1234567","http://example.com","Valid URL"
+"Test City 2","TS","7654321","http://invalid-url-that-does-not-exist-hopefully.com","Invalid URL (non-existent)"
+"Test City 3","TS","0000000","not_a_url","Invalid URL (bad format)"
+"Test City 4","TS","1111111","","Empty URL"
+"Test City 5","TS","2222222","http://another-example.com","Another valid URL"
