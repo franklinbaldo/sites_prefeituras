@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Coletar dados PSI
-        timeout-minutes: 10
+        timeout-minutes: 10 
         run: node collect-psi.js
 
       - name: Handle PSI Collection Errors
@@ -67,9 +67,11 @@ jobs:
           git checkout $ORIGINAL_BRANCH
           git pull origin $ORIGINAL_BRANCH
 
+          # Added data/psi_processing_state.json from fix/psi-commit-error
           git add TODO.md data/psi_error_reports/ data/psi_processing_state.json
 
           if ! git diff --staged --quiet; then
+            # Updated commit message from fix/psi-commit-error
             git commit -m "docs: Log PSI collection errors, update TODO, and save state
 
             Errors were detected during the scheduled PSI data collection.
@@ -80,26 +82,30 @@ jobs:
             Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             git push origin $ORIGINAL_BRANCH
           else
+            # Updated message from fix/psi-commit-error
             echo "No changes to TODO.md, error reports, or processing state to commit."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit e push dos resultados
-        # This step runs on the original branch (e.g., main) due to the checkout in the previous step
         run: |
           if [ -f "data/psi-results.json" ]; then
             git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            # Added data/psi_processing_state.json from fix/psi-commit-error
             git add data/psi-results.json data/psi_processing_state.json
             # Only commit if there are changes
             if ! git diff --staged --quiet; then
+              # Updated commit message from fix/psi-commit-error
               git commit -m "chore: atualiza PSI data e estado de processamento"
               git push
             else
+              # Updated message from fix/psi-commit-error
               echo "No changes to PSI data or processing state to commit."
             fi
           else
+            # Updated message from fix/psi-commit-error
             echo "data/psi-results.json not found. Skipping commit of results and state."
           fi
         env:

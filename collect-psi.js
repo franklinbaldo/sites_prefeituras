@@ -119,16 +119,13 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       const message = `Nenhuma URL válida (http/https) encontrada em ${inputCsvFile} na coluna 'url'.`;
       console.warn(`⚠️ ${message}`);
       logErrorToFile(message);
-      // If no URLs from CSV, there's nothing to process or sort.
-      // The script will later see an empty urlsToProcess and report "Nenhum resultado para gravar."
-      // We could return here, but current structure handles empty urlsToProcess later.
+      // Se não há URLs válidas em allCsvUrls, não há o que processar.
+      // O script vai perceber que urlsToProcess está vazio mais adiante e reportar "Nenhum resultado para gravar."
     }
   } catch (err) {
     const errorMessage = `Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`;
     console.error(`❌ ${errorMessage}`);
     logErrorToFile(errorMessage);
-    // In a real scenario, might want to process.exit(1) here too.
-    // For now, returning as per original logic to prevent further processing if CSV is unreadable.
     return;
   }
 
@@ -160,14 +157,8 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     }
   }
 
-  // This existing check handles if allCsvUrls was empty OR if prioritization somehow resulted in empty (though it shouldn't)
   if (urlsToProcess.length === 0) {
-    // The original warning about "Nenhuma URL válida encontrada em ${inputCsvFile}" is logged when allCsvUrls is empty.
-    // If allCsvUrls had items, but urlsToProcess became empty by some other means (e.g. future filtering step),
-    // this ensures we don't proceed without URLs.
     console.log('ℹ️ No URLs to process after prioritization (or CSV was empty/invalid).');
-    // The script will later correctly state "Nenhum resultado para gravar."
-    // No need to logErrorToFile here as the CSV reading part already does if allCsvUrls is empty.
   }
 
   console.log(`ℹ️ Writing results to: ${outputJsonFile}`);
