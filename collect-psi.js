@@ -82,9 +82,9 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   try {
     const csv = fs.readFileSync(inputCsvFile, 'utf-8'); // fs will be mocked in tests
     const rows = csvParse(csv, { columns: true, skip_empty_lines: true });
-    urlsToProcess = rows.map(r => r['Endereço Eletrônico']).filter(u => u && u.startsWith('http'));
+    urlsToProcess = rows.map(r => r['url']).filter(u => u && u.startsWith('http'));
     if (urlsToProcess.length === 0) {
-      const message = `Nenhuma URL válida encontrada em ${inputCsvFile}. Verifique o formato do arquivo e o cabeçalho 'Endereço Eletrônico'.`;
+      const message = `Nenhuma URL válida encontrada em ${inputCsvFile}. Verifique o formato do arquivo e o cabeçalho 'url'.`;
       console.warn(`⚠️ ${message}`);
       logErrorToFile(message);
       // No need to return immediately, script will just say "Nenhum resultado para gravar." later.

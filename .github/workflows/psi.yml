@@ -35,73 +35,70 @@ jobs:
             echo "HAS_PSI_ERRORS=false" >> $GITHUB_ENV
           fi
 
+      - name: Archive PSI Error Log
+        if: env.HAS_PSI_ERRORS == 'true'
+        run: |
+          mkdir -p data/psi_error_reports
+          cp psi_errors.log data/psi_error_reports/psi_errors_${{ github.run_id }}.log
+          echo "PSI error log archived to data/psi_error_reports/psi_errors_${{ github.run_id }}.log"
+
       - name: Create/Update TODO.md if errors exist
         if: env.HAS_PSI_ERRORS == 'true'
         run: |
-          echo "## PSI Collection Errors - $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > TODO.md
+          echo "## PSI Collection Error Reports (P0)" > TODO.md
           echo "" >> TODO.md
-          echo "The following errors were encountered during the PSI data collection:" >> TODO.md
-          cat psi_errors.log >> TODO.md
+          echo "Errors may have been detected during scheduled PSI data collections." >> TODO.md
+          echo "Please check the \`data/psi_error_reports/\` directory for log files named \`psi_errors_<run_id>.log\`." >> TODO.md
+          echo "Review these logs and address any reported issues." >> TODO.md
           echo "" >> TODO.md
-          echo "Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> TODO.md
+          echo "Workflow run that last updated this TODO: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> TODO.md
 
-      - name: Commit and Push TODO.md if errors exist
+      - name: Commit and Push Error Reports and TODO.md to Main Branch
         if: env.HAS_PSI_ERRORS == 'true'
         run: |
           ORIGINAL_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-          echo "Original branch: $ORIGINAL_BRANCH"
+          echo "Committing error reports to branch: $ORIGINAL_BRANCH"
 
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email for bot
-          git fetch origin # Fetch all remote branches and tags
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          ERROR_BRANCH="psi-error-reports"
+          # Ensure we are on the correct branch and it's up-to-date
+          git checkout $ORIGINAL_BRANCH
+          git pull origin $ORIGINAL_BRANCH
 
-          # Check if branch exists locally or remotely
-          if git rev-parse --verify $ERROR_BRANCH > /dev/null 2>&1; then
-            echo "Branch '$ERROR_BRANCH' exists locally."
-            git checkout $ERROR_BRANCH
-            # Try to pull, but allow failure if it's a new local branch not yet on remote or if there are no tracking refs
-            git pull origin $ERROR_BRANCH || echo "Pull failed or no remote tracking for $ERROR_BRANCH, proceeding."
-          elif git rev-parse --verify origin/$ERROR_BRANCH > /dev/null 2>&1; then
-            echo "Branch '$ERROR_BRANCH' exists on remote. Checking out and tracking."
-            git checkout -b $ERROR_BRANCH origin/$ERROR_BRANCH
-          else
-            echo "Branch '$ERROR_BRANCH' does not exist locally or on remote. Creating new branch."
-            git checkout -b $ERROR_BRANCH
-          fi
+          git add TODO.md data/psi_error_reports/
 
-          git add TODO.md
-          # Check if there are changes to commit to avoid empty commit error
           if ! git diff --staged --quiet; then
-            git commit -m "docs: Log PSI collection errors for review
+            git commit -m "docs: Log PSI collection errors and update TODO
 
             Errors were detected during the scheduled PSI data collection.
-            Details have been added to TODO.md for manual review and action.
+            Details have been archived to data/psi_error_reports/
+            and TODO.md has been updated.
 
             Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            git push origin $ERROR_BRANCH
+            git push origin $ORIGINAL_BRANCH
           else
-            echo "No changes to commit in TODO.md or TODO.md was not created."
+            echo "No changes to TODO.md or error reports to commit."
           fi
-
-          echo "Switching back to original branch: $ORIGINAL_BRANCH"
-          git checkout $ORIGINAL_BRANCH
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit e push dos resultados
         # This step runs on the original branch (e.g., main) due to the checkout in the previous step
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email
-          git add data/psi-results.json
-          # Only commit if there are changes to psi-results.json
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: atualiza PSI data"
-            git push
+          if [ -f "data/psi-results.json" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email
+            git add data/psi-results.json
+            # Only commit if there are changes to psi-results.json
+            if ! git diff --staged --quiet; then
+              git commit -m "chore: atualiza PSI data"
+              git push
+            else
+              echo "No changes to data/psi-results.json to commit."
+            fi
           else
-            echo "No changes to psi-results.json to commit."
+            echo "data/psi-results.json not found. Skipping commit."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
