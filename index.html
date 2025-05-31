@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVL9nwEpmc8pZGPUmr0HummzFFNigGzPalHrZbbFfc4JAUhCReBeL3FPA=="
-          crossorigin=""/>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -22,19 +19,29 @@
     </section>
 
     <main>
-        <div id="map-container">
-            <div id="map"></div>
+        <div id="table-container">
+            <table id="psi-results-table">
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Performance</th>
+                        <th>Accessibility</th>
+                        <th>SEO</th>
+                        <th>Best Practices</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated by js/main.js -->
+                </tbody>
+            </table>
         </div>
         <div id="controls-container">
             <button id="export-data-btn">Exportar Dados</button>
         </div>
     </main>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin=""></script>
     <script src="js/data-processor.js"></script>
-    <script src="js/map-controller.js"></script>
     <script src="js/main.js"></script>
     <footer>
     <p class="footer-copyright">© 2024 Mapa de Acessibilidade Brasil. Todos os direitos reservados.</p>

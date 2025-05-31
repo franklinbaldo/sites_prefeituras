@@ -79,7 +79,7 @@ The audit findings are stored in `data/psi-results.json`. Each entry in this JSO
 
 ## Viewing the Results
 
-The collected data is stored in `data/psi-results.json`. The `index.html` file at the root of this repository loads this data and presents it, allowing for exploration of the findings.
+The collected data is stored in `data/psi-results.json`. The `index.html` file at the root of this repository loads this data and presents it in a table, allowing for exploration of the findings.
 
 **The live site can be accessed at: [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/)**
 
@@ -97,7 +97,7 @@ It might take a few minutes for the site to build and become live.
 ## Current Limitations & Future Work
 
 -   **Error Handling & Reporting:** The script logs errors encountered during URL processing to `psi_errors.log`. The GitHub workflow then processes this log to create a `TODO.md` on the `psi-error-reports` branch for review (as described above). While individual errors are reported, more sophisticated in-script retry mechanisms with backoff for transient network issues could still be beneficial.
--   **Data Visualization:** The current presentation via `index.html` can be further enhanced with charts, graphs, or more advanced filtering options.
+-   **Data Visualization:** The current presentation of results in a table via `index.html` can be further enhanced with sorting, filtering, charts, or graphs.
 -   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track scores over time could be a valuable addition.
 -   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated.
 
