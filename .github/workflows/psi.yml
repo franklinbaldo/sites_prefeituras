@@ -93,15 +93,19 @@ jobs:
       - name: Commit e push dos resultados
         # This step runs on the original branch (e.g., main) due to the checkout in the previous step
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email
-          git add data/psi-results.json
-          # Only commit if there are changes to psi-results.json
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: atualiza PSI data"
-            git push
+          if [ -f "data/psi-results.json" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com" # Recommended email
+            git add data/psi-results.json
+            # Only commit if there are changes to psi-results.json
+            if ! git diff --staged --quiet; then
+              git commit -m "chore: atualiza PSI data"
+              git push
+            else
+              echo "No changes to data/psi-results.json to commit."
+            fi
           else
-            echo "No changes to psi-results.json to commit."
+            echo "data/psi-results.json not found. Skipping commit."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
