@@ -1,33 +1,38 @@
 // js/main.js
 
-// Initialize the map and set its view to Brazil's approximate geographical center and zoom level
-const map = L.map('map').setView([-14.2350, -51.9253], 4); // Adjusted zoom slightly
-
-// Add a tile layer from OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18,
-}).addTo(map);
-
-
-console.log("Map initialized.");
-
-// Main function to orchestrate data loading and map population
+// Main function to orchestrate data loading and table population
 async function initializeApp() {
-    // Load GeoJSON data first (or in parallel if independent)
-    await appMapController.loadGeoJsonData(); // Assuming appMapController is globally available
-
     // Fetch PSI data using the data processor
     const psiData = await appDataProcessor.getPsiData(); // Assuming appDataProcessor is globally available
 
     if (psiData) {
         console.log("PSI Data fetched successfully in main.js:", psiData.length, "records");
-        // Pass PSI data to the map controller
-        appMapController.setPsiData(psiData);
-        // Add markers to the map
-        appMapController.addMarkersToMap(map);
+        const tableBody = document.getElementById('psi-results-table').getElementsByTagName('tbody')[0];
+
+        psiData.forEach(item => {
+            const row = tableBody.insertRow();
+
+            const urlCell = row.insertCell();
+            urlCell.textContent = item.url;
+
+            const performanceCell = row.insertCell();
+            performanceCell.textContent = (item.performance * 100).toFixed(0) + '%';
+
+            const accessibilityCell = row.insertCell();
+            accessibilityCell.textContent = (item.accessibility * 100).toFixed(0) + '%';
+
+            const seoCell = row.insertCell();
+            seoCell.textContent = (item.seo * 100).toFixed(0) + '%';
+
+            const bestPracticesCell = row.insertCell();
+            bestPracticesCell.textContent = item.bestPractices ? (item.bestPractices * 100).toFixed(0) + '%' : 'N/A';
+
+            const timestampCell = row.insertCell();
+            timestampCell.textContent = new Date(item.timestamp).toLocaleString();
+        });
+
     } else {
-        console.error("Could not fetch PSI data to populate the map.");
+        console.error("Could not fetch PSI data to populate the table.");
     }
 }
 
