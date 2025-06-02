@@ -48,6 +48,12 @@ describe('collect-psi.js', () => {
     fs.writeFileSync.mockReset();
     fs.existsSync.mockReset();
     fs.mkdirSync.mockReset();
+    if (fs.appendFileSync) { // It might not exist on the mock if not added yet
+        fs.appendFileSync.mockReset();
+    } else {
+        fs.appendFileSync = jest.fn(); // Ensure it's mocked for logMessage
+    }
+
 
     // Default mock for existsSync (to simulate 'data' directory possibly not existing)
     fs.existsSync.mockReturnValue(false);
@@ -83,7 +89,7 @@ describe('collect-psi.js', () => {
       } catch (e) {
         expect(e.message).toBe('process.exit: 1');
       }
-      expect(consoleErrorSpy).toHaveBeenCalledWith('⚠️ Defina a variável de ambiente PSI_KEY');
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[ERROR] [init] PSI_KEY environment variable is NOT SET.');
       expect(processExitSpy).toHaveBeenCalledWith(1);
     });
 
@@ -145,9 +151,9 @@ describe('collect-psi.js', () => {
       expect(writtenData.length).toBe(2);
       expect(writtenData[0].url).toBe('http://example.com');
       expect(writtenData[1].url).toBe('http://another-example.com');
-      expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://example.com → 0.9');
-      expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://another-example.com → 0.9');
-      expect(consoleLogSpy).toHaveBeenCalledWith('💾 Gravados 2 resultados em data/test-psi-results.json');
+      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://example.com → 0.9');
+      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://another-example.com → 0.9');
+      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [saveResults] Saved 2 new results to data/test-psi-results.json');
     });
 
     it('should correctly handle errors from fetchPSI and log them', async () => {
@@ -164,8 +170,9 @@ describe('collect-psi.js', () => {
       expect(fs.writeFileSync).toHaveBeenCalledTimes(1); // example.com and another-example.com should still succeed
       const writtenData = JSON.parse(fs.writeFileSync.mock.calls[0][1]);
       expect(writtenData.length).toBe(2); // Only successful results are saved
-      expect(consoleWarnSpy).toHaveBeenCalledWith('❌ erro em http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL');
-      expect(consoleLogSpy).toHaveBeenCalledWith('💾 Gravados 2 resultados em data/test-psi-results.json');
+      // Note: The original code logged to console.warn. logMessage('ERROR', ...) logs to console.error.
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[ERROR] [fetchPSI] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL');
+      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [saveResults] Saved 2 new results to data/test-psi-results.json');
     });
 
     it('should create data directory if it does not exist', async () => {
@@ -196,14 +203,135 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Running in TEST mode.');
-      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Reading URLs from: test_sites.csv');
-      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Writing results to: data/test-psi-results.json');
-      // Other logs are tested in specific scenarios (success, error, save)
+      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [init] Running in TEST mode. Input: test_sites.csv, Output: data/test-psi-results.json');
+      // The specific "Reading URLs from..." and "Writing results to..." are now part of the above consolidated log.
+      // We can remove the more specific assertions if the consolidated one is sufficient.
+      // For example, we might still want to assert general script flow logs if deemed critical for a test.
+      // For now, this primary configuration log is the most important one from the "init" phase.
+      // Other logs like "Loaded X URLs", "Prioritized Y URLs" would be asserted if the test was specifically about URL processing counts.
     });
   });
 
   // TODO: Add tests for originalFetchPSI if direct testing is desired,
   // though its functionality is covered by testing runMainLogic in production mode (not done here yet).
-  // describe('originalFetchPSI', () => { ... });
+  describe('originalFetchPSI', () => {
+    const mockApiKey = 'test-api-key';
+    const testUrl = 'http://example.com';
+    let mockFetchFn;
+
+    beforeEach(() => {
+      mockFetchFn = jest.fn();
+    });
+
+    it('should throw an error and log if API returns json.error', async () => {
+      const errorResponse = { error: { code: 500, message: 'Internal server error.' } };
+      mockFetchFn.mockResolvedValue({
+        ok: true, // Assuming status is ok, but json contains error
+        status: 200,
+        json: async () => errorResponse,
+      });
+
+      await expect(originalFetchPSI(testUrl, mockApiKey, mockFetchFn))
+        .rejects
+        .toThrowError(`PSI API returned incomplete or error response for ${testUrl}`);
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        `[ERROR] [fetchPSIErrorResponse] Incomplete or error response from PSI API for ${testUrl}: ${JSON.stringify(errorResponse)}`
+      );
+    });
+
+    it('should throw an error and log if lighthouseResult is missing', async () => {
+      const incompleteResponse = { someOtherField: "value" };
+      mockFetchFn.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => incompleteResponse,
+      });
+
+      await expect(originalFetchPSI(testUrl, mockApiKey, mockFetchFn))
+        .rejects
+        .toThrowError(`PSI API returned incomplete or error response for ${testUrl}`);
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        `[ERROR] [fetchPSIErrorResponse] Incomplete or error response from PSI API for ${testUrl}: ${JSON.stringify(incompleteResponse)}`
+      );
+    });
+
+    it('should throw an error and log if lighthouseResult.categories is missing', async () => {
+      const incompleteResponse = { lighthouseResult: { finalUrl: "http://example.com" } };
+      mockFetchFn.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => incompleteResponse,
+      });
+
+      await expect(originalFetchPSI(testUrl, mockApiKey, mockFetchFn))
+        .rejects
+        .toThrowError(`PSI API returned incomplete or error response for ${testUrl}`);
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        `[ERROR] [fetchPSIErrorResponse] Incomplete or error response from PSI API for ${testUrl}: ${JSON.stringify(incompleteResponse)}`
+      );
+    });
+
+    it('should return null for a missing category score (e.g., performance) but not throw', async () => {
+      const partialResponse = {
+        lighthouseResult: {
+          categories: {
+            accessibility: { score: 0.9 },
+            seo: { score: 0.8 },
+            'best-practices': { score: 0.7 },
+          },
+        },
+      };
+      mockFetchFn.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => partialResponse,
+      });
+
+      const result = await originalFetchPSI(testUrl, mockApiKey, mockFetchFn);
+      expect(result.performance).toBeNull();
+      expect(result.accessibility).toBe(0.9);
+      expect(result.seo).toBe(0.8);
+      expect(result.bestPractices).toBe(0.7);
+      expect(consoleErrorSpy).not.toHaveBeenCalled(); // No error should be logged
+    });
+
+    it('should return null if a category score is explicitly null and not throw', async () => {
+      const nullScoreResponse = {
+        lighthouseResult: {
+          categories: {
+            performance: { score: null },
+            accessibility: { score: 0.9 },
+          },
+        },
+      };
+      mockFetchFn.mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => nullScoreResponse,
+      });
+
+      const result = await originalFetchPSI(testUrl, mockApiKey, mockFetchFn);
+      expect(result.performance).toBeNull();
+      expect(result.accessibility).toBe(0.9);
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+     it('should handle rate limit error (429 status)', async () => {
+      mockFetchFn.mockResolvedValue({
+        ok: false,
+        status: 429,
+        json: async () => ({ error: { message: 'Rate limit exceeded' } }),
+      });
+
+      await expect(originalFetchPSI(testUrl, mockApiKey, mockFetchFn))
+        .rejects
+        .toThrowError('Rate limit');
+      // logMessage for this specific error is not in originalFetchPSI but in the calling function runMainLogic
+      // So, no consoleErrorSpy check here directly for that specific "Rate limit" log,
+      // but the throw is important.
+    });
+  });
 });
