@@ -19,22 +19,58 @@ function saveProcessingState(stateObject, filePath) {
       fs.mkdirSync(outDir, { recursive: true });
     }
     fs.writeFileSync(filePath, JSON.stringify(stateObject, null, 2));
-    console.log(`💾 Processing state saved to ${filePath}`);
+    logMessage('INFO', `Processing state saved to ${filePath}`, 'saveState');
   } catch (err) {
-    console.error(`❌ Error saving processing state to ${filePath}: ${err.message}`);
+    logMessage('ERROR', `Error saving processing state to ${filePath}: ${err.message}`, 'saveState');
   }
 }
 
-// Function to log errors to a file
-function logErrorToFile(errorMessage) {
+// Function to log messages to console and file
+function logMessage(level, message, context = '') {
   const timestamp = new Date().toISOString();
-  const logMessage = `[${timestamp}] ${errorMessage}\n`;
+  const upperLevel = level.toUpperCase();
+
+  let consoleMessage = `[${upperLevel}]`;
+  if (context) {
+    consoleMessage += ` [${context}]`;
+  }
+  consoleMessage += ` ${message}`;
+
+  let fileMessage = `[${timestamp}] [${upperLevel}]`;
+  if (context) {
+    fileMessage += ` [${context}]`;
+  }
+  fileMessage += ` ${message}`;
+
+  // Console Logging
+  if (upperLevel === 'DEBUG') {
+    if (process.env.PSI_DEBUG_LOG === 'true') {
+      console.log(consoleMessage);
+    }
+  } else if (upperLevel === 'INFO') {
+    console.log(consoleMessage);
+  } else if (upperLevel === 'WARNING') {
+    console.warn(consoleMessage);
+  } else if (upperLevel === 'ERROR') {
+    console.error(consoleMessage);
+  } else {
+    console.log(consoleMessage); // Default for unknown levels
+  }
+
+  // File Logging for INFO, WARNING, ERROR
+  if (['INFO', 'WARNING', 'ERROR'].includes(upperLevel)) {
+    logErrorToFile(fileMessage); // Pass the fully formatted message for the file
+  }
+}
+
+// Simplified function to append pre-formatted messages to a log file
+function logErrorToFile(formattedMessage) {
   try {
-    fs.appendFileSync(ERROR_LOG_FILE, logMessage);
+    fs.appendFileSync(ERROR_LOG_FILE, formattedMessage + '\n');
   } catch (err) {
     // If logging to file fails, log to console as a fallback
     console.error(`Fallback: Failed to write to ${ERROR_LOG_FILE}: ${err.message}`);
-    console.error(`Fallback: Original error: ${errorMessage}`);
+    console.error(`Fallback: Original error message: ${formattedMessage}`);
   }
 }
 
@@ -62,7 +98,7 @@ export async function originalFetchPSI(url, apiKey, fetchFn) {
 
 // This is the script's own mock, used when run with --test directly
 async function scriptMockFetchPSI(url) {
-  console.log(`ℹ️ SCRIPT MOCK fetchPSI called for: ${url}`);
+  logMessage('DEBUG', `SCRIPT MOCK fetchPSI called for: ${url}`, 'mockFetchPSI');
   if (url === 'http://example.com' || url === 'http://another-example.com') {
     return {
       url,
@@ -81,10 +117,13 @@ async function scriptMockFetchPSI(url) {
 
 // Main logic of the script, now exportable and testable
 export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
+  logMessage('INFO', 'PSI data collection script started.', 'main');
   API_KEY = currentApiKey; // Update API_KEY from parameter for testability
   if (!API_KEY) {
-    console.error('⚠️ Defina a variável de ambiente PSI_KEY');
+    logMessage('ERROR', 'PSI_KEY environment variable is NOT SET.', 'init');
     process.exit(1); // This will be mocked in tests
+  } else {
+    logMessage('INFO', 'PSI_KEY environment variable is set.', 'init');
   }
 
   const scriptStartTime = Date.now();
@@ -99,19 +138,18 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
   const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
 
-  console.log(`ℹ️ Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode.`);
-  console.log(`ℹ️ Reading URLs from: ${inputCsvFile}`);
+  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output: ${outputJsonFile}`, 'init');
 
   let processingState = {};
   try {
     if (fs.existsSync(PROCESSING_STATE_FILE)) {
       processingState = JSON.parse(fs.readFileSync(PROCESSING_STATE_FILE, 'utf-8'));
-      console.log(`ℹ️ Loaded processing state from ${PROCESSING_STATE_FILE}`);
+      logMessage('INFO', `Loaded processing state from ${PROCESSING_STATE_FILE}`, 'loadState');
     } else {
-      console.log(`ℹ️ No processing state file found at ${PROCESSING_STATE_FILE}. Starting with a fresh state.`);
+      logMessage('INFO', `No processing state file found at ${PROCESSING_STATE_FILE}. Starting with a fresh state.`, 'loadState');
     }
   } catch (err) {
-    console.warn(`⚠️ Error loading or parsing ${PROCESSING_STATE_FILE}: ${err.message}. Starting with a fresh state.`);
+    logMessage('WARNING', `Error loading or parsing ${PROCESSING_STATE_FILE}: ${err.message}. Starting with a fresh state.`, 'loadState');
     processingState = {}; // Reset to empty if error
   }
 
@@ -120,18 +158,18 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     const csv = fs.readFileSync(inputCsvFile, 'utf-8'); // fs will be mocked in tests
     const rows = csvParse(csv, { columns: true, skip_empty_lines: true });
     allCsvUrls = rows.map(r => r['url']).filter(u => u && u.startsWith('http'));
+    logMessage('INFO', `Loaded ${allCsvUrls.length} URLs from ${inputCsvFile} after initial filter.`, 'readCsvFile');
 
     if (allCsvUrls.length === 0) {
       const message = `Nenhuma URL válida (http/https) encontrada em ${inputCsvFile} na coluna 'url'.`;
-      console.warn(`⚠️ ${message}`);
-      logErrorToFile(message);
+      logMessage('WARNING', message, 'readCsvFile');
       // Se não há URLs válidas em allCsvUrls, não há o que processar.
       // O script vai perceber que urlsToProcess está vazio mais adiante e reportar "Nenhum resultado para gravar."
     }
   } catch (err) {
     const errorMessage = `Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`;
-    console.error(`❌ ${errorMessage}`);
-    logErrorToFile(errorMessage);
+    // console.error automatically handled by logMessage
+    logMessage('ERROR', errorMessage, 'readCsvFile');
     return;
   }
 
@@ -146,7 +184,7 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
         if (!isNaN(parsedDate)) { // Check if the date is valid
           lastAttemptDate = parsedDate;
         } else {
-          console.warn(`⚠️ Invalid last_attempt date found for ${url}: "${stateEntry.last_attempt}". Treating as new/very old.`);
+          logMessage('WARNING', `Invalid last_attempt date found for ${url}: "${stateEntry.last_attempt}". Treating as new/very old.`, 'urlPrioritization');
         }
       }
       return {
@@ -158,16 +196,15 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     .map(item => item.url);
 
     if (urlsToProcess.length > 0) {
-      console.log(`ℹ️ Prioritized ${urlsToProcess.length} URLs. Newest/oldest attempts will be processed first.`);
-      // console.log(`ℹ️ Top URLs in queue: ${urlsToProcess.slice(0, 5).join(', ')}`); // Optional: for debugging
+      logMessage('INFO', `Prioritized ${urlsToProcess.length} URLs for processing. Newest/oldest attempts will be processed first.`, 'urlPrioritization');
+      logMessage('DEBUG', `Top URLs in queue: ${urlsToProcess.slice(0, 5).join(', ')}`, 'urlPrioritization');
     }
   }
 
   if (urlsToProcess.length === 0) {
-    console.log('ℹ️ No URLs to process after prioritization (or CSV was empty/invalid).');
+    // This message is slightly different from the one above, specifically if allCsvUrls was not empty but filtering made it empty
+    logMessage('INFO', 'No URLs to process after filtering and prioritization.', 'urlPrioritization');
   }
-
-  console.log(`ℹ️ Writing results to: ${outputJsonFile}`);
 
   // Use externalFetchPSI if provided (for unit tests), otherwise choose based on mode
   const fetchPSI = externalFetchPSI
@@ -181,10 +218,11 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const activeTasks = []; // To store promises of tasks added to p-limit
   let processedInThisRunCount = 0;
 
+  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${limit.concurrency}.`, 'mainLoop');
   for (const url of urlsToProcess) {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
-      console.log(`ℹ️ Time limit approaching (${(elapsedTime / 60000).toFixed(2)} mins). No more URLs will be processed in this run.`);
+      logMessage('INFO', `Time limit approaching. No more new URLs will be scheduled. Elapsed: ${(elapsedTime / 60000).toFixed(2)} mins.`, 'timeout');
       break; // Exit the loop, stop adding new tasks
     }
 
@@ -200,15 +238,15 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       limit(async () => {
         try {
           const data = await fetchPSI(url); // fetchPSI is the actual PSI fetching function
-          console.log(`✅ ${url} → ${data.performance}`);
+          logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
           results.push(data);
           processedInThisRunCount++;
           // Update last_success on successful fetch
           processingState[url].last_success = new Date().toISOString();
         } catch (err) {
           const errorMsg = `erro em ${url}: ${err.message}`;
-          console.warn(`❌ ${errorMsg}`);
-          logErrorToFile(`Error for URL ${url}: ${err.message}`);
+          // console.warn automatically handled by logMessage
+          logMessage('ERROR', `Error for URL ${url}: ${err.message}`, 'fetchPSI');
           // On error, last_success for processingState[url] is NOT updated,
           // preserving its previous success state (or null if never successful).
         }
@@ -216,10 +254,10 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     );
   }
 
-  console.log(`ℹ️ Waiting for ${activeTasks.length} active PSI tasks to complete...`);
+  logMessage('INFO', `Waiting for ${activeTasks.length} active PSI tasks to complete...`, 'mainLoop');
   await Promise.all(activeTasks);
-  console.log(`ℹ️ All active PSI tasks finished.`);
-  console.log(`📈 Processed ${processedInThisRunCount} URLs successfully in this run.`);
+  logMessage('INFO', `All ${activeTasks.length} scheduled PSI tasks have completed.`, 'mainLoop');
+  logMessage('INFO', `Successfully processed ${processedInThisRunCount} URLs in this run.`, 'summary');
 
   // Save the updated processingState
   saveProcessingState(processingState, PROCESSING_STATE_FILE);
@@ -231,15 +269,17 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       outputJsonFile,
       JSON.stringify(results, null, 2)
     );
-    console.log(`💾 Gravados ${results.length} resultados em ${outputJsonFile}`);
+    logMessage('INFO', `Saved ${results.length} new results to ${outputJsonFile}.`, 'saveResults');
   } else {
-    console.log('ℹ️ Nenhum resultado para gravar.');
+    logMessage('INFO', 'No new results to save in this run.', 'saveResults');
   }
+  logMessage('INFO', 'PSI data collection script finished.', 'main');
 }
 
 // This allows the script to still be run directly using `node collect-psi.js`
 if (process.argv[1] && process.argv[1].endsWith('collect-psi.js')) {
   (async () => {
     await runMainLogic(process.argv, process.env.PSI_KEY);
+    // logMessage('INFO', 'PSI data collection script finished (direct invocation).', 'main'); // Already logged at the end of runMainLogic
   })();
 }
