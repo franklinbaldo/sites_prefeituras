@@ -1,6 +1,7 @@
 // collect-psi.js
 import fs from 'fs';
-import path from 'path';
+import path, { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import pLimit from 'p-limit';
 import { parse as csvParse } from 'csv-parse/sync';
@@ -90,7 +91,12 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes
 
   const isTestMode = argv.includes('--test');
-  const inputCsvFile = isTestMode ? 'test_sites.csv' : 'sites_das_prefeituras_brasileiras.csv';
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const baseDir = __dirname; // Or resolve(__dirname, '..') if the script is in a subdirectory like 'src'
+  const inputCsvFile = isTestMode
+      ? path.resolve(baseDir, 'test_sites.csv')
+      : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
   const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
 
   console.log(`ℹ️ Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode.`);
