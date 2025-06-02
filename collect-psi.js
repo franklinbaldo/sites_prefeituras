@@ -1,6 +1,7 @@
 // collect-psi.js
 import fs from 'fs';
-import path from 'path';
+import path, { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import pLimit from 'p-limit';
 import { parse as csvParse } from 'csv-parse/sync';
@@ -38,48 +39,85 @@ function logErrorToFile(errorMessage) {
 }
 
 // This function will be unit tested
-export async function originalFetchPSI(url, apiKey, fetchFn) {
-  const endpoint = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed`
-    + `?url=${encodeURIComponent(url)}`
-    + `&strategy=mobile`
-    + `&key=${apiKey}`;
-  const res = await fetchFn(endpoint);
-  if (res.status === 429) {
-    throw new Error('Rate limit');
+export async function originalFetchPSI(url, apiKey, fetchFn, params = {}) {
+  const queryParams = new URLSearchParams();
+  queryParams.append('url', encodeURIComponent(url));
+  for (const key in params) {
+    queryParams.append(key, params[key]);
   }
-  const json = await res.json();
-  const cat = json.lighthouseResult.categories;
-  return {
-    url,
-    performance: cat.performance.score,
-    accessibility: cat.accessibility.score,
-    seo: cat.seo.score,
-    bestPractices: cat['best-practices']?.score ?? null,
-    timestamp: new Date().toISOString()
-  };
+  queryParams.append('key', apiKey);
+
+  const endpoint = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed?${queryParams.toString()}`;
+
+  const response = await fetchFn(endpoint);
+  const status = response.status;
+  let json;
+
+  try {
+    json = await response.json();
+  } catch (e) {
+    const error = new Error(`Invalid JSON response from PSI API for ${url}. Status: ${status}. Error: ${e.message}`);
+    error.status = status; // Attach status to error
+    throw error;
+  }
+
+  if (!response.ok) {
+    const message = json?.error?.message || `API request failed with status ${status}`;
+    const code = json?.error?.code;
+    const apiErrorDetails = json?.error;
+
+    const error = new Error(message);
+    error.status = status;
+    error.code = code; // Standard error code if available
+    error.apiError = apiErrorDetails; // Full Google API error details
+    throw error;
+  }
+
+  // If successful, return the full JSON and status. Specific scores can be extracted later.
+  return { json, status };
 }
 
 // This is the script's own mock, used when run with --test directly
-async function scriptMockFetchPSI(url) {
-  console.log(`ℹ️ SCRIPT MOCK fetchPSI called for: ${url}`);
+async function scriptMockFetchPSI(url, apiKey, fetchFn, params = {}) { // Add params for consistent signature
+  console.log(`ℹ️ SCRIPT MOCK fetchPSI called for: ${url} with params: ${JSON.stringify(params)}`);
   if (url === 'http://example.com' || url === 'http://another-example.com') {
+    // Mimic the new structure returned by originalFetchPSI
     return {
-      url,
-      performance: 0.9,
-      accessibility: 0.8,
-      seo: 0.7,
-      bestPractices: 0.95,
-      timestamp: new Date().toISOString()
+      status: 200,
+      json: {
+        lighthouseResult: {
+          categories: {
+            performance: { score: 0.9 },
+            accessibility: { score: 0.8 },
+            seo: { score: 0.7 },
+            'best-practices': { score: 0.95 }
+          },
+          fetchTime: new Date().toISOString() // Add fetchTime for logging consistency
+        },
+        // Include other fields if your main logic uses them from the raw report
+        analysisUTCTimestamp: new Date().toISOString()
+      }
     };
   } else if (url === 'http://invalid-url-that-does-not-exist-hopefully.com') {
-    throw new Error('Simulated fetch error for non-existent URL');
+    const error = new Error('Simulated fetch error for non-existent URL');
+    error.status = 500; // Simulate a server error status
+    error.apiError = { code: 500, message: 'Simulated API error details' };
+    throw error;
   } else {
-    throw new Error(`Script Mock PSI fetch not defined for URL: ${url}`);
+    const error = new Error(`Script Mock PSI fetch not defined for URL: ${url}`);
+    error.status = 404; // Simulate not found
+    error.apiError = { code: 404, message: 'URL not covered by script mock' };
+    throw error;
   }
 }
 
 // Main logic of the script, now exportable and testable
 export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
+  // Global Context Logging
+  console.log("🚀 Iniciando script collect-psi...");
+  console.log(`🔧 Ambiente: NODE_ENV=${process.env.NODE_ENV || 'undefined'} | CI=${process.env.CI || 'undefined'}`);
+  console.log(`🔧 Versão do Node: ${process.version}`);
+
   API_KEY = currentApiKey; // Update API_KEY from parameter for testability
   if (!API_KEY) {
     console.error('⚠️ Defina a variável de ambiente PSI_KEY');
@@ -90,7 +128,17 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes
 
   const isTestMode = argv.includes('--test');
-  const inputCsvFile = isTestMode ? 'test_sites.csv' : 'sites_das_prefeituras_brasileiras.csv';
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  // Create reports directory if it doesn't exist
+  if (!fs.existsSync('reports')) {
+    fs.mkdirSync('reports', { recursive: true });
+  }
+  const baseDir = __dirname; // Or resolve(__dirname, '..') if the script is in a subdirectory like 'src'
+  const inputCsvFile = isTestMode
+      ? path.resolve(baseDir, 'test_sites.csv')
+      : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
   const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
 
   console.log(`ℹ️ Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode.`);
@@ -164,22 +212,23 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   console.log(`ℹ️ Writing results to: ${outputJsonFile}`);
 
   // Use externalFetchPSI if provided (for unit tests), otherwise choose based on mode
-  const fetchPSI = externalFetchPSI
+  const effectiveFetchPSI = externalFetchPSI
     ? externalFetchPSI
     : isTestMode
-      ? scriptMockFetchPSI
-      : (url) => originalFetchPSI(url, API_KEY, fetch); // Pass API_KEY and global fetch
+      ? (url, apiKey, fetchFn, params) => scriptMockFetchPSI(url, API_KEY, fetch, params) // Ensure mock also gets params
+      : (url, apiKey, fetchFn, params) => originalFetchPSI(url, API_KEY, fetch, params);
 
   const limit = pLimit(4); // Concurrency limit
-  const results = []; // To store PSI scores of successfully processed URLs in this run
-  const activeTasks = []; // To store promises of tasks added to p-limit
-  let processedInThisRunCount = 0;
+  const successes = [];
+  const failures = [];
+  const activeTasks = [];
+  let processedInThisRunCount = 0; // Renamed from results to avoid confusion
 
-  for (const url of urlsToProcess) {
+  urlsToProcess.forEach((url, index) => {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
       console.log(`ℹ️ Time limit approaching (${(elapsedTime / 60000).toFixed(2)} mins). No more URLs will be processed in this run.`);
-      break; // Exit the loop, stop adding new tasks
+      return; // Exit forEach iteration if time limit reached (won't stop already queued tasks)
     }
 
     // Initialize or update the URL's entry in processingState and set last_attempt
@@ -192,42 +241,102 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
 
     activeTasks.push(
       limit(async () => {
+        console.log(`▶️ [${index + 1}/${urlsToProcess.length}] Iniciando análise para ${url} — ${new Date().toISOString()}`);
+        const psiParams = { strategy: 'mobile' /* add other relevant params like locale if used */ };
+        console.log(`   • Parâmetros: strategy=${psiParams.strategy}`);
+
         try {
-          const data = await fetchPSI(url); // fetchPSI is the actual PSI fetching function
-          console.log(`✅ ${url} → ${data.performance}`);
-          results.push(data);
+          const responseData = await effectiveFetchPSI(url, API_KEY, fetch, psiParams);
+
+          const fetchTime = responseData.json.lighthouseResult?.fetchTime || responseData.json.analysisUTCTimestamp || 'N/A';
+          console.log(`✅ Sucesso: ${url} — HTTP ${responseData.status} — tempo total: ${fetchTime}`);
+
+          const slug = url.replace(/https?:\/\//, '').replace(/[\/.:?&=%]/g, '_');
+          const reportPath = `reports/pagespeed-${slug}.json`;
+          fs.writeFileSync(reportPath, JSON.stringify(responseData.json, null, 2));
+          console.log(`   • Relatório salvo em: ${reportPath}`);
+
+          // Extract key data for successes (similar to old 'results' array but from new response structure)
+          const cat = responseData.json.lighthouseResult?.categories;
+          if (cat) {
+            successes.push({
+              url,
+              performance: cat.performance?.score ?? null,
+              accessibility: cat.accessibility?.score ?? null,
+              seo: cat.seo?.score ?? null,
+              bestPractices: cat['best-practices']?.score ?? null,
+              timestamp: new Date().toISOString()
+            });
+          } else {
+            // Should not happen if PSI API call was successful and returned valid JSON
+            console.warn(`⚠️ Missing categories in PSI result for ${url}. Raw report saved.`);
+            successes.push({ url, timestamp: new Date().toISOString(), warning: "Missing category scores" });
+          }
+
           processedInThisRunCount++;
-          // Update last_success on successful fetch
           processingState[url].last_success = new Date().toISOString();
+
         } catch (err) {
-          const errorMsg = `erro em ${url}: ${err.message}`;
-          console.warn(`❌ ${errorMsg}`);
-          logErrorToFile(`Error for URL ${url}: ${err.message}`);
-          // On error, last_success for processingState[url] is NOT updated,
-          // preserving its previous success state (or null if never successful).
+          console.error(`❌ Falha: ${url} — ${new Date().toISOString()}`);
+          console.error(`   • Mensagem: ${err.message}`);
+          if (err.stack) {
+            const trechoStack = err.stack.split('\n').slice(0, 3).join(' | ');
+            console.error(`   • Stack (top 3): ${trechoStack}`);
+          }
+          if (err.status) { // HTTP status from our custom error in originalFetchPSI
+            console.error(`   • HTTP status: ${err.status}`);
+          }
+          if (err.apiError) { // Custom field for Google API error details
+            console.error(`   • Erro API Google (code ${err.apiError.code}): ${err.apiError.message}`);
+          }
+          failures.push({ url, reason: err.message, status: err.status, apiErrorCode: err.apiError?.code });
+          logErrorToFile(`Error for URL ${url}: ${err.message}${err.status ? ` (HTTP ${err.status})` : ''}${err.apiError ? ` (API Code: ${err.apiError.code} - ${err.apiError.message})` : ''}`);
         }
       })
     );
-  }
+  });
 
   console.log(`ℹ️ Waiting for ${activeTasks.length} active PSI tasks to complete...`);
   await Promise.all(activeTasks);
   console.log(`ℹ️ All active PSI tasks finished.`);
-  console.log(`📈 Processed ${processedInThisRunCount} URLs successfully in this run.`);
+
+  // --- Comprehensive Final Summary ---
+  console.log("\n🔔 ===================== RESUMO GERAL =====================");
+  console.log(`📈 Total de URLs na lista de entrada (CSV): ${allCsvUrls.length}`);
+  console.log(`🔩 Total de URLs efetivamente processadas (após priorização e timeout): ${activeTasks.length}`);
+  // processedInThisRunCount reflects successful PSI API calls, successes.length is after data extraction
+  console.log(`👍 Sucessos (dados extraídos e salvos): ${successes.length}`);
+  console.log(`👎 Falhas (erros durante a tentativa): ${failures.length}`);
+
+  if (failures.length > 0) {
+    console.log("   --- Detalhes das URLs com falha ---");
+    failures.forEach(f => {
+      let detail = `     – ${f.url} → Motivo: ${f.reason}`;
+      if (f.status) detail += ` (HTTP ${f.status})`;
+      if (f.apiErrorCode) detail += ` (API Code: ${f.apiErrorCode})`;
+      console.log(detail);
+    });
+    console.log("   -----------------------------------");
+  }
+  console.log("🔔 =======================================================\n");
 
   // Save the updated processingState
   saveProcessingState(processingState, PROCESSING_STATE_FILE);
 
-  if (results.length > 0) {
-    const outDir = path.resolve('data');
-    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir); // fs will be mocked
-    fs.writeFileSync( // fs will be mocked
+  // Save overall results (scores from successful fetches)
+  // This replaces the old 'results' array saving logic
+  if (successes.length > 0) {
+    const outDir = path.dirname(outputJsonFile); // Use path.dirname for outputJsonFile
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+    fs.writeFileSync(
       outputJsonFile,
-      JSON.stringify(results, null, 2)
+      JSON.stringify(successes, null, 2)
     );
-    console.log(`💾 Gravados ${results.length} resultados em ${outputJsonFile}`);
+    console.log(`💾 Gravados ${successes.length} resultados de sucesso em ${outputJsonFile}`);
   } else {
-    console.log('ℹ️ Nenhum resultado para gravar.');
+    console.log('ℹ️ Nenhum resultado de sucesso para gravar.');
   }
 }
 

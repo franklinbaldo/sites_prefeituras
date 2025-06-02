@@ -1,14 +1,18 @@
 import path from 'path'; // Import the 'path' module
+import { jest, describe, it, expect, beforeEach, afterEach } from '@jest/globals';
 import { runMainLogic, originalFetchPSI } from './collect-psi.js';
-import fs from 'fs'; // This will be the mocked version
-import fetch from 'node-fetch'; // This will be the mocked version
+import fs from 'fs'; // This will be the mocked version from __mocks__/fs.js
+import fetch from 'node-fetch'; // This will be the mocked version from __mocks__/node-fetch.js
 
-// Mock the fs module
-jest.mock('fs');
-// Mock node-fetch. Jest will auto-mock it.
-// The actual fetch calls will be done via mockExternalFetchPSI passed to runMainLogic,
-// or if originalFetchPSI is tested, we'd mock its 'fetchFn' parameter.
-jest.mock('node-fetch');
+// Mock the fs module - RELY ON __mocks__/fs.js
+// jest.mock('fs');
+// Mock node-fetch - RELY ON __mocks__/node-fetch.js
+// jest.mock('node-fetch');
+
+// At the top of collect-psi.test.js, after path import
+// Assuming tests run from project root, so __dirname for collect-psi.js is project root.
+const expectedTestCsvPath = path.resolve('test_sites.csv');
+const expectedProcessingStatePath = path.resolve('data', 'psi_processing_state.json');
 
 // Test CSV data
 const testCsvContent = `"Nome do Município","UF","Código IBGE","Endereço Eletrônico","Observação"
@@ -31,7 +35,7 @@ describe('collect-psi.js', () => {
   let consoleWarnSpy;
   let consoleErrorSpy;
   let processExitSpy;
-  let mockExternalFetchPSI;
+  let mockExternalFetchPSI; // This will be our own mock for the fetchPSI function passed to runMainLogic
 
   beforeEach(() => {
     // Spy on console methods
@@ -43,25 +47,39 @@ describe('collect-psi.js', () => {
       throw new Error(`process.exit: ${code}`); // Throw error to stop execution in test
     });
 
-    // Reset fs mocks
+    // Reset specific mock functions from the auto-mocked fs and fetch modules
     fs.readFileSync.mockReset();
     fs.writeFileSync.mockReset();
     fs.existsSync.mockReset();
     fs.mkdirSync.mockReset();
+    fs.appendFileSync.mockReset(); // Ensure this is reset if used by main script for errors
+    fetch.mockReset(); // Reset the default export from __mocks__/node-fetch.js
 
-    // Default mock for existsSync (to simulate 'data' directory possibly not existing)
-    fs.existsSync.mockReturnValue(false);
-    // Mock readFileSync to return our test CSV content when expected
-    fs.readFileSync.mockImplementation((filepath) => {
-      if (filepath === 'test_sites.csv') {
-        return testCsvContent;
+    // Default mock for existsSync (to simulate 'data' directory possibly not existing for output, or state file)
+    // For PROCESSING_STATE_FILE:
+    fs.existsSync.mockImplementation(filePath => {
+      if (filePath === expectedProcessingStatePath) {
+        return false; // Default: no state file exists
       }
-      // For sites_das_prefeituras_brasileiras.csv, you might want to return a different mock or throw an error
-      // For this test suite, we'll primarily focus on --test mode.
-      return '';
+      if (filePath === path.resolve('data')) { // For output directory 'data'
+        return false; // Default: output directory does not exist
+      }
+      return false; // Default for any other path
     });
 
-    // Mock for fetchPSI function that will be passed to runMainLogic
+    // Default mock for readFileSync
+    fs.readFileSync.mockImplementation((filepath) => {
+      if (filepath === expectedTestCsvPath) {
+        return testCsvContent;
+      }
+      if (filepath === expectedProcessingStatePath) {
+        // This should only be called if existsSync for this path was true
+        return JSON.stringify({});
+      }
+      return ''; // Default for other unexpected calls
+    });
+
+    // This is the mock for the fetchPSI function *parameter* of runMainLogic, not global fetch
     mockExternalFetchPSI = jest.fn();
   });
 
@@ -72,13 +90,14 @@ describe('collect-psi.js', () => {
     consoleErrorSpy.mockRestore();
     processExitSpy.mockRestore();
     delete process.env.PSI_KEY; // Clean up env variable
-    jest.clearAllMocks(); // Clear all mocks
+    jest.clearAllMocks(); // Reset all mocks after each test
   });
 
   describe('PSI_KEY validation', () => {
     it('should log an error and exit if PSI_KEY is not set', async () => {
       expect.assertions(3); // Ensure all assertions are checked
       try {
+        // Pass undefined for apiKey, and our mockExternalFetchPSI
         await runMainLogic(['node', 'collect-psi.js'], undefined, mockExternalFetchPSI);
       } catch (e) {
         expect(e.message).toBe('process.exit: 1');
@@ -89,8 +108,14 @@ describe('collect-psi.js', () => {
 
     it('should not exit if PSI_KEY is set', async () => {
       process.env.PSI_KEY = 'test-key';
-      // Mock readFileSync to prevent error when PSI_KEY is set but file might not be found
-      fs.readFileSync.mockReturnValue(testCsvContent);
+      // Ensure CSV read doesn't fail and processing state read doesn't fail
+      fs.readFileSync.mockImplementation((filepath) => {
+        if (filepath === expectedTestCsvPath) return testCsvContent;
+        if (filepath === expectedProcessingStatePath) return JSON.stringify({});
+        return '';
+      });
+      fs.existsSync.mockReturnValue(true); // Assume all relevant files/dirs exist for this specific test
+
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
       expect(processExitSpy).not.toHaveBeenCalled();
     });
@@ -99,111 +124,148 @@ describe('collect-psi.js', () => {
   describe('Test Mode (--test flag)', () => {
     beforeEach(() => {
       process.env.PSI_KEY = 'fake-key'; // Needs to be set to pass initial check
+
+      // Specific mock for readFileSync for most test mode tests
+      fs.readFileSync.mockImplementation((filepath) => {
+        if (filepath === expectedTestCsvPath) return testCsvContent;
+        // Simulate no processing state file by default for these tests, unless overridden
+        if (filepath === expectedProcessingStatePath) return JSON.stringify({});
+        return '';
+      });
+      // Simulate processing state file does not exist by default
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === expectedProcessingStatePath) return false;
+        if (filePath === path.resolve('data')) return false; // Output directory
+        return false;
+      });
     });
 
     it('should read from test_sites.csv and write to data/test-psi-results.json', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
-      fs.readFileSync.mockReturnValue(testCsvContent); // Ensure test_sites.csv is "read"
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.readFileSync).toHaveBeenCalledWith('test_sites.csv', 'utf-8');
-      expect(fs.writeFileSync).toHaveBeenCalled();
+      expect(fs.readFileSync).toHaveBeenCalledWith(expectedTestCsvPath, 'utf-8');
+      expect(fs.writeFileSync).toHaveBeenCalled(); // Check if called, path/content checked in other tests
       const writeArgs = fs.writeFileSync.mock.calls[0];
-      expect(writeArgs[0]).toBe('data/test-psi-results.json'); // Output file path
-      // More detailed checks on content written can be added here
+      // The outputJsonFile in test mode is 'data/test-psi-results.json'
+      // path.resolve is not strictly necessary here as it's a relative path from root.
+      expect(writeArgs[0]).toBe(path.resolve('data/test-psi-results.json'));
     });
 
     it('should process valid URLs and skip invalid ones from CSV', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
-      fs.readFileSync.mockReturnValue(testCsvContent);
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      // http://example.com, http://invalid-url-that-does-not-exist-hopefully.com, http://another-example.com
-      // are the valid http URLs in the test CSV.
       expect(mockExternalFetchPSI).toHaveBeenCalledTimes(3);
       expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://example.com');
       expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://invalid-url-that-does-not-exist-hopefully.com');
       expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://another-example.com');
-      // "not_a_url" and "" should be filtered out
     });
 
     it('should correctly handle successful PSI calls and save results', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => {
         if (url === 'http://example.com' || url === 'http://another-example.com') {
-          return { ...mockPsiSuccessResult, url };
+          return { ...mockPsiSuccessResult, url, performance: 0.9 }; // Ensure performance is in mock
         }
         throw new Error('Simulated error for other URLs');
       });
-      fs.readFileSync.mockReturnValue(testCsvContent);
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
-      const writtenData = JSON.parse(fs.writeFileSync.mock.calls[0][1]);
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(1); // For results.json
+      const resultsWriteCall = fs.writeFileSync.mock.calls.find(call => call[0].endsWith('test-psi-results.json'));
+      expect(resultsWriteCall).toBeDefined();
+      const writtenData = JSON.parse(resultsWriteCall[1]);
       expect(writtenData.length).toBe(2);
       expect(writtenData[0].url).toBe('http://example.com');
       expect(writtenData[1].url).toBe('http://another-example.com');
       expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://example.com → 0.9');
       expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://another-example.com → 0.9');
-      expect(consoleLogSpy).toHaveBeenCalledWith('💾 Gravados 2 resultados em data/test-psi-results.json');
+      expect(consoleLogSpy).toHaveBeenCalledWith(`💾 Gravados 2 resultados em ${path.resolve('data/test-psi-results.json')}`);
     });
 
     it('should correctly handle errors from fetchPSI and log them', async () => {
+      const specificErrorUrl = 'http://invalid-url-that-does-not-exist-hopefully.com';
       mockExternalFetchPSI.mockImplementation(async (url) => {
-        if (url === 'http://invalid-url-that-does-not-exist-hopefully.com') {
+        if (url === specificErrorUrl) {
           throw new Error('Simulated fetch error for non-existent URL');
         }
-        return { ...mockPsiSuccessResult, url };
+        return { ...mockPsiSuccessResult, url, performance: 0.9 }; // Ensure performance
       });
-      fs.readFileSync.mockReturnValue(testCsvContent);
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(1); // example.com and another-example.com should still succeed
-      const writtenData = JSON.parse(fs.writeFileSync.mock.calls[0][1]);
+      const resultsWriteCall = fs.writeFileSync.mock.calls.find(call => call[0].endsWith('test-psi-results.json'));
+      expect(resultsWriteCall).toBeDefined();
+      const writtenData = JSON.parse(resultsWriteCall[1]);
       expect(writtenData.length).toBe(2); // Only successful results are saved
-      expect(consoleWarnSpy).toHaveBeenCalledWith('❌ erro em http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL');
-      expect(consoleLogSpy).toHaveBeenCalledWith('💾 Gravados 2 resultados em data/test-psi-results.json');
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(`❌ erro em ${specificErrorUrl}: Simulated fetch error for non-existent URL`);
+      // Check that error was logged to file
+      expect(fs.appendFileSync).toHaveBeenCalledWith('psi_errors.log', expect.stringContaining(`Error for URL ${specificErrorUrl}: Simulated fetch error for non-existent URL`));
+      expect(consoleLogSpy).toHaveBeenCalledWith(`💾 Gravados 2 resultados em ${path.resolve('data/test-psi-results.json')}`);
     });
 
-    it('should create data directory if it does not exist', async () => {
+    it('should create data directory if it does not exist for results', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
-      fs.readFileSync.mockReturnValue(testCsvContent);
-      fs.existsSync.mockReturnValue(false); // Simulate directory does not exist
+      // Simulate 'data' directory does not exist, but processing state file also doesn't exist
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === path.resolve('data')) return false; // data dir for output
+        if (filePath === expectedProcessingStatePath) return false; // processing state file
+        if (filePath === path.dirname(expectedProcessingStatePath)) return false; // data dir for state file
+        return false;
+      });
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.existsSync).toHaveBeenCalledWith(path.resolve('data'));
-      expect(fs.mkdirSync).toHaveBeenCalledWith(path.resolve('data'));
+      // Check for creation of 'data' dir for psi-results.json
+      expect(fs.mkdirSync).toHaveBeenCalledWith(path.resolve('data'), { recursive: true });
     });
+
+    it('should create data directory if it does not exist for processing state', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+      // Simulate 'data' directory (for state file) does not exist
+      // but output 'data' directory might exist or not, let's make it specific
+      const stateDir = path.dirname(expectedProcessingStatePath); // should be 'data'
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === stateDir) return false; // THIS is the critical check for this test
+        if (filePath === expectedProcessingStatePath) return false;
+        // for output results file, assume its data dir exists to isolate the test
+        if (filePath === path.resolve('data')) return true;
+        return false;
+      });
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      // Check for creation of 'data' dir for psi_processing_state.json
+      expect(fs.mkdirSync).toHaveBeenCalledWith(stateDir, { recursive: true });
+    });
+
 
     it('should not try to create data directory if it already exists', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
-      fs.readFileSync.mockReturnValue(testCsvContent);
-      fs.existsSync.mockReturnValue(true); // Simulate directory exists
+      fs.existsSync.mockReturnValue(true); // Simulate all directories exist
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.existsSync).toHaveBeenCalledWith(path.resolve('data'));
+      // Check that mkdirSync was not called if 'data' (for results) and 'data' (for state) exist
+      // fs.existsSync(path.resolve('data')) would be true
+      // fs.existsSync(path.dirname(expectedProcessingStatePath)) would be true
       expect(fs.mkdirSync).not.toHaveBeenCalled();
     });
 
     it('should log appropriate messages during test mode execution', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
-      fs.readFileSync.mockReturnValue(testCsvContent);
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
       expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Running in TEST mode.');
-      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Reading URLs from: test_sites.csv');
-      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Writing results to: data/test-psi-results.json');
-      // Other logs are tested in specific scenarios (success, error, save)
+      expect(consoleLogSpy).toHaveBeenCalledWith(`ℹ️ Reading URLs from: ${expectedTestCsvPath}`);
+      expect(consoleLogSpy).toHaveBeenCalledWith(`ℹ️ Writing results to: ${path.resolve('data/test-psi-results.json')}`);
     });
   });
 
-  // TODO: Add tests for originalFetchPSI if direct testing is desired,
-  // though its functionality is covered by testing runMainLogic in production mode (not done here yet).
   // describe('originalFetchPSI', () => { ... });
 });

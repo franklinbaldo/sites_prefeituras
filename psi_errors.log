@@ -1,2 +1,3 @@
 [2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
 [2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-02T01:26:16.129Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL (HTTP 500) (API Code: 500 - Simulated API error details)

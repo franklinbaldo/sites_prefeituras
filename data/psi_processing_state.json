@@ -1,0 +1,10 @@
+{
+  "http://example.com": {
+    "last_attempt": "2025-06-02T01:26:16.121Z",
+    "last_success": "2025-06-02T01:26:16.127Z"
+  },
+  "http://invalid-url-that-does-not-exist-hopefully.com": {
+    "last_attempt": "2025-06-02T01:26:16.121Z",
+    "last_success": null
+  }
+}

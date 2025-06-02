@@ -23,7 +23,9 @@ jobs:
 
       - name: Coletar dados PSI
         timeout-minutes: 10 
-        run: node collect-psi.js
+        run: |
+          mkdir -p reports
+          node collect-psi.js 2>&1 | tee full-api-log.log
 
       - name: Handle PSI Collection Errors
         if: always()
@@ -110,6 +112,20 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload do log completo
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pagespeed-api-log
+          path: full-api-log.log
+
+      - name: Upload de relatórios por URL
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: reports-json
+          path: reports/*.json
 
       - name: Cleanup temporary error log
         if: always()
