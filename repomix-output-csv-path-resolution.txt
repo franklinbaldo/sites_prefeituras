@@ -1,0 +1,2006 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: .github/workflows, .idx, .idx/dev.nix, .repomix, .vscode, css, data, data/.gitkeep, data/brasil-estados.geojson, data/brasil-municipios.geojson, data/psi_processing_state.json, data/test-psi-results.json, js, js/.gitkeep, js/chart-generator.js, js/data-processor.js, js/main.js, .gitignore, about.html, babel.config.cjs, collect-psi.js, collect-psi.test.js, index.html, jest.config.cjs, package-lock.json, package.json, psi_errors.log, README.md, script.js, style.css, test_sites.csv, TODO.md
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+
+
+================================================================
+Directory Structure
+================================================================
+.github/workflows/psi.yml
+.github/workflows/test-psi-collection.yml
+.gitignore
+.idx/dev.nix
+.repomix/bundles.json
+about.html
+babel.config.cjs
+collect-psi.js
+collect-psi.test.js
+css/styles.css
+data/brasil-estados.geojson
+data/brasil-municipios.geojson
+data/psi_processing_state.json
+data/test-psi-results.json
+index.html
+jest.config.cjs
+js/data-processor.js
+js/main.js
+package.json
+README.md
+script.js
+style.css
+test_sites.csv
+TODO.md
+
+================================================================
+Files
+================================================================
+
+================
+File: .github/workflows/test-psi-collection.yml
+================
+name: Test PSI Collection Script
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches:
+      - 'feat/*'
+      - 'fix/*'
+  workflow_dispatch:
+
+jobs:
+  test-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run script in test mode
+        env:
+          PSI_KEY: "test_key_workflow" # Dummy key for the script's check
+        run: node collect-psi.js --test
+
+      - name: Verify test output file existence
+        run: |
+          if [ -f "data/test-psi-results.json" ]; then
+            echo "data/test-psi-results.json found."
+          else
+            echo "data/test-psi-results.json not found!"
+            exit 1
+          fi
+
+      - name: Verify test output file content (array length)
+        run: |
+          echo "Verifying content of data/test-psi-results.json..."
+          # Expected 2 results because only successful mock calls are saved
+          # http://example.com and http://another-example.com
+          # http://invalid-url-that-does-not-exist-hopefully.com causes an error and is not saved.
+          # "not_a_url" and "" are filtered out before fetchPSI.
+          RESULT_COUNT=$(jq 'length' data/test-psi-results.json)
+          if [ "$RESULT_COUNT" -eq 2 ]; then
+            echo "JSON array has 2 elements as expected."
+          else
+            echo "Error: JSON array does not have 2 elements. Found: $RESULT_COUNT"
+            cat data/test-psi-results.json # Print content for debugging
+            exit 1
+          fi
+
+      - name: Verify test output file content (structure of one result)
+        run: |
+          echo "Verifying structure of the first result in data/test-psi-results.json..."
+          # Check for presence of key fields in the first element of the array
+          jq -e '
+            .[0] | has("url") and
+            .[0] | has("performance") and
+            .[0] | has("accessibility") and
+            .[0] | has("seo") and
+            .[0] | has("bestPractices") and
+            .[0] | has("timestamp")
+          ' data/test-psi-results.json
+          if [ $? -eq 0 ]; then
+            echo "First result has the expected structure."
+          else
+            echo "Error: First result does not have the expected structure."
+            cat data/test-psi-results.json # Print content for debugging
+            exit 1
+          fi
+          # Check that the URL is one of the expected successful ones
+          FIRST_URL=$(jq -r '.[0].url' data/test-psi-results.json)
+          if [ "$FIRST_URL" == "http://example.com" ] || [ "$FIRST_URL" == "http://another-example.com" ]; then
+            echo "First URL is one of the expected successful URLs: $FIRST_URL"
+          else
+            echo "Error: First URL is not one of the expected ones. Found: $FIRST_URL"
+            cat data/test-psi-results.json
+            exit 1
+          fi
+
+
+      - name: Verify no production output file created
+        run: |
+          if [ -f "data/psi-results.json" ]; then
+            echo "Error: Production file data/psi-results.json was created during test mode!"
+            exit 1
+          else
+            echo "Production file data/psi-results.json was not created, as expected."
+          fi
+
+================
+File: .gitignore
+================
+node_modules/
+accessibility-results.json
+
+================
+File: .idx/dev.nix
+================
+# To learn more about how to use Nix to configure your environment
+# see: https://firebase.google.com/docs/studio/customize-workspace
+{ pkgs, ... }: {
+  # Which nixpkgs channel to use.
+  channel = "stable-24.05"; # or "unstable"
+
+  # Use https://search.nixos.org/packages to find packages
+  packages = [
+    # pkgs.go
+    # pkgs.python311
+    # pkgs.python311Packages.pip
+    # pkgs.nodejs_20
+    # pkgs.nodePackages.nodemon
+  ];
+
+  # Sets environment variables in the workspace
+  env = {};
+  idx = {
+    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
+    extensions = [
+      # "vscodevim.vim"
+    ];
+
+    # Enable previews
+    previews = {
+      enable = true;
+      previews = {
+        # web = {
+        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
+        #   # and show it in IDX's web preview panel
+        #   command = ["npm" "run" "dev"];
+        #   manager = "web";
+        #   env = {
+        #     # Environment variables to set for your server
+        #     PORT = "$PORT";
+        #   };
+        # };
+      };
+    };
+
+    # Workspace lifecycle hooks
+    workspace = {
+      # Runs when a workspace is first created
+      onCreate = {
+        # Example: install JS dependencies from NPM
+        # npm-install = "npm install";
+      };
+      # Runs when the workspace is (re)started
+      onStart = {
+        # Example: start a background task to watch and re-build backend code
+        # watch-backend = "npm run watch-backend";
+      };
+    };
+  };
+}
+
+================
+File: .repomix/bundles.json
+================
+{
+  "bundles": {}
+}
+
+================
+File: data/brasil-estados.geojson
+================
+{}
+
+================
+File: data/brasil-municipios.geojson
+================
+{}
+
+================
+File: data/psi_processing_state.json
+================
+{
+  "http://example.com": {
+    "last_attempt": "2025-06-02T01:26:16.121Z",
+    "last_success": "2025-06-02T01:26:16.127Z"
+  },
+  "http://invalid-url-that-does-not-exist-hopefully.com": {
+    "last_attempt": "2025-06-02T01:26:16.121Z",
+    "last_success": null
+  }
+}
+
+================
+File: script.js
+================
+document.addEventListener('DOMContentLoaded', () => {
+  const tableBody = document.querySelector('table tbody');
+  const headers = document.querySelectorAll('table th');
+  let auditData = [];
+  let sortDirection = {}; // To store sort direction for each column
+
+  async function fetchDataAndRender() {
+    try {
+      const response = await fetch('accessibility-results.json');
+      if (!response.ok) {
+        // If the file is not found, it's okay, means no data yet.
+        if (response.status === 404) {
+          console.log('accessibility-results.json not found. Displaying empty table.');
+          tableBody.innerHTML = `<tr><td colspan="6">Nenhum dado de acessibilidade encontrado ainda.</td></tr>`;
+          return;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      auditData = await response.json();
+      if (!Array.isArray(auditData) || auditData.length === 0) {
+        console.log('No data in accessibility-results.json. Displaying empty table.');
+        tableBody.innerHTML = `<tr><td colspan="6">Nenhum dado de acessibilidade encontrado.</td></tr>`;
+        return;
+      }
+      // Default sort by accessibility score, descending, errors/nulls last
+      auditData.sort((a, b) => {
+        const scoreA = a.accessibility_score === null || a.error_message ? -1 : a.accessibility_score;
+        const scoreB = b.accessibility_score === null || b.error_message ? -1 : b.accessibility_score;
+        return scoreB - scoreA;
+      });
+      renderTable(auditData);
+    } catch (error) {
+      console.error('Error fetching or parsing data:', error);
+      tableBody.innerHTML = `<tr><td colspan="6">Erro ao carregar os dados. Verifique o console.</td></tr>`;
+    }
+  }
+
+  function renderTable(data) {
+    tableBody.innerHTML = ''; // Clear existing rows
+    if (data.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="6">Nenhum dado de acessibilidade para exibir.</td></tr>`;
+      return;
+    }
+    data.forEach(item => {
+      const row = tableBody.insertRow();
+      row.insertCell().textContent = item.nome_municipio || 'N/A';
+      row.insertCell().textContent = item.uf || 'N/A';
+      row.insertCell().textContent = item.codigo_ibge || 'N/A';
+      
+      const urlCell = row.insertCell();
+      if (item.url) {
+        const link = document.createElement('a');
+        link.href = item.url;
+        // Display only the domain for brevity if it's a long URL
+        try {
+            const urlObject = new URL(item.url);
+            link.textContent = urlObject.hostname;
+        } catch (e) {
+            link.textContent = item.url; // fallback to full URL if parsing fails
+        }
+        link.target = '_blank';
+        urlCell.appendChild(link);
+      } else {
+        urlCell.textContent = 'N/A';
+      }
+      
+      let scoreDisplay = 'N/A';
+      if (item.error_message) {
+          scoreDisplay = 'Falhou';
+      } else if (item.accessibility_score !== null && item.accessibility_score !== undefined) {
+          scoreDisplay = item.accessibility_score;
+      }
+      row.insertCell().textContent = scoreDisplay;
+      row.insertCell().textContent = item.audit_timestamp ? new Date(item.audit_timestamp).toLocaleString('pt-BR') : 'N/A';
+    });
+  }
+
+  headers.forEach((header, index) => {
+    // Store the original text and add sort indicator space
+    const originalHeaderText = header.textContent;
+    header.textContent = originalHeaderText + ' '; 
+
+    header.addEventListener('click', () => {
+      const columnKeys = ['nome_municipio', 'uf', 'codigo_ibge', 'url', 'accessibility_score', 'audit_timestamp'];
+      const columnProperty = columnKeys[index];
+      
+      // Reset sort indicators on other headers
+      headers.forEach((h, i) => {
+        if (i !== index) {
+          h.textContent = h.textContent.replace(/[▲▼]$/, ''); // Clear indicator
+          h.textContent = h.textContent.trim() + ' '; // ensure space for next indicator
+        }
+      });
+
+      const currentDirection = sortDirection[columnProperty];
+      let direction;
+      if (currentDirection === 'asc') {
+        direction = 'desc';
+        header.textContent = originalHeaderText + '▼';
+      } else if (currentDirection === 'desc') {
+        direction = 'none'; // to revert to default sort or unsorted
+        header.textContent = originalHeaderText + ' '; // No indicator or default
+      } else { // 'none' or undefined
+        direction = 'asc';
+        header.textContent = originalHeaderText + '▲';
+      }
+      
+      // If direction is 'none', revert to default sort (by score descending)
+      if (direction === 'none') {
+        delete sortDirection[columnProperty]; // remove specific sort
+        // Default sort by accessibility score, descending, errors/nulls last
+        auditData.sort((a, b) => {
+            const scoreA = a.accessibility_score === null || a.error_message ? -1 : a.accessibility_score;
+            const scoreB = b.accessibility_score === null || b.error_message ? -1 : b.accessibility_score;
+            return scoreB - scoreA;
+        });
+      } else {
+        sortDirection = { [columnProperty]: direction };
+
+        auditData.sort((a, b) => {
+          let valA = a[columnProperty];
+          let valB = b[columnProperty];
+
+          if (columnProperty === 'accessibility_score') {
+            valA = valA === null || a.error_message ? -Infinity : valA; 
+            valB = valB === null || b.error_message ? -Infinity : valB;
+          } else if (columnProperty === 'audit_timestamp') {
+            valA = valA ? new Date(valA).getTime() : 0;
+            valB = valB ? new Date(valB).getTime() : 0;
+          } else {
+            valA = String(valA === null || valA === undefined ? '' : valA).toLowerCase();
+            valB = String(valB === null || valB === undefined ? '' : valB).toLowerCase();
+          }
+
+          if (valA < valB) return direction === 'asc' ? -1 : 1;
+          if (valA > valB) return direction === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
+      renderTable(auditData);
+    });
+  });
+
+  fetchDataAndRender();
+});
+
+================
+File: style.css
+================
+body { font-family: sans-serif; margin: 20px; }
+h1 { text-align: center; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #f2f2f2; cursor: pointer; }
+th:hover { background-color: #e0e0e0; }
+tbody tr:nth-child(even) { background-color: #f9f9f9; }
+
+================
+File: test_sites.csv
+================
+"Nome do Município","UF","Código IBGE","Endereço Eletrônico","Observação"
+"Test City 1","TS","1234567","http://example.com","Valid URL"
+"Test City 2","TS","7654321","http://invalid-url-that-does-not-exist-hopefully.com","Invalid URL (non-existent)"
+"Test City 3","TS","0000000","not_a_url","Invalid URL (bad format)"
+"Test City 4","TS","1111111","","Empty URL"
+"Test City 5","TS","2222222","http://another-example.com","Another valid URL"
+
+================
+File: babel.config.cjs
+================
+module.exports = {
+  presets: [['@babel/preset-env', {targets: {node: 'current'}}]],
+  plugins: ['@babel/plugin-syntax-import-meta'],
+};
+
+================
+File: jest.config.cjs
+================
+/** @type {import('jest').Config} */
+const config = {
+  // Indicates whether the coverage information should be collected while executing the test
+  // collectCoverage: false,
+
+  // The directory where Jest should output its coverage files
+  // coverageDirectory: "coverage",
+
+  // An array of regexp pattern strings used to skip coverage collection
+  // coveragePathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
+
+  // Indicates which provider should be used to instrument code for coverage
+  // coverageProvider: "babel",
+
+  // A list of reporter names that Jest uses when writing coverage reports
+  // coverageReporters: [
+  //   "json",
+  //   "text",
+  //   "lcov",
+  //   "clover"
+  // ],
+
+  // An object that configures minimum threshold enforcement for coverage results
+  // coverageThreshold: undefined,
+
+  // A path to a custom dependency extractor
+  // dependencyExtractor: undefined,
+
+  // Make calling deprecated APIs throw helpful error messages
+  // errorOnDeprecated: false,
+
+  // The default configuration for fake timers
+  // fakeTimers: {
+  //   "enableGlobally": false
+  // },
+
+  // Force coverage collection from ignored files using an array of glob patterns
+  // forceCoverageMatch: [],
+
+  // A path to a module which exports an async function that is triggered once before all test suites
+  // globalSetup: undefined,
+
+  // A path to a module which exports an async function that is triggered once after all test suites
+  // globalTeardown: undefined,
+
+  // A set of global variables that need to be available in all test environments
+  // globals: {},
+
+  // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
+  // maxWorkers: "50%",
+
+  // An array of directory names to be searched recursively up from the requiring module's location
+  // moduleDirectories: [
+  //   "node_modules"
+  // ],
+
+  // An array of file extensions your modules use
+  // moduleFileExtensions: [
+  //   "js",
+  //   "mjs",
+  //   "cjs",
+  //   "jsx",
+  //   "ts",
+  //   "tsx",
+  //   "json",
+  //   "node"
+  // ],
+
+  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
+  // moduleNameMapper: {},
+
+  // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
+  // modulePathIgnorePatterns: [],
+
+  // Activates notifications for test results
+  // notify: false,
+
+  // An enum that specifies notification mode. Requires { notify: true }
+  // notifyMode: "failure-change",
+
+  // A preset that is used as a base for Jest's configuration
+  // preset: undefined,
+
+  // Run tests from one or more projects
+  // projects: undefined,
+
+  // Use this configuration option to add custom reporters to Jest
+  // reporters: undefined,
+
+  // Automatically reset mock state before every test
+  // resetMocks: false, // Reverted to default/false
+
+  // Reset the module registry before running each individual test
+  // resetModules: false,
+
+  // A path to a custom resolver
+  // resolver: undefined,
+
+  // Automatically restore mock state and implementation before every test
+  // restoreMocks: false,
+
+  // The root directory that Jest should scan for tests and modules within
+  // rootDir: undefined,
+
+  // A list of paths to directories that Jest should use to search for files in
+  // roots: [
+  //   "<rootDir>"
+  // ],
+
+  // Allows you to use a custom runner instead of Jest's default test runner
+  // runner: "jest-runner",
+
+  // The paths to modules that run some code to configure or set up the testing environment before each test
+  // setupFiles: [],
+
+  // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // setupFilesAfterEnv: [],
+
+  // The number of seconds after which a test is considered as slow and reported as such in the results.
+  // slowTestThreshold: 5,
+
+  // A list of paths to snapshot serializer modules Jest should use for snapshot testing
+  // snapshotSerializers: [],
+
+  // The test environment that will be used for testing
+  testEnvironment: "node",
+
+  // Options that will be passed to the testEnvironment
+  // testEnvironmentOptions: {},
+
+  // Adds a location field to test results
+  // testLocationInResults: false,
+
+  // The glob patterns Jest uses to detect test files
+  // testMatch: [
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[tj]s?(x)"
+  // ],
+
+  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
+  // testPathIgnorePatterns: [
+  //   "/node_modules/"
+  // ],
+
+  // The regexp pattern or array of patterns that Jest uses to detect test files
+  // testRegex: [],
+
+  // This option allows the use of a custom results processor
+  // testResultsProcessor: undefined,
+
+  // This option allows use of a custom test runner
+  // testRunner: "jest-circus/runner",
+
+  // A map from regular expressions to paths to transformers
+  transform: {
+    '^.+\\.(js|jsx|mjs|cjs)$': 'babel-jest',
+  },
+
+  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
+  transformIgnorePatterns: [
+    "/node_modules/(?!node-fetch|p-limit|csv-parse)/",
+  ],
+
+  // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
+  // unmockedModulePathPatterns: undefined,
+
+  // Indicates whether each individual test should be reported during the run
+  // verbose: undefined,
+
+  // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
+  // watchPathIgnorePatterns: [],
+
+  // Whether to use watchman for file crawling
+  // watchman: true,
+};
+
+module.exports = config;
+
+================
+File: js/data-processor.js
+================
+// js/data-processor.js
+
+const appDataProcessor = {
+  fetchPsiResults: async function() {
+    try {
+      const response = await fetch('data/psi-results.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching PSI results:", error);
+      return null; // Or rethrow, or return an empty array
+    }
+  },
+
+  getPsiData: async function() {
+    return await this.fetchPsiResults();
+  }
+};
+
+================
+File: collect-psi.test.js
+================
+import path from 'path'; // Import the 'path' module
+import { jest, describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { runMainLogic, originalFetchPSI } from './collect-psi.js';
+import fs from 'fs'; // This will be the mocked version from __mocks__/fs.js
+import fetch from 'node-fetch'; // This will be the mocked version from __mocks__/node-fetch.js
+
+// Mock the fs module - RELY ON __mocks__/fs.js
+// jest.mock('fs');
+// Mock node-fetch - RELY ON __mocks__/node-fetch.js
+// jest.mock('node-fetch');
+
+// At the top of collect-psi.test.js, after path import
+// Assuming tests run from project root, so __dirname for collect-psi.js is project root.
+const expectedTestCsvPath = path.resolve('test_sites.csv');
+const expectedProcessingStatePath = path.resolve('data', 'psi_processing_state.json');
+
+// Test CSV data
+const testCsvContent = `"Nome do Município","UF","Código IBGE","Endereço Eletrônico","Observação"
+"Test City 1","TS","1234567","http://example.com","Valid URL"
+"Test City 2","TS","7654321","http://invalid-url-that-does-not-exist-hopefully.com","Invalid URL (non-existent)"
+"Test City 3","TS","0000000","not_a_url","Invalid URL (bad format)"
+"Test City 4","TS","1111111","","Empty URL"
+"Test City 5","TS","2222222","http://another-example.com","Another valid URL"`;
+
+const mockPsiSuccessResult = {
+  performance: 0.9,
+  accessibility: 0.8,
+  seo: 0.7,
+  bestPractices: 0.95,
+  timestamp: 'test-timestamp'
+};
+
+describe('collect-psi.js', () => {
+  let consoleLogSpy;
+  let consoleWarnSpy;
+  let consoleErrorSpy;
+  let processExitSpy;
+  let mockExternalFetchPSI; // This will be our own mock for the fetchPSI function passed to runMainLogic
+
+  beforeEach(() => {
+    // Spy on console methods
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    // Mock process.exit
+    processExitSpy = jest.spyOn(process, 'exit').mockImplementation((code) => {
+      throw new Error(`process.exit: ${code}`); // Throw error to stop execution in test
+    });
+
+    // Reset specific mock functions from the auto-mocked fs and fetch modules
+    fs.readFileSync.mockReset();
+    fs.writeFileSync.mockReset();
+    fs.existsSync.mockReset();
+    fs.mkdirSync.mockReset();
+    fs.appendFileSync.mockReset(); // Ensure this is reset if used by main script for errors
+    fetch.mockReset(); // Reset the default export from __mocks__/node-fetch.js
+
+    // Default mock for existsSync (to simulate 'data' directory possibly not existing for output, or state file)
+    // For PROCESSING_STATE_FILE:
+    fs.existsSync.mockImplementation(filePath => {
+      if (filePath === expectedProcessingStatePath) {
+        return false; // Default: no state file exists
+      }
+      if (filePath === path.resolve('data')) { // For output directory 'data'
+        return false; // Default: output directory does not exist
+      }
+      return false; // Default for any other path
+    });
+
+    // Default mock for readFileSync
+    fs.readFileSync.mockImplementation((filepath) => {
+      if (filepath === expectedTestCsvPath) {
+        return testCsvContent;
+      }
+      if (filepath === expectedProcessingStatePath) {
+        // This should only be called if existsSync for this path was true
+        return JSON.stringify({});
+      }
+      return ''; // Default for other unexpected calls
+    });
+
+    // This is the mock for the fetchPSI function *parameter* of runMainLogic, not global fetch
+    mockExternalFetchPSI = jest.fn();
+  });
+
+  afterEach(() => {
+    // Restore original console and process methods
+    consoleLogSpy.mockRestore();
+    consoleWarnSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
+    processExitSpy.mockRestore();
+    delete process.env.PSI_KEY; // Clean up env variable
+    jest.clearAllMocks(); // Reset all mocks after each test
+  });
+
+  describe('PSI_KEY validation', () => {
+    it('should log an error and exit if PSI_KEY is not set', async () => {
+      expect.assertions(3); // Ensure all assertions are checked
+      try {
+        // Pass undefined for apiKey, and our mockExternalFetchPSI
+        await runMainLogic(['node', 'collect-psi.js'], undefined, mockExternalFetchPSI);
+      } catch (e) {
+        expect(e.message).toBe('process.exit: 1');
+      }
+      expect(consoleErrorSpy).toHaveBeenCalledWith('⚠️ Defina a variável de ambiente PSI_KEY');
+      expect(processExitSpy).toHaveBeenCalledWith(1);
+    });
+
+    it('should not exit if PSI_KEY is set', async () => {
+      process.env.PSI_KEY = 'test-key';
+      // Ensure CSV read doesn't fail and processing state read doesn't fail
+      fs.readFileSync.mockImplementation((filepath) => {
+        if (filepath === expectedTestCsvPath) return testCsvContent;
+        if (filepath === expectedProcessingStatePath) return JSON.stringify({});
+        return '';
+      });
+      fs.existsSync.mockReturnValue(true); // Assume all relevant files/dirs exist for this specific test
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+      expect(processExitSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Test Mode (--test flag)', () => {
+    beforeEach(() => {
+      process.env.PSI_KEY = 'fake-key'; // Needs to be set to pass initial check
+
+      // Specific mock for readFileSync for most test mode tests
+      fs.readFileSync.mockImplementation((filepath) => {
+        if (filepath === expectedTestCsvPath) return testCsvContent;
+        // Simulate no processing state file by default for these tests, unless overridden
+        if (filepath === expectedProcessingStatePath) return JSON.stringify({});
+        return '';
+      });
+      // Simulate processing state file does not exist by default
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === expectedProcessingStatePath) return false;
+        if (filePath === path.resolve('data')) return false; // Output directory
+        return false;
+      });
+    });
+
+    it('should read from test_sites.csv and write to data/test-psi-results.json', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      expect(fs.readFileSync).toHaveBeenCalledWith(expectedTestCsvPath, 'utf-8');
+      expect(fs.writeFileSync).toHaveBeenCalled(); // Check if called, path/content checked in other tests
+      const writeArgs = fs.writeFileSync.mock.calls[0];
+      // The outputJsonFile in test mode is 'data/test-psi-results.json'
+      // path.resolve is not strictly necessary here as it's a relative path from root.
+      expect(writeArgs[0]).toBe(path.resolve('data/test-psi-results.json'));
+    });
+
+    it('should process valid URLs and skip invalid ones from CSV', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      expect(mockExternalFetchPSI).toHaveBeenCalledTimes(3);
+      expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://example.com');
+      expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://invalid-url-that-does-not-exist-hopefully.com');
+      expect(mockExternalFetchPSI).toHaveBeenCalledWith('http://another-example.com');
+    });
+
+    it('should correctly handle successful PSI calls and save results', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => {
+        if (url === 'http://example.com' || url === 'http://another-example.com') {
+          return { ...mockPsiSuccessResult, url, performance: 0.9 }; // Ensure performance is in mock
+        }
+        throw new Error('Simulated error for other URLs');
+      });
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(1); // For results.json
+      const resultsWriteCall = fs.writeFileSync.mock.calls.find(call => call[0].endsWith('test-psi-results.json'));
+      expect(resultsWriteCall).toBeDefined();
+      const writtenData = JSON.parse(resultsWriteCall[1]);
+      expect(writtenData.length).toBe(2);
+      expect(writtenData[0].url).toBe('http://example.com');
+      expect(writtenData[1].url).toBe('http://another-example.com');
+      expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://example.com → 0.9');
+      expect(consoleLogSpy).toHaveBeenCalledWith('✅ http://another-example.com → 0.9');
+      expect(consoleLogSpy).toHaveBeenCalledWith(`💾 Gravados 2 resultados em ${path.resolve('data/test-psi-results.json')}`);
+    });
+
+    it('should correctly handle errors from fetchPSI and log them', async () => {
+      const specificErrorUrl = 'http://invalid-url-that-does-not-exist-hopefully.com';
+      mockExternalFetchPSI.mockImplementation(async (url) => {
+        if (url === specificErrorUrl) {
+          throw new Error('Simulated fetch error for non-existent URL');
+        }
+        return { ...mockPsiSuccessResult, url, performance: 0.9 }; // Ensure performance
+      });
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      const resultsWriteCall = fs.writeFileSync.mock.calls.find(call => call[0].endsWith('test-psi-results.json'));
+      expect(resultsWriteCall).toBeDefined();
+      const writtenData = JSON.parse(resultsWriteCall[1]);
+      expect(writtenData.length).toBe(2); // Only successful results are saved
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(`❌ erro em ${specificErrorUrl}: Simulated fetch error for non-existent URL`);
+      // Check that error was logged to file
+      expect(fs.appendFileSync).toHaveBeenCalledWith('psi_errors.log', expect.stringContaining(`Error for URL ${specificErrorUrl}: Simulated fetch error for non-existent URL`));
+      expect(consoleLogSpy).toHaveBeenCalledWith(`💾 Gravados 2 resultados em ${path.resolve('data/test-psi-results.json')}`);
+    });
+
+    it('should create data directory if it does not exist for results', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+      // Simulate 'data' directory does not exist, but processing state file also doesn't exist
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === path.resolve('data')) return false; // data dir for output
+        if (filePath === expectedProcessingStatePath) return false; // processing state file
+        if (filePath === path.dirname(expectedProcessingStatePath)) return false; // data dir for state file
+        return false;
+      });
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      // Check for creation of 'data' dir for psi-results.json
+      expect(fs.mkdirSync).toHaveBeenCalledWith(path.resolve('data'), { recursive: true });
+    });
+
+    it('should create data directory if it does not exist for processing state', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+      // Simulate 'data' directory (for state file) does not exist
+      // but output 'data' directory might exist or not, let's make it specific
+      const stateDir = path.dirname(expectedProcessingStatePath); // should be 'data'
+      fs.existsSync.mockImplementation(filePath => {
+        if (filePath === stateDir) return false; // THIS is the critical check for this test
+        if (filePath === expectedProcessingStatePath) return false;
+        // for output results file, assume its data dir exists to isolate the test
+        if (filePath === path.resolve('data')) return true;
+        return false;
+      });
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      // Check for creation of 'data' dir for psi_processing_state.json
+      expect(fs.mkdirSync).toHaveBeenCalledWith(stateDir, { recursive: true });
+    });
+
+
+    it('should not try to create data directory if it already exists', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+      fs.existsSync.mockReturnValue(true); // Simulate all directories exist
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      // Check that mkdirSync was not called if 'data' (for results) and 'data' (for state) exist
+      // fs.existsSync(path.resolve('data')) would be true
+      // fs.existsSync(path.dirname(expectedProcessingStatePath)) would be true
+      expect(fs.mkdirSync).not.toHaveBeenCalled();
+    });
+
+    it('should log appropriate messages during test mode execution', async () => {
+      mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
+
+      await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
+
+      expect(consoleLogSpy).toHaveBeenCalledWith('ℹ️ Running in TEST mode.');
+      expect(consoleLogSpy).toHaveBeenCalledWith(`ℹ️ Reading URLs from: ${expectedTestCsvPath}`);
+      expect(consoleLogSpy).toHaveBeenCalledWith(`ℹ️ Writing results to: ${path.resolve('data/test-psi-results.json')}`);
+    });
+  });
+
+  // describe('originalFetchPSI', () => { ... });
+});
+
+================
+File: data/test-psi-results.json
+================
+[
+  {
+    "url": "http://example.com",
+    "performance": 0.9,
+    "accessibility": 0.8,
+    "seo": 0.7,
+    "bestPractices": 0.95,
+    "timestamp": "2025-06-02T01:26:16.127Z"
+  }
+]
+
+================
+File: TODO.md
+================
+# Priority TODO – "Painel de Acessibilidade" Roadmap (v2025‑05‑30)
+
+*After a full review of the current codebase, these are the **next actions** grouped by urgency and leverage. Finishing the **Critical Path** will turn the prototype into a usable public demo; the later phases harden it for production and research use.*
+
+---
+
+## 0 · Critical Path – **Implement Basic Table View** (⚡ Do these first)
+
+| ⚙︎ | Task                                                                                                                | Owner | Notes                                                                                                                                                  |   |                                                                              |
+| -- | ------------------------------------------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | - | ---------------------------------------------------------------------------- |
+| ~~☐~~  | ~~**Populate GeoJSON files** (`data/brasil‑estados.geojson`, `data/brasil‑municipios.geojson`) with real IBGE shapes~~  |       | ~~Download from IBGE or [https://github.com/tbrugz/ibge‑geojson](https://github.com/tbrugz/ibge‑geojson). Keep only the props we need → smaller payload.~~ |   | _No longer applicable for table view_                                        |
+| ☐  | **Expose `codigo_ibge` field** in `collect-psi.js` results                                                          |       | Already present in CSV; include as `ibge_code` in JSON. Useful for data enrichment/linking, though not critical for basic table.                      |   |                                                                              |
+| ~~☐~~  | ~~Refactor `map‑controller.addMarkersToMap()` to use exact `ibge_code` lookup instead of fuzzy `extractNameFromUrl()`~~ |       | ~~Simpler + deterministic.~~                                                                                                                               |   | _No longer applicable_                                                      |
+| ☐  | Verify that table renders end‑to‑end with PSI data in **TEST** mode                                                 |       | Use `test_sites.csv`.                                                                                                                                  |   |                                                                              |
+
+> **Outcome:** A functional table view that shows PSI scores for items in `psi-results.json`.
+
+---
+
+\## 1 · High‑Impact Quality Improvements (🏃 Sprint after Critical Path)
+
+* ☐ **Historical Runs** – change `collect‑psi.js` to append to `data/history/YYYY‑MM‑DD.json` instead of overwriting.
+
+  * Update `data‑processor.js` to select the latest file or show a time‑slider later.
+  * Add a cron note in README.
+* ☐ **Retry + Backoff** in `originalFetchPSI()` (wrap `p‑limit` job with exponential backoff on 429/5xx).
+  Write errors once to `psi_errors.log` *and* `console.warn`.
+* ☐ **Desktop strategy support** – parametrize strategy (`mobile`/`desktop`) and store both in result rows (`performance_mobile`, `performance_desktop`, …).
+  UI toggle later.
+* ~~☐~~ **~~GeoJSON lazy‑load~~** – ~~fetch only the **state** layer until user zooms < 7, then load municipalities; reduces first paint.~~ _No longer applicable_
+
+---
+
+\## 2 · UI & UX Polishing (🎨)
+
+* ☐ Clean mobile layout: responsive table, hamburger nav.
+* ☐ Replace bare export button with CSV & JSON download of current table data (potentially filtered/sorted).
+* ☐ Color‑code table rows or cells by accessibility score bucket (red < 50, orange < 80, green ≥ 80).
+* ☐ Add a legend component if color-coding is implemented.
+* ☐ Add sorting and filtering options to the table.
+
+---
+
+\## 3 · Testing & CI (🧪)
+
+* ☐ Unit tests for `data‑processor.js` (if any complex logic remains or is added).
+* ☐ E2E smoke test on GitHub Actions: run in `--test` mode and fail the build if collected JSON is empty or table fails to load.
+
+---
+
+\## 4 · Stretch Goals (🌱 nice‑to‑have)
+
+* ☐ **Time‑series charts** with Recharts (line chart per metric, possibly aggregated by state/region if IBGE code is used).
+* ☐ Progressive Web App: offline cache of last result.
+* ☐ Internationalization stub (pt‑BR ⇆ en‑US strings).
+
+---
+
+\## Suggested Sequence
+
+1. **IBGE plumbing** (expose `codigo_ibge` in data) – *½ day*.
+2. Verify table rendering with test data – *½ day*.
+3. Retry + backoff in `collect-psi.js` – *½ day*.
+4. Historical data directory structure – *1 day*.
+5. Desktop strategy & UI toggle for table columns – *1 day*.
+6. Table UI/UX Polishing (sorting, filtering, color-coding) – *2-3 days*.
+7. CI tests + deploy tweaks – *1 day*.
+
+*This schedule assumes one developer (you) working focused blocks.  Feel free to adjust.*
+
+---
+
+\### Changelog Anchor
+Create a `CHANGELOG.md` and log completion of each checklist item ✨.
+* Pivoted from map-based visualization to a table-based view due to GeoJSON access issues and to simplify initial data presentation. (v2025-05-31)
+
+================
+File: about.html
+================
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o Projeto - Mapa de Acessibilidade</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Link to existing stylesheet -->
+</head>
+<body>
+    <header>
+        <h1>Sobre o Projeto</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Voltar ao Mapa</a>
+    </nav>
+
+    <main>
+        <section id="goals">
+            <h2>Nossos Objetivos</h2>
+            <p>Este projeto tem como principal objetivo lançar luz sobre o estado da acessibilidade digital dos portais online das prefeituras brasileiras. Acreditamos que o acesso à informação e aos serviços municipais online é um direito fundamental de todos os cidadãos, incluindo pessoas com deficiência. Um site acessível garante que todos possam navegar, entender e interagir com o conteúdo digital de forma independente e eficaz.</p>
+            <p>Através da coleta e visualização de dados de acessibilidade, buscamos conscientizar gestores públicos, desenvolvedores e a sociedade civil sobre a importância da inclusão digital. Nossa plataforma visa identificar desafios comuns, destacar boas práticas e fornecer um panorama que possa embasar ações para a melhoria contínua da acessibilidade dos serviços públicos digitais no Brasil.</p>
+            <p>Esperamos que esta ferramenta sirva como um recurso valioso para pesquisadores, jornalistas, cidadãos e, principalmente, para as próprias prefeituras, incentivando a adoção de design universal e práticas de desenvolvimento web acessíveis.</p>
+        </section>
+
+        <section id="methodology">
+            <h2>Metodologia de Coleta de Dados</h2>
+            <p>A coleta de dados de acessibilidade para este projeto é realizada (ou será realizada) de forma automatizada, buscando abranger o maior número possível de sites de prefeituras brasileiras. Utilizamos ferramentas de análise de renome para avaliar a conformidade das páginas web com as diretrizes de acessibilidade.</p>
+            <p>A principal ferramenta empregada é o Lighthouse, uma ferramenta de código aberto automatizada do Google para melhorar a qualidade de páginas web. Especificamente, focamos na pontuação de acessibilidade que o Lighthouse gera, a qual é baseada em uma série de verificações contra as Diretrizes de Acessibilidade para Conteúdo Web (WCAG). Embora a análise automatizada não capture todas as nuances da acessibilidade (testes manuais são cruciais para uma avaliação completa), ela fornece um panorama valioso e escalável do estado atual.</p>
+            <p>O processo envolve a execução programática do Lighthouse (potencialmente através da API do PageSpeed Insights ou scripts customizados como o `collect-psi.js` encontrado neste repositório) para cada site municipal identificado em nossa lista de fontes. As pontuações de acessibilidade são então coletadas, armazenadas e processadas para serem visualizadas em nosso mapa interativo. Pretendemos realizar coletas periódicas para acompanhar a evolução da acessibilidade desses portais ao longo do tempo.</p>
+        </section>
+
+        <section id="data-sources">
+            <h2>Fontes de Dados</h2>
+            <p>Para a realização deste projeto, utilizamos (ou pretendemos utilizar) as seguintes fontes de dados primárias:</p>
+            <ul>
+                <li><strong>Lista de Websites de Prefeituras:</strong> A relação dos endereços eletrônicos (URLs) dos sites das prefeituras brasileiras é um componente crucial. Esta lista pode ser originada de fontes públicas governamentais, iniciativas da comunidade de dados abertos ou compilações acadêmicas (<em>será necessário especificar a fonte exata quando definida</em>, por exemplo, o arquivo `sites_das_prefeituras_brasileiras.csv` presente neste repositório).</li>
+                <li><strong>Dados Geográficos (GeoJSON):</strong> Para a visualização dos dados no mapa, utilizamos arquivos no formato GeoJSON que definem as fronteiras geográficas dos estados e/ou municípios brasileiros. Estes dados são tipicamente fornecidos por órgãos oficiais como o Instituto Brasileiro de Geografia e Estatística (IBGE) (<em>ex: `brasil-estados.geojson`, `brasil-municipios.geojson` - atualmente estes arquivos no repositório estão vazios e necessitam ser populados com dados válidos do IBGE ou fonte similar</em>).</li>
+                <li><strong>Resultados de Testes de Acessibilidade:</strong> Os dados de acessibilidade propriamente ditos são gerados pela execução das ferramentas de análise (como o Lighthouse) sobre os sites listados. Estes resultados são armazenados e processados para exibição (<em>ex: `test-psi-results.json` pode ser um exemplo de arquivo de armazenamento temporário ou de resultados de teste</em>).</li>
+            </ul>
+            <p>A transparência e a confiabilidade das fontes são fundamentais para a credibilidade do projeto. Nos esforçamos para utilizar dados de fontes reconhecidas e, sempre que possível, abertas.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contato e Contribuições</h2>
+            <p>Este é um projeto em desenvolvimento e agradecemos seu interesse. Para mais detalhes sobre o projeto, sugestões, reporte de problemas ou oportunidades de contribuição, por favor visite nosso repositório no GitHub. Lá você encontrará informações sobre como entrar em contato com os mantenedores ou abrir uma "issue" para discussão.</p>
+            <p>O link para o repositório do projeto pode ser encontrado no rodapé desta página.</p>
+        </section>
+    </main>
+
+    <footer>
+    <p class="footer-copyright">© 2024 Mapa de Acessibilidade Brasil. Todos os direitos reservados.</p>
+    <div class="footer-links">
+        <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a>
+        <span class="footer-link-separator">|</span>
+        <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a>
+        <span class="footer-link-separator">|</span>
+        <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
+    </div>
+    </footer>
+</body>
+</html>
+
+================
+File: package.json
+================
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Lista de sites da prefeituras Brasileiras",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franklinbaldo/sites_prefeituras.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franklinbaldo/sites_prefeituras/issues"
+  },
+  "homepage": "https://github.com/franklinbaldo/sites_prefeituras#readme",
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "node-fetch": "^3.3.2",
+    "p-limit": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.3",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/preset-env": "^7.27.2",
+    "babel-jest": "^30.0.0-beta.3",
+    "jest": "^29.7.0"
+  }
+}
+
+================
+File: css/styles.css
+================
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    line-height: 1.6; /* Improve readability */
+}
+
+header {
+    background-color: #f4f4f4; /* Light grey background */
+    padding: 1em 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Subtle border */
+}
+
+header h1 {
+    margin: 0;
+    color: #333; /* Darker text color */
+}
+
+#project-description {
+    padding: 1.5em 1em;
+    margin: 0 2em; /* Add some horizontal margin */
+    text-align: center; /* Center the description text */
+}
+
+main {
+    padding: 1em;
+    display: flex; /* Using flex to center map container if needed or manage multiple children later */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+}
+
+#map-container {
+    width: 80%; /* Or a fixed width like 900px, depending on preference */
+    max-width: 1000px; /* Max width for larger screens */
+    margin: 0 auto; /* Center the map container */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add a subtle shadow */
+}
+
+#map {
+    height: 500px; /* Adjust height as needed */
+    width: 100%; /* Map will take full width of its container */
+    border: 1px solid #ccc; /* Lighter border */
+}
+
+#controls-container {
+    margin-top: 20px; /* Add some space above the button */
+    text-align: center; /* Center the button */
+}
+
+#export-data-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff; /* Blue color, common for actions */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#export-data-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Header navigation on index.html */
+.header-nav {
+    text-align: center; /* Center the 'Saiba mais' link below the main title */
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.header-nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Nav in about.html: body > nav */
+html[lang="pt-BR"] body > nav {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+
+html[lang="pt-BR"] body > nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500; /* Changed from bold to 500 for consistency */
+}
+
+html[lang="pt-BR"] body > nav a:hover {
+    text-decoration: underline;
+}
+
+/* Sections in about.html: body > main > section */
+html[lang="pt-BR"] body > main > section {
+    padding: 1.5em;
+    margin: 1em auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    border-radius: 4px;
+}
+
+/* Headings in about.html sections */
+html[lang="pt-BR"] body > main > section h2 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.3em;
+    margin-top: 0;
+}
+
+/* Footer styling */
+footer {
+    background-color: #343a40; /* Dark background for footer */
+    color: #f8f9fa; /* Light text color */
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px; /* Space above the footer */
+    border-top: 3px solid #007bff; /* Accent color border */
+}
+
+/* New Footer CSS */
+.footer-copyright {
+    margin: 5px 0 8px 0; /* top | horizontal | bottom */
+    font-size: 0.9em;
+}
+
+.footer-links {
+    font-size: 0.9em; /* Match copyright font size */
+    margin-top: 5px;
+}
+
+.footer-links a {
+    color: #f8f9fa;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-links a:hover {
+    color: #ced4da;
+    text-decoration: underline;
+}
+
+.footer-link-separator {
+    color: #6c757d;
+    margin: 0 5px;
+}
+
+================
+File: js/main.js
+================
+// js/main.js
+
+// Main function to orchestrate data loading and table population
+async function initializeApp() {
+    // Fetch PSI data using the data processor
+    const psiData = await appDataProcessor.getPsiData(); // Assuming appDataProcessor is globally available
+
+    if (psiData) {
+        console.log("PSI Data fetched successfully in main.js:", psiData.length, "records");
+        const tableBody = document.getElementById('psi-results-table').getElementsByTagName('tbody')[0];
+
+        psiData.forEach(item => {
+            const row = tableBody.insertRow();
+
+            const urlCell = row.insertCell();
+            urlCell.textContent = item.url;
+
+            const performanceCell = row.insertCell();
+            performanceCell.textContent = (item.performance * 100).toFixed(0) + '%';
+
+            const accessibilityCell = row.insertCell();
+            accessibilityCell.textContent = (item.accessibility * 100).toFixed(0) + '%';
+
+            const seoCell = row.insertCell();
+            seoCell.textContent = (item.seo * 100).toFixed(0) + '%';
+
+            const bestPracticesCell = row.insertCell();
+            bestPracticesCell.textContent = item.bestPractices ? (item.bestPractices * 100).toFixed(0) + '%' : 'N/A';
+
+            const timestampCell = row.insertCell();
+            timestampCell.textContent = new Date(item.timestamp).toLocaleString();
+        });
+
+    } else {
+        console.error("Could not fetch PSI data to populate the table.");
+    }
+}
+
+// Run the initialization
+initializeApp();
+
+================
+File: .github/workflows/psi.yml
+================
+name: 🚀 Coleta PSI
+
+on:
+  schedule:
+    - cron: '0 3 * * *'    # todo dia às 03:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PSI_KEY: ${{ secrets.PSI_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Coletar dados PSI
+        timeout-minutes: 10 
+        run: |
+          mkdir -p reports
+          node collect-psi.js 2>&1 | tee full-api-log.log
+
+      - name: Handle PSI Collection Errors
+        if: always()
+        run: |
+          if [ -f psi_errors.log ] && [ -s psi_errors.log ]; then
+            echo "PSI collection errors found. Preparing TODO.md."
+            echo "HAS_PSI_ERRORS=true" >> $GITHUB_ENV
+          else
+            echo "No PSI collection errors found."
+            echo "HAS_PSI_ERRORS=false" >> $GITHUB_ENV
+          fi
+
+      - name: Archive PSI Error Log
+        if: env.HAS_PSI_ERRORS == 'true'
+        run: |
+          mkdir -p data/psi_error_reports
+          cp psi_errors.log data/psi_error_reports/psi_errors_${{ github.run_id }}.log
+          echo "PSI error log archived to data/psi_error_reports/psi_errors_${{ github.run_id }}.log"
+
+      - name: Create/Update TODO.md if errors exist
+        if: env.HAS_PSI_ERRORS == 'true'
+        run: |
+          echo "## PSI Collection Error Reports (P0)" > TODO.md
+          echo "" >> TODO.md
+          echo "Errors may have been detected during scheduled PSI data collections." >> TODO.md
+          echo "Please check the \`data/psi_error_reports/\` directory for log files named \`psi_errors_<run_id>.log\`." >> TODO.md
+          echo "Review these logs and address any reported issues." >> TODO.md
+          echo "" >> TODO.md
+          echo "Workflow run that last updated this TODO: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> TODO.md
+
+      - name: Commit and Push Error Reports and TODO.md to Main Branch
+        if: env.HAS_PSI_ERRORS == 'true'
+        run: |
+          ORIGINAL_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "Committing error reports to branch: $ORIGINAL_BRANCH"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Ensure we are on the correct branch and it's up-to-date
+          git checkout $ORIGINAL_BRANCH
+          git pull origin $ORIGINAL_BRANCH
+
+          # Added data/psi_processing_state.json from fix/psi-commit-error
+          git add TODO.md data/psi_error_reports/ data/psi_processing_state.json
+
+          if ! git diff --staged --quiet; then
+            # Updated commit message from fix/psi-commit-error
+            git commit -m "docs: Log PSI collection errors, update TODO, and save state
+
+            Errors were detected during the scheduled PSI data collection.
+            Details have been archived to data/psi_error_reports/
+            TODO.md has been updated, and the latest processing state
+            has been saved to data/psi_processing_state.json.
+
+            Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            git push origin $ORIGINAL_BRANCH
+          else
+            # Updated message from fix/psi-commit-error
+            echo "No changes to TODO.md, error reports, or processing state to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit e push dos resultados
+        run: |
+          if [ -f "data/psi-results.json" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            # Added data/psi_processing_state.json from fix/psi-commit-error
+            git add data/psi-results.json data/psi_processing_state.json
+            # Only commit if there are changes
+            if ! git diff --staged --quiet; then
+              # Updated commit message from fix/psi-commit-error
+              git commit -m "chore: atualiza PSI data e estado de processamento"
+              git push
+            else
+              # Updated message from fix/psi-commit-error
+              echo "No changes to PSI data or processing state to commit."
+            fi
+          else
+            # Updated message from fix/psi-commit-error
+            echo "data/psi-results.json not found. Skipping commit of results and state."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload do log completo
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pagespeed-api-log
+          path: full-api-log.log
+
+      - name: Upload de relatórios por URL
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: reports-json
+          path: reports/*.json
+
+      - name: Cleanup temporary error log
+        if: always()
+        run: rm -f psi_errors.log
+
+================
+File: collect-psi.js
+================
+// collect-psi.js
+import fs from 'fs';
+import path, { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+import fetch from 'node-fetch';
+import pLimit from 'p-limit';
+import { parse as csvParse } from 'csv-parse/sync';
+
+let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
+
+const ERROR_LOG_FILE = 'psi_errors.log';
+const PROCESSING_STATE_FILE = 'data/psi_processing_state.json';
+
+// Function to save processing state
+function saveProcessingState(stateObject, filePath) {
+  try {
+    const outDir = path.dirname(filePath);
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+    fs.writeFileSync(filePath, JSON.stringify(stateObject, null, 2));
+    console.log(`💾 Processing state saved to ${filePath}`);
+  } catch (err) {
+    console.error(`❌ Error saving processing state to ${filePath}: ${err.message}`);
+  }
+}
+
+// Function to log errors to a file
+function logErrorToFile(errorMessage) {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${errorMessage}\n`;
+  try {
+    fs.appendFileSync(ERROR_LOG_FILE, logMessage);
+  } catch (err) {
+    // If logging to file fails, log to console as a fallback
+    console.error(`Fallback: Failed to write to ${ERROR_LOG_FILE}: ${err.message}`);
+    console.error(`Fallback: Original error: ${errorMessage}`);
+  }
+}
+
+// This function will be unit tested
+export async function originalFetchPSI(url, apiKey, fetchFn, params = {}) {
+  const queryParams = new URLSearchParams();
+  queryParams.append('url', encodeURIComponent(url));
+  for (const key in params) {
+    queryParams.append(key, params[key]);
+  }
+  queryParams.append('key', apiKey);
+
+  const endpoint = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed?${queryParams.toString()}`;
+
+  const response = await fetchFn(endpoint);
+  const status = response.status;
+  let json;
+
+  try {
+    json = await response.json();
+  } catch (e) {
+    const error = new Error(`Invalid JSON response from PSI API for ${url}. Status: ${status}. Error: ${e.message}`);
+    error.status = status; // Attach status to error
+    throw error;
+  }
+
+  if (!response.ok) {
+    const message = json?.error?.message || `API request failed with status ${status}`;
+    const code = json?.error?.code;
+    const apiErrorDetails = json?.error;
+
+    const error = new Error(message);
+    error.status = status;
+    error.code = code; // Standard error code if available
+    error.apiError = apiErrorDetails; // Full Google API error details
+    throw error;
+  }
+
+  // If successful, return the full JSON and status. Specific scores can be extracted later.
+  return { json, status };
+}
+
+// This is the script's own mock, used when run with --test directly
+async function scriptMockFetchPSI(url, apiKey, fetchFn, params = {}) { // Add params for consistent signature
+  console.log(`ℹ️ SCRIPT MOCK fetchPSI called for: ${url} with params: ${JSON.stringify(params)}`);
+  if (url === 'http://example.com' || url === 'http://another-example.com') {
+    // Mimic the new structure returned by originalFetchPSI
+    return {
+      status: 200,
+      json: {
+        lighthouseResult: {
+          categories: {
+            performance: { score: 0.9 },
+            accessibility: { score: 0.8 },
+            seo: { score: 0.7 },
+            'best-practices': { score: 0.95 }
+          },
+          fetchTime: new Date().toISOString() // Add fetchTime for logging consistency
+        },
+        // Include other fields if your main logic uses them from the raw report
+        analysisUTCTimestamp: new Date().toISOString()
+      }
+    };
+  } else if (url === 'http://invalid-url-that-does-not-exist-hopefully.com') {
+    const error = new Error('Simulated fetch error for non-existent URL');
+    error.status = 500; // Simulate a server error status
+    error.apiError = { code: 500, message: 'Simulated API error details' };
+    throw error;
+  } else {
+    const error = new Error(`Script Mock PSI fetch not defined for URL: ${url}`);
+    error.status = 404; // Simulate not found
+    error.apiError = { code: 404, message: 'URL not covered by script mock' };
+    throw error;
+  }
+}
+
+// Main logic of the script, now exportable and testable
+export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
+  // Global Context Logging
+  console.log("🚀 Iniciando script collect-psi...");
+  console.log(`🔧 Ambiente: NODE_ENV=${process.env.NODE_ENV || 'undefined'} | CI=${process.env.CI || 'undefined'}`);
+  console.log(`🔧 Versão do Node: ${process.version}`);
+
+  API_KEY = currentApiKey; // Update API_KEY from parameter for testability
+  if (!API_KEY) {
+    console.error('⚠️ Defina a variável de ambiente PSI_KEY');
+    process.exit(1); // This will be mocked in tests
+  }
+
+  const scriptStartTime = Date.now();
+  const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes
+
+  const isTestMode = argv.includes('--test');
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  // Create reports directory if it doesn't exist
+  if (!fs.existsSync('reports')) {
+    fs.mkdirSync('reports', { recursive: true });
+  }
+  const baseDir = __dirname; // Or resolve(__dirname, '..') if the script is in a subdirectory like 'src'
+  const inputCsvFile = isTestMode
+      ? path.resolve(baseDir, 'test_sites.csv')
+      : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
+  const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
+
+  console.log(`ℹ️ Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode.`);
+  console.log(`ℹ️ Reading URLs from: ${inputCsvFile}`);
+
+  let processingState = {};
+  try {
+    if (fs.existsSync(PROCESSING_STATE_FILE)) {
+      processingState = JSON.parse(fs.readFileSync(PROCESSING_STATE_FILE, 'utf-8'));
+      console.log(`ℹ️ Loaded processing state from ${PROCESSING_STATE_FILE}`);
+    } else {
+      console.log(`ℹ️ No processing state file found at ${PROCESSING_STATE_FILE}. Starting with a fresh state.`);
+    }
+  } catch (err) {
+    console.warn(`⚠️ Error loading or parsing ${PROCESSING_STATE_FILE}: ${err.message}. Starting with a fresh state.`);
+    processingState = {}; // Reset to empty if error
+  }
+
+  let allCsvUrls;
+  try {
+    const csv = fs.readFileSync(inputCsvFile, 'utf-8'); // fs will be mocked in tests
+    const rows = csvParse(csv, { columns: true, skip_empty_lines: true });
+    allCsvUrls = rows.map(r => r['url']).filter(u => u && u.startsWith('http'));
+
+    if (allCsvUrls.length === 0) {
+      const message = `Nenhuma URL válida (http/https) encontrada em ${inputCsvFile} na coluna 'url'.`;
+      console.warn(`⚠️ ${message}`);
+      logErrorToFile(message);
+      // Se não há URLs válidas em allCsvUrls, não há o que processar.
+      // O script vai perceber que urlsToProcess está vazio mais adiante e reportar "Nenhum resultado para gravar."
+    }
+  } catch (err) {
+    const errorMessage = `Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`;
+    console.error(`❌ ${errorMessage}`);
+    logErrorToFile(errorMessage);
+    return;
+  }
+
+  // Prioritize URLs based on processingState
+  let urlsToProcess = [];
+  if (allCsvUrls && allCsvUrls.length > 0) {
+    urlsToProcess = allCsvUrls.map(url => {
+      const stateEntry = processingState[url];
+      let lastAttemptDate = new Date(0); // Default to very old if new or no valid timestamp
+      if (stateEntry && stateEntry.last_attempt) {
+        const parsedDate = new Date(stateEntry.last_attempt);
+        if (!isNaN(parsedDate)) { // Check if the date is valid
+          lastAttemptDate = parsedDate;
+        } else {
+          console.warn(`⚠️ Invalid last_attempt date found for ${url}: "${stateEntry.last_attempt}". Treating as new/very old.`);
+        }
+      }
+      return {
+        url: url,
+        last_attempt: lastAttemptDate
+      };
+    })
+    .sort((a, b) => a.last_attempt - b.last_attempt) // Sorts by date, ascending (oldest first)
+    .map(item => item.url);
+
+    if (urlsToProcess.length > 0) {
+      console.log(`ℹ️ Prioritized ${urlsToProcess.length} URLs. Newest/oldest attempts will be processed first.`);
+      // console.log(`ℹ️ Top URLs in queue: ${urlsToProcess.slice(0, 5).join(', ')}`); // Optional: for debugging
+    }
+  }
+
+  if (urlsToProcess.length === 0) {
+    console.log('ℹ️ No URLs to process after prioritization (or CSV was empty/invalid).');
+  }
+
+  console.log(`ℹ️ Writing results to: ${outputJsonFile}`);
+
+  // Use externalFetchPSI if provided (for unit tests), otherwise choose based on mode
+  const effectiveFetchPSI = externalFetchPSI
+    ? externalFetchPSI
+    : isTestMode
+      ? (url, apiKey, fetchFn, params) => scriptMockFetchPSI(url, API_KEY, fetch, params) // Ensure mock also gets params
+      : (url, apiKey, fetchFn, params) => originalFetchPSI(url, API_KEY, fetch, params);
+
+  const limit = pLimit(4); // Concurrency limit
+  const successes = [];
+  const failures = [];
+  const activeTasks = [];
+  let processedInThisRunCount = 0; // Renamed from results to avoid confusion
+
+  urlsToProcess.forEach((url, index) => {
+    const elapsedTime = Date.now() - scriptStartTime;
+    if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
+      console.log(`ℹ️ Time limit approaching (${(elapsedTime / 60000).toFixed(2)} mins). No more URLs will be processed in this run.`);
+      return; // Exit forEach iteration if time limit reached (won't stop already queued tasks)
+    }
+
+    // Initialize or update the URL's entry in processingState and set last_attempt
+    const attemptTimestamp = new Date().toISOString();
+    if (!processingState[url]) {
+      processingState[url] = { last_attempt: attemptTimestamp, last_success: null };
+    } else {
+      processingState[url].last_attempt = attemptTimestamp;
+    }
+
+    activeTasks.push(
+      limit(async () => {
+        console.log(`▶️ [${index + 1}/${urlsToProcess.length}] Iniciando análise para ${url} — ${new Date().toISOString()}`);
+        const psiParams = { strategy: 'mobile' /* add other relevant params like locale if used */ };
+        console.log(`   • Parâmetros: strategy=${psiParams.strategy}`);
+
+        try {
+          const responseData = await effectiveFetchPSI(url, API_KEY, fetch, psiParams);
+
+          const fetchTime = responseData.json.lighthouseResult?.fetchTime || responseData.json.analysisUTCTimestamp || 'N/A';
+          console.log(`✅ Sucesso: ${url} — HTTP ${responseData.status} — tempo total: ${fetchTime}`);
+
+          const slug = url.replace(/https?:\/\//, '').replace(/[\/.:?&=%]/g, '_');
+          const reportPath = `reports/pagespeed-${slug}.json`;
+          fs.writeFileSync(reportPath, JSON.stringify(responseData.json, null, 2));
+          console.log(`   • Relatório salvo em: ${reportPath}`);
+
+          // Extract key data for successes (similar to old 'results' array but from new response structure)
+          const cat = responseData.json.lighthouseResult?.categories;
+          if (cat) {
+            successes.push({
+              url,
+              performance: cat.performance?.score ?? null,
+              accessibility: cat.accessibility?.score ?? null,
+              seo: cat.seo?.score ?? null,
+              bestPractices: cat['best-practices']?.score ?? null,
+              timestamp: new Date().toISOString()
+            });
+          } else {
+            // Should not happen if PSI API call was successful and returned valid JSON
+            console.warn(`⚠️ Missing categories in PSI result for ${url}. Raw report saved.`);
+            successes.push({ url, timestamp: new Date().toISOString(), warning: "Missing category scores" });
+          }
+
+          processedInThisRunCount++;
+          processingState[url].last_success = new Date().toISOString();
+
+        } catch (err) {
+          console.error(`❌ Falha: ${url} — ${new Date().toISOString()}`);
+          console.error(`   • Mensagem: ${err.message}`);
+          if (err.stack) {
+            const trechoStack = err.stack.split('\n').slice(0, 3).join(' | ');
+            console.error(`   • Stack (top 3): ${trechoStack}`);
+          }
+          if (err.status) { // HTTP status from our custom error in originalFetchPSI
+            console.error(`   • HTTP status: ${err.status}`);
+          }
+          if (err.apiError) { // Custom field for Google API error details
+            console.error(`   • Erro API Google (code ${err.apiError.code}): ${err.apiError.message}`);
+          }
+          failures.push({ url, reason: err.message, status: err.status, apiErrorCode: err.apiError?.code });
+          logErrorToFile(`Error for URL ${url}: ${err.message}${err.status ? ` (HTTP ${err.status})` : ''}${err.apiError ? ` (API Code: ${err.apiError.code} - ${err.apiError.message})` : ''}`);
+        }
+      })
+    );
+  });
+
+  console.log(`ℹ️ Waiting for ${activeTasks.length} active PSI tasks to complete...`);
+  await Promise.all(activeTasks);
+  console.log(`ℹ️ All active PSI tasks finished.`);
+
+  // --- Comprehensive Final Summary ---
+  console.log("\n🔔 ===================== RESUMO GERAL =====================");
+  console.log(`📈 Total de URLs na lista de entrada (CSV): ${allCsvUrls.length}`);
+  console.log(`🔩 Total de URLs efetivamente processadas (após priorização e timeout): ${activeTasks.length}`);
+  // processedInThisRunCount reflects successful PSI API calls, successes.length is after data extraction
+  console.log(`👍 Sucessos (dados extraídos e salvos): ${successes.length}`);
+  console.log(`👎 Falhas (erros durante a tentativa): ${failures.length}`);
+
+  if (failures.length > 0) {
+    console.log("   --- Detalhes das URLs com falha ---");
+    failures.forEach(f => {
+      let detail = `     – ${f.url} → Motivo: ${f.reason}`;
+      if (f.status) detail += ` (HTTP ${f.status})`;
+      if (f.apiErrorCode) detail += ` (API Code: ${f.apiErrorCode})`;
+      console.log(detail);
+    });
+    console.log("   -----------------------------------");
+  }
+  console.log("🔔 =======================================================\n");
+
+  // Save the updated processingState
+  saveProcessingState(processingState, PROCESSING_STATE_FILE);
+
+  // Save overall results (scores from successful fetches)
+  // This replaces the old 'results' array saving logic
+  if (successes.length > 0) {
+    const outDir = path.dirname(outputJsonFile); // Use path.dirname for outputJsonFile
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+    fs.writeFileSync(
+      outputJsonFile,
+      JSON.stringify(successes, null, 2)
+    );
+    console.log(`💾 Gravados ${successes.length} resultados de sucesso em ${outputJsonFile}`);
+  } else {
+    console.log('ℹ️ Nenhum resultado de sucesso para gravar.');
+  }
+}
+
+// This allows the script to still be run directly using `node collect-psi.js`
+if (process.argv[1] && process.argv[1].endsWith('collect-psi.js')) {
+  (async () => {
+    await runMainLogic(process.argv, process.env.PSI_KEY);
+  })();
+}
+
+================
+File: README.md
+================
+# Auditoria de Sites de Prefeituras Brasileiras com PageSpeed Insights
+
+## Overview/Purpose
+
+This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection, including metrics for performance, accessibility, SEO, and best practices, with controlled parallelism. The results are processed and can be used to assess the current state of these public portals.
+
+This project was elaborated as part of a Master's dissertation research focusing on evaluating the transparency and accessibility of municipal websites.
+
+## Master's Dissertation
+
+This repository and its findings are a result of academic research developed during a Master's program. The related publications are:
+
+```
+@article{silveira2023using,
+  title={USING AUTOMATED ACCESSIBILITY METERING TOOLS IN TRANSPARENCY RANKINGS IN BRAZIL.},
+  author={Silveira Baldo, Franklin and Veludo Watanabe, Carolina Yukari and Ton Tiussi, Denise},
+  journal={Direito da Cidade},
+  volume={15},
+  number={3},
+  year={2023}
+}
+
+@article{baldo2019acessibilidade,
+  title={Acessibilidade web para indicadores de transpar{\^e}ncia},
+  author={Baldo, Franklin Silveira},
+  year={2019}
+}
+```
+
+## How it Works
+
+The project uses a combination of a data file, a GitHub Action, and a Node.js script to collect and present data from the PageSpeed Insights API.
+
+### Data Source
+
+The primary list of websites to be audited is sourced from the `sites_das_prefeituras_brasileiras.csv` file located in the root of this repository. This CSV file should contain information such as the city name, state (UF), IBGE code, and the official URL of the city's website.
+
+### GitHub Action Workflow
+
+A GitHub Action, defined in `.github/workflows/psi.yml`, automates the data collection process. This workflow:
+- Runs on a schedule (currently configured for daily at 3 AM UTC).
+- Can also be triggered manually via the GitHub Actions tab.
+
+The main steps performed by the workflow are:
+1.  **Checkout Repository:** Checks out the latest version of the repository.
+2.  **Set up Node.js:** Configures the environment with Node.js (currently v18).
+3.  **Install Dependencies:** Installs the necessary Node.js packages defined in `package.json` using `npm ci`.
+4.  **Run PSI Data Collection Script:** Executes the `collect-psi.js` script.
+5.  **Error Handling and Reporting:**
+    *   If the `collect-psi.js` script encounters errors during its run (e.g., unable to fetch PSI data for a specific URL, network issues, 404 errors from target sites), these errors are logged into a file named `psi_errors.log`.
+    *   If `psi_errors.log` is generated and contains errors, the workflow will:
+        *   Create a `TODO.md` file at the root of the repository. This file includes the contents of `psi_errors.log`, a timestamp of when the errors were logged, and a direct link to the specific GitHub Actions workflow run that detected them.
+        *   Commit this `TODO.md` file to a dedicated branch named `psi-error-reports`.
+    *   This error reporting mechanism allows for tracking and manual review of URLs or issues that consistently fail. It helps in identifying outdated URLs or other problems that need investigation, without halting the entire data collection process.
+6.  **Commit Results:** Successfully collected PSI data points are compiled into `data/psi-results.json`. This file is automatically committed back to the main branch of the repository, ensuring that results are version-controlled and reflect the latest successful audits, even if some URLs encountered errors.
+
+### Data Collection Script (`collect-psi.js`)
+
+This Node.js script is the core of the data collection process. It performs the following actions:
+- Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
+- For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
+- It manages the API requests with controlled parallelism (currently up to 4 simultaneous requests) to avoid rate limiting and efficiently process the URLs.
+- The script collects the following key metrics for the mobile strategy:
+    - Performance score
+    - Accessibility score
+    - SEO score
+    - Best Practices score
+- The results, along with the URL and a timestamp, are compiled into a JSON array and saved to the `data/psi-results.json` file.
+
+### Results Storage
+
+The audit findings are stored in `data/psi-results.json`. Each entry in this JSON file represents the audit result for a specific municipality and includes:
+- `url`: The audited URL.
+- `performance`: The PSI Performance score (0-1).
+- `accessibility`: The PSI Accessibility score (0-1).
+- `seo`: The PSI SEO score (0-1).
+- `bestPractices`: The PSI Best Practices score (0-1).
+- `timestamp`: The date and time when the audit was performed.
+
+## Viewing the Results
+
+The collected data is stored in `data/psi-results.json`. The `index.html` file at the root of this repository loads this data and presents it in a table, allowing for exploration of the findings.
+
+**The live site can be accessed at: [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/)**
+
+To enable GitHub Pages for this repository if it's not already active, or if you've forked this repository:
+
+1.  Go to your repository's **Settings** tab on GitHub.
+2.  In the left sidebar, navigate to the **Pages** section.
+3.  Under the "Build and deployment" heading:
+    *   For **Source**, select **Deploy from a branch**.
+    *   Under **Branch**, select your main branch (e.g., `main`, `master`) and choose the `/(root)` folder.
+4.  Click **Save**.
+
+It might take a few minutes for the site to build and become live.
+
+## Current Limitations & Future Work
+
+-   **Error Handling & Reporting:** The script logs errors encountered during URL processing to `psi_errors.log`. The GitHub workflow then processes this log to create a `TODO.md` on the `psi-error-reports` branch for review (as described above). While individual errors are reported, more sophisticated in-script retry mechanisms with backoff for transient network issues could still be beneficial.
+-   **Data Visualization:** The current presentation of results in a table via `index.html` can be further enhanced with sorting, filtering, charts, or graphs.
+-   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track scores over time could be a valuable addition.
+-   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated.
+
+## Contributing
+
+Contributions are welcome! Here are a few ways you can help:
+
+-   **Updating the Website List:** If you find inaccuracies in `sites_das_prefeituras_brasileiras.csv` or want to add new official municipal websites, please feel free to submit a pull request with your changes.
+-   **Improving Scripts & Workflow:** Enhancements to the `collect-psi.js` script, the GitHub Actions workflow, or the `index.html` presentation are welcome.
+-   **Bug Fixes & Feature Requests:** If you encounter any issues or have ideas for new features, please open an issue on GitHub.
+
+When contributing, please ensure your changes are well-tested and follow the general coding style of the project.
+
+================
+File: index.html
+================
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
+        <nav class="header-nav">
+            <a href="about.html">Saiba mais sobre o projeto</a>
+        </nav>
+    </header>
+
+    <section id="project-description">
+        <p>Este projeto visualiza dados de acessibilidade dos sites das prefeituras do Brasil. Navegue pelo mapa para explorar os dados e clique nas áreas para obter mais informações.</p>
+    </section>
+
+    <main>
+        <div id="table-container">
+            <table id="psi-results-table">
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Performance</th>
+                        <th>Accessibility</th>
+                        <th>SEO</th>
+                        <th>Best Practices</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated by js/main.js -->
+                </tbody>
+            </table>
+        </div>
+        <div id="controls-container">
+            <button id="export-data-btn">Exportar Dados</button>
+        </div>
+    </main>
+
+    <script src="js/data-processor.js"></script>
+    <script src="js/main.js"></script>
+    <footer>
+    <p class="footer-copyright">© 2024 Mapa de Acessibilidade Brasil. Todos os direitos reservados.</p>
+    <div class="footer-links">
+        <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a>
+        <span class="footer-link-separator">|</span>
+        <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a>
+        <span class="footer-link-separator">|</span>
+        <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
+    </div>
+    </footer>
+</body>
+</html>
+
+
+
+
+================================================================
+End of Codebase
+================================================================
