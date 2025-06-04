@@ -1,0 +1,515 @@
+[
+  {
+    "url": "http://www.laje.ba.io.org.br",
+    "performance": 1,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:40.393Z",
+    "ibge_code": "2918902"
+  },
+  {
+    "url": "http://www.lajedodotabocal.ba.io.org.br",
+    "performance": 1,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:40.478Z",
+    "ibge_code": "2918753"
+  },
+  {
+    "url": "http://santabarbara.go.gov.br",
+    "performance": 1,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:41.475Z",
+    "ibge_code": "5219100"
+  },
+  {
+    "url": "https://www.pjf.mg.gov.br",
+    "performance": 1,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:43.917Z",
+    "ibge_code": "3136702"
+  },
+  {
+    "url": "https://gameleiradegoias.go.gov.br",
+    "performance": 0.58,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:44.134Z",
+    "ibge_code": "5208152"
+  },
+  {
+    "url": "https://jequitinhonha.mg.gov.br",
+    "performance": 0.98,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:45.059Z",
+    "ibge_code": "3135803"
+  },
+  {
+    "url": "http://www.joaodourado.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:46.350Z",
+    "ibge_code": "2918357"
+  },
+  {
+    "url": "http://www.coqueiroseco.al.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:46.560Z",
+    "ibge_code": "2702207"
+  },
+  {
+    "url": "https://flexeiras.al.gov.br",
+    "performance": 0.75,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:46.677Z",
+    "ibge_code": "2702801"
+  },
+  {
+    "url": "https://formoso.go.gov.br",
+    "performance": 0.95,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:46.721Z",
+    "ibge_code": "5208103"
+  },
+  {
+    "url": "https://belomonte.al.gov.br",
+    "performance": 0.67,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:47.192Z",
+    "ibge_code": "2700904"
+  },
+  {
+    "url": "https://porteirao.go.gov.br",
+    "performance": 0.62,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:48.089Z",
+    "ibge_code": "5218052"
+  },
+  {
+    "url": "https://campinacu.go.gov.br",
+    "performance": 0.6,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:48.135Z",
+    "ibge_code": "5204656"
+  },
+  {
+    "url": "http://www.branquinha.al.gov.br",
+    "performance": 0.73,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:49.083Z",
+    "ibge_code": "2701100"
+  },
+  {
+    "url": "https://carmodorioverde.go.gov.br",
+    "performance": 0.58,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:50.011Z",
+    "ibge_code": "5205000"
+  },
+  {
+    "url": "https://atalaia.al.gov.br",
+    "performance": 0.66,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:50.018Z",
+    "ibge_code": "2700409"
+  },
+  {
+    "url": "https://barradesantoantonio.al.gov.br",
+    "performance": 0.57,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:50.368Z",
+    "ibge_code": "2700508"
+  },
+  {
+    "url": "http://professorjamil.go.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:50.935Z",
+    "ibge_code": "5218391"
+  },
+  {
+    "url": "http://chapadaodoceu.go.gov.br",
+    "performance": 0.66,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:50.947Z",
+    "ibge_code": "5205471"
+  },
+  {
+    "url": "https://malhada.ba.gov.br",
+    "performance": 0.65,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:51.056Z",
+    "ibge_code": "2920205"
+  },
+  {
+    "url": "https://cristalina.go.gov.br",
+    "performance": 0.55,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:51.388Z",
+    "ibge_code": "5206206"
+  },
+  {
+    "url": "https://varjao.go.gov.br",
+    "performance": 0.61,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:52.159Z",
+    "ibge_code": "5221908"
+  },
+  {
+    "url": "http://icatu.ma.gov.br",
+    "performance": 0.62,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:52.437Z",
+    "ibge_code": "2105104"
+  },
+  {
+    "url": "https://formosa.go.gov.br",
+    "performance": 0.44,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:53.060Z",
+    "ibge_code": "5208004"
+  },
+  {
+    "url": "https://nepomuceno.mg.gov.br",
+    "performance": 0.59,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:53.164Z",
+    "ibge_code": "3144607"
+  },
+  {
+    "url": "http://novoorientedeminas.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:53.540Z",
+    "ibge_code": "3145356"
+  },
+  {
+    "url": "http://www.santatereza.go.gov.br",
+    "performance": 0.58,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:53.898Z",
+    "ibge_code": "5219605"
+  },
+  {
+    "url": "https://uirapuru.go.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:55.098Z",
+    "ibge_code": "5221577"
+  },
+  {
+    "url": "http://arapiraca.al.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:55.360Z",
+    "ibge_code": "2700300"
+  },
+  {
+    "url": "http://www.edeia.go.gov.br",
+    "performance": 0.39,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:55.725Z",
+    "ibge_code": "5207402"
+  },
+  {
+    "url": "https://corregodoouro.go.gov.br",
+    "performance": 0.57,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:55.789Z",
+    "ibge_code": "5205703"
+  },
+  {
+    "url": "https://galileia.mg.gov.br",
+    "performance": 0.44,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:56.128Z",
+    "ibge_code": "3127305"
+  },
+  {
+    "url": "https://teresinadegoias.go.gov.br",
+    "performance": 0.49,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:56.511Z",
+    "ibge_code": "5221080"
+  },
+  {
+    "url": "https://lagoareal.ba.gov.br",
+    "performance": 0.41,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:56.682Z",
+    "ibge_code": "2918803"
+  },
+  {
+    "url": "http://www.jitauna.ba.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:26:59.928Z",
+    "ibge_code": "2918308"
+  },
+  {
+    "url": "http://castelandia.go.gov.br",
+    "performance": 0.55,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:00.053Z",
+    "ibge_code": "5205059"
+  },
+  {
+    "url": "https://campoalegre.al.gov.br",
+    "performance": 0.34,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:00.498Z",
+    "ibge_code": "2701407"
+  },
+  {
+    "url": "https://lajedao.ba.gov.br",
+    "performance": 0.72,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:00.553Z",
+    "ibge_code": "2919009"
+  },
+  {
+    "url": "https://placidodecastro.ac.gov.br",
+    "performance": 0.49,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:01.364Z",
+    "ibge_code": "1200385"
+  },
+  {
+    "url": "http://macaubas.ba.gov.br",
+    "performance": 0.43,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:01.974Z",
+    "ibge_code": "2919801"
+  },
+  {
+    "url": "https://leandroferreira.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:02.233Z",
+    "ibge_code": "3138302"
+  },
+  {
+    "url": "https://joaopinheiro.mg.gov.br",
+    "performance": 0.48,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:02.486Z",
+    "ibge_code": "3136306"
+  },
+  {
+    "url": "https://luiseduardomagalhaes.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:03.049Z",
+    "ibge_code": "2919553"
+  },
+  {
+    "url": "https://xapuri.ac.gov.br",
+    "performance": 0.47,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:04.136Z",
+    "ibge_code": "1200708"
+  },
+  {
+    "url": "https://brasileia.ac.gov.br",
+    "performance": 0.44,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:04.366Z",
+    "ibge_code": "1200104"
+  },
+  {
+    "url": "http://jordao.ac.gov.br",
+    "performance": 0.53,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:04.470Z",
+    "ibge_code": "1200328"
+  },
+  {
+    "url": "https://assisbrasil.ac.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:05.069Z",
+    "ibge_code": "1200054"
+  },
+  {
+    "url": "http://carvalhos.mg.gov.br",
+    "performance": 0.53,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:06.292Z",
+    "ibge_code": "3114808"
+  },
+  {
+    "url": "https://campestre.al.gov.br",
+    "performance": 0.37,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:06.708Z",
+    "ibge_code": "2701357"
+  },
+  {
+    "url": "https://cruzeirodosul.ac.gov.br",
+    "performance": 0.43,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:07.417Z",
+    "ibge_code": "1200203"
+  },
+  {
+    "url": "http://lagoadomato.ma.gov.br",
+    "performance": 0.1,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:08.901Z",
+    "ibge_code": "2105922"
+  },
+  {
+    "url": "https://epitaciolandia.ac.gov.br",
+    "performance": 0.55,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:10.357Z",
+    "ibge_code": "1200252"
+  },
+  {
+    "url": "http://www.batalha.al.gov.br",
+    "performance": 0.24,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:11.809Z",
+    "ibge_code": "2700706"
+  },
+  {
+    "url": "http://www.parademinas.mg.gov.br",
+    "performance": 0.32,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:11.851Z",
+    "ibge_code": "3147105"
+  },
+  {
+    "url": "http://coruripe.al.gov.br",
+    "performance": 0.42,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:13.938Z",
+    "ibge_code": "2702306"
+  },
+  {
+    "url": "https://tarauaca.ac.gov.br",
+    "performance": 0.42,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:15.238Z",
+    "ibge_code": "1200609"
+  },
+  {
+    "url": "https://belem.al.gov.br",
+    "performance": 0.39,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-04T19:27:16.933Z",
+    "ibge_code": "2700805"
+  }
+]
