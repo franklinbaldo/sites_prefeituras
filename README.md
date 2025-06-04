@@ -59,7 +59,7 @@ The main steps performed by the workflow are:
 This Node.js script is the core of the data collection process. It performs the following actions:
 - Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
 - For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
- - It manages the API requests with controlled parallelism. The concurrency defaults to 4 simultaneous requests but can be adjusted via the `PSI_CONCURRENCY` environment variable or a `--concurrency=<n>` CLI flag. The production GitHub Actions workflow sets `PSI_CONCURRENCY=100` to process many audits in parallel.
+ - It manages the API requests with controlled parallelism. The concurrency defaults to 4 simultaneous requests but can be adjusted via the `PSI_CONCURRENCY` environment variable or a `--concurrency=<n>` CLI flag. The production GitHub Actions workflow sets `PSI_CONCURRENCY=100` to process many audits in parallel. When the PSI API responds with a `Rate limit` error, the script automatically retries using an exponential backoff. The retry behavior can be tuned with `PSI_MAX_RETRIES` (default `2`) and `PSI_RETRY_DELAY_MS` (default `1000`).
 - The script collects the following key metrics for the mobile strategy:
     - Performance score
     - Accessibility score
