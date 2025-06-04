@@ -24,7 +24,7 @@ jobs:
       - name: Coletar dados PSI
         timeout-minutes: 10
         env:
-          PSI_CONCURRENCY: 8
+          PSI_CONCURRENCY: 10
           PSI_MAX_RETRIES: 2
           PSI_RETRY_DELAY_MS: 1000
           PSI_REQUESTS_PER_MIN: 60

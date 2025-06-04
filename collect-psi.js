@@ -4,6 +4,7 @@ import path, { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import pLimit from 'p-limit';
+import pThrottle from 'p-throttle';
 import { parse as csvParse } from 'csv-parse/sync';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
@@ -260,11 +261,15 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const limit = pLimit(concurrency); // Concurrency limit, default 4
   const maxRetries = parseInt(process.env.PSI_MAX_RETRIES || '2', 10);
   const retryDelay = parseInt(process.env.PSI_RETRY_DELAY_MS || '1000', 10);
+  const requestsPerMin = parseInt(process.env.PSI_REQUESTS_PER_MIN || '60', 10);
+  const throttledFetch = pThrottle({ limit: requestsPerMin, interval: 60_000 })(
+    (url) => fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay)
+  );
   const results = []; // To store PSI scores of successfully processed URLs in this run
   const activeTasks = []; // To store promises of tasks added to p-limit
   let processedInThisRunCount = 0;
 
-  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${concurrency}.`, 'mainLoop');
+  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${concurrency} and rate ${requestsPerMin}/min.`, 'mainLoop');
   for (const url of urlsToProcess) {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
@@ -283,7 +288,7 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     activeTasks.push(
       limit(async () => {
         try {
-          const data = await fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay);
+          const data = await throttledFetch(url);
           logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
           results.push({ ...data, ibge_code: urlToIbge[url] });
           processedInThisRunCount++;
