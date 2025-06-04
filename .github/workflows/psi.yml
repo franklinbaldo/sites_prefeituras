@@ -25,6 +25,8 @@ jobs:
         timeout-minutes: 10
         env:
           PSI_CONCURRENCY: 100
+          PSI_MAX_RETRIES: 2
+          PSI_RETRY_DELAY_MS: 1000
         run: node collect-psi.js
 
       - name: Handle PSI Collection Errors

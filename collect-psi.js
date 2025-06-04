@@ -122,6 +122,23 @@ async function scriptMockFetchPSI(url) {
   }
 }
 
+// Wrapper to retry PSI fetches on rate limit errors
+async function fetchPSIWithRetry(url, fetchFn, maxRetries = 2, baseDelay = 1000) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fetchFn(url);
+    } catch (err) {
+      if (err.message === 'Rate limit' && attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt);
+        logMessage('WARNING', `Rate limit for ${url}. Retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`, 'retry');
+        await new Promise(res => setTimeout(res, delay));
+      } else {
+        throw err;
+      }
+    }
+  }
+}
+
 // Main logic of the script, now exportable and testable
 export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   logMessage('INFO', 'PSI data collection script started.', 'main');
@@ -241,6 +258,8 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     ? parseInt(concurrencyArg.split('=')[1], 10)
     : parseInt(process.env.PSI_CONCURRENCY || '4', 10);
   const limit = pLimit(concurrency); // Concurrency limit, default 4
+  const maxRetries = parseInt(process.env.PSI_MAX_RETRIES || '2', 10);
+  const retryDelay = parseInt(process.env.PSI_RETRY_DELAY_MS || '1000', 10);
   const results = []; // To store PSI scores of successfully processed URLs in this run
   const activeTasks = []; // To store promises of tasks added to p-limit
   let processedInThisRunCount = 0;
@@ -264,7 +283,7 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     activeTasks.push(
       limit(async () => {
         try {
-          const data = await fetchPSI(url); // fetchPSI is the actual PSI fetching function
+          const data = await fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay);
           logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
           results.push({ ...data, ibge_code: urlToIbge[url] });
           processedInThisRunCount++;
