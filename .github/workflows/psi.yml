@@ -22,7 +22,9 @@ jobs:
         run: npm ci
 
       - name: Coletar dados PSI
-        timeout-minutes: 10 
+        timeout-minutes: 10
+        env:
+          PSI_CONCURRENCY: 100
         run: node collect-psi.js
 
       - name: Handle PSI Collection Errors
@@ -94,7 +96,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             # Added data/psi_processing_state.json from fix/psi-commit-error
-            git add data/psi-results.json data/psi_processing_state.json
+            git add data/psi-results.json data/psi-results.csv data/psi_processing_state.json
             # Only commit if there are changes
             if ! git diff --staged --quiet; then
               # Updated commit message from fix/psi-commit-error

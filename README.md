@@ -2,7 +2,7 @@
 
 ## Overview/Purpose
 
-This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection, including metrics for performance, accessibility, SEO, and best practices, with controlled parallelism. The results are processed and can be used to assess the current state of these public portals.
+This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection, including metrics for performance, accessibility, SEO, and best practices, with controlled parallelism (configurable). The results are processed and can be used to assess the current state of these public portals.
 
 This project was elaborated as part of a Master's dissertation research focusing on evaluating the transparency and accessibility of municipal websites.
 
@@ -52,24 +52,24 @@ The main steps performed by the workflow are:
         *   Create a `TODO.md` file at the root of the repository. This file includes the contents of `psi_errors.log`, a timestamp of when the errors were logged, and a direct link to the specific GitHub Actions workflow run that detected them.
         *   Commit this `TODO.md` file to a dedicated branch named `psi-error-reports`.
     *   This error reporting mechanism allows for tracking and manual review of URLs or issues that consistently fail. It helps in identifying outdated URLs or other problems that need investigation, without halting the entire data collection process.
-6.  **Commit Results:** Successfully collected PSI data points are compiled into `data/psi-results.json`. This file is automatically committed back to the main branch of the repository, ensuring that results are version-controlled and reflect the latest successful audits, even if some URLs encountered errors.
+6.  **Commit Results:** Successfully collected PSI data points are compiled into `data/psi-results.json` and a historical `data/psi-results.csv`. Both files are automatically committed back to the main branch, ensuring that results are version-controlled and reflect the latest successful audits, even if some URLs encountered errors.
 
 ### Data Collection Script (`collect-psi.js`)
 
 This Node.js script is the core of the data collection process. It performs the following actions:
 - Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
 - For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
-- It manages the API requests with controlled parallelism (currently up to 4 simultaneous requests) to avoid rate limiting and efficiently process the URLs.
+ - It manages the API requests with controlled parallelism. The concurrency defaults to 4 simultaneous requests but can be adjusted via the `PSI_CONCURRENCY` environment variable or a `--concurrency=<n>` CLI flag. The production GitHub Actions workflow sets `PSI_CONCURRENCY=100` to process many audits in parallel.
 - The script collects the following key metrics for the mobile strategy:
     - Performance score
     - Accessibility score
     - SEO score
     - Best Practices score
-- The results, along with the URL and a timestamp, are compiled into a JSON array and saved to the `data/psi-results.json` file.
+ - The results, along with the URL, IBGE code and a timestamp, are compiled into a JSON array (`data/psi-results.json`) and also appended to `data/psi-results.csv` for historical tracking.
 
 ### Results Storage
 
-The audit findings are stored in `data/psi-results.json`. Each entry in this JSON file represents the audit result for a specific municipality and includes:
+The audit findings are stored in `data/psi-results.json` and mirrored in `data/psi-results.csv`. Each entry represents the audit result for a specific municipality and includes:
 - `url`: The audited URL.
 - `performance`: The PSI Performance score (0-1).
 - `accessibility`: The PSI Accessibility score (0-1).

@@ -41,6 +41,12 @@ jobs:
             echo "data/test-psi-results.json not found!"
             exit 1
           fi
+          if [ -f "data/test-psi-results.csv" ]; then
+            echo "data/test-psi-results.csv found."
+          else
+            echo "data/test-psi-results.csv not found!"
+            exit 1
+          fi
 
       - name: Verify test output file content (array length)
         run: |
@@ -95,4 +101,10 @@ jobs:
             exit 1
           else
             echo "Production file data/psi-results.json was not created, as expected."
+          fi
+          if [ -f "data/psi-results.csv" ]; then
+            echo "Error: Production file data/psi-results.csv was created during test mode!"
+            exit 1
+          else
+            echo "Production file data/psi-results.csv was not created, as expected."
           fi
