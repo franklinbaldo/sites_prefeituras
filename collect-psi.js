@@ -85,14 +85,21 @@ export async function originalFetchPSI(url, apiKey, fetchFn) {
     throw new Error('Rate limit');
   }
   const json = await res.json();
-  const cat = json.lighthouseResult.categories;
+
+  // Validate the PSI response structure to avoid undefined errors
+  const cat = json?.lighthouseResult?.categories;
+  if (!cat) {
+    const errorMsg = json?.error?.message || 'Invalid PSI response';
+    throw new Error(errorMsg);
+  }
+
   return {
     url,
-    performance: cat.performance.score,
-    accessibility: cat.accessibility.score,
-    seo: cat.seo.score,
+    performance: cat.performance?.score ?? null,
+    accessibility: cat.accessibility?.score ?? null,
+    seo: cat.seo?.score ?? null,
     bestPractices: cat['best-practices']?.score ?? null,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 }
 
