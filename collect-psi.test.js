@@ -107,16 +107,17 @@ describe('collect-psi.js', () => {
       process.env.PSI_KEY = 'fake-key'; // Needs to be set to pass initial check
     });
 
-    it('should read from test_sites.csv and write to data/test-psi-results.json', async () => {
+    it('should read from test_sites.csv and write to data/test-psi-results.json and CSV', async () => {
       mockExternalFetchPSI.mockImplementation(async (url) => ({ ...mockPsiSuccessResult, url }));
       fs.readFileSync.mockReturnValue(testCsvContent); // Ensure test_sites.csv is "read"
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.readFileSync).toHaveBeenCalledWith('test_sites.csv', 'utf-8');
+      expect(fs.readFileSync).toHaveBeenCalledWith(path.resolve('test_sites.csv'), 'utf-8');
       expect(fs.writeFileSync).toHaveBeenCalled();
-      const writeArgs = fs.writeFileSync.mock.calls[0];
-      expect(writeArgs[0]).toBe('data/test-psi-results.json'); // Output file path
+      const jsonCall = fs.writeFileSync.mock.calls.find(call => call[0] === 'data/test-psi-results.json');
+      expect(jsonCall).toBeDefined();
+      expect(fs.appendFileSync).toHaveBeenCalled();
       // More detailed checks on content written can be added here
     });
 
@@ -146,14 +147,15 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
-      const writtenData = JSON.parse(fs.writeFileSync.mock.calls[0][1]);
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(3);
+      const jsonCall = fs.writeFileSync.mock.calls.find(call => call[0] === 'data/test-psi-results.json');
+      const writtenData = JSON.parse(jsonCall[1]);
       expect(writtenData.length).toBe(2);
       expect(writtenData[0].url).toBe('http://example.com');
       expect(writtenData[1].url).toBe('http://another-example.com');
       expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://example.com → 0.9');
       expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://another-example.com → 0.9');
-      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [saveResults] Saved 2 new results to data/test-psi-results.json');
+      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Saved 2 new results'))).toBe(true);
     });
 
     it('should correctly handle errors from fetchPSI and log them', async () => {
@@ -167,12 +169,13 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(1); // example.com and another-example.com should still succeed
-      const writtenData = JSON.parse(fs.writeFileSync.mock.calls[0][1]);
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(3); // JSON, CSV, and state files should be written
+      const jsonCallError = fs.writeFileSync.mock.calls.find(call => call[0] === 'data/test-psi-results.json');
+      const writtenData = JSON.parse(jsonCallError[1]);
       expect(writtenData.length).toBe(2); // Only successful results are saved
       // Note: The original code logged to console.warn. logMessage('ERROR', ...) logs to console.error.
       expect(consoleErrorSpy).toHaveBeenCalledWith('[ERROR] [fetchPSI] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL');
-      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [saveResults] Saved 2 new results to data/test-psi-results.json');
+      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Saved 2 new results'))).toBe(true);
     });
 
     it('should create data directory if it does not exist', async () => {
@@ -203,7 +206,7 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [init] Running in TEST mode. Input: test_sites.csv, Output: data/test-psi-results.json');
+      expect(consoleLogSpy).toHaveBeenCalledWith(`[INFO] [init] Running in TEST mode. Input: ${path.resolve('test_sites.csv')}, Output: data/test-psi-results.json, CSV: data/test-psi-results.csv`);
       // The specific "Reading URLs from..." and "Writing results to..." are now part of the above consolidated log.
       // We can remove the more specific assertions if the consolidated one is sufficient.
       // For example, we might still want to assert general script flow logs if deemed critical for a test.

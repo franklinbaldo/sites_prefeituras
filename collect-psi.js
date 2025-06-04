@@ -137,15 +137,14 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes
 
   const isTestMode = argv.includes('--test');
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const baseDir = __dirname; // Or resolve(__dirname, '..') if the script is in a subdirectory like 'src'
+  const baseDir = process.cwd();
   const inputCsvFile = isTestMode
       ? path.resolve(baseDir, 'test_sites.csv')
       : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
   const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
+  const outputCsvFile = isTestMode ? 'data/test-psi-results.csv' : 'data/psi-results.csv';
 
-  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output: ${outputJsonFile}`, 'init');
+  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output: ${outputJsonFile}, CSV: ${outputCsvFile}`, 'init');
 
   let processingState = {};
   try {
@@ -161,10 +160,27 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   }
 
   let allCsvUrls;
+  let urlToIbge = {};
   try {
     const csv = fs.readFileSync(inputCsvFile, 'utf-8'); // fs will be mocked in tests
     const rows = csvParse(csv, { columns: true, skip_empty_lines: true });
-    allCsvUrls = rows.map(r => r['url']).filter(u => u && u.startsWith('http'));
+
+    const sample = rows[0] || {};
+    let urlField = Object.keys(sample).find(k => k.toLowerCase().includes('url'));
+    if (!urlField) {
+      urlField = Object.keys(sample).find(k => k.toLowerCase().includes('endere'));
+    }
+    const ibgeField = Object.keys(sample).find(k => k.toLowerCase().includes('ibge'));
+
+    allCsvUrls = [];
+    for (const row of rows) {
+      const url = row[urlField];
+      const ibge = row[ibgeField];
+      if (url && url.startsWith('http')) {
+        allCsvUrls.push(url);
+        urlToIbge[url] = ibge;
+      }
+    }
     logMessage('INFO', `Loaded ${allCsvUrls.length} URLs from ${inputCsvFile} after initial filter.`, 'readCsvFile');
 
     if (allCsvUrls.length === 0) {
@@ -220,12 +236,16 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       ? scriptMockFetchPSI
       : (url) => originalFetchPSI(url, API_KEY, fetch); // Pass API_KEY and global fetch
 
-  const limit = pLimit(4); // Concurrency limit
+  const concurrencyArg = argv.find(arg => arg.startsWith('--concurrency='));
+  const concurrency = concurrencyArg
+    ? parseInt(concurrencyArg.split('=')[1], 10)
+    : parseInt(process.env.PSI_CONCURRENCY || '4', 10);
+  const limit = pLimit(concurrency); // Concurrency limit, default 4
   const results = []; // To store PSI scores of successfully processed URLs in this run
   const activeTasks = []; // To store promises of tasks added to p-limit
   let processedInThisRunCount = 0;
 
-  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${limit.concurrency}.`, 'mainLoop');
+  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${concurrency}.`, 'mainLoop');
   for (const url of urlsToProcess) {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
@@ -246,7 +266,7 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
         try {
           const data = await fetchPSI(url); // fetchPSI is the actual PSI fetching function
           logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
-          results.push(data);
+          results.push({ ...data, ibge_code: urlToIbge[url] });
           processedInThisRunCount++;
           // Update last_success on successful fetch
           processingState[url].last_success = new Date().toISOString();
@@ -272,11 +292,20 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   if (results.length > 0) {
     const outDir = path.resolve('data');
     if (!fs.existsSync(outDir)) fs.mkdirSync(outDir); // fs will be mocked
-    fs.writeFileSync( // fs will be mocked
+    fs.writeFileSync(
       outputJsonFile,
       JSON.stringify(results, null, 2)
     );
-    logMessage('INFO', `Saved ${results.length} new results to ${outputJsonFile}.`, 'saveResults');
+
+    const csvHeader = 'timestamp,url,ibge_code,performance,accessibility,seo,bestPractices';
+    const csvLines = results.map(r => `${r.timestamp},${r.url},${r.ibge_code},${r.performance},${r.accessibility},${r.seo},${r.bestPractices}`);
+    if (!fs.existsSync(outputCsvFile)) {
+      fs.writeFileSync(outputCsvFile, csvHeader + '\n' + csvLines.join('\n') + '\n');
+    } else {
+      fs.appendFileSync(outputCsvFile, csvLines.join('\n') + '\n');
+    }
+
+    logMessage('INFO', `Saved ${results.length} new results to ${outputJsonFile} and ${outputCsvFile}.`, 'saveResults');
   } else {
     logMessage('INFO', 'No new results to save in this run.', 'saveResults');
   }
