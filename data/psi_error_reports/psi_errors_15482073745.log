@@ -1,0 +1,52 @@
+[2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
+[2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-06T03:22:12.014Z] [INFO] [main] PSI data collection script started.
+[2025-06-06T03:22:12.017Z] [INFO] [init] PSI_KEY environment variable is set.
+[2025-06-06T03:22:12.017Z] [INFO] [init] Running in PRODUCTION mode. Input: /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv, Output: data/psi-results.json, CSV: data/psi-results.csv
+[2025-06-06T03:22:12.023Z] [INFO] [loadState] Loaded processing state from data/psi_processing_state.json
+[2025-06-06T03:22:12.073Z] [INFO] [readCsvFile] Loaded 5551 URLs from /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv after initial filter.
+[2025-06-06T03:22:12.080Z] [INFO] [urlPrioritization] Prioritized 5551 URLs for processing. Newest/oldest attempts will be processed first.
+[2025-06-06T03:22:12.080Z] [INFO] [mainLoop] Starting sequential processing of 5551 URLs with 1s spacing.
+[2025-06-06T03:22:12.087Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:22:54.893Z] [INFO] [fetchPSISuccess] ✅ https://acrelandia.ac.gov.br → 0.36
+[2025-06-06T03:22:54.903Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:22:55.912Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:23:42.565Z] [INFO] [fetchPSISuccess] ✅ https://assisbrasil.ac.gov.br → 0.4
+[2025-06-06T03:23:42.574Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:23:43.583Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:24:19.131Z] [INFO] [fetchPSISuccess] ✅ https://brasileia.ac.gov.br → 0.43
+[2025-06-06T03:24:19.139Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:24:20.149Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:24:56.101Z] [INFO] [fetchPSISuccess] ✅ https://bujari.ac.gov.br → 0.51
+[2025-06-06T03:24:56.110Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:24:57.119Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:25:41.307Z] [INFO] [fetchPSISuccess] ✅ http://www.capixaba.ac.gov.br → 0.52
+[2025-06-06T03:25:41.316Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:25:42.325Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:26:21.016Z] [INFO] [fetchPSISuccess] ✅ https://cruzeirodosul.ac.gov.br → 0.47
+[2025-06-06T03:26:21.025Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:26:22.035Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:26:59.256Z] [INFO] [fetchPSISuccess] ✅ https://epitaciolandia.ac.gov.br → 0.54
+[2025-06-06T03:26:59.265Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:27:00.274Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:27:23.322Z] [INFO] [fetchPSISuccess] ✅ https://feijo.ac.gov.br → 0.52
+[2025-06-06T03:27:23.330Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:27:24.338Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:27:51.076Z] [INFO] [fetchPSISuccess] ✅ http://jordao.ac.gov.br → 0.56
+[2025-06-06T03:27:51.084Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:27:52.093Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:28:24.318Z] [INFO] [fetchPSISuccess] ✅ https://marechalthaumaturgo.ac.gov.br → 0.51
+[2025-06-06T03:28:24.328Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:28:25.337Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:29:00.776Z] [INFO] [fetchPSISuccess] ✅ https://manciolima.ac.gov.br → 0.49
+[2025-06-06T03:29:00.786Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:29:01.795Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:29:38.094Z] [INFO] [fetchPSISuccess] ✅ https://placidodecastro.ac.gov.br → 0.45
+[2025-06-06T03:29:38.103Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:29:39.114Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:30:07.270Z] [INFO] [fetchPSISuccess] ✅ https://portoacre.ac.gov.br → 0.56
+[2025-06-06T03:30:07.281Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:30:08.290Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:30:49.343Z] [INFO] [fetchPSISuccess] ✅ https://portowalter.ac.gov.br → 0.46
+[2025-06-06T03:30:49.352Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-06T03:30:50.363Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
