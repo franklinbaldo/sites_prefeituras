@@ -58,7 +58,7 @@ The main steps performed by the workflow are:
 
 This Node.js script is the core of the data collection process. It performs the following actions:
 - Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
-- For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
+ - For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics. The request explicitly includes the `category` parameters for `performance`, `accessibility`, `best-practices`, and `seo` so all four scores are returned.
  - Requests are spaced one second apart to respect the PSI API rate limits. Each successful response is immediately appended to `data/psi-results.json` and `data/psi-results.csv`, ensuring that partial progress is preserved if the script stops early. Retries on transient errors use an exponential backoff controlled by `PSI_MAX_RETRIES` and `PSI_RETRY_DELAY_MS`.
 - The script collects the following key metrics for the mobile strategy:
     - Performance score
