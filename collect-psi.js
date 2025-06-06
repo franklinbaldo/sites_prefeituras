@@ -92,6 +92,10 @@ export async function originalFetchPSI(url, apiKey, fetchFn) {
   const endpoint = `https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed`
     + `?url=${encodeURIComponent(url)}`
     + `&strategy=mobile`
+    + `&category=performance`
+    + `&category=accessibility`
+    + `&category=best-practices`
+    + `&category=seo`
     + `&key=${apiKey}`;
   const res = await fetchFn(endpoint);
   if (res.status === 429) {
