@@ -3,8 +3,6 @@ import fs from 'fs';
 import path, { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
-import pLimit from 'p-limit';
-import pThrottle from 'p-throttle';
 import { parse as csvParse } from 'csv-parse/sync';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
@@ -23,6 +21,20 @@ function saveProcessingState(stateObject, filePath) {
     logMessage('INFO', `Processing state saved to ${filePath}`, 'saveState');
   } catch (err) {
     logMessage('ERROR', `Error saving processing state to ${filePath}: ${err.message}`, 'saveState');
+  }
+}
+
+// Save a single result immediately to JSON and CSV
+function persistResult(resultObj, jsonFile, csvFile, existingResults) {
+  existingResults.push(resultObj);
+  fs.writeFileSync(jsonFile, JSON.stringify(existingResults, null, 2));
+
+  const csvHeader = 'timestamp,url,ibge_code,performance,accessibility,seo,bestPractices';
+  const csvLine = `${resultObj.timestamp},${resultObj.url},${resultObj.ibge_code},${resultObj.performance},${resultObj.accessibility},${resultObj.seo},${resultObj.bestPractices}`;
+  if (!fs.existsSync(csvFile)) {
+    fs.writeFileSync(csvFile, csvHeader + '\n' + csvLine + '\n');
+  } else {
+    fs.appendFileSync(csvFile, csvLine + '\n');
   }
 }
 
@@ -162,6 +174,9 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
   const outputCsvFile = isTestMode ? 'data/test-psi-results.csv' : 'data/psi-results.csv';
 
+  const outDir = path.resolve('data');
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
+
   logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output: ${outputJsonFile}, CSV: ${outputCsvFile}`, 'init');
 
   let processingState = {};
@@ -254,85 +269,57 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       ? scriptMockFetchPSI
       : (url) => originalFetchPSI(url, API_KEY, fetch); // Pass API_KEY and global fetch
 
-  const concurrencyArg = argv.find(arg => arg.startsWith('--concurrency='));
-  const concurrency = concurrencyArg
-    ? parseInt(concurrencyArg.split('=')[1], 10)
-    : parseInt(process.env.PSI_CONCURRENCY || '4', 10);
-  const limit = pLimit(concurrency); // Concurrency limit, default 4
   const maxRetries = parseInt(process.env.PSI_MAX_RETRIES || '2', 10);
   const retryDelay = parseInt(process.env.PSI_RETRY_DELAY_MS || '1000', 10);
-  const requestsPerMin = parseInt(process.env.PSI_REQUESTS_PER_MIN || '60', 10);
-  const throttledFetch = pThrottle({ limit: requestsPerMin, interval: 60_000 })(
-    (url) => fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay)
-  );
-  const results = []; // To store PSI scores of successfully processed URLs in this run
-  const activeTasks = []; // To store promises of tasks added to p-limit
+  const delayBetweenRequests = 1000; // 1 second between requests
+  const results = [];
   let processedInThisRunCount = 0;
 
-  logMessage('INFO', `Starting processing of up to ${urlsToProcess.length} URLs with concurrency ${concurrency} and rate ${requestsPerMin}/min.`, 'mainLoop');
+  let existingResults = [];
+  if (fs.existsSync(outputJsonFile)) {
+    try {
+      existingResults = JSON.parse(fs.readFileSync(outputJsonFile, 'utf-8'));
+    } catch (err) {
+      logMessage('WARNING', `Error reading existing results from ${outputJsonFile}: ${err.message}`, 'loadResults');
+      existingResults = [];
+    }
+  }
+
+  logMessage('INFO', `Starting sequential processing of ${urlsToProcess.length} URLs with 1s spacing.`, 'mainLoop');
   for (const url of urlsToProcess) {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
-      logMessage('INFO', `Time limit approaching. No more new URLs will be scheduled. Elapsed: ${(elapsedTime / 60000).toFixed(2)} mins.`, 'timeout');
-      break; // Exit the loop, stop adding new tasks
+      logMessage('INFO', `Time limit approaching. Stopping new requests. Elapsed: ${(elapsedTime / 60000).toFixed(2)} mins.`, 'timeout');
+      break;
     }
 
-    // Initialize or update the URL's entry in processingState and set last_attempt
     const attemptTimestamp = new Date().toISOString();
     if (!processingState[url]) {
       processingState[url] = { last_attempt: attemptTimestamp, last_success: null };
     } else {
       processingState[url].last_attempt = attemptTimestamp;
     }
+    saveProcessingState(processingState, PROCESSING_STATE_FILE);
 
-    activeTasks.push(
-      limit(async () => {
-        try {
-          const data = await throttledFetch(url);
-          logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
-          results.push({ ...data, ibge_code: urlToIbge[url] });
-          processedInThisRunCount++;
-          // Update last_success on successful fetch
-          processingState[url].last_success = new Date().toISOString();
-        } catch (err) {
-          const errorMsg = `erro em ${url}: ${err.message}`;
-          // console.warn automatically handled by logMessage
-          logMessage('ERROR', `Error for URL ${url}: ${err.message}`, 'fetchPSI');
-          // On error, last_success for processingState[url] is NOT updated,
-          // preserving its previous success state (or null if never successful).
-        }
-      })
-    );
-  }
-
-  logMessage('INFO', `Waiting for ${activeTasks.length} active PSI tasks to complete...`, 'mainLoop');
-  await Promise.all(activeTasks);
-  logMessage('INFO', `All ${activeTasks.length} scheduled PSI tasks have completed.`, 'mainLoop');
-  logMessage('INFO', `Successfully processed ${processedInThisRunCount} URLs in this run.`, 'summary');
-
-  // Save the updated processingState
-  saveProcessingState(processingState, PROCESSING_STATE_FILE);
-
-  if (results.length > 0) {
-    const outDir = path.resolve('data');
-    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir); // fs will be mocked
-    fs.writeFileSync(
-      outputJsonFile,
-      JSON.stringify(results, null, 2)
-    );
-
-    const csvHeader = 'timestamp,url,ibge_code,performance,accessibility,seo,bestPractices';
-    const csvLines = results.map(r => `${r.timestamp},${r.url},${r.ibge_code},${r.performance},${r.accessibility},${r.seo},${r.bestPractices}`);
-    if (!fs.existsSync(outputCsvFile)) {
-      fs.writeFileSync(outputCsvFile, csvHeader + '\n' + csvLines.join('\n') + '\n');
-    } else {
-      fs.appendFileSync(outputCsvFile, csvLines.join('\n') + '\n');
+    try {
+      const data = await fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay);
+      logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
+      const resultObj = { ...data, ibge_code: urlToIbge[url] };
+      results.push(resultObj);
+      processedInThisRunCount++;
+      processingState[url].last_success = new Date().toISOString();
+      saveProcessingState(processingState, PROCESSING_STATE_FILE);
+      persistResult(resultObj, outputJsonFile, outputCsvFile, existingResults);
+    } catch (err) {
+      logMessage('ERROR', `Error for URL ${url}: ${err.message}`, 'fetchPSI');
+      saveProcessingState(processingState, PROCESSING_STATE_FILE);
     }
 
-    logMessage('INFO', `Saved ${results.length} new results to ${outputJsonFile} and ${outputCsvFile}.`, 'saveResults');
-  } else {
-    logMessage('INFO', 'No new results to save in this run.', 'saveResults');
+    await new Promise(res => setTimeout(res, delayBetweenRequests));
   }
+
+  logMessage('INFO', `Processed ${processedInThisRunCount} URLs in this run.`, 'summary');
+  saveProcessingState(processingState, PROCESSING_STATE_FILE);
   logMessage('INFO', 'PSI data collection script finished.', 'main');
 }
 

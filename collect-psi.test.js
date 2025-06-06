@@ -147,15 +147,15 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(3);
-      const jsonCall = fs.writeFileSync.mock.calls.find(call => call[0] === 'data/test-psi-results.json');
-      const writtenData = JSON.parse(jsonCall[1]);
+      const jsonCalls = fs.writeFileSync.mock.calls.filter(call => call[0] === 'data/test-psi-results.json');
+      expect(jsonCalls.length).toBeGreaterThan(0);
+      const writtenData = JSON.parse(jsonCalls[jsonCalls.length - 1][1]);
       expect(writtenData.length).toBe(2);
       expect(writtenData[0].url).toBe('http://example.com');
       expect(writtenData[1].url).toBe('http://another-example.com');
       expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://example.com → 0.9');
       expect(consoleLogSpy).toHaveBeenCalledWith('[INFO] [fetchPSISuccess] ✅ http://another-example.com → 0.9');
-      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Saved 2 new results'))).toBe(true);
+      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Processed'))).toBe(true);
     });
 
     it('should correctly handle errors from fetchPSI and log them', async () => {
@@ -169,13 +169,13 @@ describe('collect-psi.js', () => {
 
       await runMainLogic(['node', 'collect-psi.js', '--test'], process.env.PSI_KEY, mockExternalFetchPSI);
 
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(3); // JSON, CSV, and state files should be written
-      const jsonCallError = fs.writeFileSync.mock.calls.find(call => call[0] === 'data/test-psi-results.json');
-      const writtenData = JSON.parse(jsonCallError[1]);
+      const jsonCalls = fs.writeFileSync.mock.calls.filter(call => call[0] === 'data/test-psi-results.json');
+      expect(jsonCalls.length).toBeGreaterThan(0); // JSON file should be written
+      const writtenData = JSON.parse(jsonCalls[jsonCalls.length - 1][1]);
       expect(writtenData.length).toBe(2); // Only successful results are saved
       // Note: The original code logged to console.warn. logMessage('ERROR', ...) logs to console.error.
       expect(consoleErrorSpy).toHaveBeenCalledWith('[ERROR] [fetchPSI] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL');
-      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Saved 2 new results'))).toBe(true);
+      expect(consoleLogSpy.mock.calls.some(c => c[0].includes('Processed'))).toBe(true);
     });
 
     it('should create data directory if it does not exist', async () => {
