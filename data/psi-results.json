@@ -511,5 +511,131 @@
     "bestPractices": null,
     "timestamp": "2025-06-04T19:27:16.933Z",
     "ibge_code": "2700805"
+  },
+  {
+    "url": "https://acrelandia.ac.gov.br",
+    "performance": 0.36,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:22:54.893Z",
+    "ibge_code": "1200013"
+  },
+  {
+    "url": "https://assisbrasil.ac.gov.br",
+    "performance": 0.4,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:23:42.565Z",
+    "ibge_code": "1200054"
+  },
+  {
+    "url": "https://brasileia.ac.gov.br",
+    "performance": 0.43,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:24:19.131Z",
+    "ibge_code": "1200104"
+  },
+  {
+    "url": "https://bujari.ac.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:24:56.101Z",
+    "ibge_code": "1200138"
+  },
+  {
+    "url": "http://www.capixaba.ac.gov.br",
+    "performance": 0.52,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:25:41.307Z",
+    "ibge_code": "1200179"
+  },
+  {
+    "url": "https://cruzeirodosul.ac.gov.br",
+    "performance": 0.47,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:26:21.016Z",
+    "ibge_code": "1200203"
+  },
+  {
+    "url": "https://epitaciolandia.ac.gov.br",
+    "performance": 0.54,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:26:59.256Z",
+    "ibge_code": "1200252"
+  },
+  {
+    "url": "https://feijo.ac.gov.br",
+    "performance": 0.52,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:27:23.322Z",
+    "ibge_code": "1200302"
+  },
+  {
+    "url": "http://jordao.ac.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:27:51.076Z",
+    "ibge_code": "1200328"
+  },
+  {
+    "url": "https://marechalthaumaturgo.ac.gov.br",
+    "performance": 0.51,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:28:24.318Z",
+    "ibge_code": "1200351"
+  },
+  {
+    "url": "https://manciolima.ac.gov.br",
+    "performance": 0.49,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:29:00.776Z",
+    "ibge_code": "1200336"
+  },
+  {
+    "url": "https://placidodecastro.ac.gov.br",
+    "performance": 0.45,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:29:38.094Z",
+    "ibge_code": "1200385"
+  },
+  {
+    "url": "https://portoacre.ac.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:30:07.270Z",
+    "ibge_code": "1200807"
+  },
+  {
+    "url": "https://portowalter.ac.gov.br",
+    "performance": 0.46,
+    "accessibility": null,
+    "seo": null,
+    "bestPractices": null,
+    "timestamp": "2025-06-06T03:30:49.343Z",
+    "ibge_code": "1200393"
   }
 ]
