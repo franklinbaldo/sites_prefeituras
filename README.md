@@ -2,7 +2,7 @@
 
 ## Overview/Purpose
 
-This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection, including metrics for performance, accessibility, SEO, and best practices, with controlled parallelism (configurable). The results are processed and can be used to assess the current state of these public portals.
+This project aims to automatically audit Brazilian city (prefeitura) websites using the Google PageSpeed Insights (PSI) API. The project has transitioned from an initial approach using a local Lighthouse CLI to massively leveraging the PSI API for more comprehensive data collection. Metrics for performance, accessibility, SEO, and best practices are gathered sequentially with a one-second pause between requests, and partial results are written to disk after each successful call.
 
 This project was elaborated as part of a Master's dissertation research focusing on evaluating the transparency and accessibility of municipal websites.
 
@@ -59,7 +59,7 @@ The main steps performed by the workflow are:
 This Node.js script is the core of the data collection process. It performs the following actions:
 - Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
 - For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics.
- - It manages the API requests with controlled parallelism. The concurrency defaults to 4 simultaneous requests but can be adjusted via the `PSI_CONCURRENCY` environment variable or a `--concurrency=<n>` CLI flag. The production GitHub Actions workflow sets `PSI_CONCURRENCY=10` to process many audits in parallel. When the PSI API responds with a `Rate limit` error, the script automatically retries using an exponential backoff. The retry behavior can be tuned with `PSI_MAX_RETRIES` (default `2`) and `PSI_RETRY_DELAY_MS` (default `1000`). To avoid overwhelming the API, the script also throttles requests based on `PSI_REQUESTS_PER_MIN` (default `60`), ensuring no more than this number of calls are started within any one-minute window.
+ - Requests are spaced one second apart to respect the PSI API rate limits. Each successful response is immediately appended to `data/psi-results.json` and `data/psi-results.csv`, ensuring that partial progress is preserved if the script stops early. Retries on transient errors use an exponential backoff controlled by `PSI_MAX_RETRIES` and `PSI_RETRY_DELAY_MS`.
 - The script collects the following key metrics for the mobile strategy:
     - Performance score
     - Accessibility score

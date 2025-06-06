@@ -23,6 +23,7 @@ jobs:
 
       - name: Coletar dados PSI
         timeout-minutes: 10
+        continue-on-error: true
         env:
           PSI_CONCURRENCY: 10
           PSI_MAX_RETRIES: 2
@@ -94,6 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit e push dos resultados
+        if: always()
         run: |
           if [ -f "data/psi-results.json" ]; then
             git config user.name "github-actions[bot]"
