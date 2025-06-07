@@ -637,5 +637,176 @@
     "bestPractices": null,
     "timestamp": "2025-06-06T03:30:49.343Z",
     "ibge_code": "1200393"
+  },
+  {
+    "url": "https://rodriguesalves.ac.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:21:26.956Z",
+    "ibge_code": "1200427"
+  },
+  {
+    "url": "http://santarosadopurus.ac.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-07T03:21:55.696Z",
+    "ibge_code": "1200435"
+  },
+  {
+    "url": "https://senamadureira.ac.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:22:20.614Z",
+    "ibge_code": "1200500"
+  },
+  {
+    "url": "https://senadorguiomard.ac.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:22:57.342Z",
+    "ibge_code": "1200450"
+  },
+  {
+    "url": "https://tarauaca.ac.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.85,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:23:32.927Z",
+    "ibge_code": "1200609"
+  },
+  {
+    "url": "https://xapuri.ac.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:24:15.222Z",
+    "ibge_code": "1200708"
+  },
+  {
+    "url": "https://anadia.al.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.89,
+    "seo": 0.91,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-07T03:24:40.145Z",
+    "ibge_code": "2700201"
+  },
+  {
+    "url": "http://arapiraca.al.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.74,
+    "seo": 0.77,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-07T03:25:04.389Z",
+    "ibge_code": "2700300"
+  },
+  {
+    "url": "https://atalaia.al.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:25:23.755Z",
+    "ibge_code": "2700409"
+  },
+  {
+    "url": "https://barradesantoantonio.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.78,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:25:44.415Z",
+    "ibge_code": "2700508"
+  },
+  {
+    "url": "https://barradesaomiguel.al.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:26:07.825Z",
+    "ibge_code": "2700607"
+  },
+  {
+    "url": "http://www.batalha.al.gov.br",
+    "performance": 0.06,
+    "accessibility": 0.77,
+    "seo": 0.91,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-07T03:27:01.003Z",
+    "ibge_code": "2700706"
+  },
+  {
+    "url": "https://belomonte.al.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:27:21.397Z",
+    "ibge_code": "2700904"
+  },
+  {
+    "url": "https://belem.al.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.69,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:28:04.439Z",
+    "ibge_code": "2700805"
+  },
+  {
+    "url": "https://bocadamata.al.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.89,
+    "seo": 0.91,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-07T03:28:24.372Z",
+    "ibge_code": "2701001"
+  },
+  {
+    "url": "http://www.branquinha.al.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.92,
+    "seo": 0.91,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-07T03:28:46.367Z",
+    "ibge_code": "2701100"
+  },
+  {
+    "url": "https://cacimbinhas.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:29:13.183Z",
+    "ibge_code": "2701209"
+  },
+  {
+    "url": "https://cajueiro.al.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.74,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-07T03:29:40.864Z",
+    "ibge_code": "2701308"
+  },
+  {
+    "url": "https://campestre.al.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-07T03:30:19.540Z",
+    "ibge_code": "2701357"
   }
 ]
