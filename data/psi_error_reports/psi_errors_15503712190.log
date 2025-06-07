@@ -1,0 +1,70 @@
+[2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
+[2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-07T03:20:46.749Z] [INFO] [main] PSI data collection script started.
+[2025-06-07T03:20:46.751Z] [INFO] [init] PSI_KEY environment variable is set.
+[2025-06-07T03:20:46.751Z] [INFO] [init] Running in PRODUCTION mode. Input: /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv, Output: data/psi-results.json, CSV: data/psi-results.csv
+[2025-06-07T03:20:46.757Z] [INFO] [loadState] Loaded processing state from data/psi_processing_state.json
+[2025-06-07T03:20:46.807Z] [INFO] [readCsvFile] Loaded 5551 URLs from /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv after initial filter.
+[2025-06-07T03:20:46.813Z] [INFO] [urlPrioritization] Prioritized 5551 URLs for processing. Newest/oldest attempts will be processed first.
+[2025-06-07T03:20:46.813Z] [INFO] [mainLoop] Starting sequential processing of 5551 URLs with 1s spacing.
+[2025-06-07T03:20:46.820Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:21:26.956Z] [INFO] [fetchPSISuccess] ✅ https://rodriguesalves.ac.gov.br → 0.51
+[2025-06-07T03:21:26.965Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:21:27.975Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:21:55.696Z] [INFO] [fetchPSISuccess] ✅ http://santarosadopurus.ac.gov.br → 0.56
+[2025-06-07T03:21:55.705Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:21:56.715Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:22:20.614Z] [INFO] [fetchPSISuccess] ✅ https://senamadureira.ac.gov.br → 0.57
+[2025-06-07T03:22:20.623Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:22:21.634Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:22:57.342Z] [INFO] [fetchPSISuccess] ✅ https://senadorguiomard.ac.gov.br → 0.54
+[2025-06-07T03:22:57.351Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:22:58.361Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:23:32.927Z] [INFO] [fetchPSISuccess] ✅ https://tarauaca.ac.gov.br → 0.51
+[2025-06-07T03:23:32.936Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:23:33.945Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:24:15.222Z] [INFO] [fetchPSISuccess] ✅ https://xapuri.ac.gov.br → 0.43
+[2025-06-07T03:24:15.232Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:24:16.241Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:24:40.145Z] [INFO] [fetchPSISuccess] ✅ https://anadia.al.gov.br → 0.56
+[2025-06-07T03:24:40.154Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:24:41.164Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:04.389Z] [INFO] [fetchPSISuccess] ✅ http://arapiraca.al.gov.br → 0.56
+[2025-06-07T03:25:04.397Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:05.406Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:23.755Z] [INFO] [fetchPSISuccess] ✅ https://atalaia.al.gov.br → 0.62
+[2025-06-07T03:25:23.763Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:24.772Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:44.415Z] [INFO] [fetchPSISuccess] ✅ https://barradesantoantonio.al.gov.br → 0.55
+[2025-06-07T03:25:44.424Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:25:45.434Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:26:07.825Z] [INFO] [fetchPSISuccess] ✅ https://barradesaomiguel.al.gov.br → 0.59
+[2025-06-07T03:26:07.834Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:26:08.843Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:27:01.003Z] [INFO] [fetchPSISuccess] ✅ http://www.batalha.al.gov.br → 0.06
+[2025-06-07T03:27:01.012Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:27:02.021Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:27:21.397Z] [INFO] [fetchPSISuccess] ✅ https://belomonte.al.gov.br → 0.69
+[2025-06-07T03:27:21.406Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:27:22.415Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:04.439Z] [INFO] [fetchPSISuccess] ✅ https://belem.al.gov.br → 0.4
+[2025-06-07T03:28:04.447Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:05.456Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:24.372Z] [INFO] [fetchPSISuccess] ✅ https://bocadamata.al.gov.br → 0.67
+[2025-06-07T03:28:24.381Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:25.390Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:46.367Z] [INFO] [fetchPSISuccess] ✅ http://www.branquinha.al.gov.br → 0.45
+[2025-06-07T03:28:46.376Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:28:47.386Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:29:13.183Z] [INFO] [fetchPSISuccess] ✅ https://cacimbinhas.al.gov.br → 0.55
+[2025-06-07T03:29:13.192Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:29:14.201Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:29:40.864Z] [INFO] [fetchPSISuccess] ✅ https://cajueiro.al.gov.br → 0.64
+[2025-06-07T03:29:40.873Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:29:41.882Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:30:19.540Z] [INFO] [fetchPSISuccess] ✅ https://campestre.al.gov.br → 0.38
+[2025-06-07T03:30:19.549Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:30:20.551Z] [INFO] [timeout] Time limit approaching. Stopping new requests. Elapsed: 9.56 mins.
+[2025-06-07T03:30:20.551Z] [INFO] [summary] Processed 19 URLs in this run.
+[2025-06-07T03:30:20.558Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-07T03:30:20.558Z] [INFO] [main] PSI data collection script finished.

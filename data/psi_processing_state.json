@@ -60,80 +60,80 @@
     "last_success": null
   },
   "https://rodriguesalves.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:20:46.814Z",
+    "last_success": "2025-06-07T03:21:26.956Z"
   },
   "http://santarosadopurus.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:21:27.967Z",
+    "last_success": "2025-06-07T03:21:55.696Z"
   },
   "https://senamadureira.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:21:56.707Z",
+    "last_success": "2025-06-07T03:22:20.614Z"
   },
   "https://senadorguiomard.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:22:21.626Z",
+    "last_success": "2025-06-07T03:22:57.343Z"
   },
   "https://tarauaca.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:15.238Z"
+    "last_attempt": "2025-06-07T03:22:58.353Z",
+    "last_success": "2025-06-07T03:23:32.927Z"
   },
   "https://xapuri.ac.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:04.136Z"
+    "last_attempt": "2025-06-07T03:23:33.937Z",
+    "last_success": "2025-06-07T03:24:15.222Z"
   },
   "https://anadia.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:24:16.234Z",
+    "last_success": "2025-06-07T03:24:40.146Z"
   },
   "http://arapiraca.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:55.360Z"
+    "last_attempt": "2025-06-07T03:24:41.155Z",
+    "last_success": "2025-06-07T03:25:04.389Z"
   },
   "https://atalaia.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:50.018Z"
+    "last_attempt": "2025-06-07T03:25:05.399Z",
+    "last_success": "2025-06-07T03:25:23.755Z"
   },
   "https://barradesantoantonio.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:50.368Z"
+    "last_attempt": "2025-06-07T03:25:24.765Z",
+    "last_success": "2025-06-07T03:25:44.415Z"
   },
   "https://barradesaomiguel.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:25:45.426Z",
+    "last_success": "2025-06-07T03:26:07.825Z"
   },
   "http://www.batalha.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:11.809Z"
+    "last_attempt": "2025-06-07T03:26:08.835Z",
+    "last_success": "2025-06-07T03:27:01.004Z"
   },
   "https://belomonte.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:47.192Z"
+    "last_attempt": "2025-06-07T03:27:02.013Z",
+    "last_success": "2025-06-07T03:27:21.397Z"
   },
   "https://belem.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:16.933Z"
+    "last_attempt": "2025-06-07T03:27:22.408Z",
+    "last_success": "2025-06-07T03:28:04.439Z"
   },
   "https://bocadamata.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:28:05.449Z",
+    "last_success": "2025-06-07T03:28:24.372Z"
   },
   "http://www.branquinha.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:49.083Z"
+    "last_attempt": "2025-06-07T03:28:25.382Z",
+    "last_success": "2025-06-07T03:28:46.368Z"
   },
   "https://cacimbinhas.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:28:47.377Z",
+    "last_success": "2025-06-07T03:29:13.183Z"
   },
   "https://cajueiro.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-07T03:29:14.193Z",
+    "last_success": "2025-06-07T03:29:40.865Z"
   },
   "https://campestre.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:06.708Z"
+    "last_attempt": "2025-06-07T03:29:41.874Z",
+    "last_success": "2025-06-07T03:30:19.540Z"
   },
   "https://campoalegre.al.gov.br": {
     "last_attempt": "2025-06-04T19:26:29.391Z",
