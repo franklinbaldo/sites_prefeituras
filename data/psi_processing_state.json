@@ -136,80 +136,80 @@
     "last_success": "2025-06-07T03:30:19.540Z"
   },
   "https://campoalegre.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:00.498Z"
+    "last_attempt": "2025-06-08T03:27:25.312Z",
+    "last_success": "2025-06-08T03:27:51.227Z"
   },
   "https://campogrande.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:27:52.239Z",
+    "last_success": "2025-06-08T03:28:17.604Z"
   },
   "https://canapi.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:28:18.614Z",
+    "last_success": "2025-06-08T03:28:41.430Z"
   },
   "http://capela.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:28:42.440Z",
+    "last_success": "2025-06-08T03:29:28.374Z"
   },
   "https://carneiros.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:29:29.384Z",
+    "last_success": "2025-06-08T03:29:57.985Z"
   },
   "https://chapreta.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:29:58.996Z",
+    "last_success": "2025-06-08T03:30:21.333Z"
   },
   "https://coitedonoia.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-08T03:30:22.344Z",
     "last_success": null
   },
   "https://colonialeopoldina.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:30:43.648Z",
+    "last_success": "2025-06-08T03:31:08.431Z"
   },
   "http://www.coqueiroseco.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:46.560Z"
+    "last_attempt": "2025-06-08T03:31:09.440Z",
+    "last_success": "2025-06-08T03:31:28.798Z"
   },
   "http://coruripe.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:27:13.938Z"
+    "last_attempt": "2025-06-08T03:31:29.809Z",
+    "last_success": "2025-06-08T03:32:08.124Z"
   },
   "https://craibas.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:32:09.135Z",
+    "last_success": "2025-06-08T03:32:52.040Z"
   },
   "https://delmirogouveia.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:32:53.050Z",
+    "last_success": "2025-06-08T03:33:33.728Z"
   },
   "http://www.doisriachos.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:33:34.737Z",
+    "last_success": "2025-06-08T03:33:55.008Z"
   },
   "https://estreladealagoas.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-08T03:33:56.018Z",
     "last_success": null
   },
   "https://feiragrande.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:34:16.674Z",
+    "last_success": "2025-06-08T03:35:13.614Z"
   },
   "https://felizdeserto.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:35:14.624Z",
+    "last_success": "2025-06-08T03:35:38.830Z"
   },
   "https://flexeiras.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": "2025-06-04T19:26:46.678Z"
+    "last_attempt": "2025-06-08T03:35:39.841Z",
+    "last_success": "2025-06-08T03:35:57.929Z"
   },
   "http://www.giraudoponciano.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:35:58.939Z",
+    "last_success": "2025-06-08T03:36:33.766Z"
   },
   "https://ibateguara.al.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-08T03:36:34.777Z",
+    "last_success": "2025-06-08T03:36:57.004Z"
   },
   "http://igaci.al.gov.br": {
     "last_attempt": "2025-06-04T19:26:29.391Z",
