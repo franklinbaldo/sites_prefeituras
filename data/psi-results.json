@@ -808,5 +808,158 @@
     "bestPractices": 1,
     "timestamp": "2025-06-07T03:30:19.540Z",
     "ibge_code": "2701357"
+  },
+  {
+    "url": "https://campoalegre.al.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:27:51.227Z",
+    "ibge_code": "2701407"
+  },
+  {
+    "url": "https://campogrande.al.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:28:17.604Z",
+    "ibge_code": "2701506"
+  },
+  {
+    "url": "https://canapi.al.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.78,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:28:41.430Z",
+    "ibge_code": "2701605"
+  },
+  {
+    "url": "http://capela.al.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.67,
+    "seo": 0.77,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-08T03:29:28.374Z",
+    "ibge_code": "2701704"
+  },
+  {
+    "url": "https://carneiros.al.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.65,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:29:57.984Z",
+    "ibge_code": "2701803"
+  },
+  {
+    "url": "https://chapreta.al.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.85,
+    "seo": 0.91,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-08T03:30:21.333Z",
+    "ibge_code": "2701902"
+  },
+  {
+    "url": "https://colonialeopoldina.al.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:31:08.430Z",
+    "ibge_code": "2702108"
+  },
+  {
+    "url": "http://www.coqueiroseco.al.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.69,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-08T03:31:28.798Z",
+    "ibge_code": "2702207"
+  },
+  {
+    "url": "http://coruripe.al.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-08T03:32:08.124Z",
+    "ibge_code": "2702306"
+  },
+  {
+    "url": "https://craibas.al.gov.br",
+    "performance": 0.21,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-08T03:32:52.040Z",
+    "ibge_code": "2702355"
+  },
+  {
+    "url": "https://delmirogouveia.al.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-08T03:33:33.727Z",
+    "ibge_code": "2702405"
+  },
+  {
+    "url": "http://www.doisriachos.al.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-08T03:33:55.008Z",
+    "ibge_code": "2702504"
+  },
+  {
+    "url": "https://feiragrande.al.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.62,
+    "seo": 0.77,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-08T03:35:13.614Z",
+    "ibge_code": "2702603"
+  },
+  {
+    "url": "https://felizdeserto.al.gov.br",
+    "performance": 0.79,
+    "accessibility": 0.7,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:35:38.830Z",
+    "ibge_code": "2702702"
+  },
+  {
+    "url": "https://flexeiras.al.gov.br",
+    "performance": 0.81,
+    "accessibility": 1,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-08T03:35:57.929Z",
+    "ibge_code": "2702801"
+  },
+  {
+    "url": "http://www.giraudoponciano.al.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.96,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-08T03:36:33.766Z",
+    "ibge_code": "2702900"
+  },
+  {
+    "url": "https://ibateguara.al.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-08T03:36:57.004Z",
+    "ibge_code": "2703007"
   }
 ]
