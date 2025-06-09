@@ -1,0 +1,61 @@
+[2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
+[2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-09T03:26:30.121Z] [INFO] [main] PSI data collection script started.
+[2025-06-09T03:26:30.123Z] [INFO] [init] PSI_KEY environment variable is set.
+[2025-06-09T03:26:30.123Z] [INFO] [init] Running in PRODUCTION mode. Input: /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv, Output: data/psi-results.json, CSV: data/psi-results.csv
+[2025-06-09T03:26:30.129Z] [INFO] [loadState] Loaded processing state from data/psi_processing_state.json
+[2025-06-09T03:26:30.177Z] [INFO] [readCsvFile] Loaded 5551 URLs from /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv after initial filter.
+[2025-06-09T03:26:30.184Z] [INFO] [urlPrioritization] Prioritized 5551 URLs for processing. Newest/oldest attempts will be processed first.
+[2025-06-09T03:26:30.184Z] [INFO] [mainLoop] Starting sequential processing of 5551 URLs with 1s spacing.
+[2025-06-09T03:26:30.190Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:28:30.688Z] [ERROR] [fetchPSI] Error for URL http://igaci.al.gov.br: Lighthouse returned error: Something went wrong.
+[2025-06-09T03:28:30.696Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:28:31.706Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:02.120Z] [INFO] [fetchPSISuccess] ✅ https://igrejanova.al.gov.br → 0.56
+[2025-06-09T03:29:02.128Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:03.137Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:32.383Z] [INFO] [fetchPSISuccess] ✅ http://inhapi.al.gov.br → 0.55
+[2025-06-09T03:29:32.391Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:33.399Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:56.783Z] [INFO] [fetchPSISuccess] ✅ http://www.jacaredoshomens.al.gov.br → 0.48
+[2025-06-09T03:29:56.792Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:29:57.801Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:30:22.941Z] [INFO] [fetchPSISuccess] ✅ https://jacuipe.al.gov.br → 0.49
+[2025-06-09T03:30:22.949Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:30:23.960Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:31:10.317Z] [INFO] [fetchPSISuccess] ✅ http://www.japaratinga.al.gov.br → 0.38
+[2025-06-09T03:31:10.325Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:31:11.334Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:31:39.967Z] [INFO] [fetchPSISuccess] ✅ http://jaramataia.al.gov.br → 0.37
+[2025-06-09T03:31:39.975Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:31:40.984Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:00.816Z] [ERROR] [fetchPSI] Error for URL http://jequiadapraia.al.gov.br: Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_TIMED_OUT)
+[2025-06-09T03:32:00.823Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:01.833Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:28.665Z] [INFO] [fetchPSISuccess] ✅ https://joaquimgomes.al.gov.br → 0.62
+[2025-06-09T03:32:28.673Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:29.682Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:48.795Z] [ERROR] [fetchPSI] Error for URL https://jundia.al.gov.br: Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_CONNECTION_FAILED)
+[2025-06-09T03:32:48.803Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:32:49.812Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:33:21.668Z] [INFO] [fetchPSISuccess] ✅ https://junqueiro.al.gov.br → 0.52
+[2025-06-09T03:33:21.677Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:33:22.686Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:34:00.572Z] [INFO] [fetchPSISuccess] ✅ http://www.lagoadacanoa.al.gov.br → 0.45
+[2025-06-09T03:34:00.581Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:34:01.591Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:34:37.391Z] [INFO] [fetchPSISuccess] ✅ https://limoeirodeanadia.al.gov.br → 0.58
+[2025-06-09T03:34:37.400Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:34:38.409Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:35:16.135Z] [INFO] [fetchPSISuccess] ✅ http://www.maceio.al.gov.br → 0.3
+[2025-06-09T03:35:16.144Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:35:17.154Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:35:48.995Z] [INFO] [fetchPSISuccess] ✅ http://www.majorizidoro.al.gov.br → 0.43
+[2025-06-09T03:35:49.004Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:35:50.014Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:36:11.134Z] [INFO] [fetchPSISuccess] ✅ https://marvermelho.al.gov.br → 0.58
+[2025-06-09T03:36:11.142Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:36:12.144Z] [INFO] [timeout] Time limit approaching. Stopping new requests. Elapsed: 9.70 mins.
+[2025-06-09T03:36:12.144Z] [INFO] [summary] Processed 13 URLs in this run.
+[2025-06-09T03:36:12.152Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-09T03:36:12.152Z] [INFO] [main] PSI data collection script finished.
