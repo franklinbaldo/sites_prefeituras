@@ -961,5 +961,122 @@
     "bestPractices": 0.93,
     "timestamp": "2025-06-08T03:36:57.004Z",
     "ibge_code": "2703007"
+  },
+  {
+    "url": "https://igrejanova.al.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-09T03:29:02.120Z",
+    "ibge_code": "2703205"
+  },
+  {
+    "url": "http://inhapi.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-09T03:29:32.383Z",
+    "ibge_code": "2703304"
+  },
+  {
+    "url": "http://www.jacaredoshomens.al.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.69,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-09T03:29:56.783Z",
+    "ibge_code": "2703403"
+  },
+  {
+    "url": "https://jacuipe.al.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.71,
+    "seo": 0.92,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-09T03:30:22.941Z",
+    "ibge_code": "2703502"
+  },
+  {
+    "url": "http://www.japaratinga.al.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.62,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-09T03:31:10.317Z",
+    "ibge_code": "2703601"
+  },
+  {
+    "url": "http://jaramataia.al.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-09T03:31:39.967Z",
+    "ibge_code": "2703700"
+  },
+  {
+    "url": "https://joaquimgomes.al.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.86,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-09T03:32:28.665Z",
+    "ibge_code": "2703809"
+  },
+  {
+    "url": "https://junqueiro.al.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.64,
+    "seo": 0.67,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-09T03:33:21.668Z",
+    "ibge_code": "2704005"
+  },
+  {
+    "url": "http://www.lagoadacanoa.al.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.72,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-09T03:34:00.572Z",
+    "ibge_code": "2704104"
+  },
+  {
+    "url": "https://limoeirodeanadia.al.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.78,
+    "seo": 0.77,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-09T03:34:37.391Z",
+    "ibge_code": "2704203"
+  },
+  {
+    "url": "http://www.maceio.al.gov.br",
+    "performance": 0.3,
+    "accessibility": 0.86,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-09T03:35:16.135Z",
+    "ibge_code": "2704302"
+  },
+  {
+    "url": "http://www.majorizidoro.al.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-09T03:35:48.995Z",
+    "ibge_code": "2704401"
+  },
+  {
+    "url": "https://marvermelho.al.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-09T03:36:11.134Z",
+    "ibge_code": "2704906"
   }
 ]
