@@ -1,0 +1,76 @@
+[2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
+[2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-10T03:23:44.500Z] [INFO] [main] PSI data collection script started.
+[2025-06-10T03:23:44.503Z] [INFO] [init] PSI_KEY environment variable is set.
+[2025-06-10T03:23:44.503Z] [INFO] [init] Running in PRODUCTION mode. Input: /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv, Output: data/psi-results.json, CSV: data/psi-results.csv
+[2025-06-10T03:23:44.509Z] [INFO] [loadState] Loaded processing state from data/psi_processing_state.json
+[2025-06-10T03:23:44.560Z] [INFO] [readCsvFile] Loaded 5551 URLs from /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv after initial filter.
+[2025-06-10T03:23:44.567Z] [INFO] [urlPrioritization] Prioritized 5551 URLs for processing. Newest/oldest attempts will be processed first.
+[2025-06-10T03:23:44.567Z] [INFO] [mainLoop] Starting sequential processing of 5551 URLs with 1s spacing.
+[2025-06-10T03:23:44.574Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:24:21.104Z] [INFO] [fetchPSISuccess] ✅ https://maragogi.al.gov.br → 0.55
+[2025-06-10T03:24:21.113Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:24:22.125Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:24:49.942Z] [INFO] [fetchPSISuccess] ✅ https://maravilha.al.gov.br → 0.59
+[2025-06-10T03:24:49.950Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:24:50.960Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:20.610Z] [INFO] [fetchPSISuccess] ✅ http://marechaldeodoro.al.gov.br → 0.56
+[2025-06-10T03:25:20.622Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:21.632Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:40.230Z] [INFO] [fetchPSISuccess] ✅ https://maribondo.al.gov.br → 0.77
+[2025-06-10T03:25:40.239Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:41.249Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:51.746Z] [INFO] [fetchPSISuccess] ✅ https://matagrande.al.gov.br → 1
+[2025-06-10T03:25:51.755Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:25:52.765Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:26:12.372Z] [ERROR] [fetchPSI] Error for URL https://matrizdecamaragibe.al.gov.br: Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_TIMED_OUT)
+[2025-06-10T03:26:12.381Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:26:13.391Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:26:32.594Z] [ERROR] [fetchPSI] Error for URL https://messias.al.gov.br: Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_TIMED_OUT)
+[2025-06-10T03:26:32.602Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:26:33.611Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:27:00.602Z] [INFO] [fetchPSISuccess] ✅ https://minadordonegrao.al.gov.br → 0.34
+[2025-06-10T03:27:00.610Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:27:01.620Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:27:41.082Z] [INFO] [fetchPSISuccess] ✅ https://monteiropolis.al.gov.br → 0.43
+[2025-06-10T03:27:41.091Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:27:42.100Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:28:11.996Z] [INFO] [fetchPSISuccess] ✅ http://murici.al.gov.br → 0.58
+[2025-06-10T03:28:12.005Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:28:13.016Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:28:50.537Z] [INFO] [fetchPSISuccess] ✅ https://olhodaguagrande.al.gov.br → 0.31
+[2025-06-10T03:28:50.545Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:28:51.555Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:29:14.390Z] [INFO] [fetchPSISuccess] ✅ https://www.olhodaguadasflores.al.gov.br → 0.6
+[2025-06-10T03:29:14.400Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:29:15.410Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:29:39.843Z] [INFO] [fetchPSISuccess] ✅ https://olivenca.al.gov.br → 0.83
+[2025-06-10T03:29:39.852Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:29:40.861Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:00.050Z] [INFO] [fetchPSISuccess] ✅ https://ourobranco.al.gov.br → 0.66
+[2025-06-10T03:30:00.058Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:01.068Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:22.295Z] [INFO] [fetchPSISuccess] ✅ http://www.palestina.al.gov.br → 0.6
+[2025-06-10T03:30:22.304Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:23.314Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:49.986Z] [INFO] [fetchPSISuccess] ✅ https://palmeiradosindios.al.gov.br → 0.53
+[2025-06-10T03:30:49.997Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:30:51.006Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:31:26.045Z] [INFO] [fetchPSISuccess] ✅ http://www.pariconha.al.gov.br/site → 0.55
+[2025-06-10T03:31:26.054Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:31:27.065Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:31:49.599Z] [INFO] [fetchPSISuccess] ✅ https://paripueira.al.gov.br → 0.64
+[2025-06-10T03:31:49.610Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:31:50.620Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:32:14.964Z] [INFO] [fetchPSISuccess] ✅ https://passodecamaragibe.al.gov.br → 0.36
+[2025-06-10T03:32:14.972Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:32:15.983Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:32:33.868Z] [INFO] [fetchPSISuccess] ✅ https://paulojacinto.al.gov.br → 0.39
+[2025-06-10T03:32:33.879Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:32:34.888Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:33:19.127Z] [INFO] [fetchPSISuccess] ✅ https://penedo.al.gov.br → 0.52
+[2025-06-10T03:33:19.136Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:33:20.138Z] [INFO] [timeout] Time limit approaching. Stopping new requests. Elapsed: 9.59 mins.
+[2025-06-10T03:33:20.138Z] [INFO] [summary] Processed 19 URLs in this run.
+[2025-06-10T03:33:20.147Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-10T03:33:20.147Z] [INFO] [main] PSI data collection script finished.
