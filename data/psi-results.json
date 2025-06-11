@@ -1249,5 +1249,176 @@
     "bestPractices": 0.75,
     "timestamp": "2025-06-10T03:33:19.127Z",
     "ibge_code": "2706703"
+  },
+  {
+    "url": "https://piacabucu.al.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.63,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-11T03:23:36.249Z",
+    "ibge_code": "2706802"
+  },
+  {
+    "url": "https://pindoba.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:24:22.729Z",
+    "ibge_code": "2707008"
+  },
+  {
+    "url": "http://piranhas.al.gov.br",
+    "performance": 1,
+    "accessibility": 0.59,
+    "seo": 0.9,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-11T03:24:42.254Z",
+    "ibge_code": "2707107"
+  },
+  {
+    "url": "http://www.portocalvo.al.gov.br",
+    "performance": 0.98,
+    "accessibility": 0.55,
+    "seo": 0.7,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-11T03:24:55.011Z",
+    "ibge_code": "2707305"
+  },
+  {
+    "url": "https://portorealdocolegio.al.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:25:23.274Z",
+    "ibge_code": "2707503"
+  },
+  {
+    "url": "https://portodepedras.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-11T03:25:57.749Z",
+    "ibge_code": "2707404"
+  },
+  {
+    "url": "http://www.pocodastrincheiras.al.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.62,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-11T03:26:30.567Z",
+    "ibge_code": "2707206"
+  },
+  {
+    "url": "https://paodeacucar.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:27:00.211Z",
+    "ibge_code": "2706406"
+  },
+  {
+    "url": "http://www.riolargo.al.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-11T03:27:48.913Z",
+    "ibge_code": "2707701"
+  },
+  {
+    "url": "https://www.roteiro.al.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:28:16.431Z",
+    "ibge_code": "2707800"
+  },
+  {
+    "url": "http://www.santaluziadonorte.al.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-11T03:28:45.513Z",
+    "ibge_code": "2707909"
+  },
+  {
+    "url": "http://www.santanadoipanema.al.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-11T03:29:13.246Z",
+    "ibge_code": "2708006"
+  },
+  {
+    "url": "https://santanadomundau.al.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.92,
+    "seo": 0.91,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-11T03:29:40.365Z",
+    "ibge_code": "2708105"
+  },
+  {
+    "url": "https://satuba.al.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.73,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:30:20.738Z",
+    "ibge_code": "2708907"
+  },
+  {
+    "url": "https://senadorruipalmeira.al.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.63,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-11T03:30:47.466Z",
+    "ibge_code": "2708956"
+  },
+  {
+    "url": "https://saobras.al.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.73,
+    "seo": 0.67,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-11T03:31:05.433Z",
+    "ibge_code": "2708204"
+  },
+  {
+    "url": "http://www.saojosedalaje.al.gov.br",
+    "performance": 0.27,
+    "accessibility": 0.61,
+    "seo": 0.82,
+    "bestPractices": 0.45,
+    "timestamp": "2025-06-11T03:31:55.515Z",
+    "ibge_code": "2708303"
+  },
+  {
+    "url": "https://saojosedatapera.al.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-11T03:32:21.403Z",
+    "ibge_code": "2708402"
+  },
+  {
+    "url": "https://saomigueldoscampos.al.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.68,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-11T03:33:10.646Z",
+    "ibge_code": "2708600"
   }
 ]
