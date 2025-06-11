@@ -1,0 +1,79 @@
+[2025-05-30T03:40:45.008Z] Error for URL http://invalid-url-that-does-not-exist-hopefully.com: Simulated fetch error for non-existent URL
+[2025-05-30T03:41:17.697Z] Erro ao ler ou processar o arquivo CSV test_sites.csv: ENOENT: no such file or directory, open 'test_sites.csv'
+[2025-06-11T03:23:13.560Z] [INFO] [main] PSI data collection script started.
+[2025-06-11T03:23:13.563Z] [INFO] [init] PSI_KEY environment variable is set.
+[2025-06-11T03:23:13.563Z] [INFO] [init] Running in PRODUCTION mode. Input: /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv, Output: data/psi-results.json, CSV: data/psi-results.csv
+[2025-06-11T03:23:13.570Z] [INFO] [loadState] Loaded processing state from data/psi_processing_state.json
+[2025-06-11T03:23:13.622Z] [INFO] [readCsvFile] Loaded 5551 URLs from /home/runner/work/sites_prefeituras/sites_prefeituras/sites_das_prefeituras_brasileiras.csv after initial filter.
+[2025-06-11T03:23:13.630Z] [INFO] [urlPrioritization] Prioritized 5551 URLs for processing. Newest/oldest attempts will be processed first.
+[2025-06-11T03:23:13.630Z] [INFO] [mainLoop] Starting sequential processing of 5551 URLs with 1s spacing.
+[2025-06-11T03:23:13.637Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:23:36.249Z] [INFO] [fetchPSISuccess] ✅ https://piacabucu.al.gov.br → 0.72
+[2025-06-11T03:23:36.258Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:23:37.269Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:23:57.201Z] [ERROR] [fetchPSI] Error for URL http://www.pilar.al.gov.br: Lighthouse returned error: NO_FCP. The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)
+[2025-06-11T03:23:57.209Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:23:58.219Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:22.729Z] [INFO] [fetchPSISuccess] ✅ https://pindoba.al.gov.br → 0.55
+[2025-06-11T03:24:22.740Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:23.750Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:42.254Z] [INFO] [fetchPSISuccess] ✅ http://piranhas.al.gov.br → 1
+[2025-06-11T03:24:42.262Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:43.273Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:55.011Z] [INFO] [fetchPSISuccess] ✅ http://www.portocalvo.al.gov.br → 0.98
+[2025-06-11T03:24:55.019Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:24:56.029Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:25:23.274Z] [INFO] [fetchPSISuccess] ✅ https://portorealdocolegio.al.gov.br → 0.5
+[2025-06-11T03:25:23.282Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:25:24.292Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:25:57.749Z] [INFO] [fetchPSISuccess] ✅ https://portodepedras.al.gov.br → 0.55
+[2025-06-11T03:25:57.760Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:25:58.769Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:26:30.567Z] [INFO] [fetchPSISuccess] ✅ http://www.pocodastrincheiras.al.gov.br → 0.56
+[2025-06-11T03:26:30.575Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:26:31.585Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:00.211Z] [INFO] [fetchPSISuccess] ✅ https://paodeacucar.al.gov.br → 0.55
+[2025-06-11T03:27:00.220Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:01.230Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:20.555Z] [ERROR] [fetchPSI] Error for URL https://quebrangulo.al.gov.br: Lighthouse returned error: NO_FCP. The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)
+[2025-06-11T03:27:20.564Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:21.573Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:48.913Z] [INFO] [fetchPSISuccess] ✅ http://www.riolargo.al.gov.br → 0.55
+[2025-06-11T03:27:48.921Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:27:49.931Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:28:16.431Z] [INFO] [fetchPSISuccess] ✅ https://www.roteiro.al.gov.br → 0.44
+[2025-06-11T03:28:16.439Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:28:17.449Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:28:45.513Z] [INFO] [fetchPSISuccess] ✅ http://www.santaluziadonorte.al.gov.br → 0.68
+[2025-06-11T03:28:45.521Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:28:46.531Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:29:13.246Z] [INFO] [fetchPSISuccess] ✅ http://www.santanadoipanema.al.gov.br → 0.62
+[2025-06-11T03:29:13.254Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:29:14.264Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:29:40.365Z] [INFO] [fetchPSISuccess] ✅ https://santanadomundau.al.gov.br → 0.64
+[2025-06-11T03:29:40.373Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:29:41.383Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:30:20.738Z] [INFO] [fetchPSISuccess] ✅ https://satuba.al.gov.br → 0.53
+[2025-06-11T03:30:20.747Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:30:21.757Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:30:47.466Z] [INFO] [fetchPSISuccess] ✅ https://senadorruipalmeira.al.gov.br → 0.4
+[2025-06-11T03:30:47.474Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:30:48.485Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:31:05.433Z] [INFO] [fetchPSISuccess] ✅ https://saobras.al.gov.br → 0.68
+[2025-06-11T03:31:05.441Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:31:06.452Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:31:55.515Z] [INFO] [fetchPSISuccess] ✅ http://www.saojosedalaje.al.gov.br → 0.27
+[2025-06-11T03:31:55.523Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:31:56.533Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:32:21.403Z] [INFO] [fetchPSISuccess] ✅ https://saojosedatapera.al.gov.br → 0.57
+[2025-06-11T03:32:21.412Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:32:22.421Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:32:41.578Z] [ERROR] [fetchPSI] Error for URL https://saoluisdoquitunde.al.gov.br: Lighthouse returned error: FAILED_DOCUMENT_REQUEST. Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Details: net::ERR_TIMED_OUT)
+[2025-06-11T03:32:41.586Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:32:42.596Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:33:10.646Z] [INFO] [fetchPSISuccess] ✅ https://saomigueldoscampos.al.gov.br → 0.44
+[2025-06-11T03:33:10.655Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:33:11.657Z] [INFO] [timeout] Time limit approaching. Stopping new requests. Elapsed: 9.97 mins.
+[2025-06-11T03:33:11.657Z] [INFO] [summary] Processed 19 URLs in this run.
+[2025-06-11T03:33:11.665Z] [INFO] [saveState] Processing state saved to data/psi_processing_state.json
+[2025-06-11T03:33:11.665Z] [INFO] [main] PSI data collection script finished.
