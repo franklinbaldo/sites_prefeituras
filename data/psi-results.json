@@ -1420,5 +1420,140 @@
     "bestPractices": 0.93,
     "timestamp": "2025-06-11T03:33:10.646Z",
     "ibge_code": "2708600"
+  },
+  {
+    "url": "http://www.saomigueldosmilagres.al.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-12T03:22:40.046Z",
+    "ibge_code": "2708709"
+  },
+  {
+    "url": "https://saosebastiao.al.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.59,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-12T03:23:01.716Z",
+    "ibge_code": "2708808"
+  },
+  {
+    "url": "http://www.tanquedarca.al.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-12T03:23:25.155Z",
+    "ibge_code": "2709004"
+  },
+  {
+    "url": "https://taquarana.al.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.72,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-12T03:24:06.681Z",
+    "ibge_code": "2709103"
+  },
+  {
+    "url": "https://traipu.al.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-12T03:25:53.097Z",
+    "ibge_code": "2709202"
+  },
+  {
+    "url": "https://uniaodospalmares.al.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-12T03:26:29.782Z",
+    "ibge_code": "2709301"
+  },
+  {
+    "url": "https://vicosa.al.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-12T03:26:51.248Z",
+    "ibge_code": "2709400"
+  },
+  {
+    "url": "https://aguabranca.al.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.62,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-12T03:27:28.650Z",
+    "ibge_code": "2700102"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/alvaraes",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-12T03:27:50.912Z",
+    "ibge_code": "1300029"
+  },
+  {
+    "url": "http://www.amatura.am.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-12T03:28:12.685Z",
+    "ibge_code": "1300060"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/anori",
+    "performance": 0.7,
+    "accessibility": 0.64,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-12T03:30:33.320Z",
+    "ibge_code": "1300102"
+  },
+  {
+    "url": "https://apui.am.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-12T03:30:59.439Z",
+    "ibge_code": "1300144"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/atalaia-do-norte",
+    "performance": 0.65,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-12T03:31:22.203Z",
+    "ibge_code": "1300201"
+  },
+  {
+    "url": "https://autazes.am.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.66,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-12T03:31:42.627Z",
+    "ibge_code": "1300300"
+  },
+  {
+    "url": "http://barcelos.am.gov.br",
+    "performance": 0.99,
+    "accessibility": 0.95,
+    "seo": 0.9,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-12T03:31:55.451Z",
+    "ibge_code": "1300409"
   }
 ]
