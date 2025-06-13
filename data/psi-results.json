@@ -1555,5 +1555,212 @@
     "bestPractices": 0.83,
     "timestamp": "2025-06-12T03:31:55.451Z",
     "ibge_code": "1300409"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/barreirinha",
+    "performance": 0.95,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:23:30.160Z",
+    "ibge_code": "1300508"
+  },
+  {
+    "url": "https://benjaminconstant.am.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:23:43.536Z",
+    "ibge_code": "1300607"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/beruri",
+    "performance": 0.95,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:23:54.351Z",
+    "ibge_code": "1300631"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/boavistadoramos",
+    "performance": 0.68,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-13T03:24:23.631Z",
+    "ibge_code": "1300680"
+  },
+  {
+    "url": "https://caapiranga.am.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.95,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:25:10.267Z",
+    "ibge_code": "1300839"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/carauari",
+    "performance": 0.95,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:25:22.020Z",
+    "ibge_code": "1300904"
+  },
+  {
+    "url": "https://carauari.am.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:25:46.882Z",
+    "ibge_code": "1301001"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/careiro",
+    "performance": 0.69,
+    "accessibility": 0.59,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:26:11.569Z",
+    "ibge_code": "1301100"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/careiro-da-varzea",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:26:32.191Z",
+    "ibge_code": "1301159"
+  },
+  {
+    "url": "http://coari.am.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.81,
+    "seo": 0.69,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-13T03:27:11.099Z",
+    "ibge_code": "1301209"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/codajas",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:27:28.741Z",
+    "ibge_code": "1301308"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/eirunepe",
+    "performance": 0.66,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:27:53.293Z",
+    "ibge_code": "1301407"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/envira",
+    "performance": 0.65,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:28:18.967Z",
+    "ibge_code": "1301506"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/fonte-boa",
+    "performance": 0.59,
+    "accessibility": 0.59,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-13T03:28:40.217Z",
+    "ibge_code": "1301605"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/guajara",
+    "performance": 0.63,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:29:11.271Z",
+    "ibge_code": "1301654"
+  },
+  {
+    "url": "http://humaita.am.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.86,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-13T03:29:45.929Z",
+    "ibge_code": "1301704"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/ipixuna",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:30:11.306Z",
+    "ibge_code": "1301803"
+  },
+  {
+    "url": "http://www.itacoatiara.am.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-13T03:31:08.403Z",
+    "ibge_code": "1301902"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/itamarati",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:31:32.995Z",
+    "ibge_code": "1301951"
+  },
+  {
+    "url": "https://itapiranga.am.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-13T03:32:00.665Z",
+    "ibge_code": "1302009"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/japura",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-13T03:32:27.368Z",
+    "ibge_code": "1302108"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/jurua",
+    "performance": 0.95,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:32:37.507Z",
+    "ibge_code": "1302207"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/jutai",
+    "performance": 0.94,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-13T03:32:49.586Z",
+    "ibge_code": "1302306"
   }
 ]
