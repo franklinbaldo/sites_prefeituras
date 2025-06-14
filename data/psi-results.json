@@ -1762,5 +1762,167 @@
     "bestPractices": 0.96,
     "timestamp": "2025-06-13T03:32:49.586Z",
     "ibge_code": "1302306"
+  },
+  {
+    "url": "https://labrea.am.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-14T03:20:13.553Z",
+    "ibge_code": "1302405"
+  },
+  {
+    "url": "http://www.manacapuru.am.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-14T03:21:02.622Z",
+    "ibge_code": "1302504"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/manaquiri",
+    "performance": 0.7,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-14T03:21:30.823Z",
+    "ibge_code": "1302553"
+  },
+  {
+    "url": "https://manaus.am.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-14T03:22:17.844Z",
+    "ibge_code": "1302603"
+  },
+  {
+    "url": "http://manicore.am.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-14T03:22:50.420Z",
+    "ibge_code": "1302702"
+  },
+  {
+    "url": "http://transparenciamunicipalaam.com.br/p/maraa",
+    "performance": 0.86,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-14T03:23:04.225Z",
+    "ibge_code": "1302801"
+  },
+  {
+    "url": "https://www.maues.am.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.84,
+    "seo": 1,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-14T03:23:59.464Z",
+    "ibge_code": "1302900"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/nova-olinda-do-norte",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-14T03:24:23.671Z",
+    "ibge_code": "1303106"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/novo-airao",
+    "performance": 0.65,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-14T03:24:48.397Z",
+    "ibge_code": "1303205"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/novo-aripuana",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-14T03:25:12.204Z",
+    "ibge_code": "1303304"
+  },
+  {
+    "url": "https://parintins.am.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.58,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-14T03:25:36.017Z",
+    "ibge_code": "1303403"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/pauini",
+    "performance": 0.6,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-14T03:25:56.127Z",
+    "ibge_code": "1303502"
+  },
+  {
+    "url": "http://presidentefigueiredo.am.gov.br",
+    "performance": 0.06,
+    "accessibility": 0.76,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-14T03:26:55.749Z",
+    "ibge_code": "1303536"
+  },
+  {
+    "url": "http://riopretodaeva.am.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-14T03:27:22.593Z",
+    "ibge_code": "1303569"
+  },
+  {
+    "url": "https://santaisabeldorionegro.am.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-14T03:27:46.708Z",
+    "ibge_code": "1303601"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/santo-antonio-do-ica",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-14T03:28:09.415Z",
+    "ibge_code": "1303700"
+  },
+  {
+    "url": "https://silves.am.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.47,
+    "seo": 0.82,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-14T03:29:00.867Z",
+    "ibge_code": "1304005"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/sao-gabriel-da-cachoeira",
+    "performance": 0.66,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-14T03:29:31.011Z",
+    "ibge_code": "1303809"
   }
 ]
