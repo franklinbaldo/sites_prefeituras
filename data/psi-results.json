@@ -1924,5 +1924,158 @@
     "bestPractices": 0.71,
     "timestamp": "2025-06-14T03:29:31.011Z",
     "ibge_code": "1303809"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/sao-paulo-de-olivenca",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-15T03:28:20.859Z",
+    "ibge_code": "1303908"
+  },
+  {
+    "url": "https://saosebastiaodouatuma.am.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.77,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-15T03:28:45.650Z",
+    "ibge_code": "1303957"
+  },
+  {
+    "url": "https://tabatinga.am.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-15T03:29:14.010Z",
+    "ibge_code": "1304062"
+  },
+  {
+    "url": "http://tapaua.am.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.55,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-15T03:29:33.985Z",
+    "ibge_code": "1304104"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/tefe",
+    "performance": 0.59,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-15T03:29:56.903Z",
+    "ibge_code": "1304203"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/tonantins",
+    "performance": 0.94,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-15T03:30:08.505Z",
+    "ibge_code": "1304237"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/uarini",
+    "performance": 0.68,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-15T03:30:26.765Z",
+    "ibge_code": "1304260"
+  },
+  {
+    "url": "https://urucara.am.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.94,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-15T03:30:55.875Z",
+    "ibge_code": "1304302"
+  },
+  {
+    "url": "https://transparenciamunicipalaam.org.br/p/urucurituba",
+    "performance": 0.6,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-15T03:31:20.244Z",
+    "ibge_code": "1304401"
+  },
+  {
+    "url": "http://amapa.ap.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-15T03:32:30.077Z",
+    "ibge_code": "1600105"
+  },
+  {
+    "url": "https://calcoene.ap.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.55,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-15T03:32:53.097Z",
+    "ibge_code": "1600204"
+  },
+  {
+    "url": "http://cutias.ap.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.69,
+    "seo": 0.5,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-15T03:33:17.449Z",
+    "ibge_code": "1600212"
+  },
+  {
+    "url": "http://itaubal.ap.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-15T03:34:16.281Z",
+    "ibge_code": "1600253"
+  },
+  {
+    "url": "http://laranjaldojari.ap.gov.br",
+    "performance": 0.26,
+    "accessibility": 0.85,
+    "seo": 0.77,
+    "bestPractices": 0.38,
+    "timestamp": "2025-06-15T03:35:32.323Z",
+    "ibge_code": "1600279"
+  },
+  {
+    "url": "https://macapa.ap.gov.br",
+    "performance": 0.74,
+    "accessibility": null,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-15T03:36:06.755Z",
+    "ibge_code": "1600303"
+  },
+  {
+    "url": "http://mazagao.ap.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.66,
+    "seo": 0.42,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-15T03:36:35.411Z",
+    "ibge_code": "1600402"
+  },
+  {
+    "url": "http://amapari.ap.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-15T03:37:18.532Z",
+    "ibge_code": "1600154"
   }
 ]
