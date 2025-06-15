@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</title>
+    <title>Tabela de Acessibilidade de Sites de Prefeituras Brasileiras</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Mapa de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
+        <h1>Tabela de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
         <nav class="header-nav">
             <a href="about.html">Saiba mais sobre o projeto</a>
         </nav>
     </header>
 
     <section id="project-description">
-        <p>Este projeto visualiza dados de acessibilidade dos sites das prefeituras do Brasil. Navegue pelo mapa para explorar os dados e clique nas áreas para obter mais informações.</p>
+        <p>Este projeto apresenta dados de acessibilidade dos sites das prefeituras do Brasil. Use os campos de busca e ordenação para explorar as informações.</p>
     </section>
 
     <main>
@@ -37,6 +37,7 @@
             </table>
         </div>
         <div id="controls-container">
+            <input type="text" id="table-filter" placeholder="Filtrar por URL ou código IBGE">
             <button id="export-data-btn">Exportar Dados</button>
         </div>
     </main>
@@ -44,7 +45,7 @@
     <script src="js/data-processor.js"></script>
     <script src="js/main.js"></script>
     <footer>
-    <p class="footer-copyright">© 2024 Mapa de Acessibilidade Brasil. Todos os direitos reservados.</p>
+    <p class="footer-copyright">© 2024 Acessibilidade Brasil. Todos os direitos reservados.</p>
     <div class="footer-links">
         <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a>
         <span class="footer-link-separator">|</span>
