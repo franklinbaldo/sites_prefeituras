@@ -153,3 +153,14 @@ footer {
     color: #6c757d;
     margin: 0 5px;
 }
+
+/* Score background colors */
+.score-good {
+    background-color: #c8e6c9;
+}
+.score-ok {
+    background-color: #fff3cd;
+}
+.score-bad {
+    background-color: #f8d7da;
+}

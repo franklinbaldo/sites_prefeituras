@@ -1,9 +1,10 @@
 // collect-psi.js
 import fs from 'fs';
-import path, { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 import fetch from 'node-fetch';
 import { parse as csvParse } from 'csv-parse/sync';
+import pLimit from 'p-limit';
+import pThrottle from 'p-throttle';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
 
@@ -24,18 +25,17 @@ function saveProcessingState(stateObject, filePath) {
   }
 }
 
-// Save a single result immediately to JSON and CSV
-function persistResult(resultObj, jsonFile, csvFile, existingResults) {
+// Save a single result immediately to JSON; CSV will be generated at the end
+function persistResult(resultObj, jsonFile, existingResults) {
   existingResults.push(resultObj);
   fs.writeFileSync(jsonFile, JSON.stringify(existingResults, null, 2));
+}
 
+function writeCsvFile(resultsArray, csvFile) {
   const csvHeader = 'timestamp,url,ibge_code,performance,accessibility,seo,bestPractices';
-  const csvLine = `${resultObj.timestamp},${resultObj.url},${resultObj.ibge_code},${resultObj.performance},${resultObj.accessibility},${resultObj.seo},${resultObj.bestPractices}`;
-  if (!fs.existsSync(csvFile)) {
-    fs.writeFileSync(csvFile, csvHeader + '\n' + csvLine + '\n');
-  } else {
-    fs.appendFileSync(csvFile, csvLine + '\n');
-  }
+  const lines = resultsArray.map(r => `${r.timestamp},${r.url},${r.ibge_code},${r.performance},${r.accessibility},${r.seo},${r.bestPractices}`);
+  fs.writeFileSync(csvFile, csvHeader + '\n' + lines.join('\n') + '\n');
+  logMessage('INFO', `CSV results written to ${csvFile}`, 'writeCsv');
 }
 
 // Function to log messages to console and file
@@ -101,6 +101,9 @@ export async function originalFetchPSI(url, apiKey, fetchFn) {
   if (res.status === 429) {
     throw new Error('Rate limit');
   }
+  if (res.status >= 500) {
+    throw new Error(`Server error ${res.status}`);
+  }
   const json = await res.json();
 
   // Validate the PSI response structure to avoid undefined errors
@@ -139,15 +142,19 @@ async function scriptMockFetchPSI(url) {
   }
 }
 
-// Wrapper to retry PSI fetches on rate limit errors
+// Wrapper to retry PSI fetches on transient errors
 async function fetchPSIWithRetry(url, fetchFn, maxRetries = 2, baseDelay = 1000) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       return await fetchFn(url);
     } catch (err) {
-      if (err.message === 'Rate limit' && attempt < maxRetries) {
+      const retryable =
+        err.message === 'Rate limit' ||
+        err.message.startsWith('Server error') ||
+        err.message.toLowerCase().includes('network');
+      if (retryable && attempt < maxRetries) {
         const delay = baseDelay * Math.pow(2, attempt);
-        logMessage('WARNING', `Rate limit for ${url}. Retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})`, 'retry');
+        logMessage('WARNING', `Retrying ${url} in ${delay}ms due to ${err.message} (attempt ${attempt + 1}/${maxRetries})`, 'retry');
         await new Promise(res => setTimeout(res, delay));
       } else {
         throw err;
@@ -275,7 +282,13 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
 
   const maxRetries = parseInt(process.env.PSI_MAX_RETRIES || '2', 10);
   const retryDelay = parseInt(process.env.PSI_RETRY_DELAY_MS || '1000', 10);
-  const delayBetweenRequests = 1000; // 1 second between requests
+  const concurrency = parseInt(process.env.PSI_CONCURRENCY || '4', 10);
+  const requestsPerMin = parseInt(process.env.PSI_REQUESTS_PER_MIN || '60', 10);
+  const limit = pLimit(concurrency);
+  const throttle = pThrottle({ limit: requestsPerMin, interval: 60000 });
+
+  const throttledFetch = throttle((url) => fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay));
+
   const results = [];
   let processedInThisRunCount = 0;
 
@@ -289,12 +302,12 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     }
   }
 
-  logMessage('INFO', `Starting sequential processing of ${urlsToProcess.length} URLs with 1s spacing.`, 'mainLoop');
-  for (const url of urlsToProcess) {
+  logMessage('INFO', `Starting concurrent processing of ${urlsToProcess.length} URLs with concurrency ${concurrency}.`, 'mainLoop');
+  const tasks = urlsToProcess.map(url => limit(async () => {
     const elapsedTime = Date.now() - scriptStartTime;
     if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
-      logMessage('INFO', `Time limit approaching. Stopping new requests. Elapsed: ${(elapsedTime / 60000).toFixed(2)} mins.`, 'timeout');
-      break;
+      logMessage('INFO', `Time limit approaching. Skipping ${url}.`, 'timeout');
+      return;
     }
 
     const attemptTimestamp = new Date().toISOString();
@@ -306,23 +319,24 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     saveProcessingState(processingState, PROCESSING_STATE_FILE);
 
     try {
-      const data = await fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay);
+      const data = await throttledFetch(url);
       logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
       const resultObj = { ...data, ibge_code: urlToIbge[url] };
       results.push(resultObj);
       processedInThisRunCount++;
       processingState[url].last_success = new Date().toISOString();
       saveProcessingState(processingState, PROCESSING_STATE_FILE);
-      persistResult(resultObj, outputJsonFile, outputCsvFile, existingResults);
+      persistResult(resultObj, outputJsonFile, existingResults);
     } catch (err) {
       logMessage('ERROR', `Error for URL ${url}: ${err.message}`, 'fetchPSI');
       saveProcessingState(processingState, PROCESSING_STATE_FILE);
     }
+  }));
 
-    await new Promise(res => setTimeout(res, delayBetweenRequests));
-  }
+  await Promise.all(tasks);
 
   logMessage('INFO', `Processed ${processedInThisRunCount} URLs in this run.`, 'summary');
+  writeCsvFile(existingResults, outputCsvFile);
   saveProcessingState(processingState, PROCESSING_STATE_FILE);
   logMessage('INFO', 'PSI data collection script finished.', 'main');
 }
