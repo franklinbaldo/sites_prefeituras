@@ -768,836 +768,836 @@
     "last_success": null
   },
   "http://pracuuba.ap.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:26:28.049Z",
     "last_success": null
   },
   "http://santana.ap.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.059Z",
+    "last_success": "2025-06-16T03:26:59.180Z"
   },
   "https://serradonavio.ap.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:26:28.072Z",
     "last_success": null
   },
   "http://tartarugalzinho.ap.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.079Z",
+    "last_success": "2025-06-16T03:26:51.345Z"
   },
   "https://vitoriadojari.ap.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.086Z",
+    "last_success": "2025-06-16T03:26:53.492Z"
   },
   "https://abare.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.100Z",
+    "last_success": "2025-06-16T03:27:00.302Z"
   },
   "http://www.abaira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.110Z",
+    "last_success": "2025-06-16T03:26:56.951Z"
   },
   "http://www.acajutiba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:26:28.116Z",
     "last_success": null
   },
   "https://adustina.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.122Z",
+    "last_success": "2025-06-16T03:27:01.248Z"
   },
   "http://www.aiquara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:28.127Z",
+    "last_success": "2025-06-16T03:26:51.239Z"
   },
   "https://alagoinhas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:46.810Z",
+    "last_success": "2025-06-16T03:27:14.057Z"
   },
   "http://www.alcobaca.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:47.398Z",
+    "last_success": "2025-06-16T03:27:18.480Z"
   },
   "http://www.almadina.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:26:47.868Z",
     "last_success": null
   },
   "http://www.amargosa.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:51.247Z",
+    "last_success": "2025-06-16T03:27:19.212Z"
   },
   "https://ameliarodrigues.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:51.351Z",
+    "last_success": "2025-06-16T03:27:09.823Z"
   },
   "https://americadourada.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:53.499Z",
+    "last_success": "2025-06-16T03:27:23.143Z"
   },
   "https://anage.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:56.959Z",
+    "last_success": "2025-06-16T03:27:22.786Z"
   },
   "http://andarai.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:26:59.186Z",
+    "last_success": "2025-06-16T03:27:21.688Z"
   },
   "http://www.andorinha.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:00.309Z",
+    "last_success": "2025-06-16T03:27:14.953Z"
   },
   "https://angical.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:01.255Z",
+    "last_success": "2025-06-16T03:27:32.981Z"
   },
   "https://anguera.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:06.201Z",
+    "last_success": "2025-06-16T03:27:32.941Z"
   },
   "https://antas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:09.831Z",
+    "last_success": "2025-06-16T03:27:37.981Z"
   },
   "http://antoniocardoso.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:27:14.068Z",
     "last_success": null
   },
   "http://antoniogoncalves.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:14.960Z",
+    "last_success": "2025-06-16T03:27:42.814Z"
   },
   "http://apora.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:18.487Z",
+    "last_success": "2025-06-16T03:27:28.766Z"
   },
   "http://apuarema.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:27:19.219Z",
     "last_success": null
   },
   "https://aracatu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:27:21.695Z",
     "last_success": null
   },
   "http://araci.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:22.793Z",
+    "last_success": "2025-06-16T03:28:00.884Z"
   },
   "https://aramari.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:27:23.150Z",
     "last_success": null
   },
   "http://arataca.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:28.775Z",
+    "last_success": "2025-06-16T03:28:09.083Z"
   },
   "http://aratuipe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:32.950Z",
+    "last_success": "2025-06-16T03:28:05.734Z"
   },
   "http://www.aracas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:32.987Z",
+    "last_success": "2025-06-16T03:28:05.339Z"
   },
   "https://aurelinoleal.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:33.053Z",
+    "last_success": "2025-06-16T03:28:03.173Z"
   },
   "https://baianopolis.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:37.989Z",
+    "last_success": "2025-06-16T03:28:16.817Z"
   },
   "https://baixagrande.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:38.879Z",
+    "last_success": "2025-06-16T03:28:04.252Z"
   },
   "https://banzae.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:40.616Z",
+    "last_success": "2025-06-16T03:28:25.457Z"
   },
   "http://barra.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:42.822Z",
+    "last_success": "2025-06-16T03:28:13.198Z"
   },
   "http://www.barradaestiva.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:27:43.066Z",
+    "last_success": "2025-06-16T03:28:10.547Z"
   },
   "http://barradochoca.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:00.890Z",
+    "last_success": "2025-06-16T03:28:34.191Z"
   },
   "http://barradomendes.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:03.180Z",
+    "last_success": "2025-06-16T03:28:39.327Z"
   },
   "https://barradorocha.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:04.261Z",
+    "last_success": "2025-06-16T03:28:39.636Z"
   },
   "https://barreiras.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:05.347Z",
+    "last_success": "2025-06-16T03:28:48.795Z"
   },
   "https://barroalto.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:05.741Z",
+    "last_success": "2025-06-16T03:28:24.479Z"
   },
   "http://barropreto.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:28:09.090Z",
     "last_success": null
   },
   "https://barrocas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:10.554Z",
+    "last_success": "2025-06-16T03:28:39.661Z"
   },
   "http://belmonte.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:13.204Z",
+    "last_success": "2025-06-16T03:28:43.240Z"
   },
   "https://belocampo.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:16.824Z",
+    "last_success": "2025-06-16T03:28:42.221Z"
   },
   "http://biritinga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:24.485Z",
+    "last_success": "2025-06-16T03:28:52.133Z"
   },
   "http://boanova.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:25.464Z",
+    "last_success": "2025-06-16T03:28:54.244Z"
   },
   "https://boavistadotupim.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:29.031Z",
+    "last_success": "2025-06-16T03:29:03.086Z"
   },
   "http://bomjesusdalapa.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:34.198Z",
+    "last_success": "2025-06-16T03:29:04.735Z"
   },
   "http://bomjesusdaserra.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:39.335Z",
+    "last_success": "2025-06-16T03:29:10.614Z"
   },
   "https://boninal.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:39.642Z",
+    "last_success": "2025-06-16T03:29:05.834Z"
   },
   "https://bonito.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:39.667Z",
+    "last_success": "2025-06-16T03:29:13.501Z"
   },
   "http://boquira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:42.228Z",
+    "last_success": "2025-06-16T03:29:06.191Z"
   },
   "https://botupora.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:43.248Z",
+    "last_success": "2025-06-16T03:29:14.802Z"
   },
   "http://brejolandia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:48.803Z",
+    "last_success": "2025-06-16T03:29:10.201Z"
   },
   "http://brejoes.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:28:52.140Z",
+    "last_success": "2025-06-16T03:29:17.426Z"
   },
   "http://brotasdemacaubas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:28:54.251Z",
     "last_success": null
   },
   "https://brumado.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:03.092Z",
+    "last_success": "2025-06-16T03:29:22.867Z"
   },
   "http://buerarema.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:04.743Z",
+    "last_success": "2025-06-16T03:29:31.059Z"
   },
   "http://buritirama.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:05.841Z",
+    "last_success": "2025-06-16T03:29:33.600Z"
   },
   "http://www.caatiba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:06.197Z",
+    "last_success": "2025-06-16T03:29:31.827Z"
   },
   "https://cabaceirasdoparaguacu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:10.209Z",
     "last_success": null
   },
   "http://www.cachoeira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:10.620Z",
+    "last_success": "2025-06-16T03:29:43.020Z"
   },
   "http://www.cacule.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:13.424Z",
+    "last_success": "2025-06-16T03:29:45.894Z"
   },
   "http://www.caetanos.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:13.508Z",
+    "last_success": "2025-06-16T03:29:23.852Z"
   },
   "http://caetite.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:14.809Z",
     "last_success": null
   },
   "https://cafarnaum.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:17.433Z",
+    "last_success": "2025-06-16T03:29:44.600Z"
   },
   "http://cairu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:22.874Z",
+    "last_success": "2025-06-16T03:29:54.386Z"
   },
   "https://caldeiraogrande.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:23.859Z",
+    "last_success": "2025-06-16T03:29:42.451Z"
   },
   "http://www.camacan.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:31.067Z",
+    "last_success": "2025-06-16T03:30:13.686Z"
   },
   "http://camamu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:31.400Z",
+    "last_success": "2025-06-16T03:29:57.226Z"
   },
   "http://www.camacari.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:31.834Z",
     "last_success": null
   },
   "http://www.campoalegredelourdes.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:33.607Z",
+    "last_success": "2025-06-16T03:30:04.164Z"
   },
   "http://www.campoformoso.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:34.006Z",
     "last_success": null
   },
   "https://canarana.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:42.458Z",
+    "last_success": "2025-06-16T03:30:50.293Z"
   },
   "http://canavieiras.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:43.027Z",
+    "last_success": "2025-06-16T03:30:17.885Z"
   },
   "http://www.candeal.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:44.607Z",
+    "last_success": "2025-06-16T03:30:37.395Z"
   },
   "https://candeias.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:45.901Z",
     "last_success": null
   },
   "https://candiba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:50.677Z",
+    "last_success": "2025-06-16T03:30:15.998Z"
   },
   "https://cansancao.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:52.914Z",
+    "last_success": "2025-06-16T03:32:21.148Z"
   },
   "http://www.canudos.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:29:54.393Z",
+    "last_success": "2025-06-16T03:30:05.535Z"
   },
   "http://canapolis.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:29:57.233Z",
     "last_success": null
   },
   "http://capeladoaltoalegre.ba.indap.com.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:30:04.171Z",
     "last_success": null
   },
   "http://capimgrosso.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:04.776Z",
+    "last_success": "2025-06-16T03:30:41.834Z"
   },
   "https://caravelas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:05.542Z",
+    "last_success": "2025-06-16T03:30:19.594Z"
   },
   "https://caraibas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:13.693Z",
+    "last_success": "2025-06-16T03:30:38.098Z"
   },
   "https://cardealdasilva.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:30:16.004Z",
     "last_success": null
   },
   "http://carinhanha.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:17.892Z",
+    "last_success": "2025-06-16T03:30:46.478Z"
   },
   "http://www.casanova.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:19.601Z",
+    "last_success": "2025-06-16T03:30:55.959Z"
   },
   "http://castroalves.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:21.271Z",
+    "last_success": "2025-06-16T03:31:05.824Z"
   },
   "https://catolandia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:24.930Z",
+    "last_success": "2025-06-16T03:31:03.020Z"
   },
   "http://catu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:35.236Z",
+    "last_success": "2025-06-16T03:30:58.758Z"
   },
   "http://caturama.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:37.401Z",
+    "last_success": "2025-06-16T03:31:13.419Z"
   },
   "https://caem.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:38.105Z",
+    "last_success": "2025-06-16T03:31:11.692Z"
   },
   "http://central.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:41.841Z",
+    "last_success": "2025-06-16T03:30:58.787Z"
   },
   "https://chorrocho.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:46.485Z",
+    "last_success": "2025-06-16T03:31:12.825Z"
   },
   "http://www.cipo.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:50.300Z",
+    "last_success": "2025-06-16T03:31:21.687Z"
   },
   "https://coaraci.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:55.965Z",
+    "last_success": "2025-06-16T03:31:20.731Z"
   },
   "https://cocos.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:58.765Z",
+    "last_success": "2025-06-16T03:31:40.709Z"
   },
   "https://conceicaodafeira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:30:58.793Z",
+    "last_success": "2025-06-16T03:31:09.600Z"
   },
   "http://conceicaodoalmeida.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:03.027Z",
+    "last_success": "2025-06-16T03:31:34.692Z"
   },
   "https://conceicaodocoite.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:05.830Z",
+    "last_success": "2025-06-16T03:31:55.322Z"
   },
   "https://conceicaodojacuipe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:09.607Z",
+    "last_success": "2025-06-16T03:31:44.114Z"
   },
   "http://www.conde.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:11.699Z",
+    "last_success": "2025-06-16T03:31:34.323Z"
   },
   "http://condeuba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:12.832Z",
+    "last_success": "2025-06-16T03:31:35.630Z"
   },
   "http://contendasdosincora.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:13.426Z",
+    "last_success": "2025-06-16T03:31:38.844Z"
   },
   "https://coracaodemaria.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:20.738Z",
+    "last_success": "2025-06-16T03:32:04.141Z"
   },
   "https://cordeiros.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:21.694Z",
+    "last_success": "2025-06-16T03:31:46.958Z"
   },
   "http://coribe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:34.330Z",
+    "last_success": "2025-06-16T03:31:54.982Z"
   },
   "https://coroneljoaosa.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:34.699Z",
+    "last_success": "2025-06-16T03:32:08.304Z"
   },
   "https://correntina.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:35.637Z",
+    "last_success": "2025-06-16T03:31:52.576Z"
   },
   "http://www.cotegipe.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:38.850Z",
+    "last_success": "2025-06-16T03:31:48.152Z"
   },
   "http://cravolandia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:40.716Z",
+    "last_success": "2025-06-16T03:32:17.972Z"
   },
   "https://cristopolis.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:44.121Z",
+    "last_success": "2025-06-16T03:32:17.046Z"
   },
   "http://www.ipmbrasil.org.br/DiarioOficial/ba/pmcrisopolis/home": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:46.965Z",
+    "last_success": "2025-06-16T03:32:01.856Z"
   },
   "https://cruzdasalmas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:48.158Z",
+    "last_success": "2025-06-16T03:32:21.278Z"
   },
   "http://curaca.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:52.583Z",
+    "last_success": "2025-06-16T03:32:24.090Z"
   },
   "http://www.candidosales.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:54.988Z",
+    "last_success": "2025-06-16T03:32:13.781Z"
   },
   "https://cicerodantas.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:31:55.329Z",
+    "last_success": "2025-06-16T03:32:23.670Z"
   },
   "http://www.diasdavila.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:01.863Z",
+    "last_success": "2025-06-16T03:32:30.447Z"
   },
   "http://dombasilio.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:04.148Z",
+    "last_success": "2025-06-16T03:32:25.827Z"
   },
   "http://www.dommacedocosta.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:08.311Z",
+    "last_success": "2025-06-16T03:32:18.825Z"
   },
   "http://www.dariomeira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:13.788Z",
+    "last_success": "2025-06-16T03:32:50.374Z"
   },
   "http://elisiomedrado.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:17.053Z",
+    "last_success": "2025-06-16T03:32:42.738Z"
   },
   "https://encruzilhada.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:17.979Z",
+    "last_success": "2025-06-16T03:32:49.088Z"
   },
   "http://entrerios.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:18.832Z",
+    "last_success": "2025-06-16T03:32:50.951Z"
   },
   "http://www.esplanada.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:21.154Z",
+    "last_success": "2025-06-16T03:32:31.699Z"
   },
   "http://euclidesdacunha.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:21.285Z",
+    "last_success": "2025-06-16T03:32:56.800Z"
   },
   "https://eunapolis.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:32:23.677Z",
     "last_success": null
   },
   "http://www.feiradamata.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:24.097Z",
+    "last_success": "2025-06-16T03:32:36.881Z"
   },
   "http://www.feiradesantana.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:25.834Z",
+    "last_success": "2025-06-16T03:32:56.179Z"
   },
   "https://filadelfia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:30.454Z",
+    "last_success": "2025-06-16T03:32:59.107Z"
   },
   "http://www.firminoalves.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:31.706Z",
+    "last_success": "2025-06-16T03:32:44.824Z"
   },
   "http://www.florestaazul.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:36.887Z",
+    "last_success": "2025-06-16T03:33:06.574Z"
   },
   "https://formosadoriopreto.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:42.745Z",
+    "last_success": "2025-06-16T03:33:20.107Z"
   },
   "https://fatima.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:32:43.026Z",
     "last_success": null
   },
   "http://www.gandu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:44.831Z",
+    "last_success": "2025-06-16T03:33:20.459Z"
   },
   "https://gaviao.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:49.095Z",
+    "last_success": "2025-06-16T03:33:13.417Z"
   },
   "http://gentiodoouro.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:50.381Z",
+    "last_success": "2025-06-16T03:33:36.807Z"
   },
   "https://gloria.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:50.958Z",
+    "last_success": "2025-06-16T03:33:19.539Z"
   },
   "http://gongogi.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:56.186Z",
+    "last_success": "2025-06-16T03:33:17.615Z"
   },
   "https://governadormangabeira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:56.806Z",
+    "last_success": "2025-06-16T03:33:28.699Z"
   },
   "https://governodeguajeru.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:32:59.114Z",
+    "last_success": "2025-06-16T03:33:28.838Z"
   },
   "https://guanambi.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:02.297Z",
+    "last_success": "2025-06-16T03:33:39.311Z"
   },
   "http://guaratinga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:33:06.582Z",
     "last_success": null
   },
   "http://heliopolis.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:13.424Z",
+    "last_success": "2025-06-16T03:33:34.579Z"
   },
   "https://iacu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:17.622Z",
+    "last_success": "2025-06-16T03:33:42.255Z"
   },
   "http://ibiassuce.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:19.546Z",
+    "last_success": "2025-06-16T03:34:07.145Z"
   },
   "http://ibicarai.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:20.113Z",
+    "last_success": "2025-06-16T03:34:00.692Z"
   },
   "http://ibicoara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:33:20.466Z",
     "last_success": null
   },
   "http://ibicui.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:33:25.007Z",
     "last_success": null
   },
   "https://ibipeba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:28.706Z",
+    "last_success": "2025-06-16T03:33:57.967Z"
   },
   "http://www.ibipitanga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:28.844Z",
+    "last_success": "2025-06-16T03:34:01.491Z"
   },
   "https://ibiquera.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:33:34.586Z",
     "last_success": null
   },
   "http://www.ibirapitanga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:36.814Z",
+    "last_success": "2025-06-16T03:34:09.358Z"
   },
   "http://www.ibirapua.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:39.317Z",
+    "last_success": "2025-06-16T03:34:03.432Z"
   },
   "http://www.ibirataia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:39.819Z",
+    "last_success": "2025-06-16T03:33:57.811Z"
   },
   "https://ibitiara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:42.262Z",
+    "last_success": "2025-06-16T03:34:14.192Z"
   },
   "http://ibitita.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:43.671Z",
+    "last_success": "2025-06-16T03:34:06.888Z"
   },
   "https://ibotirama.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:33:54.689Z",
     "last_success": null
   },
   "https://domunicipio.com/cidade.php?q=1&id=19": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:57.818Z",
+    "last_success": "2025-06-16T03:34:13.187Z"
   },
   "https://igapora.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:33:57.975Z",
+    "last_success": "2025-06-16T03:34:37.224Z"
   },
   "http://igrapiuna.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:00.700Z",
+    "last_success": "2025-06-16T03:34:52.478Z"
   },
   "http://iguai.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:01.499Z",
+    "last_success": "2025-06-16T03:34:24.523Z"
   },
   "http://www.ilheus.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:03.440Z",
+    "last_success": "2025-06-16T03:34:34.184Z"
   },
   "http://inhambupe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:06.895Z",
+    "last_success": "2025-06-16T03:34:17.716Z"
   },
   "http://www.ipecaeta.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:34:07.154Z",
     "last_success": null
   },
   "https://ipiau.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:09.365Z",
+    "last_success": "2025-06-16T03:34:27.385Z"
   },
   "https://ipira.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:13.194Z",
+    "last_success": "2025-06-16T03:34:30.602Z"
   },
   "https://ipupiara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:14.200Z",
+    "last_success": "2025-06-16T03:34:36.379Z"
   },
   "http://irajuba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:34:14.244Z",
     "last_success": null
   },
   "http://www.iramaia.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:17.725Z",
+    "last_success": "2025-06-16T03:34:28.164Z"
   },
   "https://iraquara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:24.533Z",
+    "last_success": "2025-06-16T03:34:56.570Z"
   },
   "https://irara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:27.395Z",
+    "last_success": "2025-06-16T03:34:55.746Z"
   },
   "https://irece.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:27.758Z",
+    "last_success": "2025-06-16T03:35:02.707Z"
   },
   "http://itabela.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:28.172Z",
+    "last_success": "2025-06-16T03:34:45.122Z"
   },
   "https://itaberaba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:30.610Z",
+    "last_success": "2025-06-16T03:35:03.108Z"
   },
   "https://itabuna.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:34.192Z",
+    "last_success": "2025-06-16T03:35:03.173Z"
   },
   "https://itacare.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:36.386Z",
+    "last_success": "2025-06-16T03:35:02.434Z"
   },
   "http://itaete.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:37.232Z",
+    "last_success": "2025-06-16T03:35:18.126Z"
   },
   "http://www.itagi.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:45.132Z",
+    "last_success": "2025-06-16T03:35:27.764Z"
   },
   "http://www.itagiba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:34:52.486Z",
     "last_success": null
   },
   "http://www.itagimirim.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:34:55.756Z",
     "last_success": null
   },
   "https://itaguacudabahia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:34:56.578Z",
+    "last_success": "2025-06-16T03:35:26.240Z"
   },
   "http://itajudocolonia.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:02.442Z",
+    "last_success": "2025-06-16T03:35:24.218Z"
   },
   "http://itajuipe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:35:02.716Z",
     "last_success": null
   },
   "https://itamaraju.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:03.115Z",
+    "last_success": "2025-06-16T03:35:43.653Z"
   },
   "http://itamari.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:03.181Z",
+    "last_success": "2025-06-16T03:35:56.183Z"
   },
   "https://itambe.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:11.716Z",
+    "last_success": "2025-06-16T03:35:36.645Z"
   },
   "http://www.itanagra.ba.io.org.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:15.635Z",
+    "last_success": "2025-06-16T03:35:26.306Z"
   },
   "http://itanhem.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:18.133Z",
+    "last_success": "2025-06-16T03:35:35.991Z"
   },
   "https://itaparica.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:22.478Z",
+    "last_success": "2025-06-16T03:35:39.410Z"
   },
   "http://itapebi.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:24.225Z",
+    "last_success": "2025-06-16T03:35:44.372Z"
   },
   "https://itapetinga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:26.248Z",
+    "last_success": "2025-06-16T03:35:46.083Z"
   },
   "http://www.portaldatransparencia.com.br/prefeitura/itapicuru": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:26.314Z",
+    "last_success": "2025-06-16T03:35:37.211Z"
   },
   "https://itapitanga.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:35:27.771Z",
     "last_success": null
   },
   "http://itape.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:36.000Z",
+    "last_success": "2025-06-16T03:36:03.919Z"
   },
   "http://itaquara.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:36.652Z",
+    "last_success": "2025-06-16T03:36:07.023Z"
   },
   "http://itarantim.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:35:37.220Z",
     "last_success": null
   },
   "http://itatim.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:39.417Z",
+    "last_success": "2025-06-16T03:36:14.218Z"
   },
   "https://itirucu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:43.533Z",
+    "last_success": "2025-06-16T03:36:21.986Z"
   },
   "https://itiuba.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:43.661Z",
+    "last_success": "2025-06-16T03:36:14.247Z"
   },
   "http://itororo.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:35:44.380Z",
     "last_success": null
   },
   "http://www.ituacu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:46.091Z",
+    "last_success": "2025-06-16T03:36:08.956Z"
   },
   "https://itubera.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
+    "last_attempt": "2025-06-16T03:35:49.036Z",
     "last_success": null
   },
   "https://iuiu.ba.gov.br": {
-    "last_attempt": "2025-06-04T19:26:29.391Z",
-    "last_success": null
+    "last_attempt": "2025-06-16T03:35:56.191Z",
+    "last_success": "2025-06-16T03:36:35.757Z"
   },
   "https://jaborandi.ba.gov.br": {
     "last_attempt": "2025-06-04T19:26:29.391Z",
