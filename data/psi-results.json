@@ -2077,5 +2077,1571 @@
     "bestPractices": 0.76,
     "timestamp": "2025-06-15T03:37:18.532Z",
     "ibge_code": "1600154"
+  },
+  {
+    "url": "http://www.aiquara.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.73,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:26:51.239Z",
+    "ibge_code": "2900603"
+  },
+  {
+    "url": "http://tartarugalzinho.ap.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.64,
+    "seo": 0.5,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:26:51.345Z",
+    "ibge_code": "1600709"
+  },
+  {
+    "url": "https://vitoriadojari.ap.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:26:53.492Z",
+    "ibge_code": "1600808"
+  },
+  {
+    "url": "http://www.abaira.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:26:56.951Z",
+    "ibge_code": "2900108"
+  },
+  {
+    "url": "http://santana.ap.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.72,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:26:59.179Z",
+    "ibge_code": "1600600"
+  },
+  {
+    "url": "https://abare.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:27:00.302Z",
+    "ibge_code": "2900207"
+  },
+  {
+    "url": "https://adustina.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:27:01.248Z",
+    "ibge_code": "2900355"
+  },
+  {
+    "url": "https://ameliarodrigues.ba.gov.br",
+    "performance": 0.79,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:27:09.822Z",
+    "ibge_code": "2901106"
+  },
+  {
+    "url": "https://alagoinhas.ba.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.73,
+    "seo": 0.69,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-16T03:27:14.057Z",
+    "ibge_code": "2900702"
+  },
+  {
+    "url": "http://www.andorinha.ba.gov.br",
+    "performance": 0.97,
+    "accessibility": 0.83,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:27:14.953Z",
+    "ibge_code": "2901353"
+  },
+  {
+    "url": "http://www.alcobaca.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:27:18.480Z",
+    "ibge_code": "2900801"
+  },
+  {
+    "url": "http://www.amargosa.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:27:19.212Z",
+    "ibge_code": "2901007"
+  },
+  {
+    "url": "http://andarai.ba.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.38,
+    "timestamp": "2025-06-16T03:27:21.687Z",
+    "ibge_code": "2901304"
+  },
+  {
+    "url": "https://anage.ba.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.72,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:27:22.786Z",
+    "ibge_code": "2901205"
+  },
+  {
+    "url": "https://americadourada.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.99,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:27:23.143Z",
+    "ibge_code": "2901155"
+  },
+  {
+    "url": "http://apora.ba.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-16T03:27:28.766Z",
+    "ibge_code": "2901908"
+  },
+  {
+    "url": "https://anguera.ba.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-16T03:27:32.941Z",
+    "ibge_code": "2901502"
+  },
+  {
+    "url": "https://angical.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.65,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:27:32.981Z",
+    "ibge_code": "2901403"
+  },
+  {
+    "url": "https://antas.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:27:37.981Z",
+    "ibge_code": "2901601"
+  },
+  {
+    "url": "http://antoniogoncalves.ba.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.75,
+    "seo": 0.73,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:27:42.814Z",
+    "ibge_code": "2901809"
+  },
+  {
+    "url": "http://araci.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:28:00.884Z",
+    "ibge_code": "2902104"
+  },
+  {
+    "url": "https://aurelinoleal.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:28:03.173Z",
+    "ibge_code": "2902401"
+  },
+  {
+    "url": "https://baixagrande.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:28:04.251Z",
+    "ibge_code": "2902609"
+  },
+  {
+    "url": "http://www.aracas.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:28:05.339Z",
+    "ibge_code": "2902054"
+  },
+  {
+    "url": "http://aratuipe.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:28:05.734Z",
+    "ibge_code": "2902302"
+  },
+  {
+    "url": "http://arataca.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:28:09.083Z",
+    "ibge_code": "2902252"
+  },
+  {
+    "url": "http://www.barradaestiva.ba.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.73,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:28:10.547Z",
+    "ibge_code": "2902807"
+  },
+  {
+    "url": "http://barra.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:28:13.198Z",
+    "ibge_code": "2902708"
+  },
+  {
+    "url": "https://baianopolis.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.98,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:28:16.817Z",
+    "ibge_code": "2902500"
+  },
+  {
+    "url": "https://barroalto.ba.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:28:24.478Z",
+    "ibge_code": "2903235"
+  },
+  {
+    "url": "https://banzae.ba.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.82,
+    "seo": 0.77,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:28:25.457Z",
+    "ibge_code": "2902658"
+  },
+  {
+    "url": "http://barradochoca.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.75,
+    "seo": 0.82,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-16T03:28:34.190Z",
+    "ibge_code": "2902906"
+  },
+  {
+    "url": "http://barradomendes.ba.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.99,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-16T03:28:39.327Z",
+    "ibge_code": "2903003"
+  },
+  {
+    "url": "https://barradorocha.ba.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:28:39.636Z",
+    "ibge_code": "2903102"
+  },
+  {
+    "url": "https://barrocas.ba.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-16T03:28:39.661Z",
+    "ibge_code": "2903276"
+  },
+  {
+    "url": "https://belocampo.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.63,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:28:42.221Z",
+    "ibge_code": "2903508"
+  },
+  {
+    "url": "http://belmonte.ba.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.83,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:28:43.240Z",
+    "ibge_code": "2903409"
+  },
+  {
+    "url": "https://barreiras.ba.gov.br",
+    "performance": 0.29,
+    "accessibility": 0.67,
+    "seo": 0.85,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:28:48.795Z",
+    "ibge_code": "2903201"
+  },
+  {
+    "url": "http://biritinga.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:28:52.133Z",
+    "ibge_code": "2903607"
+  },
+  {
+    "url": "http://boanova.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:28:54.244Z",
+    "ibge_code": "2903706"
+  },
+  {
+    "url": "https://boavistadotupim.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:29:03.085Z",
+    "ibge_code": "2903805"
+  },
+  {
+    "url": "http://bomjesusdalapa.ba.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:29:04.735Z",
+    "ibge_code": "2903904"
+  },
+  {
+    "url": "https://boninal.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:29:05.834Z",
+    "ibge_code": "2904001"
+  },
+  {
+    "url": "http://boquira.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:29:06.191Z",
+    "ibge_code": "2904100"
+  },
+  {
+    "url": "http://brejolandia.ba.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:29:10.201Z",
+    "ibge_code": "2904407"
+  },
+  {
+    "url": "http://bomjesusdaserra.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.73,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:29:10.613Z",
+    "ibge_code": "2903953"
+  },
+  {
+    "url": "https://bonito.ba.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.61,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:29:13.501Z",
+    "ibge_code": "2904050"
+  },
+  {
+    "url": "https://botupora.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-16T03:29:14.802Z",
+    "ibge_code": "2904209"
+  },
+  {
+    "url": "http://brejoes.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:29:17.426Z",
+    "ibge_code": "2904308"
+  },
+  {
+    "url": "https://brumado.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:29:22.867Z",
+    "ibge_code": "2904605"
+  },
+  {
+    "url": "http://www.caetanos.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:29:23.852Z",
+    "ibge_code": "2905156"
+  },
+  {
+    "url": "http://buerarema.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.61,
+    "seo": 1,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:29:31.059Z",
+    "ibge_code": "2904704"
+  },
+  {
+    "url": "http://www.caatiba.ba.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.61,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:29:31.827Z",
+    "ibge_code": "2904803"
+  },
+  {
+    "url": "http://buritirama.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:29:33.600Z",
+    "ibge_code": "2904753"
+  },
+  {
+    "url": "https://caldeiraogrande.ba.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.76,
+    "seo": 0.73,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-16T03:29:42.451Z",
+    "ibge_code": "2905503"
+  },
+  {
+    "url": "http://www.cachoeira.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:29:43.020Z",
+    "ibge_code": "2904902"
+  },
+  {
+    "url": "https://cafarnaum.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-16T03:29:44.600Z",
+    "ibge_code": "2905305"
+  },
+  {
+    "url": "http://www.cacule.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.85,
+    "seo": 0.77,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:29:45.894Z",
+    "ibge_code": "2905008"
+  },
+  {
+    "url": "http://cairu.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:29:54.386Z",
+    "ibge_code": "2905404"
+  },
+  {
+    "url": "http://camamu.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:29:57.226Z",
+    "ibge_code": "2905800"
+  },
+  {
+    "url": "http://www.campoalegredelourdes.ba.gov.br",
+    "performance": 0.23,
+    "accessibility": 0.95,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-16T03:30:04.164Z",
+    "ibge_code": "2905909"
+  },
+  {
+    "url": "http://www.canudos.ba.gov.br",
+    "performance": 1,
+    "accessibility": 0.83,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:30:05.535Z",
+    "ibge_code": "2906824"
+  },
+  {
+    "url": "http://www.camacan.ba.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:30:13.686Z",
+    "ibge_code": "2905602"
+  },
+  {
+    "url": "https://candiba.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:30:15.998Z",
+    "ibge_code": "2906600"
+  },
+  {
+    "url": "http://canavieiras.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:30:17.885Z",
+    "ibge_code": "2906303"
+  },
+  {
+    "url": "https://caravelas.ba.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:30:19.594Z",
+    "ibge_code": "2906907"
+  },
+  {
+    "url": "http://www.candeal.ba.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.48,
+    "timestamp": "2025-06-16T03:30:37.395Z",
+    "ibge_code": "2906402"
+  },
+  {
+    "url": "https://caraibas.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:30:38.098Z",
+    "ibge_code": "2906899"
+  },
+  {
+    "url": "http://capimgrosso.ba.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.74,
+    "seo": 0.85,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:30:41.834Z",
+    "ibge_code": "2906873"
+  },
+  {
+    "url": "http://carinhanha.ba.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:30:46.478Z",
+    "ibge_code": "2907103"
+  },
+  {
+    "url": "https://canarana.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:30:50.293Z",
+    "ibge_code": "2906204"
+  },
+  {
+    "url": "http://www.casanova.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.86,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-16T03:30:55.958Z",
+    "ibge_code": "2907202"
+  },
+  {
+    "url": "http://catu.ba.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:30:58.758Z",
+    "ibge_code": "2907509"
+  },
+  {
+    "url": "http://central.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.78,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:30:58.787Z",
+    "ibge_code": "2907608"
+  },
+  {
+    "url": "https://catolandia.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-16T03:31:03.020Z",
+    "ibge_code": "2907400"
+  },
+  {
+    "url": "http://castroalves.ba.gov.br",
+    "performance": 0.27,
+    "accessibility": 0.93,
+    "seo": 0.85,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-16T03:31:05.823Z",
+    "ibge_code": "2907301"
+  },
+  {
+    "url": "https://conceicaodafeira.ba.gov.br",
+    "performance": 1,
+    "accessibility": 0.87,
+    "seo": 0.73,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:31:09.600Z",
+    "ibge_code": "2908200"
+  },
+  {
+    "url": "https://caem.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.78,
+    "seo": 0.73,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:31:11.692Z",
+    "ibge_code": "2905107"
+  },
+  {
+    "url": "https://chorrocho.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 0.77,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:31:12.825Z",
+    "ibge_code": "2907707"
+  },
+  {
+    "url": "http://caturama.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:31:13.419Z",
+    "ibge_code": "2907558"
+  },
+  {
+    "url": "https://coaraci.ba.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.76,
+    "seo": 0.67,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-16T03:31:20.731Z",
+    "ibge_code": "2908002"
+  },
+  {
+    "url": "http://www.cipo.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 0.73,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:31:21.687Z",
+    "ibge_code": "2907905"
+  },
+  {
+    "url": "http://www.conde.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:31:34.323Z",
+    "ibge_code": "2908606"
+  },
+  {
+    "url": "http://conceicaodoalmeida.ba.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.95,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:31:34.692Z",
+    "ibge_code": "2908309"
+  },
+  {
+    "url": "http://condeuba.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:31:35.630Z",
+    "ibge_code": "2908705"
+  },
+  {
+    "url": "http://contendasdosincora.ba.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:31:38.844Z",
+    "ibge_code": "2908804"
+  },
+  {
+    "url": "https://cocos.ba.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:31:40.709Z",
+    "ibge_code": "2908101"
+  },
+  {
+    "url": "https://conceicaodojacuipe.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:31:44.114Z",
+    "ibge_code": "2908507"
+  },
+  {
+    "url": "https://cordeiros.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:31:46.958Z",
+    "ibge_code": "2909000"
+  },
+  {
+    "url": "http://www.cotegipe.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:31:48.151Z",
+    "ibge_code": "2909406"
+  },
+  {
+    "url": "https://correntina.ba.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:31:52.576Z",
+    "ibge_code": "2909307"
+  },
+  {
+    "url": "http://coribe.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:31:54.982Z",
+    "ibge_code": "2909109"
+  },
+  {
+    "url": "https://conceicaodocoite.ba.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:31:55.322Z",
+    "ibge_code": "2908408"
+  },
+  {
+    "url": "http://www.ipmbrasil.org.br/DiarioOficial/ba/pmcrisopolis/home",
+    "performance": 0.64,
+    "accessibility": 0.77,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:32:01.856Z",
+    "ibge_code": "2909604"
+  },
+  {
+    "url": "https://coracaodemaria.ba.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-16T03:32:04.141Z",
+    "ibge_code": "2908903"
+  },
+  {
+    "url": "https://coroneljoaosa.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.76,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:32:08.304Z",
+    "ibge_code": "2909208"
+  },
+  {
+    "url": "http://www.candidosales.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.66,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:32:13.781Z",
+    "ibge_code": "2906709"
+  },
+  {
+    "url": "https://cristopolis.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:32:17.046Z",
+    "ibge_code": "2909703"
+  },
+  {
+    "url": "http://cravolandia.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:32:17.972Z",
+    "ibge_code": "2909505"
+  },
+  {
+    "url": "http://www.dommacedocosta.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:32:18.825Z",
+    "ibge_code": "2910206"
+  },
+  {
+    "url": "https://cansancao.ba.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.82,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:32:21.147Z",
+    "ibge_code": "2906808"
+  },
+  {
+    "url": "https://cruzdasalmas.ba.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.74,
+    "seo": 0.91,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-16T03:32:21.278Z",
+    "ibge_code": "2909802"
+  },
+  {
+    "url": "https://cicerodantas.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:32:23.670Z",
+    "ibge_code": "2907806"
+  },
+  {
+    "url": "http://curaca.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:32:24.090Z",
+    "ibge_code": "2909901"
+  },
+  {
+    "url": "http://dombasilio.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:32:25.827Z",
+    "ibge_code": "2910107"
+  },
+  {
+    "url": "http://www.diasdavila.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:32:30.447Z",
+    "ibge_code": "2910057"
+  },
+  {
+    "url": "http://www.esplanada.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:32:31.699Z",
+    "ibge_code": "2910602"
+  },
+  {
+    "url": "http://www.feiradamata.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:32:36.880Z",
+    "ibge_code": "2910776"
+  },
+  {
+    "url": "http://elisiomedrado.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:32:42.738Z",
+    "ibge_code": "2910305"
+  },
+  {
+    "url": "http://www.firminoalves.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:32:44.824Z",
+    "ibge_code": "2910909"
+  },
+  {
+    "url": "https://encruzilhada.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:32:49.088Z",
+    "ibge_code": "2910404"
+  },
+  {
+    "url": "http://www.dariomeira.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.63,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:32:50.374Z",
+    "ibge_code": "2910008"
+  },
+  {
+    "url": "http://entrerios.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.76,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:32:50.951Z",
+    "ibge_code": "2910503"
+  },
+  {
+    "url": "http://www.feiradesantana.ba.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.71,
+    "seo": 0.82,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-16T03:32:56.179Z",
+    "ibge_code": "2910800"
+  },
+  {
+    "url": "http://euclidesdacunha.ba.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.78,
+    "seo": 0.91,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:32:56.799Z",
+    "ibge_code": "2910701"
+  },
+  {
+    "url": "https://filadelfia.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.77,
+    "seo": 0.73,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:32:59.107Z",
+    "ibge_code": "2910859"
+  },
+  {
+    "url": "http://www.florestaazul.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:33:06.574Z",
+    "ibge_code": "2911006"
+  },
+  {
+    "url": "https://gaviao.ba.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-16T03:33:13.417Z",
+    "ibge_code": "2911253"
+  },
+  {
+    "url": "http://gongogi.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:33:17.615Z",
+    "ibge_code": "2911501"
+  },
+  {
+    "url": "https://gloria.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.94,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:33:19.539Z",
+    "ibge_code": "2911402"
+  },
+  {
+    "url": "https://formosadoriopreto.ba.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.65,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:33:20.106Z",
+    "ibge_code": "2911105"
+  },
+  {
+    "url": "http://www.gandu.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.68,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:33:20.459Z",
+    "ibge_code": "2911204"
+  },
+  {
+    "url": "https://governadormangabeira.ba.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:33:28.699Z",
+    "ibge_code": "2911600"
+  },
+  {
+    "url": "https://governodeguajeru.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:33:28.838Z",
+    "ibge_code": "2911659"
+  },
+  {
+    "url": "http://heliopolis.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:33:34.578Z",
+    "ibge_code": "2911857"
+  },
+  {
+    "url": "http://gentiodoouro.ba.gov.br",
+    "performance": 0.36,
+    "accessibility": 1,
+    "seo": 1,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-16T03:33:36.807Z",
+    "ibge_code": "2911303"
+  },
+  {
+    "url": "https://guanambi.ba.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.77,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:33:39.311Z",
+    "ibge_code": "2911709"
+  },
+  {
+    "url": "https://iacu.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:33:42.255Z",
+    "ibge_code": "2911907"
+  },
+  {
+    "url": "http://www.ibirataia.ba.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.73,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:33:57.811Z",
+    "ibge_code": "2912905"
+  },
+  {
+    "url": "https://ibipeba.ba.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-16T03:33:57.967Z",
+    "ibge_code": "2912400"
+  },
+  {
+    "url": "http://ibicarai.ba.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:34:00.692Z",
+    "ibge_code": "2912103"
+  },
+  {
+    "url": "http://www.ibipitanga.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:34:01.491Z",
+    "ibge_code": "2912509"
+  },
+  {
+    "url": "http://www.ibirapua.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:34:03.432Z",
+    "ibge_code": "2912806"
+  },
+  {
+    "url": "http://ibitita.ba.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:34:06.888Z",
+    "ibge_code": "2913101"
+  },
+  {
+    "url": "http://ibiassuce.ba.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:34:07.145Z",
+    "ibge_code": "2912004"
+  },
+  {
+    "url": "http://www.ibirapitanga.ba.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.38,
+    "timestamp": "2025-06-16T03:34:09.358Z",
+    "ibge_code": "2912707"
+  },
+  {
+    "url": "https://domunicipio.com/cidade.php?q=1&id=19",
+    "performance": 0.88,
+    "accessibility": 0.4,
+    "seo": 0.73,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:34:13.186Z",
+    "ibge_code": "2913309"
+  },
+  {
+    "url": "https://ibitiara.ba.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.99,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:34:14.192Z",
+    "ibge_code": "2913002"
+  },
+  {
+    "url": "http://inhambupe.ba.gov.br",
+    "performance": 1,
+    "accessibility": 0.5,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:34:17.716Z",
+    "ibge_code": "2913705"
+  },
+  {
+    "url": "http://iguai.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:34:24.523Z",
+    "ibge_code": "2913507"
+  },
+  {
+    "url": "https://ipiau.ba.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:34:27.385Z",
+    "ibge_code": "2913903"
+  },
+  {
+    "url": "http://www.iramaia.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:34:28.164Z",
+    "ibge_code": "2914307"
+  },
+  {
+    "url": "https://ipira.ba.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.66,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:34:30.602Z",
+    "ibge_code": "2914000"
+  },
+  {
+    "url": "http://www.ilheus.ba.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:34:34.184Z",
+    "ibge_code": "2913606"
+  },
+  {
+    "url": "https://ipupiara.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.74,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:34:36.379Z",
+    "ibge_code": "2914109"
+  },
+  {
+    "url": "https://igapora.ba.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:34:37.224Z",
+    "ibge_code": "2913408"
+  },
+  {
+    "url": "http://itabela.ba.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.52,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:34:45.122Z",
+    "ibge_code": "2914653"
+  },
+  {
+    "url": "http://igrapiuna.ba.gov.br",
+    "performance": 0.3,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:34:52.478Z",
+    "ibge_code": "2913457"
+  },
+  {
+    "url": "https://irara.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:34:55.746Z",
+    "ibge_code": "2914505"
+  },
+  {
+    "url": "https://iraquara.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.99,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-16T03:34:56.570Z",
+    "ibge_code": "2914406"
+  },
+  {
+    "url": "https://itacare.ba.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:35:02.434Z",
+    "ibge_code": "2914901"
+  },
+  {
+    "url": "https://irece.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:35:02.707Z",
+    "ibge_code": "2914604"
+  },
+  {
+    "url": "https://itaberaba.ba.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.94,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:35:03.108Z",
+    "ibge_code": "2914703"
+  },
+  {
+    "url": "https://itabuna.ba.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:35:03.173Z",
+    "ibge_code": "2914802"
+  },
+  {
+    "url": "http://itaete.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:35:18.125Z",
+    "ibge_code": "2915007"
+  },
+  {
+    "url": "http://itajudocolonia.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:35:24.217Z",
+    "ibge_code": "2915403"
+  },
+  {
+    "url": "https://itaguacudabahia.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:35:26.239Z",
+    "ibge_code": "2915353"
+  },
+  {
+    "url": "http://www.itanagra.ba.io.org.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-16T03:35:26.306Z",
+    "ibge_code": "2915908"
+  },
+  {
+    "url": "http://www.itagi.ba.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.89,
+    "seo": 0.91,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-16T03:35:27.764Z",
+    "ibge_code": "2915106"
+  },
+  {
+    "url": "http://itanhem.ba.gov.br",
+    "performance": 0.84,
+    "accessibility": 0.77,
+    "seo": 0.82,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-16T03:35:35.991Z",
+    "ibge_code": "2916005"
+  },
+  {
+    "url": "https://itambe.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.82,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-16T03:35:36.645Z",
+    "ibge_code": "2915809"
+  },
+  {
+    "url": "http://www.portaldatransparencia.com.br/prefeitura/itapicuru",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:35:37.211Z",
+    "ibge_code": "2916500"
+  },
+  {
+    "url": "https://itaparica.ba.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.89,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-16T03:35:39.410Z",
+    "ibge_code": "2916104"
+  },
+  {
+    "url": "https://itamaraju.ba.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.65,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:35:43.653Z",
+    "ibge_code": "2915601"
+  },
+  {
+    "url": "http://itapebi.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-16T03:35:44.372Z",
+    "ibge_code": "2916302"
+  },
+  {
+    "url": "https://itapetinga.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-16T03:35:46.083Z",
+    "ibge_code": "2916401"
+  },
+  {
+    "url": "http://itamari.ba.gov.br",
+    "performance": 0.29,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:35:56.183Z",
+    "ibge_code": "2915700"
+  },
+  {
+    "url": "http://itape.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.63,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:36:03.919Z",
+    "ibge_code": "2916203"
+  },
+  {
+    "url": "http://itaquara.ba.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.95,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:36:07.023Z",
+    "ibge_code": "2916708"
+  },
+  {
+    "url": "http://www.ituacu.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.7,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-16T03:36:08.956Z",
+    "ibge_code": "2917201"
+  },
+  {
+    "url": "http://itatim.ba.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.69,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-16T03:36:14.218Z",
+    "ibge_code": "2916856"
+  },
+  {
+    "url": "https://itiuba.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-16T03:36:14.246Z",
+    "ibge_code": "2917003"
+  },
+  {
+    "url": "https://itirucu.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.63,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-16T03:36:21.986Z",
+    "ibge_code": "2916906"
+  },
+  {
+    "url": "https://iuiu.ba.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-16T03:36:35.757Z",
+    "ibge_code": "2917334"
   }
 ]
