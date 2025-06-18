@@ -5128,5 +5128,1823 @@
     "bestPractices": 0.75,
     "timestamp": "2025-06-17T03:33:25.499Z",
     "ibge_code": "2932200"
+  },
+  {
+    "url": "https://valente.ba.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.84,
+    "seo": 0.82,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:23:03.807Z",
+    "ibge_code": "2933000"
+  },
+  {
+    "url": "http://ubata.ba.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:23:11.892Z",
+    "ibge_code": "2932309"
+  },
+  {
+    "url": "https://urandi.ba.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:23:12.055Z",
+    "ibge_code": "2932606"
+  },
+  {
+    "url": "https://urucuca.ba.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.77,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:23:13.068Z",
+    "ibge_code": "2932705"
+  },
+  {
+    "url": "http://www.utinga.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.69,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-18T03:23:13.222Z",
+    "ibge_code": "2932804"
+  },
+  {
+    "url": "http://una.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:23:16.306Z",
+    "ibge_code": "2932507"
+  },
+  {
+    "url": "https://umburanas.ba.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.68,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:23:19.011Z",
+    "ibge_code": "2932457"
+  },
+  {
+    "url": "https://vereda.ba.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:23:20.895Z",
+    "ibge_code": "2933257"
+  },
+  {
+    "url": "http://varzedo.ba.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.38,
+    "timestamp": "2025-06-18T03:23:26.613Z",
+    "ibge_code": "2933174"
+  },
+  {
+    "url": "http://varzeadaroca.ba.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-18T03:23:28.429Z",
+    "ibge_code": "2933059"
+  },
+  {
+    "url": "http://ubaira.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:23:29.387Z",
+    "ibge_code": "2932101"
+  },
+  {
+    "url": "https://varzeanova.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-18T03:23:36.348Z",
+    "ibge_code": "2933158"
+  },
+  {
+    "url": "https://veracruz.ba.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.78,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:23:40.095Z",
+    "ibge_code": "2933208"
+  },
+  {
+    "url": "http://www.wenceslauguimaraes.ba.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:23:47.281Z",
+    "ibge_code": "2933505"
+  },
+  {
+    "url": "http://www.xiquexique.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:23:50.264Z",
+    "ibge_code": "2933604"
+  },
+  {
+    "url": "http://www.wanderley.ba.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.71,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:23:52.837Z",
+    "ibge_code": "2933455"
+  },
+  {
+    "url": "http://www.pmvc.ba.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.7,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-18T03:23:54.881Z",
+    "ibge_code": "2933307"
+  },
+  {
+    "url": "http://wagner.ba.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.84,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:23:55.334Z",
+    "ibge_code": "2933406"
+  },
+  {
+    "url": "https://ericocardoso.ba.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:23:57.340Z",
+    "ibge_code": "2900504"
+  },
+  {
+    "url": "http://www.aguafria.ba.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.88,
+    "seo": 1,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-18T03:24:07.826Z",
+    "ibge_code": "2900405"
+  },
+  {
+    "url": "https://acarape.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.67,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:08.267Z",
+    "ibge_code": "2300150"
+  },
+  {
+    "url": "https://alcantaras.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-18T03:24:11.510Z",
+    "ibge_code": "2300507"
+  },
+  {
+    "url": "https://abaiara.ce.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.75,
+    "seo": 0.82,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-18T03:24:11.775Z",
+    "ibge_code": "2300101"
+  },
+  {
+    "url": "https://aiuaba.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:15.443Z",
+    "ibge_code": "2300408"
+  },
+  {
+    "url": "https://acarau.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:20.395Z",
+    "ibge_code": "2300200"
+  },
+  {
+    "url": "http://acopiara.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:24:21.999Z",
+    "ibge_code": "2300309"
+  },
+  {
+    "url": "https://amontada.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:23.062Z",
+    "ibge_code": "2300754"
+  },
+  {
+    "url": "https://altosanto.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:23.088Z",
+    "ibge_code": "2300705"
+  },
+  {
+    "url": "http://altaneira.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.75,
+    "seo": 0.67,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-18T03:24:27.856Z",
+    "ibge_code": "2300606"
+  },
+  {
+    "url": "https://antoninadonorte.ce.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.73,
+    "seo": 0.77,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-18T03:24:30.396Z",
+    "ibge_code": "2300804"
+  },
+  {
+    "url": "https://aracoiaba.ce.gov.br",
+    "performance": 0.74,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:35.128Z",
+    "ibge_code": "2301208"
+  },
+  {
+    "url": "http://aquiraz.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:24:35.482Z",
+    "ibge_code": "2301000"
+  },
+  {
+    "url": "https://apuiares.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:37.749Z",
+    "ibge_code": "2300903"
+  },
+  {
+    "url": "https://aratuba.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.77,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:45.855Z",
+    "ibge_code": "2301406"
+  },
+  {
+    "url": "https://araripe.ce.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:24:46.479Z",
+    "ibge_code": "2301307"
+  },
+  {
+    "url": "https://aracati.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:51.969Z",
+    "ibge_code": "2301109"
+  },
+  {
+    "url": "https://aurora.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:52.217Z",
+    "ibge_code": "2301703"
+  },
+  {
+    "url": "https://arneiroz.ce.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.68,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:24:52.632Z",
+    "ibge_code": "2301505"
+  },
+  {
+    "url": "https://ararenda.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:24:54.279Z",
+    "ibge_code": "2301257"
+  },
+  {
+    "url": "https://barbalha.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:24:59.831Z",
+    "ibge_code": "2301901"
+  },
+  {
+    "url": "https://baixio.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:03.376Z",
+    "ibge_code": "2301802"
+  },
+  {
+    "url": "https://barro.ce.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:07.318Z",
+    "ibge_code": "2302008"
+  },
+  {
+    "url": "https://assare.ce.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:10.743Z",
+    "ibge_code": "2301604"
+  },
+  {
+    "url": "https://barreira.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:11.525Z",
+    "ibge_code": "2301950"
+  },
+  {
+    "url": "https://beberibe.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:14.248Z",
+    "ibge_code": "2302206"
+  },
+  {
+    "url": "https://belacruz.ce.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.57,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:16.990Z",
+    "ibge_code": "2302305"
+  },
+  {
+    "url": "https://baturite.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:17.768Z",
+    "ibge_code": "2302107"
+  },
+  {
+    "url": "https://brejosanto.ce.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.78,
+    "seo": 0.85,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-18T03:25:27.381Z",
+    "ibge_code": "2302503"
+  },
+  {
+    "url": "http://barroquinha.ce.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-18T03:25:29.137Z",
+    "ibge_code": "2302057"
+  },
+  {
+    "url": "https://banabuiu.ce.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:25:33.885Z",
+    "ibge_code": "2301851"
+  },
+  {
+    "url": "https://boaviagem.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:34.733Z",
+    "ibge_code": "2302404"
+  },
+  {
+    "url": "https://caninde.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:34.771Z",
+    "ibge_code": "2302800"
+  },
+  {
+    "url": "https://capistrano.ce.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:36.349Z",
+    "ibge_code": "2302909"
+  },
+  {
+    "url": "https://caririacu.ce.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:36.639Z",
+    "ibge_code": "2303204"
+  },
+  {
+    "url": "https://carire.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:25:38.094Z",
+    "ibge_code": "2303105"
+  },
+  {
+    "url": "https://campossales.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:38.993Z",
+    "ibge_code": "2302701"
+  },
+  {
+    "url": "https://caridade.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:45.981Z",
+    "ibge_code": "2303006"
+  },
+  {
+    "url": "https://camocim.ce.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:46.038Z",
+    "ibge_code": "2302602"
+  },
+  {
+    "url": "https://cascavel.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:25:47.273Z",
+    "ibge_code": "2303501"
+  },
+  {
+    "url": "https://carius.ce.gov.br",
+    "performance": 0.74,
+    "accessibility": 0.93,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-18T03:25:48.416Z",
+    "ibge_code": "2303303"
+  },
+  {
+    "url": "https://carnaubal.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:55.228Z",
+    "ibge_code": "2303402"
+  },
+  {
+    "url": "https://catarina.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:57.441Z",
+    "ibge_code": "2303600"
+  },
+  {
+    "url": "https://caucaia.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:25:57.879Z",
+    "ibge_code": "2303709"
+  },
+  {
+    "url": "https://cedro.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:04.644Z",
+    "ibge_code": "2303808"
+  },
+  {
+    "url": "https://crato.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:26:08.223Z",
+    "ibge_code": "2304202"
+  },
+  {
+    "url": "https://chorozinho.ce.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.76,
+    "seo": 0.67,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:26:09.112Z",
+    "ibge_code": "2303956"
+  },
+  {
+    "url": "https://coreau.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:11.422Z",
+    "ibge_code": "2304004"
+  },
+  {
+    "url": "http://www.choro.ce.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:26:15.696Z",
+    "ibge_code": "2303931"
+  },
+  {
+    "url": "https://catunda.ce.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:26:21.573Z",
+    "ibge_code": "2303659"
+  },
+  {
+    "url": "https://chaval.ce.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.88,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:26:21.705Z",
+    "ibge_code": "2303907"
+  },
+  {
+    "url": "https://crateus.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.69,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:26:22.580Z",
+    "ibge_code": "2304103"
+  },
+  {
+    "url": "https://erere.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:30.258Z",
+    "ibge_code": "2304277"
+  },
+  {
+    "url": "https://www.irapuanpinheiro.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:30.662Z",
+    "ibge_code": "2304269"
+  },
+  {
+    "url": "https://croata.ce.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.85,
+    "seo": 1,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-18T03:26:31.573Z",
+    "ibge_code": "2304236"
+  },
+  {
+    "url": "https://fariasbrito.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:26:37.929Z",
+    "ibge_code": "2304301"
+  },
+  {
+    "url": "http://www.eusebio.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:26:38.744Z",
+    "ibge_code": "2304285"
+  },
+  {
+    "url": "https://forquilha.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:39.245Z",
+    "ibge_code": "2304350"
+  },
+  {
+    "url": "https://granjeiro.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:26:45.634Z",
+    "ibge_code": "2304806"
+  },
+  {
+    "url": "https://frecheirinha.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:49.539Z",
+    "ibge_code": "2304509"
+  },
+  {
+    "url": "https://graca.ce.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:49.650Z",
+    "ibge_code": "2304657"
+  },
+  {
+    "url": "https://guaraciabadonorte.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:26:50.532Z",
+    "ibge_code": "2305001"
+  },
+  {
+    "url": "https://fortim.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:50.810Z",
+    "ibge_code": "2304459"
+  },
+  {
+    "url": "https://generalsampaio.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:26:52.922Z",
+    "ibge_code": "2304608"
+  },
+  {
+    "url": "https://granja.ce.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:02.049Z",
+    "ibge_code": "2304707"
+  },
+  {
+    "url": "https://groairas.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:02.697Z",
+    "ibge_code": "2304905"
+  },
+  {
+    "url": "http://www.guaramiranga.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:06.290Z",
+    "ibge_code": "2305100"
+  },
+  {
+    "url": "http://guaiuba.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:12.291Z",
+    "ibge_code": "2304954"
+  },
+  {
+    "url": "https://hidrolandia.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:13.284Z",
+    "ibge_code": "2305209"
+  },
+  {
+    "url": "http://ibicuitinga.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:13.320Z",
+    "ibge_code": "2305332"
+  },
+  {
+    "url": "https://ibiapina.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:14.495Z",
+    "ibge_code": "2305308"
+  },
+  {
+    "url": "https://ibaretama.ce.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.82,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:14.524Z",
+    "ibge_code": "2305266"
+  },
+  {
+    "url": "http://iguatu.ce.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.77,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:20.688Z",
+    "ibge_code": "2305506"
+  },
+  {
+    "url": "https://horizonte.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.77,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-18T03:27:24.030Z",
+    "ibge_code": "2305233"
+  },
+  {
+    "url": "https://ico.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:24.623Z",
+    "ibge_code": "2305407"
+  },
+  {
+    "url": "https://independencia.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:31.007Z",
+    "ibge_code": "2305605"
+  },
+  {
+    "url": "https://ipueiras.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:32.177Z",
+    "ibge_code": "2305902"
+  },
+  {
+    "url": "https://ipaporanga.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:32.806Z",
+    "ibge_code": "2305654"
+  },
+  {
+    "url": "http://www.ipaumirim.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:35.701Z",
+    "ibge_code": "2305704"
+  },
+  {
+    "url": "https://ipu.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.75,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:37.670Z",
+    "ibge_code": "2305803"
+  },
+  {
+    "url": "https://iracema.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:37.706Z",
+    "ibge_code": "2306009"
+  },
+  {
+    "url": "http://www.itaicaba.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:27:47.134Z",
+    "ibge_code": "2306207"
+  },
+  {
+    "url": "https://icapui.ce.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-18T03:27:47.243Z",
+    "ibge_code": "2305357"
+  },
+  {
+    "url": "https://itaitinga.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:53.738Z",
+    "ibge_code": "2306256"
+  },
+  {
+    "url": "https://itapaje.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:27:57.318Z",
+    "ibge_code": "2306306"
+  },
+  {
+    "url": "https://itarema.ce.gov.br",
+    "performance": 0.74,
+    "accessibility": 0.59,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:01.306Z",
+    "ibge_code": "2306553"
+  },
+  {
+    "url": "https://itatira.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:02.243Z",
+    "ibge_code": "2306603"
+  },
+  {
+    "url": "https://itapiuna.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:02.776Z",
+    "ibge_code": "2306504"
+  },
+  {
+    "url": "https://jaguaretama.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:05.100Z",
+    "ibge_code": "2306702"
+  },
+  {
+    "url": "http://itapipoca.ce.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:28:09.311Z",
+    "ibge_code": "2306405"
+  },
+  {
+    "url": "http://jaguaribe.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:28:11.808Z",
+    "ibge_code": "2306900"
+  },
+  {
+    "url": "https://jijocadejericoacoara.ce.gov.br",
+    "performance": 0.77,
+    "accessibility": 0.64,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:28:19.725Z",
+    "ibge_code": "2307254"
+  },
+  {
+    "url": "https://jardim.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:22.029Z",
+    "ibge_code": "2307106"
+  },
+  {
+    "url": "https://jaguaruana.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:24.073Z",
+    "ibge_code": "2307007"
+  },
+  {
+    "url": "https://limoeirodonorte.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:28:24.131Z",
+    "ibge_code": "2307601"
+  },
+  {
+    "url": "https://juazeirodonorte.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:27.528Z",
+    "ibge_code": "2307304"
+  },
+  {
+    "url": "https://jati.ce.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:28:28.097Z",
+    "ibge_code": "2307205"
+  },
+  {
+    "url": "https://lavrasdamangabeira.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:35.367Z",
+    "ibge_code": "2307502"
+  },
+  {
+    "url": "https://marco.ce.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-18T03:28:36.682Z",
+    "ibge_code": "2307809"
+  },
+  {
+    "url": "http://iraucuba.ce.gov.br",
+    "performance": 0.24,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:28:37.351Z",
+    "ibge_code": "2306108"
+  },
+  {
+    "url": "https://madalena.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:43.865Z",
+    "ibge_code": "2307635"
+  },
+  {
+    "url": "http://www.jaguaribara.ce.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:28:48.121Z",
+    "ibge_code": "2306801"
+  },
+  {
+    "url": "https://massape.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:50.310Z",
+    "ibge_code": "2308005"
+  },
+  {
+    "url": "https://mauriti.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:52.745Z",
+    "ibge_code": "2308104"
+  },
+  {
+    "url": "http://www.martinopole.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:28:57.512Z",
+    "ibge_code": "2307908"
+  },
+  {
+    "url": "https://meruoca.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:28:59.035Z",
+    "ibge_code": "2308203"
+  },
+  {
+    "url": "https://milagres.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:02.645Z",
+    "ibge_code": "2308302"
+  },
+  {
+    "url": "http://www.maracanau.ce.gov.br",
+    "performance": 0.27,
+    "accessibility": 0.84,
+    "seo": 0.61,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-18T03:29:08.785Z",
+    "ibge_code": "2307650"
+  },
+  {
+    "url": "https://milha.ce.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:11.146Z",
+    "ibge_code": "2308351"
+  },
+  {
+    "url": "https://miraima.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:11.779Z",
+    "ibge_code": "2308377"
+  },
+  {
+    "url": "http://maranguape.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.8,
+    "seo": 0.69,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:29:13.373Z",
+    "ibge_code": "2307700"
+  },
+  {
+    "url": "https://missaovelha.ce.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:14.731Z",
+    "ibge_code": "2308401"
+  },
+  {
+    "url": "https://monsenhortabosa.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:15.600Z",
+    "ibge_code": "2308609"
+  },
+  {
+    "url": "http://mombaca.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:29:16.329Z",
+    "ibge_code": "2308500"
+  },
+  {
+    "url": "https://moradanova.ce.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:24.951Z",
+    "ibge_code": "2308708"
+  },
+  {
+    "url": "http://moraujo.ce.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-18T03:29:28.811Z",
+    "ibge_code": "2308807"
+  },
+  {
+    "url": "https://novarussas.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:31.541Z",
+    "ibge_code": "2309300"
+  },
+  {
+    "url": "http://www.morrinhos.ce.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:29:33.021Z",
+    "ibge_code": "2308906"
+  },
+  {
+    "url": "https://mulungu.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:36.169Z",
+    "ibge_code": "2309102"
+  },
+  {
+    "url": "https://mucambo.ce.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-18T03:29:36.425Z",
+    "ibge_code": "2309003"
+  },
+  {
+    "url": "https://ocara.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:39.394Z",
+    "ibge_code": "2309458"
+  },
+  {
+    "url": "https://novooriente.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:40.459Z",
+    "ibge_code": "2309409"
+  },
+  {
+    "url": "http://www.oros.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:29:43.016Z",
+    "ibge_code": "2309508"
+  },
+  {
+    "url": "https://pacajus.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:50.972Z",
+    "ibge_code": "2309607"
+  },
+  {
+    "url": "https://pacuja.ce.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:51.219Z",
+    "ibge_code": "2309904"
+  },
+  {
+    "url": "https://pacatuba.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:51.341Z",
+    "ibge_code": "2309706"
+  },
+  {
+    "url": "https://palhano.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:57.923Z",
+    "ibge_code": "2310001"
+  },
+  {
+    "url": "https://novaolinda.ce.gov.br",
+    "performance": 0.79,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:29:58.609Z",
+    "ibge_code": "2309201"
+  },
+  {
+    "url": "https://palmacia.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:29:58.931Z",
+    "ibge_code": "2310100"
+  },
+  {
+    "url": "https://paracuru.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:00.501Z",
+    "ibge_code": "2310209"
+  },
+  {
+    "url": "https://pacoti.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:03.693Z",
+    "ibge_code": "2309805"
+  },
+  {
+    "url": "https://paraipaba.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:05.879Z",
+    "ibge_code": "2310258"
+  },
+  {
+    "url": "https://parambu.ce.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.83,
+    "seo": 0.91,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-18T03:30:06.049Z",
+    "ibge_code": "2310308"
+  },
+  {
+    "url": "https://penaforte.ce.gov.br",
+    "performance": 0.82,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-18T03:30:17.567Z",
+    "ibge_code": "2310605"
+  },
+  {
+    "url": "https://paramoti.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:20.092Z",
+    "ibge_code": "2310407"
+  },
+  {
+    "url": "https://pedrabranca.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:20.278Z",
+    "ibge_code": "2310506"
+  },
+  {
+    "url": "https://piquetcarneiro.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:22.790Z",
+    "ibge_code": "2310902"
+  },
+  {
+    "url": "https://pentecoste.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:23.638Z",
+    "ibge_code": "2310704"
+  },
+  {
+    "url": "https://pindoretama.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:30:25.302Z",
+    "ibge_code": "2310852"
+  },
+  {
+    "url": "https://porteiras.ce.gov.br",
+    "performance": 0.79,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-18T03:30:31.317Z",
+    "ibge_code": "2311108"
+  },
+  {
+    "url": "https://poranga.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:32.164Z",
+    "ibge_code": "2311009"
+  },
+  {
+    "url": "https://piresferreira.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.78,
+    "seo": 0.82,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-18T03:30:33.078Z",
+    "ibge_code": "2310951"
+  },
+  {
+    "url": "http://pereiro.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:30:34.332Z",
+    "ibge_code": "2310803"
+  },
+  {
+    "url": "http://www.potengi.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:30:42.575Z",
+    "ibge_code": "2311207"
+  },
+  {
+    "url": "https://quixelo.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:44.981Z",
+    "ibge_code": "2311355"
+  },
+  {
+    "url": "https://quiterianopolis.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-18T03:30:45.235Z",
+    "ibge_code": "2311264"
+  },
+  {
+    "url": "https://potiretama.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:50.752Z",
+    "ibge_code": "2311231"
+  },
+  {
+    "url": "https://quixada.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:51.249Z",
+    "ibge_code": "2311306"
+  },
+  {
+    "url": "https://russas.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:57.055Z",
+    "ibge_code": "2311801"
+  },
+  {
+    "url": "https://redencao.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:58.125Z",
+    "ibge_code": "2311603"
+  },
+  {
+    "url": "https://quixeramobim.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:30:59.891Z",
+    "ibge_code": "2311405"
+  },
+  {
+    "url": "http://saboeiro.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-18T03:31:05.438Z",
+    "ibge_code": "2311900"
+  },
+  {
+    "url": "https://quixere.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:07.863Z",
+    "ibge_code": "2311504"
+  },
+  {
+    "url": "https://reriutaba.ce.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.78,
+    "seo": 0.82,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-18T03:31:09.390Z",
+    "ibge_code": "2311702"
+  },
+  {
+    "url": "https://santaquiteria.ce.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:13.061Z",
+    "ibge_code": "2312205"
+  },
+  {
+    "url": "https://salitre.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:13.293Z",
+    "ibge_code": "2311959"
+  },
+  {
+    "url": "http://santanadoacarau.ce.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:31:15.115Z",
+    "ibge_code": "2312007"
+  },
+  {
+    "url": "http://www.santanadocariri.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:31:23.625Z",
+    "ibge_code": "2312106"
+  },
+  {
+    "url": "https://senadorpompeu.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:27.401Z",
+    "ibge_code": "2312700"
+  },
+  {
+    "url": "https://solonopole.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:32.954Z",
+    "ibge_code": "2313005"
+  },
+  {
+    "url": "https://saogoncalodoamarante.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:35.472Z",
+    "ibge_code": "2312403"
+  },
+  {
+    "url": "http://www.sobral.ce.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-18T03:31:36.876Z",
+    "ibge_code": "2312908"
+  },
+  {
+    "url": "https://saobenedito.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:36.908Z",
+    "ibge_code": "2312304"
+  },
+  {
+    "url": "http://tabuleirodonorte.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:31:37.739Z",
+    "ibge_code": "2313104"
+  },
+  {
+    "url": "https://saojoaodojaguaribe.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:38.811Z",
+    "ibge_code": "2312502"
+  },
+  {
+    "url": "http://www.tarrafas.ce.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-18T03:31:51.915Z",
+    "ibge_code": "2313252"
+  },
+  {
+    "url": "https://taua.ce.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:53.861Z",
+    "ibge_code": "2313302"
+  },
+  {
+    "url": "https://tejucuoca.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:56.849Z",
+    "ibge_code": "2313351"
+  },
+  {
+    "url": "https://ubajara.ce.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:56.949Z",
+    "ibge_code": "2313609"
+  },
+  {
+    "url": "https://tururu.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:58.878Z",
+    "ibge_code": "2313559"
+  },
+  {
+    "url": "https://tamboril.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:31:59.435Z",
+    "ibge_code": "2313203"
+  },
+  {
+    "url": "https://umari.ce.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:00.356Z",
+    "ibge_code": "2313708"
+  },
+  {
+    "url": "http://trairi.ce.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:32:02.285Z",
+    "ibge_code": "2313500"
+  },
+  {
+    "url": "http://senadorsa.ce.gov.br",
+    "performance": 0.26,
+    "accessibility": 0.77,
+    "seo": 0.69,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-18T03:32:03.613Z",
+    "ibge_code": "2312809"
+  },
+  {
+    "url": "https://tiangua.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:08.118Z",
+    "ibge_code": "2313401"
+  },
+  {
+    "url": "https://uruoca.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:17.559Z",
+    "ibge_code": "2313906"
+  },
+  {
+    "url": "https://uruburetama.ce.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:20.691Z",
+    "ibge_code": "2313807"
+  },
+  {
+    "url": "http://www.afonsoclaudio.es.gov.br",
+    "performance": 0.87,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:32:23.606Z",
+    "ibge_code": "3200102"
+  },
+  {
+    "url": "https://varjota.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:24.181Z",
+    "ibge_code": "2313955"
+  },
+  {
+    "url": "http://umirim.ce.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.83,
+    "seo": 0.91,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-18T03:32:25.587Z",
+    "ibge_code": "2313757"
+  },
+  {
+    "url": "https://www.vicosa.ce.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:29.428Z",
+    "ibge_code": "2314102"
+  },
+  {
+    "url": "https://alegre.es.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.62,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-18T03:32:32.566Z",
+    "ibge_code": "3200201"
+  },
+  {
+    "url": "https://varzeaalegre.ce.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-18T03:32:36.441Z",
+    "ibge_code": "2314003"
   }
 ]
