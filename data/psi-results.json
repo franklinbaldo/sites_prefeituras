@@ -8845,5 +8845,2021 @@
     "bestPractices": 0.93,
     "timestamp": "2025-06-19T03:32:51.888Z",
     "ibge_code": "5212501"
+  },
+  {
+    "url": "https://montividiudonorte.go.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:22:52.449Z",
+    "ibge_code": "5213772"
+  },
+  {
+    "url": "https://morrinhos.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:22:53.177Z",
+    "ibge_code": "5213806"
+  },
+  {
+    "url": "http://www.mundonovo.go.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:22:54.435Z",
+    "ibge_code": "5214051"
+  },
+  {
+    "url": "https://mozarlandia.go.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:22:55.761Z",
+    "ibge_code": "5214002"
+  },
+  {
+    "url": "https://neropolis.go.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:22:56.096Z",
+    "ibge_code": "5214507"
+  },
+  {
+    "url": "https://mossamedes.go.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:22:56.142Z",
+    "ibge_code": "5213905"
+  },
+  {
+    "url": "https://mutunopolis.go.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-20T03:22:58.819Z",
+    "ibge_code": "5214101"
+  },
+  {
+    "url": "http://www.prefeiturademorroagudo.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.41,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:23:00.681Z",
+    "ibge_code": "5213855"
+  },
+  {
+    "url": "http://nazario.go.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:23:00.814Z",
+    "ibge_code": "5214408"
+  },
+  {
+    "url": "http://novaaurora.go.gov.br",
+    "performance": 0.91,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:23:08.133Z",
+    "ibge_code": "5214804"
+  },
+  {
+    "url": "http://niquelandia.go.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:23:09.527Z",
+    "ibge_code": "5214606"
+  },
+  {
+    "url": "http://www.novacrixas.go.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.86,
+    "seo": 0.82,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-20T03:23:10.525Z",
+    "ibge_code": "5214838"
+  },
+  {
+    "url": "https://novaamerica.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:10.834Z",
+    "ibge_code": "5214705"
+  },
+  {
+    "url": "https://novaroma.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.73,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:13.695Z",
+    "ibge_code": "5214903"
+  },
+  {
+    "url": "https://novaveneza.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:14.907Z",
+    "ibge_code": "5215009"
+  },
+  {
+    "url": "https://novagloria.go.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:15.170Z",
+    "ibge_code": "5214861"
+  },
+  {
+    "url": "https://novogama.go.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.67,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-20T03:23:21.111Z",
+    "ibge_code": "5215231"
+  },
+  {
+    "url": "https://novobrasil.go.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:23.162Z",
+    "ibge_code": "5215207"
+  },
+  {
+    "url": "https://orizona.go.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.51,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:23:24.633Z",
+    "ibge_code": "5215306"
+  },
+  {
+    "url": "https://ouroverdegoias.go.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.9,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:28.716Z",
+    "ibge_code": "5215405"
+  },
+  {
+    "url": "https://novoplanalto.go.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:31.634Z",
+    "ibge_code": "5215256"
+  },
+  {
+    "url": "https://padrebernardo.go.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:32.914Z",
+    "ibge_code": "5215603"
+  },
+  {
+    "url": "https://palmeirasdegoias.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:33.651Z",
+    "ibge_code": "5215702"
+  },
+  {
+    "url": "https://palestinadegoias.go.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:36.113Z",
+    "ibge_code": "5215652"
+  },
+  {
+    "url": "https://ouvidor.go.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.81,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:45.530Z",
+    "ibge_code": "5215504"
+  },
+  {
+    "url": "https://parauna.go.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.76,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:46.731Z",
+    "ibge_code": "5216403"
+  },
+  {
+    "url": "https://perolandia.go.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:48.517Z",
+    "ibge_code": "5216452"
+  },
+  {
+    "url": "https://panama.go.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:49.422Z",
+    "ibge_code": "5216007"
+  },
+  {
+    "url": "http://www.petrolina.go.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.67,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:23:49.994Z",
+    "ibge_code": "5216809"
+  },
+  {
+    "url": "https://paranaiguara.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:23:50.143Z",
+    "ibge_code": "5216304"
+  },
+  {
+    "url": "https://piranhas.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:23:59.723Z",
+    "ibge_code": "5217203"
+  },
+  {
+    "url": "http://www.pilar.go.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:24:00.607Z",
+    "ibge_code": "5216908"
+  },
+  {
+    "url": "http://piresdorio.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:24:05.211Z",
+    "ibge_code": "5217401"
+  },
+  {
+    "url": "https://porteirao.go.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.73,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:24:11.304Z",
+    "ibge_code": "5218052"
+  },
+  {
+    "url": "https://pontalina.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.93,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:11.748Z",
+    "ibge_code": "5217708"
+  },
+  {
+    "url": "http://www.planaltina.go.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:24:14.391Z",
+    "ibge_code": "5217609"
+  },
+  {
+    "url": "http://porangatu.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:24:16.646Z",
+    "ibge_code": "5218003"
+  },
+  {
+    "url": "http://www.piracanjuba.go.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:24:17.818Z",
+    "ibge_code": "5217104"
+  },
+  {
+    "url": "https://posse.go.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:20.200Z",
+    "ibge_code": "5218300"
+  },
+  {
+    "url": "http://portelandia.go.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:24:20.263Z",
+    "ibge_code": "5218102"
+  },
+  {
+    "url": "https://palmelo.go.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.43,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-20T03:24:28.752Z",
+    "ibge_code": "5215801"
+  },
+  {
+    "url": "https://rianapolis.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.94,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:33.531Z",
+    "ibge_code": "5218706"
+  },
+  {
+    "url": "http://professorjamil.go.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.67,
+    "seo": 0.85,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:24:33.910Z",
+    "ibge_code": "5218391"
+  },
+  {
+    "url": "https://sanclerlandia.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:37.512Z",
+    "ibge_code": "5219001"
+  },
+  {
+    "url": "https://rioquente.go.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:24:38.268Z",
+    "ibge_code": "5218789"
+  },
+  {
+    "url": "http://santabarbara.go.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.83,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-20T03:24:39.118Z",
+    "ibge_code": "5219100"
+  },
+  {
+    "url": "https://rialma.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:41.480Z",
+    "ibge_code": "5218607"
+  },
+  {
+    "url": "http://quirinopolis.go.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:24:42.156Z",
+    "ibge_code": "5218508"
+  },
+  {
+    "url": "http://rioverde.go.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.59,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:24:42.495Z",
+    "ibge_code": "5218805"
+  },
+  {
+    "url": "https://rubiataba.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:24:44.428Z",
+    "ibge_code": "5218904"
+  },
+  {
+    "url": "http://santafedegoias.go.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-20T03:24:54.214Z",
+    "ibge_code": "5219258"
+  },
+  {
+    "url": "http://www.santahelena.go.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:24:54.585Z",
+    "ibge_code": "5219308"
+  },
+  {
+    "url": "http://santacruzdegoias.go.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:24:57.431Z",
+    "ibge_code": "5219209"
+  },
+  {
+    "url": "https://santaisabel.go.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:24:59.009Z",
+    "ibge_code": "5219357"
+  },
+  {
+    "url": "https://santaritadonovodestino.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.93,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:02.279Z",
+    "ibge_code": "5219456"
+  },
+  {
+    "url": "https://santaritadoaraguaia.go.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:03.788Z",
+    "ibge_code": "5219407"
+  },
+  {
+    "url": "http://www.santatereza.go.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:25:04.255Z",
+    "ibge_code": "5219605"
+  },
+  {
+    "url": "https://santaterezinhadegoias.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:07.492Z",
+    "ibge_code": "5219704"
+  },
+  {
+    "url": "https://pirenopolis.go.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.71,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:10.193Z",
+    "ibge_code": "5217302"
+  },
+  {
+    "url": "http://santarosa.go.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:25:11.952Z",
+    "ibge_code": "5219506"
+  },
+  {
+    "url": "https://santoantoniododescoberto.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:13.034Z",
+    "ibge_code": "5219753"
+  },
+  {
+    "url": "https://santoantoniodabarra.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:25:18.031Z",
+    "ibge_code": "5219712"
+  },
+  {
+    "url": "https://senadorcanedo.go.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:18.715Z",
+    "ibge_code": "5220454"
+  },
+  {
+    "url": "https://santoantoniodegoias.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.73,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:21.622Z",
+    "ibge_code": "5219738"
+  },
+  {
+    "url": "https://silvania.go.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:22.540Z",
+    "ibge_code": "5220603"
+  },
+  {
+    "url": "https://serranopolis.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:24.494Z",
+    "ibge_code": "5220504"
+  },
+  {
+    "url": "https://simolandia.go.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:26.256Z",
+    "ibge_code": "5220686"
+  },
+  {
+    "url": "http://www.saojoaodalianca.go.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:25:29.440Z",
+    "ibge_code": "5220009"
+  },
+  {
+    "url": "https://saodomingos.go.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.92,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:30.444Z",
+    "ibge_code": "5219803"
+  },
+  {
+    "url": "https://saofranciscodegoias.go.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.78,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:32.483Z",
+    "ibge_code": "5219902"
+  },
+  {
+    "url": "https://saoluizdonorte.go.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.92,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:35.722Z",
+    "ibge_code": "5220157"
+  },
+  {
+    "url": "https://saoluisdemontesbelos.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:38.148Z",
+    "ibge_code": "5220108"
+  },
+  {
+    "url": "https://saomigueldopassaquatro.go.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:43.197Z",
+    "ibge_code": "5220264"
+  },
+  {
+    "url": "http://www.saomigueldoaraguaia.go.gov.br",
+    "performance": 0.25,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:25:46.053Z",
+    "ibge_code": "5220207"
+  },
+  {
+    "url": "https://saojoaodaparauna.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:48.544Z",
+    "ibge_code": "5220058"
+  },
+  {
+    "url": "http://www.sitiodabadia.go.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:25:49.397Z",
+    "ibge_code": "5220702"
+  },
+  {
+    "url": "https://saosimao.go.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:51.168Z",
+    "ibge_code": "5220405"
+  },
+  {
+    "url": "https://teresinadegoias.go.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.73,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:25:51.394Z",
+    "ibge_code": "5221080"
+  },
+  {
+    "url": "http://www.taquaral.go.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:25:53.861Z",
+    "ibge_code": "5221007"
+  },
+  {
+    "url": "https://saopatricio.go.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-20T03:25:54.986Z",
+    "ibge_code": "5220280"
+  },
+  {
+    "url": "https://www.terezopolis.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:25:59.129Z",
+    "ibge_code": "5221197"
+  },
+  {
+    "url": "https://trindade.go.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:02.832Z",
+    "ibge_code": "5221403"
+  },
+  {
+    "url": "https://tresranchos.go.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:06.281Z",
+    "ibge_code": "5221304"
+  },
+  {
+    "url": "https://trombas.go.gov.br",
+    "performance": 0.98,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:06.864Z",
+    "ibge_code": "5221452"
+  },
+  {
+    "url": "https://turvelandia.go.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:07.036Z",
+    "ibge_code": "5221551"
+  },
+  {
+    "url": "http://uruana.go.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.73,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:11.101Z",
+    "ibge_code": "5221700"
+  },
+  {
+    "url": "https://uirapuru.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:11.215Z",
+    "ibge_code": "5221577"
+  },
+  {
+    "url": "http://uruacu.go.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:13.999Z",
+    "ibge_code": "5221601"
+  },
+  {
+    "url": "http://urutai.go.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.67,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:26:14.273Z",
+    "ibge_code": "5221809"
+  },
+  {
+    "url": "https://valparaisodegoias.go.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:26:16.712Z",
+    "ibge_code": "5221858"
+  },
+  {
+    "url": "https://varjao.go.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:26:21.746Z",
+    "ibge_code": "5221908"
+  },
+  {
+    "url": "https://vianopolis.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.88,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:23.319Z",
+    "ibge_code": "5222005"
+  },
+  {
+    "url": "https://vilaboa.go.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.7,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:26:23.932Z",
+    "ibge_code": "5222203"
+  },
+  {
+    "url": "http://turvania.go.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:26:28.785Z",
+    "ibge_code": "5221502"
+  },
+  {
+    "url": "http://vicentinopolis.go.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.69,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:26:29.184Z",
+    "ibge_code": "5222054"
+  },
+  {
+    "url": "https://agualimpa.go.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.67,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-20T03:26:32.789Z",
+    "ibge_code": "5200209"
+  },
+  {
+    "url": "https://aguafriadegoias.go.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:26:36.592Z",
+    "ibge_code": "5200175"
+  },
+  {
+    "url": "https://vilapropicio.go.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.49,
+    "seo": 0.75,
+    "bestPractices": 0.5,
+    "timestamp": "2025-06-20T03:26:37.554Z",
+    "ibge_code": "5222302"
+  },
+  {
+    "url": "http://afonsocunha.ma.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:26:39.581Z",
+    "ibge_code": "2100105"
+  },
+  {
+    "url": "https://alcantara.ma.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:26:39.966Z",
+    "ibge_code": "2100204"
+  },
+  {
+    "url": "http://www.aguaslindasdegoias.go.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:41.917Z",
+    "ibge_code": "5200258"
+  },
+  {
+    "url": "http://altamira.ma.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:45.065Z",
+    "ibge_code": "2100402"
+  },
+  {
+    "url": "http://aldeiasaltas.ma.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:26:49.142Z",
+    "ibge_code": "2100303"
+  },
+  {
+    "url": "https://altoalegredopindare.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:26:53.269Z",
+    "ibge_code": "2100477"
+  },
+  {
+    "url": "http://altoalegredomaranhao.ma.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.88,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:54.587Z",
+    "ibge_code": "2100436"
+  },
+  {
+    "url": "http://altoparnaiba.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:26:57.551Z",
+    "ibge_code": "2100501"
+  },
+  {
+    "url": "http://www.apicumacu.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:27:01.154Z",
+    "ibge_code": "2100832"
+  },
+  {
+    "url": "http://anapurus.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:27:07.814Z",
+    "ibge_code": "2100808"
+  },
+  {
+    "url": "http://anajatuba.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.69,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:08.635Z",
+    "ibge_code": "2100709"
+  },
+  {
+    "url": "http://axixa.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:15.561Z",
+    "ibge_code": "2101103"
+  },
+  {
+    "url": "https://arari.ma.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:27:15.583Z",
+    "ibge_code": "2101004"
+  },
+  {
+    "url": "http://araioses.ma.gov.br",
+    "performance": 0.2,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:27:18.346Z",
+    "ibge_code": "2100907"
+  },
+  {
+    "url": "http://araguana.ma.gov.br",
+    "performance": 0.12,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:27:19.239Z",
+    "ibge_code": "2100873"
+  },
+  {
+    "url": "http://arame.ma.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:21.791Z",
+    "ibge_code": "2100956"
+  },
+  {
+    "url": "http://amarante.ma.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-20T03:27:24.091Z",
+    "ibge_code": "2100600"
+  },
+  {
+    "url": "http://bacuri.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:27:26.700Z",
+    "ibge_code": "2101301"
+  },
+  {
+    "url": "https://bacabal.ma.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:27:27.465Z",
+    "ibge_code": "2101202"
+  },
+  {
+    "url": "https://acailandia.ma.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:27:28.407Z",
+    "ibge_code": "2100055"
+  },
+  {
+    "url": "http://balsas.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:42.495Z",
+    "ibge_code": "2101400"
+  },
+  {
+    "url": "http://barreirinhas.ma.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:43.033Z",
+    "ibge_code": "2101707"
+  },
+  {
+    "url": "http://baraodegrajau.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:27:47.933Z",
+    "ibge_code": "2101509"
+  },
+  {
+    "url": "http://belavista.ma.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:27:49.078Z",
+    "ibge_code": "2101772"
+  },
+  {
+    "url": "http://bacurituba.ma.gov.br",
+    "performance": 0.21,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:27:55.122Z",
+    "ibge_code": "2101350"
+  },
+  {
+    "url": "https://bequimao.ma.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.77,
+    "seo": 0.82,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-20T03:27:57.629Z",
+    "ibge_code": "2101905"
+  },
+  {
+    "url": "https://barradocorda.ma.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:27:58.574Z",
+    "ibge_code": "2101608"
+  },
+  {
+    "url": "https://beneditoleite.ma.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:27:59.091Z",
+    "ibge_code": "2101806"
+  },
+  {
+    "url": "https://bomjardim.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:28:03.573Z",
+    "ibge_code": "2102002"
+  },
+  {
+    "url": "http://belagua.ma.gov.br",
+    "performance": 0.13,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-20T03:28:06.602Z",
+    "ibge_code": "2101731"
+  },
+  {
+    "url": "http://www.boavistadogurupi.ma.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:28:10.335Z",
+    "ibge_code": "2101970"
+  },
+  {
+    "url": "http://bomjesusdasselvas.ma.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.92,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:13.491Z",
+    "ibge_code": "2102036"
+  },
+  {
+    "url": "https://bomlugar.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:28:16.356Z",
+    "ibge_code": "2102077"
+  },
+  {
+    "url": "http://brejodeareia.ma.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:18.249Z",
+    "ibge_code": "2102150"
+  },
+  {
+    "url": "https://brejo.ma.gov.br",
+    "performance": 0.19,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-20T03:28:20.567Z",
+    "ibge_code": "2102101"
+  },
+  {
+    "url": "http://buriticupu.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:24.363Z",
+    "ibge_code": "2102325"
+  },
+  {
+    "url": "http://buriti.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:24.821Z",
+    "ibge_code": "2102200"
+  },
+  {
+    "url": "http://buritibravo.ma.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.92,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:26.534Z",
+    "ibge_code": "2102309"
+  },
+  {
+    "url": "http://campestredomaranhao.ma.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:40.616Z",
+    "ibge_code": "2102556"
+  },
+  {
+    "url": "http://buritirana.ma.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:43.809Z",
+    "ibge_code": "2102358"
+  },
+  {
+    "url": "http://cajari.ma.gov.br",
+    "performance": 0.21,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:28:44.062Z",
+    "ibge_code": "2102507"
+  },
+  {
+    "url": "http://carolina.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.57,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:44.381Z",
+    "ibge_code": "2102804"
+  },
+  {
+    "url": "http://capinzaldonorte.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": null,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:45.861Z",
+    "ibge_code": "2102754"
+  },
+  {
+    "url": "http://centraldomaranhao.ma.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:28:46.618Z",
+    "ibge_code": "2103125"
+  },
+  {
+    "url": "http://cantanhede.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:48.227Z",
+    "ibge_code": "2102705"
+  },
+  {
+    "url": "http://cedral.ma.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:28:52.215Z",
+    "ibge_code": "2103109"
+  },
+  {
+    "url": "http://caxias.ma.gov.br",
+    "performance": 0.76,
+    "accessibility": 0.88,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:28:53.318Z",
+    "ibge_code": "2103000"
+  },
+  {
+    "url": "http://www.centronovo.ma.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:28:56.864Z",
+    "ibge_code": "2103174"
+  },
+  {
+    "url": "http://carutapera.ma.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:28:58.694Z",
+    "ibge_code": "2102903"
+  },
+  {
+    "url": "http://centrodoguilherme.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:29:02.770Z",
+    "ibge_code": "2103158"
+  },
+  {
+    "url": "http://chapadinha.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.83,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:29:09.299Z",
+    "ibge_code": "2103208"
+  },
+  {
+    "url": "https://cururupu.ma.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:29:12.370Z",
+    "ibge_code": "2103703"
+  },
+  {
+    "url": "https://codo.ma.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:29:12.711Z",
+    "ibge_code": "2103307"
+  },
+  {
+    "url": "http://www.conceicaodolagoacu.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.95,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:29:17.253Z",
+    "ibge_code": "2103554"
+  },
+  {
+    "url": "http://coroata.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.81,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:29:19.455Z",
+    "ibge_code": "2103604"
+  },
+  {
+    "url": "https://candidomendes.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:29:19.649Z",
+    "ibge_code": "2102606"
+  },
+  {
+    "url": "http://coelhoneto.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:29:22.146Z",
+    "ibge_code": "2103406"
+  },
+  {
+    "url": "https://colinas.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:29:22.266Z",
+    "ibge_code": "2103505"
+  },
+  {
+    "url": "http://cidelandia.ma.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:29:32.244Z",
+    "ibge_code": "2103257"
+  },
+  {
+    "url": "https://dompedro.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": null,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:29:33.632Z",
+    "ibge_code": "2103802"
+  },
+  {
+    "url": "http://estreito.ma.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.92,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:29:37.187Z",
+    "ibge_code": "2104057"
+  },
+  {
+    "url": "http://davinopolis.ma.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:29:39.838Z",
+    "ibge_code": "2103752"
+  },
+  {
+    "url": "http://duquebacelar.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:29:41.336Z",
+    "ibge_code": "2103901"
+  },
+  {
+    "url": "https://esperantinopolis.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:29:41.561Z",
+    "ibge_code": "2104008"
+  },
+  {
+    "url": "http://fortuna.ma.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-20T03:29:44.116Z",
+    "ibge_code": "2104206"
+  },
+  {
+    "url": "http://feiranovadomaranhao.ma.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-20T03:29:49.403Z",
+    "ibge_code": "2104073"
+  },
+  {
+    "url": "http://formosadaserranegra.ma.gov.br",
+    "performance": 0.17,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-20T03:29:52.010Z",
+    "ibge_code": "2104099"
+  },
+  {
+    "url": "http://fortalezadosnogueiras.ma.gov.br",
+    "performance": 0.18,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:29:55.739Z",
+    "ibge_code": "2104107"
+  },
+  {
+    "url": "http://governadorarcher.ma.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.96,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:29:57.388Z",
+    "ibge_code": "2104503"
+  },
+  {
+    "url": "http://fernandofalcao.ma.gov.br",
+    "performance": 0.09,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.48,
+    "timestamp": "2025-06-20T03:29:59.064Z",
+    "ibge_code": "2104081"
+  },
+  {
+    "url": "https://governadoredisonlobao.ma.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.96,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:29:59.125Z",
+    "ibge_code": "2104552"
+  },
+  {
+    "url": "https://governadornewtonbello.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:30:03.055Z",
+    "ibge_code": "2104651"
+  },
+  {
+    "url": "http://governadorluizrocha.ma.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.68,
+    "seo": 0.92,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-20T03:30:03.646Z",
+    "ibge_code": "2104628"
+  },
+  {
+    "url": "http://governadoreugeniobarros.ma.gov.br",
+    "performance": 0.2,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:30:09.258Z",
+    "ibge_code": "2104602"
+  },
+  {
+    "url": "http://goncalvesdias.ma.gov.br",
+    "performance": 0.17,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:30:10.161Z",
+    "ibge_code": "2104404"
+  },
+  {
+    "url": "http://igarapedomeio.ma.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.86,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:30:18.234Z",
+    "ibge_code": "2105153"
+  },
+  {
+    "url": "http://icatu.ma.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:30:20.789Z",
+    "ibge_code": "2105104"
+  },
+  {
+    "url": "https://igarapegrande.ma.gov.br",
+    "performance": 0.81,
+    "accessibility": 0.95,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:30:21.510Z",
+    "ibge_code": "2105203"
+  },
+  {
+    "url": "http://humbertodecampos.ma.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:30:22.880Z",
+    "ibge_code": "2105005"
+  },
+  {
+    "url": "http://itinga.ma.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-20T03:30:26.606Z",
+    "ibge_code": "2105427"
+  },
+  {
+    "url": "http://grajau.ma.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:30:28.936Z",
+    "ibge_code": "2104800"
+  },
+  {
+    "url": "http://gracaaranha.ma.gov.br",
+    "performance": 0.19,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:30:30.642Z",
+    "ibge_code": "2104701"
+  },
+  {
+    "url": "http://guimaraes.ma.gov.br",
+    "performance": 0.13,
+    "accessibility": 0.57,
+    "seo": 0.91,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-20T03:30:35.066Z",
+    "ibge_code": "2104909"
+  },
+  {
+    "url": "https://imperatriz.ma.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.8,
+    "seo": 0.82,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-20T03:30:35.124Z",
+    "ibge_code": "2105302"
+  },
+  {
+    "url": "https://joselandia.ma.gov.br",
+    "performance": 0.81,
+    "accessibility": 0.92,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:30:46.750Z",
+    "ibge_code": "2105609"
+  },
+  {
+    "url": "http://jenipapodosvieiras.ma.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.92,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:30:47.243Z",
+    "ibge_code": "2105476"
+  },
+  {
+    "url": "http://lagodojunco.ma.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.89,
+    "seo": 0.61,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:30:48.012Z",
+    "ibge_code": "2105807"
+  },
+  {
+    "url": "https://juncodomaranhao.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:30:48.227Z",
+    "ibge_code": "2105658"
+  },
+  {
+    "url": "http://jatoba.ma.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:30:48.996Z",
+    "ibge_code": "2105450"
+  },
+  {
+    "url": "https://lagodapedra.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.71,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:30:52.139Z",
+    "ibge_code": "2105708"
+  },
+  {
+    "url": "https://lagodosrodrigues.ma.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.9,
+    "seo": 0.61,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:30:57.878Z",
+    "ibge_code": "2105948"
+  },
+  {
+    "url": "http://www.lagoagrande.ma.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:30:58.909Z",
+    "ibge_code": "2105963"
+  },
+  {
+    "url": "https://lagoverde.ma.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.63,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-20T03:30:59.428Z",
+    "ibge_code": "2105906"
+  },
+  {
+    "url": "http://joaolisboa.ma.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-20T03:31:05.514Z",
+    "ibge_code": "2105500"
+  },
+  {
+    "url": "https://luisdomingues.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.77,
+    "seo": 0.82,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-20T03:31:09.405Z",
+    "ibge_code": "2106201"
+  },
+  {
+    "url": "http://www.limacampos.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:31:15.788Z",
+    "ibge_code": "2106003"
+  },
+  {
+    "url": "http://lajeadonovo.ma.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-20T03:31:16.363Z",
+    "ibge_code": "2105989"
+  },
+  {
+    "url": "http://lagoadomato.ma.gov.br",
+    "performance": 0.11,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:31:18.767Z",
+    "ibge_code": "2105922"
+  },
+  {
+    "url": "http://loreto.ma.gov.br",
+    "performance": 0.17,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:31:19.704Z",
+    "ibge_code": "2106102"
+  },
+  {
+    "url": "https://marajadosena.ma.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:31:20.574Z",
+    "ibge_code": "2106359"
+  },
+  {
+    "url": "http://magalhaesdealmeida.ma.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:31:21.042Z",
+    "ibge_code": "2106300"
+  },
+  {
+    "url": "https://maracacume.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:31:21.160Z",
+    "ibge_code": "2106326"
+  },
+  {
+    "url": "https://mataroma.ma.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:31:21.669Z",
+    "ibge_code": "2106409"
+  },
+  {
+    "url": "http://maranhaozinho.ma.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:31:26.676Z",
+    "ibge_code": "2106375"
+  },
+  {
+    "url": "http://matinha.ma.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.78,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:31:32.577Z",
+    "ibge_code": "2106508"
+  },
+  {
+    "url": "http://matoes.ma.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:31:38.836Z",
+    "ibge_code": "2106607"
+  },
+  {
+    "url": "https://matoesdonorte.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:31:42.634Z",
+    "ibge_code": "2106631"
+  },
+  {
+    "url": "https://mirinzal.ma.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-20T03:31:43.193Z",
+    "ibge_code": "2106805"
+  },
+  {
+    "url": "https://morros.ma.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.96,
+    "seo": 1,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-20T03:31:45.969Z",
+    "ibge_code": "2107100"
+  },
+  {
+    "url": "https://moncao.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-20T03:31:47.613Z",
+    "ibge_code": "2106904"
+  },
+  {
+    "url": "https://mirandadonorte.ma.gov.br",
+    "performance": 0.76,
+    "accessibility": 0.97,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-20T03:31:48.434Z",
+    "ibge_code": "2106755"
+  },
+  {
+    "url": "http://milagresdomaranhao.ma.gov.br",
+    "performance": 0.18,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:31:48.895Z",
+    "ibge_code": "2106672"
+  },
+  {
+    "url": "http://montesaltos.ma.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-20T03:31:51.642Z",
+    "ibge_code": "2107001"
+  },
+  {
+    "url": "http://mirador.ma.gov.br",
+    "performance": 0.16,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:31:55.511Z",
+    "ibge_code": "2106706"
+  },
+  {
+    "url": "https://ninarodrigues.ma.gov.br",
+    "performance": 0.24,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-20T03:31:59.163Z",
+    "ibge_code": "2107209"
+  },
+  {
+    "url": "http://novaiorque.ma.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:32:05.711Z",
+    "ibge_code": "2107308"
+  },
+  {
+    "url": "http://palmeirandia.ma.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-20T03:32:06.277Z",
+    "ibge_code": "2107605"
+  },
+  {
+    "url": "http://www.olindanova.ma.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:32:13.903Z",
+    "ibge_code": "2107456"
+  },
+  {
+    "url": "http://www.olhodaguadascunhas.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:32:15.910Z",
+    "ibge_code": "2107407"
+  },
+  {
+    "url": "http://novacolinas.ma.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:32:19.275Z",
+    "ibge_code": "2107258"
+  },
+  {
+    "url": "http://paraibano.ma.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-20T03:32:23.253Z",
+    "ibge_code": "2107704"
+  },
+  {
+    "url": "http://passagemfranca.ma.gov.br",
+    "performance": 0.57,
+    "accessibility": null,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:32:24.403Z",
+    "ibge_code": "2107902"
+  },
+  {
+    "url": "http://www.novaolinda.to.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:32:24.821Z",
+    "ibge_code": "2107357"
+  },
+  {
+    "url": "http://pastosbons.ma.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-20T03:32:27.131Z",
+    "ibge_code": "2108009"
+  },
+  {
+    "url": "http://parnarama.ma.gov.br",
+    "performance": 0.16,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:32:30.273Z",
+    "ibge_code": "2107803"
+  },
+  {
+    "url": "http://paulinoneves.ma.gov.br",
+    "performance": 0.1,
+    "accessibility": 0.57,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-20T03:32:41.030Z",
+    "ibge_code": "2108058"
   }
 ]
