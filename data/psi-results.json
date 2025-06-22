@@ -12535,5 +12535,1670 @@
     "bestPractices": 0.55,
     "timestamp": "2025-06-21T03:30:58.960Z",
     "ibge_code": "3109907"
+  },
+  {
+    "url": "https://camanducaia.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:28:21.551Z",
+    "ibge_code": "3110509"
+  },
+  {
+    "url": "https://campestre.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:28:22.158Z",
+    "ibge_code": "3111002"
+  },
+  {
+    "url": "https://campanario.mg.gov.br",
+    "performance": 0.94,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:28:24.730Z",
+    "ibge_code": "3110806"
+  },
+  {
+    "url": "https://cambuquira.mg.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.77,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:28:29.371Z",
+    "ibge_code": "3110707"
+  },
+  {
+    "url": "https://campanha.mg.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.83,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-22T03:28:33.094Z",
+    "ibge_code": "3110905"
+  },
+  {
+    "url": "http://www.caldas.mg.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-22T03:28:33.846Z",
+    "ibge_code": "3110301"
+  },
+  {
+    "url": "http://www.prefeituradecambui.mg.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:28:34.979Z",
+    "ibge_code": "3110608"
+  },
+  {
+    "url": "http://campoflorido.mg.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:28:36.790Z",
+    "ibge_code": "3111408"
+  },
+  {
+    "url": "https://campoazul.mg.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:28:42.036Z",
+    "ibge_code": "3111150"
+  },
+  {
+    "url": "http://camacho.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.85,
+    "seo": 0.67,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:28:46.372Z",
+    "ibge_code": "3110400"
+  },
+  {
+    "url": "https://campinaverde.mg.gov.br",
+    "performance": 0.3,
+    "accessibility": 0.65,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-22T03:28:53.127Z",
+    "ibge_code": "3111101"
+  },
+  {
+    "url": "https://cantagalo.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:28:55.447Z",
+    "ibge_code": "3112059"
+  },
+  {
+    "url": "http://canaverde.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-22T03:29:03.645Z",
+    "ibge_code": "3111903"
+  },
+  {
+    "url": "https://canaa.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.92,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:29:03.774Z",
+    "ibge_code": "3111705"
+  },
+  {
+    "url": "https://campodomeio.mg.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:29:05.612Z",
+    "ibge_code": "3111309"
+  },
+  {
+    "url": "http://www.camposgerais.mg.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:29:08.753Z",
+    "ibge_code": "3111606"
+  },
+  {
+    "url": "https://canapolis.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.81,
+    "seo": 0.91,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:29:12.061Z",
+    "ibge_code": "3111804"
+  },
+  {
+    "url": "http://pmcapelinha.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.72,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:29:19.491Z",
+    "ibge_code": "3112307"
+  },
+  {
+    "url": "https://capinopolis.mg.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:29:20.812Z",
+    "ibge_code": "3112604"
+  },
+  {
+    "url": "http://www.capelanova.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:29:23.582Z",
+    "ibge_code": "3112208"
+  },
+  {
+    "url": "https://caparao.mg.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.88,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:29:26.971Z",
+    "ibge_code": "3112109"
+  },
+  {
+    "url": "http://capetinga.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:29:27.449Z",
+    "ibge_code": "3112406"
+  },
+  {
+    "url": "http://www.capimbranco.mg.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-22T03:29:34.461Z",
+    "ibge_code": "3112505"
+  },
+  {
+    "url": "https://capitaoandrade.mg.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:29:35.820Z",
+    "ibge_code": "3112653"
+  },
+  {
+    "url": "https://campobelo.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-22T03:29:39.173Z",
+    "ibge_code": "3111200"
+  },
+  {
+    "url": "http://caranaiba.mg.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.84,
+    "seo": 1,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:29:45.798Z",
+    "ibge_code": "3113107"
+  },
+  {
+    "url": "http://www.capitolio.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:29:46.390Z",
+    "ibge_code": "3112802"
+  },
+  {
+    "url": "http://www.caratinga.mg.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.85,
+    "seo": 0.67,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:29:54.051Z",
+    "ibge_code": "3113404"
+  },
+  {
+    "url": "https://carai.mg.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:29:56.210Z",
+    "ibge_code": "3113008"
+  },
+  {
+    "url": "http://carbonita.mg.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:30:04.112Z",
+    "ibge_code": "3113503"
+  },
+  {
+    "url": "https://careacu.mg.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:30:04.842Z",
+    "ibge_code": "3113602"
+  },
+  {
+    "url": "https://carangola.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:30:06.533Z",
+    "ibge_code": "3113305"
+  },
+  {
+    "url": "https://caputira.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:30:07.070Z",
+    "ibge_code": "3112901"
+  },
+  {
+    "url": "https://carloschagas.mg.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:30:12.770Z",
+    "ibge_code": "3113701"
+  },
+  {
+    "url": "https://carandai.mg.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:30:17.468Z",
+    "ibge_code": "3113206"
+  },
+  {
+    "url": "http://www.carmodamata.mg.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.62,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:30:21.889Z",
+    "ibge_code": "3114006"
+  },
+  {
+    "url": "https://carmodeminas.mg.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.84,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:30:23.164Z",
+    "ibge_code": "3114105"
+  },
+  {
+    "url": "http://www.carneirinho.mg.gov.br",
+    "performance": 1,
+    "accessibility": 0.83,
+    "seo": 0.8,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:30:31.903Z",
+    "ibge_code": "3114550"
+  },
+  {
+    "url": "https://carmodorioclaro.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:30:36.761Z",
+    "ibge_code": "3114402"
+  },
+  {
+    "url": "http://www.capitaoeneas.mg.gov.br",
+    "performance": 0.28,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:30:43.136Z",
+    "ibge_code": "3112703"
+  },
+  {
+    "url": "https://carmopolisdeminas.mg.gov.br",
+    "performance": 0.06,
+    "accessibility": 0.89,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:30:52.644Z",
+    "ibge_code": "3114501"
+  },
+  {
+    "url": "https://carvalhopolis.mg.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:30:57.732Z",
+    "ibge_code": "3114709"
+  },
+  {
+    "url": "https://cascalhorico.mg.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:31:00.570Z",
+    "ibge_code": "3115003"
+  },
+  {
+    "url": "http://carvalhos.mg.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.79,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:31:04.465Z",
+    "ibge_code": "3114808"
+  },
+  {
+    "url": "https://carmesia.mg.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:31:08.193Z",
+    "ibge_code": "3113800"
+  },
+  {
+    "url": "https://carmodoparanaiba.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:31:08.939Z",
+    "ibge_code": "3114303"
+  },
+  {
+    "url": "http://casagrande.mg.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.72,
+    "seo": 0.67,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:31:09.581Z",
+    "ibge_code": "3114907"
+  },
+  {
+    "url": "https://cataguases.mg.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:31:14.329Z",
+    "ibge_code": "3115300"
+  },
+  {
+    "url": "https://catuji.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:31:16.275Z",
+    "ibge_code": "3115458"
+  },
+  {
+    "url": "https://carmodacachoeira.mg.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:31:21.441Z",
+    "ibge_code": "3113909"
+  },
+  {
+    "url": "https://catuti.mg.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:31:24.612Z",
+    "ibge_code": "3115474"
+  },
+  {
+    "url": "https://chale.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:31:30.502Z",
+    "ibge_code": "3116001"
+  },
+  {
+    "url": "http://chapadadonorte.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:31:30.895Z",
+    "ibge_code": "3116100"
+  },
+  {
+    "url": "http://centralina.mg.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.73,
+    "seo": 0.82,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:31:35.058Z",
+    "ibge_code": "3115805"
+  },
+  {
+    "url": "https://cedrodoabaete.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.83,
+    "seo": 0.91,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:31:35.263Z",
+    "ibge_code": "3115607"
+  },
+  {
+    "url": "http://catasaltas.mg.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.7,
+    "seo": 0.69,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:31:36.262Z",
+    "ibge_code": "3115359"
+  },
+  {
+    "url": "https://caxambu.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.85,
+    "seo": 0.77,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:31:43.212Z",
+    "ibge_code": "3115508"
+  },
+  {
+    "url": "http://www.chiador.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.58,
+    "seo": 0.83,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-22T03:31:48.009Z",
+    "ibge_code": "3116209"
+  },
+  {
+    "url": "https://claraval.mg.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.5,
+    "seo": 0.83,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-22T03:31:49.450Z",
+    "ibge_code": "3116407"
+  },
+  {
+    "url": "https://chapadagaucha.mg.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.69,
+    "seo": 0.92,
+    "bestPractices": 0.36,
+    "timestamp": "2025-06-22T03:31:50.305Z",
+    "ibge_code": "3116159"
+  },
+  {
+    "url": "https://cipotanea.mg.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:31:52.770Z",
+    "ibge_code": "3116308"
+  },
+  {
+    "url": "https://chacara.mg.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:31:56.459Z",
+    "ibge_code": "3115904"
+  },
+  {
+    "url": "https://coimbra.mg.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.92,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:31:57.369Z",
+    "ibge_code": "3116704"
+  },
+  {
+    "url": "https://clarodospocoes.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.74,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-22T03:32:00.375Z",
+    "ibge_code": "3116506"
+  },
+  {
+    "url": "https://comercinho.mg.gov.br",
+    "performance": 0.94,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:32:03.182Z",
+    "ibge_code": "3117009"
+  },
+  {
+    "url": "http://www.conceicaodabarrademinas.mg.gov.br",
+    "performance": 0.95,
+    "accessibility": 1,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:32:07.175Z",
+    "ibge_code": "3115201"
+  },
+  {
+    "url": "https://conceicaodaspedras.mg.gov.br",
+    "performance": 0.98,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-22T03:32:09.110Z",
+    "ibge_code": "3117207"
+  },
+  {
+    "url": "https://claudio.mg.gov.br",
+    "performance": 0.26,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:32:12.592Z",
+    "ibge_code": "3116605"
+  },
+  {
+    "url": "https://conceicaodaaparecida.mg.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:32:24.356Z",
+    "ibge_code": "3117108"
+  },
+  {
+    "url": "http://conceicaodasalagoas.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-22T03:32:25.890Z",
+    "ibge_code": "3117306"
+  },
+  {
+    "url": "https://coluna.mg.gov.br",
+    "performance": 0.78,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:32:28.190Z",
+    "ibge_code": "3116803"
+  },
+  {
+    "url": "http://comendadorgomes.mg.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.76,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:32:29.150Z",
+    "ibge_code": "3116902"
+  },
+  {
+    "url": "http://www.conceicaodeipanema.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.6,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:32:32.705Z",
+    "ibge_code": "3117405"
+  },
+  {
+    "url": "https://conceicaodorioverde.mg.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.78,
+    "seo": 0.85,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-22T03:32:38.090Z",
+    "ibge_code": "3117702"
+  },
+  {
+    "url": "https://conceicaodopara.mg.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:32:42.239Z",
+    "ibge_code": "3117603"
+  },
+  {
+    "url": "https://conceicaodosouros.mg.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:32:45.537Z",
+    "ibge_code": "3117801"
+  },
+  {
+    "url": "http://www.conquista.mg.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:32:49.788Z",
+    "ibge_code": "3118205"
+  },
+  {
+    "url": "https://congonhas.mg.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.71,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:32:52.070Z",
+    "ibge_code": "3118007"
+  },
+  {
+    "url": "http://www.confins.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:32:54.754Z",
+    "ibge_code": "3117876"
+  },
+  {
+    "url": "https://consolacao.mg.gov.br",
+    "performance": 0.93,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-22T03:33:00.794Z",
+    "ibge_code": "3118502"
+  },
+  {
+    "url": "http://cmd.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:33:00.869Z",
+    "ibge_code": "3117504"
+  },
+  {
+    "url": "https://coracaodejesus.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:06.501Z",
+    "ibge_code": "3118809"
+  },
+  {
+    "url": "http://conselheirolafaiete.mg.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:33:08.591Z",
+    "ibge_code": "3118304"
+  },
+  {
+    "url": "https://cordisburgo.mg.gov.br",
+    "performance": 0.76,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:33:13.059Z",
+    "ibge_code": "3118908"
+  },
+  {
+    "url": "http://www.conselheiropena.mg.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.63,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:33:16.458Z",
+    "ibge_code": "3118403"
+  },
+  {
+    "url": "http://www.fabriciano.mg.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-22T03:33:18.365Z",
+    "ibge_code": "3119401"
+  },
+  {
+    "url": "http://www.contagem.mg.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.85,
+    "seo": 1,
+    "bestPractices": 0.41,
+    "timestamp": "2025-06-22T03:33:23.016Z",
+    "ibge_code": "3118601"
+  },
+  {
+    "url": "https://coqueiral.mg.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:33:23.543Z",
+    "ibge_code": "3118700"
+  },
+  {
+    "url": "https://cordislandia.mg.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:25.501Z",
+    "ibge_code": "3119005"
+  },
+  {
+    "url": "https://corinto.mg.gov.br",
+    "performance": 0.71,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:25.844Z",
+    "ibge_code": "3119104"
+  },
+  {
+    "url": "https://coronelmurta.mg.gov.br",
+    "performance": 0.9,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:28.025Z",
+    "ibge_code": "3119500"
+  },
+  {
+    "url": "https://coroaci.mg.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-22T03:33:28.134Z",
+    "ibge_code": "3119203"
+  },
+  {
+    "url": "https://cristianootoni.mg.gov.br",
+    "performance": 0.97,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-22T03:33:38.391Z",
+    "ibge_code": "3120409"
+  },
+  {
+    "url": "https://cristina.mg.gov.br",
+    "performance": 0.97,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-22T03:33:40.863Z",
+    "ibge_code": "3120508"
+  },
+  {
+    "url": "http://coutodemagalhaesdeminas.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-22T03:33:41.640Z",
+    "ibge_code": "3120102"
+  },
+  {
+    "url": "https://coronelxavierchaves.mg.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:44.572Z",
+    "ibge_code": "3119708"
+  },
+  {
+    "url": "https://coronelpacheco.mg.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.88,
+    "seo": 0.82,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:33:44.797Z",
+    "ibge_code": "3119609"
+  },
+  {
+    "url": "http://www.cristalia.mg.gov.br",
+    "performance": 0.97,
+    "accessibility": 0.83,
+    "seo": 0.75,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:33:45.694Z",
+    "ibge_code": "3120300"
+  },
+  {
+    "url": "https://crisolita.mg.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:52.588Z",
+    "ibge_code": "3120151"
+  },
+  {
+    "url": "https://cuparaque.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:57.653Z",
+    "ibge_code": "3120839"
+  },
+  {
+    "url": "https://curraldedentro.mg.gov.br",
+    "performance": 0.97,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:33:58.429Z",
+    "ibge_code": "3120870"
+  },
+  {
+    "url": "http://cristais.mg.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:34:01.555Z",
+    "ibge_code": "3120201"
+  },
+  {
+    "url": "https://cruzilia.mg.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.94,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:34:03.058Z",
+    "ibge_code": "3120805"
+  },
+  {
+    "url": "http://corregonovo.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:34:11.147Z",
+    "ibge_code": "3120003"
+  },
+  {
+    "url": "http://cruzeirodafortaleza.mg.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:34:11.175Z",
+    "ibge_code": "3120706"
+  },
+  {
+    "url": "http://centraldeminas.mg.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:34:11.446Z",
+    "ibge_code": "3115706"
+  },
+  {
+    "url": "https://curvelo.mg.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:34:14.717Z",
+    "ibge_code": "3120904"
+  },
+  {
+    "url": "https://corregodanta.mg.gov.br",
+    "performance": 0.82,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-22T03:34:22.133Z",
+    "ibge_code": "3119807"
+  },
+  {
+    "url": "https://conegomarinho.mg.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:34:24.881Z",
+    "ibge_code": "3117836"
+  },
+  {
+    "url": "http://www.corregodobomjesus.mg.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.68,
+    "seo": 0.75,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:34:26.407Z",
+    "ibge_code": "3119906"
+  },
+  {
+    "url": "https://corregofundo.mg.gov.br",
+    "performance": 0.76,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:34:28.712Z",
+    "ibge_code": "3119955"
+  },
+  {
+    "url": "https://cassia.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.95,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:34:36.863Z",
+    "ibge_code": "3115102"
+  },
+  {
+    "url": "http://www.delta.mg.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.73,
+    "seo": 0.82,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:34:39.802Z",
+    "ibge_code": "3121258"
+  },
+  {
+    "url": "http://datas.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:34:40.164Z",
+    "ibge_code": "3121001"
+  },
+  {
+    "url": "https://desterrodomelo.mg.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.85,
+    "seo": 0.82,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:34:47.571Z",
+    "ibge_code": "3121506"
+  },
+  {
+    "url": "https://delfimmoreira.mg.gov.br",
+    "performance": 0.26,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:34:52.589Z",
+    "ibge_code": "3121100"
+  },
+  {
+    "url": "https://diamantina.mg.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:34:55.598Z",
+    "ibge_code": "3121605"
+  },
+  {
+    "url": "https://delfinopolis.mg.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.79,
+    "seo": 0.77,
+    "bestPractices": 0.61,
+    "timestamp": "2025-06-22T03:34:56.597Z",
+    "ibge_code": "3121209"
+  },
+  {
+    "url": "http://www.desterrodeentrerios.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.88,
+    "seo": 0.67,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:34:57.602Z",
+    "ibge_code": "3121407"
+  },
+  {
+    "url": "http://www.divinolandiademinas.mg.gov.br",
+    "performance": 1,
+    "accessibility": 0.93,
+    "seo": 0.8,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:34:57.688Z",
+    "ibge_code": "3122207"
+  },
+  {
+    "url": "https://divinodaslaranjeiras.mg.gov.br",
+    "performance": 0.91,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:34:59.621Z",
+    "ibge_code": "3122108"
+  },
+  {
+    "url": "https://diogodevasconcelos.mg.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.65,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:35:00.272Z",
+    "ibge_code": "3121704"
+  },
+  {
+    "url": "http://www.dionisio.mg.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.76,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:35:03.778Z",
+    "ibge_code": "3121803"
+  },
+  {
+    "url": "https://divino.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:35:15.214Z",
+    "ibge_code": "3122009"
+  },
+  {
+    "url": "http://domjoaquim.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:35:15.894Z",
+    "ibge_code": "3122603"
+  },
+  {
+    "url": "http://divisaalegre.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.76,
+    "seo": 0.91,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:35:17.001Z",
+    "ibge_code": "3122355"
+  },
+  {
+    "url": "https://divinesia.mg.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.77,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:35:23.799Z",
+    "ibge_code": "3121902"
+  },
+  {
+    "url": "http://domcavati.mg.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:35:27.781Z",
+    "ibge_code": "3122504"
+  },
+  {
+    "url": "http://www.dombosco.mg.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.78,
+    "seo": 0.77,
+    "bestPractices": null,
+    "timestamp": "2025-06-22T03:35:30.068Z",
+    "ibge_code": "3122470"
+  },
+  {
+    "url": "https://www.divinopolis.mg.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:35:32.783Z",
+    "ibge_code": "3122306"
+  },
+  {
+    "url": "https://domsilverio.mg.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:35:33.313Z",
+    "ibge_code": "3122702"
+  },
+  {
+    "url": "http://www.donaeuzebia.mg.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.71,
+    "seo": 0.69,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:35:34.445Z",
+    "ibge_code": "3122900"
+  },
+  {
+    "url": "https://divisanova.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.69,
+    "seo": 0.77,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:35:42.074Z",
+    "ibge_code": "3122405"
+  },
+  {
+    "url": "http://doresdeguanhaes.mg.gov.br",
+    "performance": 0.94,
+    "accessibility": 1,
+    "seo": 0.36,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:35:42.600Z",
+    "ibge_code": "3123106"
+  },
+  {
+    "url": "https://doresdoturvo.mg.gov.br",
+    "performance": 0.73,
+    "accessibility": 0.92,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:35:44.791Z",
+    "ibge_code": "3123304"
+  },
+  {
+    "url": "https://doresopolis.mg.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.84,
+    "seo": 0.54,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:35:50.028Z",
+    "ibge_code": "3123403"
+  },
+  {
+    "url": "https://domvicoso.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:35:51.737Z",
+    "ibge_code": "3122801"
+  },
+  {
+    "url": "https://doresdoindaia.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.8,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:35:53.531Z",
+    "ibge_code": "3123205"
+  },
+  {
+    "url": "http://transparencia.durande.mg.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:35:54.001Z",
+    "ibge_code": "3123528"
+  },
+  {
+    "url": "https://douradoquara.mg.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:35:56.076Z",
+    "ibge_code": "3123502"
+  },
+  {
+    "url": "https://eloimendes.mg.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.68,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:36:08.874Z",
+    "ibge_code": "3123601"
+  },
+  {
+    "url": "http://www.engenheirocaldas.mg.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.66,
+    "seo": 0.75,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:36:10.373Z",
+    "ibge_code": "3123700"
+  },
+  {
+    "url": "http://www.coromandel.mg.gov.br",
+    "performance": 0.73,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:36:11.644Z",
+    "ibge_code": "3119302"
+  },
+  {
+    "url": "http://www.engenheironavarro.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:36:12.740Z",
+    "ibge_code": "3123809"
+  },
+  {
+    "url": "http://entrefolhas.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:36:18.702Z",
+    "ibge_code": "3123858"
+  },
+  {
+    "url": "http://ervalia.mg.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.83,
+    "seo": 0.67,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:36:27.794Z",
+    "ibge_code": "3124005"
+  },
+  {
+    "url": "http://www.estiva.mg.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-22T03:36:27.916Z",
+    "ibge_code": "3124500"
+  },
+  {
+    "url": "http://www.espdourado.mg.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.76,
+    "seo": 0.64,
+    "bestPractices": 0.48,
+    "timestamp": "2025-06-22T03:36:35.172Z",
+    "ibge_code": "3124401"
+  },
+  {
+    "url": "https://extrema.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:36:38.064Z",
+    "ibge_code": "3125101"
+  },
+  {
+    "url": "https://ewbankdacamara.mg.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-22T03:36:39.317Z",
+    "ibge_code": "3125002"
+  },
+  {
+    "url": "https://esmeraldas.mg.gov.br",
+    "performance": 0.28,
+    "accessibility": 0.85,
+    "seo": 1,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:36:41.018Z",
+    "ibge_code": "3124104"
+  },
+  {
+    "url": "https://estreladosul.mg.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:36:43.547Z",
+    "ibge_code": "3124807"
+  },
+  {
+    "url": "http://www.estreladoindaia.mg.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.83,
+    "seo": 0.91,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:36:45.072Z",
+    "ibge_code": "3124708"
+  },
+  {
+    "url": "https://estreladalva.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:36:45.169Z",
+    "ibge_code": "3124609"
+  },
+  {
+    "url": "http://www.fama.mg.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:36:45.298Z",
+    "ibge_code": "3125200"
+  },
+  {
+    "url": "http://esperafeliz.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.9,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:36:45.589Z",
+    "ibge_code": "3124203"
+  },
+  {
+    "url": "https://felisburgo.mg.gov.br",
+    "performance": 0.98,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:36:50.975Z",
+    "ibge_code": "3125606"
+  },
+  {
+    "url": "https://eugenopolis.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-22T03:36:52.647Z",
+    "ibge_code": "3124906"
+  },
+  {
+    "url": "https://ferros.mg.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:04.005Z",
+    "ibge_code": "3125903"
+  },
+  {
+    "url": "https://farialemos.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-22T03:37:05.371Z",
+    "ibge_code": "3125309"
+  },
+  {
+    "url": "https://fervedouro.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.76,
+    "seo": 0.62,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:05.709Z",
+    "ibge_code": "3125952"
+  },
+  {
+    "url": "https://formiga.mg.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.78,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:37:11.021Z",
+    "ibge_code": "3126109"
+  },
+  {
+    "url": "http://feliciodossantos.mg.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-22T03:37:11.280Z",
+    "ibge_code": "3125408"
+  },
+  {
+    "url": "http://www.fernandestourinho.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-22T03:37:11.564Z",
+    "ibge_code": "3125804"
+  },
+  {
+    "url": "https://felixlandia.mg.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.58,
+    "seo": 0.75,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-22T03:37:14.364Z",
+    "ibge_code": "3125705"
+  },
+  {
+    "url": "https://formoso.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.71,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:37:16.399Z",
+    "ibge_code": "3126208"
+  },
+  {
+    "url": "https://espinosa.mg.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:37:22.771Z",
+    "ibge_code": "3124302"
+  },
+  {
+    "url": "https://freilagonegro.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:29.809Z",
+    "ibge_code": "3126950"
+  },
+  {
+    "url": "http://franciscobadaro.mg.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-22T03:37:30.525Z",
+    "ibge_code": "3126505"
+  },
+  {
+    "url": "https://fronteira.mg.gov.br",
+    "performance": 0.99,
+    "accessibility": 0.82,
+    "seo": 0.45,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:35.230Z",
+    "ibge_code": "3127008"
+  },
+  {
+    "url": "https://franciscopolis.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.65,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:37:38.757Z",
+    "ibge_code": "3126752"
+  },
+  {
+    "url": "http://franciscodumont.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-22T03:37:39.059Z",
+    "ibge_code": "3126604"
+  },
+  {
+    "url": "https://fortalezademinas.mg.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:37:39.292Z",
+    "ibge_code": "3126307"
+  },
+  {
+    "url": "https://freigaspar.mg.gov.br",
+    "performance": 0.83,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:39.915Z",
+    "ibge_code": "3126802"
+  },
+  {
+    "url": "https://franciscosa.mg.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-22T03:37:39.960Z",
+    "ibge_code": "3126703"
+  },
+  {
+    "url": "https://freiinocencio.mg.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.91,
+    "seo": 1,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-22T03:37:41.835Z",
+    "ibge_code": "3126901"
+  },
+  {
+    "url": "https://fortunademinas.mg.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-22T03:37:42.774Z",
+    "ibge_code": "3126406"
+  },
+  {
+    "url": "http://frutal.mg.gov.br",
+    "performance": 1,
+    "accessibility": 0.83,
+    "seo": 0.8,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-22T03:37:45.955Z",
+    "ibge_code": "3127107"
+  },
+  {
+    "url": "https://goiabeira.mg.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:53.648Z",
+    "ibge_code": "3127370"
+  },
+  {
+    "url": "https://frutadeleite.mg.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.8,
+    "seo": 0.73,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:55.871Z",
+    "ibge_code": "3127073"
+  },
+  {
+    "url": "https://glaucilandia.mg.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.45,
+    "seo": 0.91,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-22T03:37:56.280Z",
+    "ibge_code": "3127354"
+  },
+  {
+    "url": "https://fronteiradosvales.mg.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-22T03:37:58.037Z",
+    "ibge_code": "3127057"
+  },
+  {
+    "url": "https://galileia.mg.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.84,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:37:59.915Z",
+    "ibge_code": "3127305"
+  },
+  {
+    "url": "https://funilandia.mg.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.65,
+    "seo": 0.75,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-22T03:38:03.969Z",
+    "ibge_code": "3127206"
+  },
+  {
+    "url": "https://gameleiras.mg.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-22T03:38:04.836Z",
+    "ibge_code": "3127339"
   }
 ]
