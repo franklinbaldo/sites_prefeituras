@@ -19168,5 +19168,1589 @@
     "bestPractices": 0.93,
     "timestamp": "2025-06-25T03:35:06.763Z",
     "ibge_code": "5005400"
+  },
+  {
+    "url": "https://pedrogomes.ms.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.83,
+    "seo": 0.85,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:24:21.993Z",
+    "ibge_code": "5006408"
+  },
+  {
+    "url": "https://www.pmnhs.ms.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:24:22.762Z",
+    "ibge_code": "5006259"
+  },
+  {
+    "url": "https://paraisodasaguas.ms.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:24:24.477Z",
+    "ibge_code": "5006275"
+  },
+  {
+    "url": "http://nioaque.ms.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-26T03:24:26.034Z",
+    "ibge_code": "5005806"
+  },
+  {
+    "url": "https://paranhos.ms.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.55,
+    "seo": 0.73,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:24:27.236Z",
+    "ibge_code": "5006358"
+  },
+  {
+    "url": "http://novaalvoradadosul.ms.gov.br",
+    "performance": 0.31,
+    "accessibility": 0.85,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:24:27.401Z",
+    "ibge_code": "5006002"
+  },
+  {
+    "url": "https://paranaiba.ms.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.84,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:24:27.438Z",
+    "ibge_code": "5006309"
+  },
+  {
+    "url": "http://portomurtinho.ms.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.95,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:24:28.982Z",
+    "ibge_code": "5006903"
+  },
+  {
+    "url": "https://www.pmna.ms.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-26T03:24:32.253Z",
+    "ibge_code": "5006200"
+  },
+  {
+    "url": "https://pontapora.ms.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.78,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:24:35.295Z",
+    "ibge_code": "5006606"
+  },
+  {
+    "url": "https://rochedo.ms.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.74,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:24:47.553Z",
+    "ibge_code": "5007505"
+  },
+  {
+    "url": "http://riobrilhante.ms.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:24:48.859Z",
+    "ibge_code": "5007208"
+  },
+  {
+    "url": "https://santaritadopardo.ms.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:24:52.218Z",
+    "ibge_code": "5007554"
+  },
+  {
+    "url": "https://selviria.ms.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.8,
+    "seo": 0.75,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-26T03:24:55.863Z",
+    "ibge_code": "5007802"
+  },
+  {
+    "url": "https://rionegro.ms.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.39,
+    "timestamp": "2025-06-26T03:24:56.095Z",
+    "ibge_code": "5007307"
+  },
+  {
+    "url": "https://sidrolandia.ms.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:24:57.926Z",
+    "ibge_code": "5007901"
+  },
+  {
+    "url": "http://ribasdoriopardo.ms.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:24:58.596Z",
+    "ibge_code": "5007109"
+  },
+  {
+    "url": "https://setequedas.ms.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.79,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:25:03.703Z",
+    "ibge_code": "5007703"
+  },
+  {
+    "url": "http://www.rioverde.ms.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.86,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:25:08.649Z",
+    "ibge_code": "5007406"
+  },
+  {
+    "url": "https://sonora.ms.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.7,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:25:14.738Z",
+    "ibge_code": "5007935"
+  },
+  {
+    "url": "http://taquarussu.ms.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-26T03:25:18.601Z",
+    "ibge_code": "5007976"
+  },
+  {
+    "url": "https://vicentina.ms.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.76,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:25:19.866Z",
+    "ibge_code": "5008404"
+  },
+  {
+    "url": "http://www.saogabriel.ms.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.85,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:25:23.315Z",
+    "ibge_code": "5007695"
+  },
+  {
+    "url": "https://altafloresta.mt.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:25:37.189Z",
+    "ibge_code": "5100250"
+  },
+  {
+    "url": "http://www.altoaraguaia.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.78,
+    "seo": 0.77,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:25:38.210Z",
+    "ibge_code": "5100300"
+  },
+  {
+    "url": "http://www.pmaguaclara.ms.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:25:38.380Z",
+    "ibge_code": "5000203"
+  },
+  {
+    "url": "http://www.treslagoas.ms.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.67,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:25:39.839Z",
+    "ibge_code": "5008305"
+  },
+  {
+    "url": "https://acorizal.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:25:43.266Z",
+    "ibge_code": "5100102"
+  },
+  {
+    "url": "https://altogarcas.mt.gov.br",
+    "performance": 0.8,
+    "accessibility": 0.64,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:25:43.293Z",
+    "ibge_code": "5100409"
+  },
+  {
+    "url": "https://altoboavista.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:25:46.001Z",
+    "ibge_code": "5100359"
+  },
+  {
+    "url": "http://tacuru.ms.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.82,
+    "seo": 0.36,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:25:52.498Z",
+    "ibge_code": "5007950"
+  },
+  {
+    "url": "http://www.apiacas.mt.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:00.358Z",
+    "ibge_code": "5100805"
+  },
+  {
+    "url": "https://altoparaguai.mt.gov.br",
+    "performance": 0.46,
+    "accessibility": null,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-26T03:26:03.175Z",
+    "ibge_code": "5100508"
+  },
+  {
+    "url": "https://altotaquari.mt.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:26:03.272Z",
+    "ibge_code": "5100607"
+  },
+  {
+    "url": "http://www.arenapolis.mt.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.74,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:04.876Z",
+    "ibge_code": "5101308"
+  },
+  {
+    "url": "http://araguainha.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:08.478Z",
+    "ibge_code": "5101209"
+  },
+  {
+    "url": "https://barradobugres.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:26:12.187Z",
+    "ibge_code": "5101704"
+  },
+  {
+    "url": "https://aripuana.mt.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.64,
+    "seo": 0.92,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:26:16.983Z",
+    "ibge_code": "5101407"
+  },
+  {
+    "url": "https://barradogarcas.mt.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:17.818Z",
+    "ibge_code": "5101803"
+  },
+  {
+    "url": "https://araguaiana.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:27.431Z",
+    "ibge_code": "5101001"
+  },
+  {
+    "url": "https://brasnorte.mt.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.54,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:26:30.422Z",
+    "ibge_code": "5101902"
+  },
+  {
+    "url": "https://baraodemelgaco.mt.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:26:32.522Z",
+    "ibge_code": "5101605"
+  },
+  {
+    "url": "http://campinapolis.mt.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-26T03:26:32.645Z",
+    "ibge_code": "5102603"
+  },
+  {
+    "url": "http://www.camponovodoparecis.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.98,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:26:36.230Z",
+    "ibge_code": "5102637"
+  },
+  {
+    "url": "https://bomjesusdoaraguaia.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:26:44.339Z",
+    "ibge_code": "5101852"
+  },
+  {
+    "url": "http://canarana.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.83,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:26:48.823Z",
+    "ibge_code": "5102702"
+  },
+  {
+    "url": "https://camposdejulio.mt.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:26:51.598Z",
+    "ibge_code": "5102686"
+  },
+  {
+    "url": "https://campoverde.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-26T03:26:57.080Z",
+    "ibge_code": "5102678"
+  },
+  {
+    "url": "https://carlinda.mt.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:27:03.728Z",
+    "ibge_code": "5102793"
+  },
+  {
+    "url": "https://colniza.mt.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:27:08.534Z",
+    "ibge_code": "5103254"
+  },
+  {
+    "url": "https://castanheira.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.77,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:27:08.580Z",
+    "ibge_code": "5102850"
+  },
+  {
+    "url": "https://chapadadosguimaraes.mt.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:27:09.326Z",
+    "ibge_code": "5103007"
+  },
+  {
+    "url": "https://claudia.mt.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.94,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:27:15.567Z",
+    "ibge_code": "5103056"
+  },
+  {
+    "url": "https://colider.mt.gov.br",
+    "performance": 0.62,
+    "accessibility": null,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:27:20.776Z",
+    "ibge_code": "5103205"
+  },
+  {
+    "url": "http://www.comodoro.mt.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.86,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:27:21.537Z",
+    "ibge_code": "5103304"
+  },
+  {
+    "url": "http://www.conquistadoeste.mt.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:27:29.181Z",
+    "ibge_code": "5103361"
+  },
+  {
+    "url": "http://www.curvelandia.mt.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.74,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:27:32.476Z",
+    "ibge_code": "5103437"
+  },
+  {
+    "url": "https://cotriguacu.mt.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.96,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:27:33.037Z",
+    "ibge_code": "5103379"
+  },
+  {
+    "url": "https://confresa.org",
+    "performance": 0.47,
+    "accessibility": 0.94,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:27:36.336Z",
+    "ibge_code": "5103353"
+  },
+  {
+    "url": "https://denise.mt.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.74,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:27:38.591Z",
+    "ibge_code": "5103452"
+  },
+  {
+    "url": "http://www.caceres.mt.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:27:38.654Z",
+    "ibge_code": "5102504"
+  },
+  {
+    "url": "http://www.cuiaba.mt.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.97,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:27:41.462Z",
+    "ibge_code": "5103403"
+  },
+  {
+    "url": "https://diamantino.mt.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:27:47.545Z",
+    "ibge_code": "5103502"
+  },
+  {
+    "url": "https://gauchadonorte.mt.gov.br",
+    "performance": 0.98,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-26T03:27:47.680Z",
+    "ibge_code": "5103858"
+  },
+  {
+    "url": "https://domaquino.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.79,
+    "seo": 0.73,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:27:52.657Z",
+    "ibge_code": "5103601"
+  },
+  {
+    "url": "http://www.gloriadoeste.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.6,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:28:01.250Z",
+    "ibge_code": "5103957"
+  },
+  {
+    "url": "http://www.figueiropolisdoeste.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:28:02.108Z",
+    "ibge_code": "5103809"
+  },
+  {
+    "url": "http://araputanga.mt.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.76,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:28:03.035Z",
+    "ibge_code": "5101258"
+  },
+  {
+    "url": "http://www.feliznatal.mt.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.79,
+    "seo": 0.67,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:28:03.298Z",
+    "ibge_code": "5103700"
+  },
+  {
+    "url": "https://generalcarneiro.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:28:11.532Z",
+    "ibge_code": "5103908"
+  },
+  {
+    "url": "https://guarantadonorte.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": null,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:28:11.942Z",
+    "ibge_code": "5104104"
+  },
+  {
+    "url": "http://itiquira.mt.gov.br",
+    "performance": 0.99,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-26T03:28:15.907Z",
+    "ibge_code": "5104609"
+  },
+  {
+    "url": "https://indiavai.mt.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:28:21.034Z",
+    "ibge_code": "5104500"
+  },
+  {
+    "url": "https://ipirangadonorte.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:28:30.237Z",
+    "ibge_code": "5104526"
+  },
+  {
+    "url": "http://www.pmjuruena.com.br",
+    "performance": 0.85,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-26T03:28:30.646Z",
+    "ibge_code": "5105176"
+  },
+  {
+    "url": "https://itauba.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:28:30.982Z",
+    "ibge_code": "5104559"
+  },
+  {
+    "url": "http://www.jangada.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-26T03:28:32.270Z",
+    "ibge_code": "5104906"
+  },
+  {
+    "url": "https://jaciara.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.89,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:28:36.108Z",
+    "ibge_code": "5104807"
+  },
+  {
+    "url": "https://itanhanga.mt.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:28:37.186Z",
+    "ibge_code": "5104542"
+  },
+  {
+    "url": "https://juara.mt.gov.br",
+    "performance": 0.09,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:28:48.358Z",
+    "ibge_code": "5105101"
+  },
+  {
+    "url": "https://jauru.mt.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:28:51.173Z",
+    "ibge_code": "5105002"
+  },
+  {
+    "url": "https://guiratinga.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:28:54.024Z",
+    "ibge_code": "5104203"
+  },
+  {
+    "url": "http://www.lambaridoeste.mt.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:28:55.063Z",
+    "ibge_code": "5105234"
+  },
+  {
+    "url": "https://juscimeira.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.77,
+    "seo": 0.73,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:28:55.543Z",
+    "ibge_code": "5105200"
+  },
+  {
+    "url": "https://marcelandia.mt.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:28:56.573Z",
+    "ibge_code": "5105580"
+  },
+  {
+    "url": "https://lucasdorioverde.mt.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.79,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:28:58.687Z",
+    "ibge_code": "5105259"
+  },
+  {
+    "url": "https://matupa.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:28:59.479Z",
+    "ibge_code": "5105606"
+  },
+  {
+    "url": "https://juina.mt.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.66,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:02.609Z",
+    "ibge_code": "5105150"
+  },
+  {
+    "url": "https://nobres.mt.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:20.064Z",
+    "ibge_code": "5105903"
+  },
+  {
+    "url": "https://novaguarita.mt.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.99,
+    "seo": 0.92,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-26T03:29:22.290Z",
+    "ibge_code": "5108808"
+  },
+  {
+    "url": "https://novabrasilandia.mt.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:22.843Z",
+    "ibge_code": "5106208"
+  },
+  {
+    "url": "https://nossasenhoradolivramento.mt.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:24.771Z",
+    "ibge_code": "5106109"
+  },
+  {
+    "url": "https://nortelandia.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": null,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:27.498Z",
+    "ibge_code": "5106000"
+  },
+  {
+    "url": "https://novacanaadonorte.mt.gov.br",
+    "performance": 0.28,
+    "accessibility": 0.69,
+    "seo": 0.67,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:29:27.858Z",
+    "ibge_code": "5106216"
+  },
+  {
+    "url": "https://novalacerda.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.57,
+    "seo": 0.75,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:29:35.144Z",
+    "ibge_code": "5106182"
+  },
+  {
+    "url": "https://novamarilandia.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:29:41.532Z",
+    "ibge_code": "5108857"
+  },
+  {
+    "url": "http://www.mirassoldoeste.mt.gov.br",
+    "performance": 0.13,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:29:49.050Z",
+    "ibge_code": "5105622"
+  },
+  {
+    "url": "https://novaolimpia.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:29:54.860Z",
+    "ibge_code": "5106232"
+  },
+  {
+    "url": "https://novasantahelena.mt.gov.br",
+    "performance": 0.63,
+    "accessibility": 1,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:29:55.286Z",
+    "ibge_code": "5106190"
+  },
+  {
+    "url": "https://novamonteverde.mt.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:29:55.535Z",
+    "ibge_code": "5108956"
+  },
+  {
+    "url": "http://www.novanazare.mt.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-26T03:29:57.491Z",
+    "ibge_code": "5106174"
+  },
+  {
+    "url": "https://novabandeirantes.mt.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.5,
+    "timestamp": "2025-06-26T03:30:01.162Z",
+    "ibge_code": "5106158"
+  },
+  {
+    "url": "https://novaxavantina.mt.gov.br",
+    "performance": 0.47,
+    "accessibility": null,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:30:05.086Z",
+    "ibge_code": "5106257"
+  },
+  {
+    "url": "http://www.novaubirata.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-26T03:30:07.390Z",
+    "ibge_code": "5106240"
+  },
+  {
+    "url": "https://novosaojoaquim.mt.gov.br",
+    "performance": 0.96,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:30:09.387Z",
+    "ibge_code": "5106281"
+  },
+  {
+    "url": "https://novomundo.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.65,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:30:11.985Z",
+    "ibge_code": "5106265"
+  },
+  {
+    "url": "http://novamutum.mt.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.81,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:30:12.665Z",
+    "ibge_code": "5106224"
+  },
+  {
+    "url": "http://www.novosantoantonio.mt.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-26T03:30:14.028Z",
+    "ibge_code": "5106315"
+  },
+  {
+    "url": "http://www.novohorizontedonorte.mt.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.81,
+    "seo": 0.67,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:30:18.780Z",
+    "ibge_code": "5106273"
+  },
+  {
+    "url": "https://paranatinga.mt.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:30:25.785Z",
+    "ibge_code": "5106307"
+  },
+  {
+    "url": "https://pedrapreta.mt.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.64,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:30:25.925Z",
+    "ibge_code": "5106372"
+  },
+  {
+    "url": "https://peixotodeazevedo.mt.gov.br",
+    "performance": 0.65,
+    "accessibility": 1,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:30:31.094Z",
+    "ibge_code": "5106422"
+  },
+  {
+    "url": "https://paranaita.mt.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:30:32.314Z",
+    "ibge_code": "5106299"
+  },
+  {
+    "url": "http://pontaldoaraguaia.mt.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.91,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-26T03:30:35.295Z",
+    "ibge_code": "5106653"
+  },
+  {
+    "url": "https://portoestrela.mt.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.75,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:30:46.137Z",
+    "ibge_code": "5106851"
+  },
+  {
+    "url": "https://ponteselacerda.mt.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.78,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:30:47.340Z",
+    "ibge_code": "5106752"
+  },
+  {
+    "url": "http://portoalegredonorte.mt.gov.br",
+    "performance": 0.29,
+    "accessibility": 0.79,
+    "seo": 0.67,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:30:51.332Z",
+    "ibge_code": "5106778"
+  },
+  {
+    "url": "http://portoesperidiao.mt.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:30:51.591Z",
+    "ibge_code": "5106828"
+  },
+  {
+    "url": "https://pocone.mt.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.79,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:30:51.753Z",
+    "ibge_code": "5106505"
+  },
+  {
+    "url": "http://www.prefeituradepontebranca-mt.com.br",
+    "performance": 0.54,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-26T03:30:51.980Z",
+    "ibge_code": "5106703"
+  },
+  {
+    "url": "http://primaveradoleste.mt.gov.br",
+    "performance": 0.59,
+    "accessibility": 1,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:30:59.736Z",
+    "ibge_code": "5107040"
+  },
+  {
+    "url": "https://planaltodaserra.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:31:01.678Z",
+    "ibge_code": "5106455"
+  },
+  {
+    "url": "https://portodosgauchos.mt.gov.br",
+    "performance": 0.42,
+    "accessibility": null,
+    "seo": 0.92,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:31:01.959Z",
+    "ibge_code": "5106802"
+  },
+  {
+    "url": "http://reservadocabacal.mt.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.6,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:31:12.895Z",
+    "ibge_code": "5107156"
+  },
+  {
+    "url": "http://www.riobranco.mt.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.63,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:31:15.657Z",
+    "ibge_code": "5107206"
+  },
+  {
+    "url": "http://www.querencia.mt.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.59,
+    "seo": 0.75,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:31:16.813Z",
+    "ibge_code": "5107065"
+  },
+  {
+    "url": "https://rondolandia.mt.gov.br",
+    "performance": 0.34,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-26T03:31:20.753Z",
+    "ibge_code": "5107578"
+  },
+  {
+    "url": "http://www.rondonopolis.mt.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.87,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:31:23.074Z",
+    "ibge_code": "5107602"
+  },
+  {
+    "url": "http://www.saltodoceu.mt.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.6,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:31:30.706Z",
+    "ibge_code": "5107750"
+  },
+  {
+    "url": "https://santaterezinha.mt.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:31:30.957Z",
+    "ibge_code": "5107776"
+  },
+  {
+    "url": "http://www.ribeiraozinho.mt.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.78,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:31:33.215Z",
+    "ibge_code": "5107198"
+  },
+  {
+    "url": "https://ribeiraocascalheira.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:31:35.384Z",
+    "ibge_code": "5107180"
+  },
+  {
+    "url": "http://santacruzdoxingu.mt.gov.br",
+    "performance": 0.46,
+    "accessibility": null,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:31:38.652Z",
+    "ibge_code": "5107743"
+  },
+  {
+    "url": "https://rosariooeste.mt.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.82,
+    "timestamp": "2025-06-26T03:31:40.836Z",
+    "ibge_code": "5107701"
+  },
+  {
+    "url": "https://santoafonso.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.76,
+    "seo": 0.91,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:31:41.486Z",
+    "ibge_code": "5107263"
+  },
+  {
+    "url": "https://santacarmem.mt.gov.br",
+    "performance": 0.37,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-26T03:31:41.736Z",
+    "ibge_code": "5107248"
+  },
+  {
+    "url": "https://santoantoniodoleste.mt.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.67,
+    "seo": 0.75,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:31:46.627Z",
+    "ibge_code": "5107792"
+  },
+  {
+    "url": "http://www.leverger.mt.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:31:58.454Z",
+    "ibge_code": "5107800"
+  },
+  {
+    "url": "https://santaritadotrivelato.mt.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.8,
+    "seo": 0.75,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:32:02.155Z",
+    "ibge_code": "5107768"
+  },
+  {
+    "url": "https://sinop.mt.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:32:07.649Z",
+    "ibge_code": "5107909"
+  },
+  {
+    "url": "https://sapezal.mt.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:32:08.002Z",
+    "ibge_code": "5107875"
+  },
+  {
+    "url": "https://saojosedopovo.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.91,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:11.245Z",
+    "ibge_code": "5107297"
+  },
+  {
+    "url": "https://saojosedorioclaro.mt.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.82,
+    "seo": 0.67,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:17.049Z",
+    "ibge_code": "5107305"
+  },
+  {
+    "url": "http://www.saojosedoxingu.mt.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:32:17.579Z",
+    "ibge_code": "5107354"
+  },
+  {
+    "url": "http://www.sorriso.mt.gov.br",
+    "performance": 0.25,
+    "accessibility": 0.75,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:32:17.834Z",
+    "ibge_code": "5107925"
+  },
+  {
+    "url": "https://saopedrodacipa.mt.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.79,
+    "seo": 0.73,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:32:22.847Z",
+    "ibge_code": "5107404"
+  },
+  {
+    "url": "http://www.saojosedosquatromarcos.mt.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.76,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:32:24.128Z",
+    "ibge_code": "5107107"
+  },
+  {
+    "url": "https://tangaradaserra.mt.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:32:28.044Z",
+    "ibge_code": "5107958"
+  },
+  {
+    "url": "http://www.pmtesouro.com.br",
+    "performance": 0.99,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-26T03:32:33.893Z",
+    "ibge_code": "5108105"
+  },
+  {
+    "url": "https://saofelixdoaraguaia.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:34.471Z",
+    "ibge_code": "5107859"
+  },
+  {
+    "url": "https://tapurah.mt.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.76,
+    "seo": 0.67,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:32:35.270Z",
+    "ibge_code": "5108006"
+  },
+  {
+    "url": "https://tabapora.mt.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.8,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:40.341Z",
+    "ibge_code": "5107941"
+  },
+  {
+    "url": "https://terranovadonorte.mt.gov.br",
+    "performance": 0.84,
+    "accessibility": 0.93,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:40.944Z",
+    "ibge_code": "5108055"
+  },
+  {
+    "url": "https://uniaodosul.mt.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.91,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:43.228Z",
+    "ibge_code": "5108303"
+  },
+  {
+    "url": "http://valedesaodomingos.mt.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.6,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:32:46.797Z",
+    "ibge_code": "5108352"
+  },
+  {
+    "url": "https://vera.mt.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.96,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:32:52.798Z",
+    "ibge_code": "5108501"
+  },
+  {
+    "url": "https://abaetetuba.pa.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.82,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:32:54.093Z",
+    "ibge_code": "1500107"
+  },
+  {
+    "url": "https://aguaboa.mt.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-26T03:33:01.398Z",
+    "ibge_code": "5100201"
+  },
+  {
+    "url": "https://abelfigueiredo.pa.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.84,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:33:01.577Z",
+    "ibge_code": "1500131"
+  },
+  {
+    "url": "https://vilabeladasantissimatrindade.mt.gov.br",
+    "performance": 0.8,
+    "accessibility": 0.89,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:33:03.948Z",
+    "ibge_code": "5105507"
+  },
+  {
+    "url": "https://vilarica.mt.gov.br",
+    "performance": 0.67,
+    "accessibility": 1,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:33:04.960Z",
+    "ibge_code": "5108600"
+  },
+  {
+    "url": "http://alenquer.pa.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:33:14.611Z",
+    "ibge_code": "1500404"
+  },
+  {
+    "url": "http://almeirim.pa.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:33:16.891Z",
+    "ibge_code": "1500503"
+  },
+  {
+    "url": "http://anajas.pa.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.77,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:33:17.065Z",
+    "ibge_code": "1500701"
+  },
+  {
+    "url": "https://auroradopara.pa.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:33:23.393Z",
+    "ibge_code": "1500958"
+  },
+  {
+    "url": "http://anapu.pa.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:33:24.373Z",
+    "ibge_code": "1500859"
+  },
+  {
+    "url": "http://www.ananindeua.pa.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.89,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:33:25.698Z",
+    "ibge_code": "1500800"
+  },
+  {
+    "url": "https://altamira.pa.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-26T03:33:27.164Z",
+    "ibge_code": "1500602"
+  },
+  {
+    "url": "http://augustocorrea.pa.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:33:33.413Z",
+    "ibge_code": "1500909"
+  },
+  {
+    "url": "https://bagre.pa.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-26T03:33:34.325Z",
+    "ibge_code": "1501105"
+  },
+  {
+    "url": "http://afua.pa.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-26T03:33:35.987Z",
+    "ibge_code": "1500305"
+  },
+  {
+    "url": "http://aveiro.pa.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-26T03:33:37.773Z",
+    "ibge_code": "1501006"
+  },
+  {
+    "url": "http://acara.pa.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-26T03:33:38.032Z",
+    "ibge_code": "1500206"
+  },
+  {
+    "url": "https://bannach.pa.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-26T03:33:41.977Z",
+    "ibge_code": "1501253"
+  },
+  {
+    "url": "https://barcarena.pa.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:33:53.952Z",
+    "ibge_code": "1501303"
+  },
+  {
+    "url": "https://belterra.pa.gov.br",
+    "performance": 0.92,
+    "accessibility": 0.68,
+    "seo": 0.82,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-26T03:34:07.952Z",
+    "ibge_code": "1501451"
   }
 ]
