@@ -85,10 +85,51 @@ async function initializeApp() {
         currentData = [...psiData];
         initializeSorting();
         initializeFiltering();
+        initializeExport();
         renderTable(currentData);
     } else {
         console.error("Could not fetch PSI data to populate the table.");
     }
+}
+
+function downloadJSON(data, filename) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+function dataToCsv(data) {
+    const header = ['url','performance','accessibility','seo','bestPractices','timestamp','ibge_code'];
+    const lines = data.map(item => header.map(h => item[h] !== undefined ? item[h] : '').join(','));
+    return header.join(',') + '\n' + lines.join('\n');
+}
+
+function downloadCSV(data, filename) {
+    const csv = dataToCsv(data);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+function initializeExport() {
+    const btn = document.getElementById('export-data-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        downloadCSV(currentData, 'psi-results.csv');
+        downloadJSON(currentData, 'psi-results.json');
+    });
 }
 
 initializeApp();
