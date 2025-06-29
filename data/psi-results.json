@@ -24046,5 +24046,1409 @@
     "bestPractices": 0.71,
     "timestamp": "2025-06-28T03:31:06.305Z",
     "ibge_code": "2603009"
+  },
+  {
+    "url": "https://carpina.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.9,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:29:31.814Z",
+    "ibge_code": "2604007"
+  },
+  {
+    "url": "http://canhotinho.pe.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:29:32.211Z",
+    "ibge_code": "2603702"
+  },
+  {
+    "url": "https://camocimdesaofelix.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.65,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-29T03:29:37.212Z",
+    "ibge_code": "2603504"
+  },
+  {
+    "url": "https://camutanga.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.69,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:29:48.704Z",
+    "ibge_code": "2603603"
+  },
+  {
+    "url": "https://calumbi.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:29:50.593Z",
+    "ibge_code": "2603405"
+  },
+  {
+    "url": "http://www.capoeiras.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.91,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:29:54.894Z",
+    "ibge_code": "2603801"
+  },
+  {
+    "url": "https://carnaiba.pe.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:29:57.232Z",
+    "ibge_code": "2603900"
+  },
+  {
+    "url": "https://carnaubeiradapenha.pe.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:29:58.195Z",
+    "ibge_code": "2603926"
+  },
+  {
+    "url": "http://catende.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.8,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:29:59.160Z",
+    "ibge_code": "2604205"
+  },
+  {
+    "url": "https://cedro.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:30:01.158Z",
+    "ibge_code": "2604304"
+  },
+  {
+    "url": "https://calcado.pe.gov.br",
+    "performance": 0.28,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:30:02.776Z",
+    "ibge_code": "2603306"
+  },
+  {
+    "url": "https://caruaru.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.8,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:30:04.323Z",
+    "ibge_code": "2604106"
+  },
+  {
+    "url": "http://chadealegria.pe.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:30:10.903Z",
+    "ibge_code": "2604403"
+  },
+  {
+    "url": "https://chagrande.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:30:24.564Z",
+    "ibge_code": "2604502"
+  },
+  {
+    "url": "https://dormentes.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.62,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:30:29.956Z",
+    "ibge_code": "2605152"
+  },
+  {
+    "url": "https://escada.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:30:32.101Z",
+    "ibge_code": "2605202"
+  },
+  {
+    "url": "http://cortes.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:30:33.529Z",
+    "ibge_code": "2604809"
+  },
+  {
+    "url": "https://condado.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:30:35.872Z",
+    "ibge_code": "2604601"
+  },
+  {
+    "url": "https://custodia.pe.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.82,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:30:41.229Z",
+    "ibge_code": "2605103"
+  },
+  {
+    "url": "http://cumaru.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:30:50.148Z",
+    "ibge_code": "2604908"
+  },
+  {
+    "url": "http://exu.pe.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.87,
+    "seo": 0.77,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-29T03:30:55.990Z",
+    "ibge_code": "2605301"
+  },
+  {
+    "url": "https://flores.pe.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.98,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:30:56.231Z",
+    "ibge_code": "2605608"
+  },
+  {
+    "url": "http://gloriadogoita.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.9,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:30:57.763Z",
+    "ibge_code": "2606101"
+  },
+  {
+    "url": "https://ferreiros.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.67,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:31:01.848Z",
+    "ibge_code": "2605509"
+  },
+  {
+    "url": "https://freimiguelinho.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.61,
+    "timestamp": "2025-06-29T03:31:06.186Z",
+    "ibge_code": "2605806"
+  },
+  {
+    "url": "https://granito.pe.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.8,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-29T03:31:08.364Z",
+    "ibge_code": "2606309"
+  },
+  {
+    "url": "http://www.prefeituradegravata.pe.gov.br",
+    "performance": 1,
+    "accessibility": 0.87,
+    "seo": 0.82,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-29T03:31:12.112Z",
+    "ibge_code": "2606408"
+  },
+  {
+    "url": "https://garanhuns.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:31:14.915Z",
+    "ibge_code": "2606002"
+  },
+  {
+    "url": "https://gameleira.pe.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:31:14.964Z",
+    "ibge_code": "2605905"
+  },
+  {
+    "url": "https://floresta.pe.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.79,
+    "seo": 0.92,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-29T03:31:15.149Z",
+    "ibge_code": "2605707"
+  },
+  {
+    "url": "https://iati.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.84,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:31:18.746Z",
+    "ibge_code": "2606507"
+  },
+  {
+    "url": "http://www.noronha.pe.gov.br",
+    "performance": 0.28,
+    "accessibility": 0.76,
+    "seo": 0.85,
+    "bestPractices": 0.52,
+    "timestamp": "2025-06-29T03:31:25.290Z",
+    "ibge_code": "2605459"
+  },
+  {
+    "url": "http://goiana.pe.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.79,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:31:26.306Z",
+    "ibge_code": "2606200"
+  },
+  {
+    "url": "https://ibirajuba.pe.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.9,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:31:39.868Z",
+    "ibge_code": "2606705"
+  },
+  {
+    "url": "https://iguaracy.pe.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:31:42.666Z",
+    "ibge_code": "2606903"
+  },
+  {
+    "url": "https://igarassu.pe.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:31:47.780Z",
+    "ibge_code": "2606804"
+  },
+  {
+    "url": "https://ilhadeitamaraca.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:31:49.620Z",
+    "ibge_code": "2607604"
+  },
+  {
+    "url": "http://ipubi.pe.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.59,
+    "seo": 0.92,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-29T03:31:50.371Z",
+    "ibge_code": "2607307"
+  },
+  {
+    "url": "https://inaja.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.74,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:31:50.641Z",
+    "ibge_code": "2607000"
+  },
+  {
+    "url": "https://ibimirim.pe.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:31:55.728Z",
+    "ibge_code": "2606606"
+  },
+  {
+    "url": "http://ipojuca.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:31:56.902Z",
+    "ibge_code": "2607208"
+  },
+  {
+    "url": "https://ingazeira.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.81,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:32:01.296Z",
+    "ibge_code": "2607109"
+  },
+  {
+    "url": "https://itaquitinga.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.86,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:32:07.575Z",
+    "ibge_code": "2607802"
+  },
+  {
+    "url": "http://www.itambe.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.8,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:32:10.187Z",
+    "ibge_code": "2607653"
+  },
+  {
+    "url": "https://itaiba.pe.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:32:13.054Z",
+    "ibge_code": "2607505"
+  },
+  {
+    "url": "https://itacuruba.pe.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:32:14.448Z",
+    "ibge_code": "2607406"
+  },
+  {
+    "url": "https://jaboatao.pe.gov.br",
+    "performance": 0.71,
+    "accessibility": 0.86,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:32:24.207Z",
+    "ibge_code": "2607901"
+  },
+  {
+    "url": "https://joaquimnabuco.pe.gov.br",
+    "performance": 0.72,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:32:25.528Z",
+    "ibge_code": "2608206"
+  },
+  {
+    "url": "http://jucati.pe.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-29T03:32:26.533Z",
+    "ibge_code": "2608255"
+  },
+  {
+    "url": "http://jaqueira.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:32:27.686Z",
+    "ibge_code": "2607950"
+  },
+  {
+    "url": "http://www.itapissuma.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.75,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-29T03:32:28.229Z",
+    "ibge_code": "2607752"
+  },
+  {
+    "url": "http://www.itapetim.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:32:30.708Z",
+    "ibge_code": "2607703"
+  },
+  {
+    "url": "https://jatauba.pe.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.76,
+    "seo": 0.77,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:32:34.758Z",
+    "ibge_code": "2608008"
+  },
+  {
+    "url": "http://www.jatoba.pe.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.76,
+    "seo": 0.82,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:32:39.396Z",
+    "ibge_code": "2608057"
+  },
+  {
+    "url": "http://jupi.pe.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.88,
+    "seo": 0.82,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-29T03:32:40.310Z",
+    "ibge_code": "2608305"
+  },
+  {
+    "url": "https://joaoalfredo.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:32:42.834Z",
+    "ibge_code": "2608107"
+  },
+  {
+    "url": "http://www.lagoadoouro.pe.gov.br",
+    "performance": 0.74,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-29T03:32:45.113Z",
+    "ibge_code": "2608602"
+  },
+  {
+    "url": "http://www.itaenga.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:32:45.146Z",
+    "ibge_code": "2608503"
+  },
+  {
+    "url": "https://jurema.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:32:51.899Z",
+    "ibge_code": "2608404"
+  },
+  {
+    "url": "https://lagoagrande.pe.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.87,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:32:53.128Z",
+    "ibge_code": "2608750"
+  },
+  {
+    "url": "https://lagoadosgatos.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.71,
+    "seo": 0.91,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:32:57.321Z",
+    "ibge_code": "2608701"
+  },
+  {
+    "url": "http://limoeiro.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.86,
+    "seo": 0.75,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-29T03:33:01.653Z",
+    "ibge_code": "2608909"
+  },
+  {
+    "url": "https://manari.pe.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:33:02.199Z",
+    "ibge_code": "2609154"
+  },
+  {
+    "url": "https://lagoadocarro.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.85,
+    "seo": 0.77,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:33:04.289Z",
+    "ibge_code": "2608453"
+  },
+  {
+    "url": "https://lajedo.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.98,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:33:07.161Z",
+    "ibge_code": "2608800"
+  },
+  {
+    "url": "https://moreilandia.pe.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:33:17.463Z",
+    "ibge_code": "2614303"
+  },
+  {
+    "url": "https://oroco.pe.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:33:26.243Z",
+    "ibge_code": "2609808"
+  },
+  {
+    "url": "http://moreno.pe.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:33:26.970Z",
+    "ibge_code": "2609402"
+  },
+  {
+    "url": "https://machados.pe.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.81,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:33:32.239Z",
+    "ibge_code": "2609105"
+  },
+  {
+    "url": "https://olinda.pe.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:33:34.205Z",
+    "ibge_code": "2609600"
+  },
+  {
+    "url": "https://macaparana.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:33:37.306Z",
+    "ibge_code": "2609006"
+  },
+  {
+    "url": "http://orobo.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.88,
+    "seo": 0.77,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-29T03:33:38.243Z",
+    "ibge_code": "2609709"
+  },
+  {
+    "url": "http://nazaredamata.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-29T03:33:39.045Z",
+    "ibge_code": "2609501"
+  },
+  {
+    "url": "https://mirandiba.pe.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:33:44.742Z",
+    "ibge_code": "2609303"
+  },
+  {
+    "url": "http://ouricuri.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:33:44.802Z",
+    "ibge_code": "2609907"
+  },
+  {
+    "url": "https://palmeirina.pe.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.83,
+    "seo": 0.73,
+    "bestPractices": 0.68,
+    "timestamp": "2025-06-29T03:33:51.070Z",
+    "ibge_code": "2610103"
+  },
+  {
+    "url": "http://www.paranatama.pe.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:33:56.731Z",
+    "ibge_code": "2610301"
+  },
+  {
+    "url": "https://palmares.pe.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-29T03:34:06.026Z",
+    "ibge_code": "2610004"
+  },
+  {
+    "url": "http://www.petrolina.pe.gov.br",
+    "performance": 1,
+    "accessibility": 0.79,
+    "seo": 0.73,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-29T03:34:07.142Z",
+    "ibge_code": "2611101"
+  },
+  {
+    "url": "https://parnamirim.pe.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:34:11.262Z",
+    "ibge_code": "2610400"
+  },
+  {
+    "url": "https://paudalho.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.64,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:34:13.827Z",
+    "ibge_code": "2610608"
+  },
+  {
+    "url": "https://pesqueira.pe.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:34:20.800Z",
+    "ibge_code": "2610905"
+  },
+  {
+    "url": "https://paulista.pe.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:34:27.426Z",
+    "ibge_code": "2610707"
+  },
+  {
+    "url": "https://pedra.pe.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.78,
+    "seo": 0.46,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-29T03:34:28.962Z",
+    "ibge_code": "2610806"
+  },
+  {
+    "url": "http://www.panelas.pe.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.82,
+    "seo": 0.69,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-29T03:34:31.332Z",
+    "ibge_code": "2610202"
+  },
+  {
+    "url": "https://quipapa.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.83,
+    "seo": 1,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:34:39.193Z",
+    "ibge_code": "2611507"
+  },
+  {
+    "url": "http://petrolandia.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.99,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:34:41.634Z",
+    "ibge_code": "2611002"
+  },
+  {
+    "url": "https://pocao.pe.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:34:46.237Z",
+    "ibge_code": "2611200"
+  },
+  {
+    "url": "https://primavera.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.69,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:34:49.390Z",
+    "ibge_code": "2611408"
+  },
+  {
+    "url": "https://riachodasalmas.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.84,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:34:59.657Z",
+    "ibge_code": "2611705"
+  },
+  {
+    "url": "https://quixaba.pe.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.88,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:35:02.758Z",
+    "ibge_code": "2611533"
+  },
+  {
+    "url": "https://ribeirao.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.74,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-29T03:35:09.019Z",
+    "ibge_code": "2611804"
+  },
+  {
+    "url": "http://www.rioformoso.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.72,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:35:09.378Z",
+    "ibge_code": "2611903"
+  },
+  {
+    "url": "http://pombos.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.75,
+    "seo": 0.82,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-29T03:35:12.063Z",
+    "ibge_code": "2611309"
+  },
+  {
+    "url": "https://maraial.pe.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.63,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:35:16.240Z",
+    "ibge_code": "2609204"
+  },
+  {
+    "url": "http://www.saloa.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-29T03:35:19.229Z",
+    "ibge_code": "2612307"
+  },
+  {
+    "url": "http://salgueiro.pe.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.9,
+    "seo": 0.82,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:35:24.100Z",
+    "ibge_code": "2612208"
+  },
+  {
+    "url": "https://salgadinho.pe.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.68,
+    "seo": 0.91,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-29T03:35:25.349Z",
+    "ibge_code": "2612109"
+  },
+  {
+    "url": "http://www.recife.pe.gov.br",
+    "performance": 0.41,
+    "accessibility": null,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:35:26.633Z",
+    "ibge_code": "2611606"
+  },
+  {
+    "url": "https://santacruz.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:35:43.968Z",
+    "ibge_code": "2612455"
+  },
+  {
+    "url": "http://sanharo.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-29T03:35:47.348Z",
+    "ibge_code": "2612406"
+  },
+  {
+    "url": "https://santacruzdocapibaribe.pe.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.74,
+    "seo": 0.58,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:35:49.437Z",
+    "ibge_code": "2612505"
+  },
+  {
+    "url": "https://santaterezinha.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:35:51.853Z",
+    "ibge_code": "2612802"
+  },
+  {
+    "url": "http://santamariadocambuca.pe.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.74,
+    "seo": 0.73,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:35:52.110Z",
+    "ibge_code": "2612703"
+  },
+  {
+    "url": "https://santamariadaboavista.pe.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:35:55.896Z",
+    "ibge_code": "2612604"
+  },
+  {
+    "url": "http://saire.pe.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.86,
+    "seo": 0.83,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-29T03:35:57.190Z",
+    "ibge_code": "2612000"
+  },
+  {
+    "url": "https://santacruzdabaixaverde.pe.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.92,
+    "seo": 0.5,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:36:00.727Z",
+    "ibge_code": "2612471"
+  },
+  {
+    "url": "http://santafilomena.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.66,
+    "timestamp": "2025-06-29T03:36:07.310Z",
+    "ibge_code": "2612554"
+  },
+  {
+    "url": "https://serrita.pe.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.71,
+    "seo": 0.75,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:36:09.312Z",
+    "ibge_code": "2614006"
+  },
+  {
+    "url": "http://www.sirinhaem.pe.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-29T03:36:13.888Z",
+    "ibge_code": "2614204"
+  },
+  {
+    "url": "http://www.serratalhada.pe.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:36:21.026Z",
+    "ibge_code": "2613909"
+  },
+  {
+    "url": "https://saojosedacoroagrande.pe.gov.br",
+    "performance": 1,
+    "accessibility": 1,
+    "seo": 0.4,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:36:23.488Z",
+    "ibge_code": "2613404"
+  },
+  {
+    "url": "https://saobeneditodosul.pe.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.8,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:36:25.649Z",
+    "ibge_code": "2612901"
+  },
+  {
+    "url": "http://surubim.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:36:25.711Z",
+    "ibge_code": "2614501"
+  },
+  {
+    "url": "https://solidao.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:36:33.755Z",
+    "ibge_code": "2614402"
+  },
+  {
+    "url": "http://saojoaquimdomonte.pe.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:36:35.262Z",
+    "ibge_code": "2613305"
+  },
+  {
+    "url": "https://saobentodouna.pe.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.8,
+    "seo": 0.85,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:36:42.950Z",
+    "ibge_code": "2613008"
+  },
+  {
+    "url": "https://saocaetano.pe.gov.br",
+    "performance": 0.36,
+    "accessibility": 0.87,
+    "seo": 0.85,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:36:46.281Z",
+    "ibge_code": "2613107"
+  },
+  {
+    "url": "https://saojosedobelmonte.pe.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:36:53.026Z",
+    "ibge_code": "2613503"
+  },
+  {
+    "url": "http://saojoao.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:36:57.211Z",
+    "ibge_code": "2613206"
+  },
+  {
+    "url": "http://www.saovicenteferrer.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.88,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:36:58.834Z",
+    "ibge_code": "2613800"
+  },
+  {
+    "url": "http://slm.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:37:00.554Z",
+    "ibge_code": "2613701"
+  },
+  {
+    "url": "http://saojosedoegito.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.55,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:37:00.868Z",
+    "ibge_code": "2613602"
+  },
+  {
+    "url": "https://tacaimbo.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:37:06.096Z",
+    "ibge_code": "2614709"
+  },
+  {
+    "url": "https://tacaratu.pe.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.73,
+    "seo": 0.92,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-29T03:37:13.491Z",
+    "ibge_code": "2614808"
+  },
+  {
+    "url": "http://terezinha.pe.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.83,
+    "seo": 0.73,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-29T03:37:13.631Z",
+    "ibge_code": "2615102"
+  },
+  {
+    "url": "https://tabira.pe.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:37:21.178Z",
+    "ibge_code": "2614600"
+  },
+  {
+    "url": "https://taquaritingadonorte.pe.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.72,
+    "seo": 0.91,
+    "bestPractices": 0.86,
+    "timestamp": "2025-06-29T03:37:24.350Z",
+    "ibge_code": "2615003"
+  },
+  {
+    "url": "https://tamandare.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-29T03:37:30.872Z",
+    "ibge_code": "2614857"
+  },
+  {
+    "url": "http://terranova.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.93,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:37:33.607Z",
+    "ibge_code": "2615201"
+  },
+  {
+    "url": "http://tracunhaem.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.65,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:37:34.260Z",
+    "ibge_code": "2615508"
+  },
+  {
+    "url": "https://trindade.pe.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.84,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:37:34.300Z",
+    "ibge_code": "2615607"
+  },
+  {
+    "url": "https://toritama.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.74,
+    "seo": 0.92,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:37:36.788Z",
+    "ibge_code": "2615409"
+  },
+  {
+    "url": "https://timbauba.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:37:37.217Z",
+    "ibge_code": "2615300"
+  },
+  {
+    "url": "https://tuparetama.pe.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:37:50.584Z",
+    "ibge_code": "2615904"
+  },
+  {
+    "url": "https://verdejante.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.7,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-29T03:37:57.669Z",
+    "ibge_code": "2616100"
+  },
+  {
+    "url": "https://vicencia.pe.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.86,
+    "seo": 0.75,
+    "bestPractices": 1,
+    "timestamp": "2025-06-29T03:37:57.999Z",
+    "ibge_code": "2616308"
+  },
+  {
+    "url": "https://tupanatinga.pe.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.92,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:37:59.550Z",
+    "ibge_code": "2615805"
+  },
+  {
+    "url": "https://triunfo.pe.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:38:05.046Z",
+    "ibge_code": "2615706"
+  },
+  {
+    "url": "http://vertentedolerio.pe.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:38:09.766Z",
+    "ibge_code": "2616183"
+  },
+  {
+    "url": "https://vertentes.pe.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:38:13.652Z",
+    "ibge_code": "2616209"
+  },
+  {
+    "url": "http://aguapreta.pe.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-29T03:38:19.390Z",
+    "ibge_code": "2600401"
+  },
+  {
+    "url": "http://www.aguasbelas.pe.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:38:21.004Z",
+    "ibge_code": "2600500"
+  },
+  {
+    "url": "https://venturosa.pe.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-29T03:38:26.720Z",
+    "ibge_code": "2616001"
+  },
+  {
+    "url": "https://acaua.pi.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.75,
+    "seo": 0.85,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-29T03:38:28.944Z",
+    "ibge_code": "2200053"
+  },
+  {
+    "url": "http://www.prefeituradavitoria.pe.gov.br",
+    "performance": 0.47,
+    "accessibility": 0.77,
+    "seo": 0.92,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-29T03:38:30.629Z",
+    "ibge_code": "2616407"
+  },
+  {
+    "url": "http://agricolandia.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-29T03:38:33.368Z",
+    "ibge_code": "2200103"
+  },
+  {
+    "url": "http://alvoradadogurgueia.pi.gov.br",
+    "performance": 0.99,
+    "accessibility": 1,
+    "seo": 0.45,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:38:38.464Z",
+    "ibge_code": "2200459"
+  },
+  {
+    "url": "https://xexeu.pe.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.57,
+    "timestamp": "2025-06-29T03:38:38.696Z",
+    "ibge_code": "2616506"
+  },
+  {
+    "url": "http://altos.pi.gov.br",
+    "performance": 0.7,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:38:39.121Z",
+    "ibge_code": "2200400"
+  },
+  {
+    "url": "http://altolonga.pi.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.68,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-29T03:38:42.257Z",
+    "ibge_code": "2200301"
+  },
+  {
+    "url": "https://sertania.pe.gov.br",
+    "performance": 0.3,
+    "accessibility": 0.88,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-29T03:38:44.827Z",
+    "ibge_code": "2614105"
+  },
+  {
+    "url": "http://alagoinha.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.75,
+    "seo": 0.67,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:38:47.087Z",
+    "ibge_code": "2200251"
+  },
+  {
+    "url": "http://amarante.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:38:49.348Z",
+    "ibge_code": "2200509"
+  },
+  {
+    "url": "http://angical.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-29T03:38:56.556Z",
+    "ibge_code": "2200608"
+  },
+  {
+    "url": "http://www.alegretedopiaui.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.75,
+    "seo": 0.67,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-29T03:39:13.089Z",
+    "ibge_code": "2200277"
   }
 ]
