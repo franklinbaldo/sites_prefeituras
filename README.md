@@ -75,25 +75,114 @@ Key metrics collected:
 -   **Processing State:** The `data/psi_processing_state.json` file, which helps manage the queue of URLs to audit, IS committed to the Git repository.
 -   **Error Logs:** Detailed error logs for problematic URLs from a specific run are archived in `data/psi_error_reports/` and committed to the repository if errors occur. `TODO.md` is also updated.
 
-The schema for the `psi_metrics` table in DuckDB is:
-- `timestamp` (TIMESTAMPTZ)
-- `url` (VARCHAR)
-- `ibge_code` (VARCHAR)
-- `performance` (FLOAT)
-- `accessibility` (FLOAT)
-- `seo` (FLOAT)
-- `bestPractices` (FLOAT)
-(Primary Key: `url`, `timestamp`)
+The schema for the `psi_metrics` table in DuckDB (`data/psi_results.duckdb`) is:
+- `timestamp` (TIMESTAMPTZ): Timestamp of the audit.
+- `url` (VARCHAR): Audited URL.
+- `ibge_code` (VARCHAR): IBGE code for the city.
+- `strategy` (VARCHAR): The PSI strategy used ('mobile' or 'desktop').
+- `performance` (FLOAT): Performance score (0-1).
+- `accessibility` (FLOAT): Accessibility score (0-1).
+- `seo` (FLOAT): SEO score (0-1).
+- `bestPractices` (FLOAT): Best Practices score (0-1).
+(Primary Key: `url`, `timestamp`, `strategy`)
 
-## Viewing the Results
+## Accessing and Analyzing the Data
 
-Previously, `index.html` loaded data from a JSON file. **This mechanism is currently not functional** as the data is now stored in a DuckDB database and archived to the Internet Archive.
+The primary collected data is stored in DuckDB database files, which are archived to the Internet Archive. The `index.html` page in this repository also presents a view of the latest results for each site (from `data/psi-latest-viewable-results.json`, updated by the GitHub Action).
 
-To view and analyze the results:
-1.  **Download from Internet Archive:** Access the Internet Archive item (default: [https://archive.org/details/psi_brazilian_city_audits](https://archive.org/details/psi_brazilian_city_audits) - *Note: This link is a placeholder until the item is actually created*) and download the desired `_psi_results_<timestamp>.duckdb` file.
-2.  **Use a DuckDB client:** Connect to the downloaded `.duckdb` file using any DuckDB-compatible SQL client (e.g., DuckDB CLI, DBeaver, Python with the DuckDB library) to query and analyze the data.
+For in-depth analysis and access to historical data, you can use the archived DuckDB files or the local `data/psi_results.duckdb` file if you run the collection script locally.
 
-**The GitHub Pages site currently hosted at [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/) will no longer display updated data unless `index.html` is modified to source data from a new process (e.g., by periodically querying DuckDB and generating a static JSON, or by pointing to an external service that can serve the data from the archived DuckDB files).**
+### 1. Downloading Data from the Internet Archive
+
+-   **Access the Item:** Go to the Internet Archive item where the data is stored. The default item identifier used by the workflow is `psi_brazilian_city_audits`. The direct link would be `https://archive.org/details/psi_brazilian_city_audits` (this may need to be created by the project owner if it's the first time).
+-   **Find Files:** Within the item, you will find multiple files named like `psi_results_<timestamp>.duckdb`. Each file is a snapshot of the database at the time of collection.
+-   **Download:** Download the specific database file(s) you are interested in.
+
+### 2. Using a DuckDB Client
+
+Once you have a `.duckdb` file (either downloaded from the Internet Archive or the local `data/psi_results.duckdb`):
+
+-   **DuckDB CLI:**
+    -   Install the DuckDB CLI (see [DuckDB documentation](https://duckdb.org/docs/api/cli.html)).
+    -   Open the database file: `duckdb path/to/your/psi_results_xxxx.duckdb`
+    -   You can then run SQL queries directly. For example: `.tables` to list tables, `SUMMARIZE psi_metrics;` for a quick overview, or any SQL query.
+-   **Python with DuckDB Library:**
+    ```python
+    import duckdb
+    # Connect to an in-memory database
+    # con = duckdb.connect(database=':memory:', read_only=False)
+    # Connect to a file
+    con = duckdb.connect(database='path/to/your/psi_results_xxxx.duckdb', read_only=True)
+    results = con.execute("SELECT * FROM psi_metrics WHERE performance < 0.5 AND strategy = 'mobile' ORDER BY timestamp DESC LIMIT 10;").fetchdf()
+    print(results)
+    con.close()
+    ```
+-   **GUI Tools:** Tools like DBeaver, DataGrip, or others that support JDBC can connect to DuckDB. You'll typically need the DuckDB JDBC driver. Refer to the specific tool's documentation and DuckDB's JDBC driver page.
+
+### 3. Example SQL Queries
+
+Here are some example queries you can run against the `psi_metrics` table:
+
+-   **Get the latest scores for all URLs for a specific strategy:**
+    ```sql
+    SELECT *
+    FROM psi_metrics
+    WHERE strategy = 'mobile' -- or 'desktop'
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) = 1;
+    ```
+-   **Average scores per strategy:**
+    ```sql
+    SELECT
+        strategy,
+        ROUND(AVG(performance), 3) as avg_performance,
+        ROUND(AVG(accessibility), 3) as avg_accessibility,
+        ROUND(AVG(seo), 3) as avg_seo,
+        ROUND(AVG(bestPractices), 3) as avg_best_practices,
+        COUNT(*) as record_count
+    FROM psi_metrics
+    GROUP BY strategy;
+    ```
+-   **List 10 worst performing sites (mobile) based on latest audit:**
+    ```sql
+    WITH LatestMobileScores AS (
+        SELECT *
+        FROM psi_metrics
+        WHERE strategy = 'mobile'
+        QUALIFY ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) = 1
+    )
+    SELECT url, performance, timestamp
+    FROM LatestMobileScores
+    WHERE performance IS NOT NULL
+    ORDER BY performance ASC
+    LIMIT 10;
+    ```
+-   **Track performance of a specific URL over time:**
+    ```sql
+    SELECT timestamp, strategy, performance, accessibility
+    FROM psi_metrics
+    WHERE url = 'http://example.com/prefeitura_specific_url'
+    ORDER BY timestamp DESC;
+    ```
+
+### 4. Using the Local Analysis Script (`analyze_psi_data.js`)
+
+This repository includes a command-line tool to quickly query the data.
+
+-   **Prerequisites:** Node.js and npm installed. Run `npm install` in the repository root if you haven't already (to install `duckdb` Node.js package).
+-   **Usage:**
+    ```bash
+    node analyze_psi_data.js [options]
+    ```
+-   **Common Operations:**
+    -   Show summary: `node analyze_psi_data.js --summary`
+    -   Get average scores for mobile: `node analyze_psi_data.js --avg-scores mobile`
+    -   List 10 worst accessibility scores for desktop: `node analyze_psi_data.js --list-worst accessibility 10 desktop`
+    -   Find a specific URL: `node analyze_psi_data.js --find-url "example.gov.br"`
+    -   Run a custom query: `node analyze_psi_data.js --query "SELECT strategy, COUNT(*) FROM psi_metrics GROUP BY strategy;"`
+-   For all options, run: `node analyze_psi_data.js --help`
+-   You can specify a different database file: `node analyze_psi_data.js --db path/to/another_results.duckdb --summary`
+
+**The GitHub Pages site currently hosted at [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/) is now updated by the GitHub Action workflow to display the latest results from `data/psi-latest-viewable-results.json`.**
 
 To enable GitHub Pages for this repository (for static content like the README):
 
@@ -114,8 +203,9 @@ It might take a few minutes for the site to build and become live.
     *   Developing a dynamic web application that can query and display data from the DuckDB files or a data warehouse populated from them.
     *   Leveraging dbt (as per the user's initial interest) to transform and model data from DuckDB for easier analysis and reporting.
 -   **Historical Data:** Historical data is now preserved through timestamped DuckDB file uploads to the Internet Archive. Analyzing trends across these historical snapshots would require downloading multiple database files and comparing them.
--   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated into the DuckDB schema and collection script.
+-   **Desktop vs. Mobile:** The script now collects data for both mobile and desktop strategies.
 -   **Internet Archive Item Management:** The IA item identifier is currently hardcoded (though changeable in the workflow). More sophisticated management or parameterization might be useful. Users must ensure they have the necessary IA credentials (`IA_ACCESS_KEY`, `IA_SECRET_KEY`) configured as GitHub secrets.
+-   **Configuration:** The `collect-psi.js` script uses `psi-collector-config.json` for several operational parameters. See this file for details on configurable options like API categories, concurrency, retry settings, and file paths. Environment variables can override some of these settings (e.g., `PSI_KEY`, `PSI_CONCURRENCY`).
 
 ## Contributing
 

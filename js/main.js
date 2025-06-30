@@ -87,8 +87,11 @@ async function initializeApp() {
         initializeFiltering();
         initializeExport();
         renderTable(currentData);
+        appChartGenerator.generateAllCharts(currentData); // Generate charts
     } else {
         console.error("Could not fetch PSI data to populate the table.");
+        // Attempt to generate charts even if data is null/empty to display "No data" message
+        appChartGenerator.generateAllCharts(null);
     }
 }
 

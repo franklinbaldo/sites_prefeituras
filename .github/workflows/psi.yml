@@ -30,7 +30,7 @@ jobs:
           python-version: '3.x' # Use a recent Python 3 version
 
       - name: Install Python dependencies (Internet Archive client)
-        run: pip install internetarchive
+        run: pip install internetarchive duckdb
 
       - name: Coletar dados PSI
         timeout-minutes: 350 # Increased from 10
@@ -51,6 +51,13 @@ jobs:
           IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
           # DUCKDB_FILE_PATH and IA_ITEM_IDENTIFIER are already in job env
         run: python upload_to_ia.py
+
+      - name: Generate JSON for Web Visualization
+        if: success() # Only run if PSI collection and IA upload were generally successful
+        run: |
+          python generate_viewable_json.py ${{ env.DUCKDB_FILE_PATH }} data/psi-latest-viewable-results.json
+        # This script uses the DUCKDB_FILE_PATH which is the result of collect-psi.js
+        # It runs before error handling for psi_errors.log, as it depends on the main script's success.
 
       - name: Handle PSI Collection Errors
         if: always() # This step should always run to check for errors
@@ -73,14 +80,65 @@ jobs:
       - name: Create/Update TODO.md if errors exist
         if: env.HAS_PSI_ERRORS == 'true'
         run: |
-          ERROR_PREAMBLE="## LATEST PSI COLLECTION ERROR REPORT\n\n**Date:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')\n**Workflow Run:** [${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n**Error Log Archived:** \`data/psi_error_reports/psi_errors_${{ github.run_id }}.log\`\n\n**Attention:** Errors were detected during the most recent automated PageSpeed Insights data collection. Please review the log file linked above and address any reported issues as per the guidelines in the main TODO content below.\n\n---\n\n"
-          echo -e "${ERROR_PREAMBLE}" > TODO.md
+          echo "Generating enhanced TODO.md from psi_errors.log..."
+          ERROR_PREAMBLE="## LATEST PSI COLLECTION ERROR REPORT\n\n**Date:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')\n**Workflow Run:** [${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n**Error Log Archived:** \`data/psi_error_reports/psi_errors_${{ github.run_id }}.log\`\n"
+
+          echo -e "${ERROR_PREAMBLE}" > TEMP_TODO.md
+
+          # Summary of errors
+          echo -e "\n### Error Summary:\n" >> TEMP_TODO.md
+          # Example: Count errors by category (e.g., LIGHTHOUSE_ERROR_DOCUMENT_REQUEST, API_ERROR)
+          # This requires parsing specific error messages. A simpler approach for now:
+          TOTAL_ERRORS=$(wc -l < psi_errors.log | xargs) # xargs trims whitespace
+          echo -e "- Total error lines in log: ${TOTAL_ERRORS}\n" >> TEMP_TODO.md
+
+          # Extract and list failed URLs (simple approach: grep for "Failed" and extract URL like pattern)
+          # This regex tries to find URLs after "Failed strategy for " or "Error for URL "
+          # It's not perfect but a starting point.
+          echo -e "\n### Failed URLs and Error Snippets (max 50 shown):\n" >> TEMP_TODO.md
+          if grep -q "Failed" psi_errors.log || grep -q "Error for URL" psi_errors.log; then
+            # Try to extract URL and the message part after "URL actual_url:"
+            # This is a best-effort extraction.
+            # Example log line: [timestamp] [ERROR] [fetchPSIError] Failed mobile for http://example.com: PSI API error for http://example.com (Status 404): Lighthouse returned error: ERRORED_DOCUMENT_REQUEST. Requested URL: http://example.com
+            # We want to extract http://example.com and the message after it.
+            awk '
+              BEGIN {FS=":"; OFS=":"}
+              /Failed [a-zA-Z]+ for / {
+                url_part = $0;
+                sub(/^.*Failed [a-zA-Z]+ for /, "", url_part);
+                split(url_part, parts, ":");
+                url = parts[1];
+                error_msg = $0;
+                sub(/^[^:]+:[^:]+:[^:]+:[^:]+:[^:]+:/, "", error_msg); # Attempt to get the core error message
+                printf "- URL: `%s` - Error: %s\n", url, error_msg;
+              }
+              /Error for URL / {
+                url_part = $0;
+                sub(/^.*Error for URL /, "", url_part);
+                split(url_part, parts, ":");
+                url = parts[1];
+                error_msg = $0;
+                sub(/^[^:]+:[^:]+:[^:]+:[^:]+:/, "", error_msg); # Attempt to get the core error message
+                printf "- URL: `%s` - Error: %s\n", url, error_msg;
+              }
+            ' psi_errors.log | head -n 50 >> TEMP_TODO.md
+            if [ $( (grep "Failed" psi_errors.log || grep "Error for URL" psi_errors.log) | wc -l) -gt 50 ]; then
+              echo -e "\n*Note: More than 50 errors, see archived log for full details.*" >> TEMP_TODO.md
+            fi
+          else
+            echo "- No specific URL failure lines matched typical patterns." >> TEMP_TODO.md
+          fi
+
+          echo -e "\n\n**Attention:** Errors were detected during the most recent automated PageSpeed Insights data collection. Please review the full log file linked above and address any reported issues as per the guidelines in the main TODO content below.\n\n---\n\n" >> TEMP_TODO.md
+
+          # Append the original TODO template content
           if [ -f .github/TODO_TEMPLATE.md ]; then
-            cat .github/TODO_TEMPLATE.md >> TODO.md
+            cat .github/TODO_TEMPLATE.md >> TEMP_TODO.md
             echo "TODO.md updated with latest error report and project tasks from template."
           else
-            echo "WARNING: .github/TODO_TEMPLATE.md not found. TODO.md will only contain the error preamble." >> TODO.md
+            echo "WARNING: .github/TODO_TEMPLATE.md not found. TODO.md will only contain the error preamble and summary." >> TEMP_TODO.md
           fi
+          mv TEMP_TODO.md TODO.md
 
       # This redundant commit step is removed as the next one handles all cases.
       # - name: Commit and Push Error Reports and TODO.md to Main Branch
@@ -128,27 +186,30 @@ jobs:
           git checkout $ORIGINAL_BRANCH
           # git pull origin $ORIGINAL_BRANCH # Pulling might cause issues if remote changed TODO.md, careful here. For now, assume local is authoritative for this run.
 
-          # Always try to add the processing state file
-          git add data/psi_processing_state.json
+          # Always try to add the processing state file and the viewable JSON
+          git add data/psi_processing_state.json data/psi-latest-viewable-results.json
 
           COMMIT_MESSAGE_SUBJECT=""
           COMMIT_MESSAGE_BODY=""
+          COMMIT_FILES_DESCRIPTION="processing state and viewable results"
 
           if [ "${{ env.HAS_PSI_ERRORS }}" == "true" ]; then
             echo "Adding error reports and TODO.md to commit."
             git add TODO.md data/psi_error_reports/
-            COMMIT_MESSAGE_SUBJECT="docs: Log PSI errors, update TODO, and save state"
-            COMMIT_MESSAGE_BODY="Errors detected during PSI collection. Logs in data/psi_error_reports/, TODO updated. Processing state saved."
+            COMMIT_MESSAGE_SUBJECT="docs: Log PSI errors, update TODO, save state & results"
+            COMMIT_MESSAGE_BODY="Errors detected during PSI collection. Logs in data/psi_error_reports/, TODO updated. ${COMMIT_FILES_DESCRIPTION} saved."
           else
-            echo "No PSI errors. Committing processing state if changed."
-            COMMIT_MESSAGE_SUBJECT="chore: Update PSI processing state"
-            COMMIT_MESSAGE_BODY="Update PSI processing state after successful run."
+            echo "No PSI errors. Committing processing state and viewable results if changed."
+            COMMIT_MESSAGE_SUBJECT="chore: Update PSI state and viewable results"
+            COMMIT_MESSAGE_BODY="Update ${COMMIT_FILES_DESCRIPTION} after successful run."
           fi
 
           COMMIT_MESSAGE_BODY="${COMMIT_MESSAGE_BODY}\n\nWorkflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
+          # Check if there are any staged changes before committing
           if ! git diff --staged --quiet; then
             echo "Changes detected, proceeding with commit."
+            # Use -m for subject and separate -m for body to ensure formatting
             git commit -m "${COMMIT_MESSAGE_SUBJECT}" -m "${COMMIT_MESSAGE_BODY}"
             # Retry push operation to handle potential transient network issues or slight delays in branch protection rules
             for i in 1 2 3; do
