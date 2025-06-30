@@ -5,21 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabela de Acessibilidade de Sites de Prefeituras Brasileiras</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Tabela de Acessibilidade de Sites de Prefeituras Brasileiras</h1>
+        <h1>Auditoria de Sites de Prefeituras Brasileiras</h1>
         <nav class="header-nav">
             <a href="about.html">Saiba mais sobre o projeto</a>
         </nav>
     </header>
 
     <section id="project-description">
-        <p>Este projeto apresenta dados de acessibilidade dos sites das prefeituras do Brasil. Use os campos de busca e ordenação para explorar as informações.</p>
+        <p>Este projeto apresenta dados de performance, acessibilidade, SEO e boas práticas dos sites das prefeituras do Brasil, coletados via PageSpeed Insights. Use os campos de busca e ordenação para explorar as informações na tabela abaixo. Gráficos de distribuição de pontuações também são apresentados.</p>
     </section>
 
     <main>
+        <div id="charts-container">
+            <h2>Distribuição das Pontuações</h2>
+            <div class="chart-row">
+                <div class="chart-wrapper">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="accessibilityChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-wrapper">
+                    <canvas id="seoChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="bestPracticesChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="table-controls-container">
+            <input type="text" id="table-filter" placeholder="Filtrar por URL ou código IBGE">
+            <button id="export-data-btn">Exportar Dados (JSON/CSV)</button>
+        </div>
+
         <div id="table-container">
+            <h2>Resultados Detalhados</h2>
             <table id="psi-results-table">
                 <thead>
                     <tr>
@@ -36,13 +63,10 @@
                 </tbody>
             </table>
         </div>
-        <div id="controls-container">
-            <input type="text" id="table-filter" placeholder="Filtrar por URL ou código IBGE">
-            <button id="export-data-btn">Exportar Dados</button>
-        </div>
     </main>
 
     <script src="js/data-processor.js"></script>
+    <script src="js/chart-generator.js"></script> <!-- Added chart generator -->
     <script src="js/main.js"></script>
     <footer>
     <p class="footer-copyright">© 2024 Acessibilidade Brasil. Todos os direitos reservados.</p>

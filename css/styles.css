@@ -48,6 +48,56 @@ main {
     text-align: center; /* Center the button */
 }
 
+/* Charts Styling */
+#charts-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#charts-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.chart-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.chart-wrapper {
+    width: 48%; /* Adjust for padding/margin */
+    min-width: 300px; /* Ensure chart is usable on smaller flex items */
+    margin-bottom: 20px; /* Space for charts when they wrap */
+    padding: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.chart-wrapper canvas {
+    max-width: 100%;
+    height: auto !important; /* Important to override potential inline styles from Chart.js if needed */
+}
+
+
+/* Renamed controls-container to table-controls-container for clarity */
+#table-controls-container {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Added margin below */
+    text-align: center;
+}
+
+#table-container h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+
 #export-data-btn {
     padding: 10px 20px;
     font-size: 1em;
