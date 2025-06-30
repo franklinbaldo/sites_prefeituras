@@ -37,53 +37,65 @@ The primary list of websites to be audited is sourced from the `sites_das_prefei
 
 ### GitHub Action Workflow
 
-A GitHub Action, defined in `.github/workflows/psi.yml`, automates the data collection process. This workflow:
+A GitHub Action, defined in `.github/workflows/psi.yml`, automates the data collection and archival process. This workflow:
 - Runs on a schedule (currently configured for daily at 3 AM UTC).
 - Can also be triggered manually via the GitHub Actions tab.
 
 The main steps performed by the workflow are:
 1.  **Checkout Repository:** Checks out the latest version of the repository.
-2.  **Set up Node.js:** Configures the environment with Node.js (currently v18).
-3.  **Install Dependencies:** Installs the necessary Node.js packages defined in `package.json` using `npm ci`.
-4.  **Run PSI Data Collection Script:** Executes the `collect-psi.js` script.
-5.  **Error Handling and Reporting:**
-    *   If the `collect-psi.js` script encounters errors during its run (e.g., unable to fetch PSI data for a specific URL, network issues, 404 errors from target sites), these errors are logged into a file named `psi_errors.log`.
-    *   If `psi_errors.log` is generated and contains errors, the workflow will:
-        *   Create a `TODO.md` file at the root of the repository. This file includes the contents of `psi_errors.log`, a timestamp of when the errors were logged, and a direct link to the specific GitHub Actions workflow run that detected them.
-        *   Commit this `TODO.md` file to a dedicated branch named `psi-error-reports`.
-    *   This error reporting mechanism allows for tracking and manual review of URLs or issues that consistently fail. It helps in identifying outdated URLs or other problems that need investigation, without halting the entire data collection process.
-6.  **Commit Results:** Successfully collected PSI data points are compiled into `data/psi-results.json` and a historical `data/psi-results.csv`. Both files are automatically committed back to the main branch, ensuring that results are version-controlled and reflect the latest successful audits, even if some URLs encountered errors.
+2.  **Set up Node.js & Python:** Configures the environment with Node.js (currently v18) and Python (3.x).
+3.  **Install Dependencies:** Installs Node.js packages (including `duckdb`) via `npm ci` and Python packages (`internetarchive`) via `pip`.
+4.  **Run PSI Data Collection Script (`collect-psi.js`):** Executes the script to gather PSI metrics. Data is saved into a DuckDB database file at `data/psi_results.duckdb`.
+5.  **Upload to Internet Archive:** The `data/psi_results.duckdb` file is uploaded to a specified Internet Archive item using the `upload_to_ia.py` script. This requires `IA_ACCESS_KEY` and `IA_SECRET_KEY` to be configured as GitHub secrets. The default Internet Archive item identifier is `psi_brazilian_city_audits` (this can be changed in the workflow file).
+6.  **Error Handling and Reporting:**
+    *   If `collect-psi.js` encounters errors (e.g., unable to fetch PSI data for a specific URL), these are logged to `psi_errors.log`.
+    *   The workflow checks this log. If errors are present, it archives `psi_errors.log` to `data/psi_error_reports/psi_errors_<run_id>.log` and creates/updates `TODO.md` at the root of the repository with details and a link to the workflow run.
+7.  **Commit State and Reports:** The workflow commits any changes to `data/psi_processing_state.json` (which tracks the processing status of URLs). If errors occurred, `TODO.md` and the archived error log in `data/psi_error_reports/` are also committed. These files are pushed to the main branch.
 
 ### Data Collection Script (`collect-psi.js`)
 
-This Node.js script is the core of the data collection process. It performs the following actions:
-- Reads the list of municipalities and their URLs from `sites_das_prefeituras_brasileiras.csv`.
- - For each URL, it makes a request to the Google PageSpeed Insights API to fetch various web performance and quality metrics. The request explicitly includes the `category` parameters for `performance`, `accessibility`, `best-practices`, and `seo` so all four scores are returned.
- - Requests are spaced one second apart to respect the PSI API rate limits. Each successful response is immediately appended to `data/psi-results.json` and `data/psi-results.csv`, ensuring that partial progress is preserved if the script stops early. Retries on transient errors use an exponential backoff controlled by `PSI_MAX_RETRIES` and `PSI_RETRY_DELAY_MS`.
-- The script collects the following key metrics for the mobile strategy:
-    - Performance score
-    - Accessibility score
-    - SEO score
-    - Best Practices score
- - The results, along with the URL, IBGE code and a timestamp, are compiled into a JSON array (`data/psi-results.json`) and also appended to `data/psi-results.csv` for historical tracking.
+This Node.js script is the core of the data collection. It performs:
+- Reads URLs from `sites_das_prefeituras_brasileiras.csv`.
+- For each URL, fetches PSI metrics (performance, accessibility, best-practices, seo) for the mobile strategy.
+- Implements retries with backoff for transient errors and respects PSI API rate limits.
+- **Stores all collected data directly into a DuckDB database (`data/psi_results.duckdb`).** The table `psi_metrics` within this database holds the results.
+- Maintains a `data/psi_processing_state.json` file to keep track of URLs that have been processed or attempted, ensuring that URLs are processed efficiently over time. This state file is committed to the repository.
 
-### Results Storage
+Key metrics collected:
+- Performance score
+- Accessibility score
+- SEO score
+- Best Practices score
+- Timestamp, URL, and IBGE code.
 
-The audit findings are stored in `data/psi-results.json` and mirrored in `data/psi-results.csv`. Each entry represents the audit result for a specific municipality and includes:
-- `url`: The audited URL.
-- `performance`: The PSI Performance score (0-1).
-- `accessibility`: The PSI Accessibility score (0-1).
-- `seo`: The PSI SEO score (0-1).
-- `bestPractices`: The PSI Best Practices score (0-1).
-- `timestamp`: The date and time when the audit was performed.
+### Results Storage and Archival
+
+-   **Primary Data Store:** Audit findings are stored in a DuckDB database file located at `data/psi_results.duckdb`. This file is NOT committed to the Git repository.
+-   **Archival:** After each successful run of the data collection script, the `data/psi_results.duckdb` file is uploaded to the Internet Archive. Each upload is timestamped to maintain a history of results. The default Internet Archive item for these uploads is `psi_brazilian_city_audits`.
+-   **Processing State:** The `data/psi_processing_state.json` file, which helps manage the queue of URLs to audit, IS committed to the Git repository.
+-   **Error Logs:** Detailed error logs for problematic URLs from a specific run are archived in `data/psi_error_reports/` and committed to the repository if errors occur. `TODO.md` is also updated.
+
+The schema for the `psi_metrics` table in DuckDB is:
+- `timestamp` (TIMESTAMPTZ)
+- `url` (VARCHAR)
+- `ibge_code` (VARCHAR)
+- `performance` (FLOAT)
+- `accessibility` (FLOAT)
+- `seo` (FLOAT)
+- `bestPractices` (FLOAT)
+(Primary Key: `url`, `timestamp`)
 
 ## Viewing the Results
 
-The collected data is stored in `data/psi-results.json`. The `index.html` file at the root of this repository loads this data and presents it in a table, allowing for exploration of the findings.
+Previously, `index.html` loaded data from a JSON file. **This mechanism is currently not functional** as the data is now stored in a DuckDB database and archived to the Internet Archive.
 
-**The live site can be accessed at: [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/)**
+To view and analyze the results:
+1.  **Download from Internet Archive:** Access the Internet Archive item (default: [https://archive.org/details/psi_brazilian_city_audits](https://archive.org/details/psi_brazilian_city_audits) - *Note: This link is a placeholder until the item is actually created*) and download the desired `_psi_results_<timestamp>.duckdb` file.
+2.  **Use a DuckDB client:** Connect to the downloaded `.duckdb` file using any DuckDB-compatible SQL client (e.g., DuckDB CLI, DBeaver, Python with the DuckDB library) to query and analyze the data.
 
-To enable GitHub Pages for this repository if it's not already active, or if you've forked this repository:
+**The GitHub Pages site currently hosted at [https://franklinbaldo.github.io/sites_prefeituras/](https://franklinbaldo.github.io/sites_prefeituras/) will no longer display updated data unless `index.html` is modified to source data from a new process (e.g., by periodically querying DuckDB and generating a static JSON, or by pointing to an external service that can serve the data from the archived DuckDB files).**
+
+To enable GitHub Pages for this repository (for static content like the README):
 
 1.  Go to your repository's **Settings** tab on GitHub.
 2.  In the left sidebar, navigate to the **Pages** section.
@@ -96,10 +108,14 @@ It might take a few minutes for the site to build and become live.
 
 ## Current Limitations & Future Work
 
--   **Error Handling & Reporting:** The script logs errors encountered during URL processing to `psi_errors.log`. The GitHub workflow then processes this log to create a `TODO.md` on the `psi-error-reports` branch for review (as described above). While individual errors are reported, more sophisticated in-script retry mechanisms with backoff for transient network issues could still be beneficial.
--   **Data Visualization:** The current presentation of results in a table via `index.html` can be further enhanced with sorting, filtering, charts, or graphs.
--   **Historical Data:** The current setup overwrites results with each run. Implementing a system to track scores over time could be a valuable addition.
--   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated.
+-   **Error Handling & Reporting:** The error handling mechanism (logging to `psi_errors.log`, archiving, and creating `TODO.md`) is in place. Further enhancements to in-script retries or error categorization could be made.
+-   **Data Visualization:** The `index.html` page is no longer functional for viewing current data. Future work could involve:
+    *   Creating a new process to periodically extract data from the archived DuckDB files (or a central DuckDB instance) and generate a static JSON/CSV for `index.html` or other visualization tools.
+    *   Developing a dynamic web application that can query and display data from the DuckDB files or a data warehouse populated from them.
+    *   Leveraging dbt (as per the user's initial interest) to transform and model data from DuckDB for easier analysis and reporting.
+-   **Historical Data:** Historical data is now preserved through timestamped DuckDB file uploads to the Internet Archive. Analyzing trends across these historical snapshots would require downloading multiple database files and comparing them.
+-   **Desktop vs. Mobile:** The script currently focuses on mobile strategy. Audits for desktop could also be incorporated into the DuckDB schema and collection script.
+-   **Internet Archive Item Management:** The IA item identifier is currently hardcoded (though changeable in the workflow). More sophisticated management or parameterization might be useful. Users must ensure they have the necessary IA credentials (`IA_ACCESS_KEY`, `IA_SECRET_KEY`) configured as GitHub secrets.
 
 ## Contributing
 

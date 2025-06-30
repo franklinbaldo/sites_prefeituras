@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PSI_KEY: ${{ secrets.PSI_KEY }}
+      DUCKDB_FILE_PATH: data/psi_results.duckdb # Define DuckDB file path for workflow
+      IA_ITEM_IDENTIFIER: "psi_brazilian_city_audits" # Example - user should configure this
     steps:
       - uses: actions/checkout@v3
 
@@ -17,9 +19,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
 
-      - name: Install deps
+      - name: Install Node dependencies
         run: npm ci
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x' # Use a recent Python 3 version
+
+      - name: Install Python dependencies (Internet Archive client)
+        run: pip install internetarchive
 
       - name: Coletar dados PSI
         timeout-minutes: 10
@@ -31,8 +42,16 @@ jobs:
           PSI_REQUESTS_PER_MIN: 60
         run: node collect-psi.js
 
+      - name: Upload DuckDB database to Internet Archive
+        if: success() # Only run if PSI collection was successful (or at least didn't hard fail script)
+        env:
+          IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+          IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
+          # DUCKDB_FILE_PATH and IA_ITEM_IDENTIFIER are already in job env
+        run: python upload_to_ia.py
+
       - name: Handle PSI Collection Errors
-        if: always()
+        if: always() # This step should always run to check for errors
         run: |
           if [ -f psi_errors.log ] && [ -s psi_errors.log ]; then
             echo "PSI collection errors found. Preparing TODO.md."
@@ -94,26 +113,47 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit e push dos resultados
-        if: always()
+      - name: Commit and Push Data State and/or Error Reports
+        if: always() # This step should always run to commit relevant files
         run: |
-          if [ -f "data/psi-results.json" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            # Added data/psi_processing_state.json from fix/psi-commit-error
-            git add data/psi-results.json data/psi-results.csv data/psi_processing_state.json
-            # Only commit if there are changes
-            if ! git diff --staged --quiet; then
-              # Updated commit message from fix/psi-commit-error
-              git commit -m "chore: atualiza PSI data e estado de processamento"
-              git push
-            else
-              # Updated message from fix/psi-commit-error
-              echo "No changes to PSI data or processing state to commit."
-            fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          ORIGINAL_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "Attempting to commit to branch: $ORIGINAL_BRANCH"
+          git checkout $ORIGINAL_BRANCH
+          # git pull origin $ORIGINAL_BRANCH # Pulling might cause issues if remote changed TODO.md, careful here. For now, assume local is authoritative for this run.
+
+          # Always try to add the processing state file
+          git add data/psi_processing_state.json
+
+          COMMIT_MESSAGE_SUBJECT=""
+          COMMIT_MESSAGE_BODY=""
+
+          if [ "${{ env.HAS_PSI_ERRORS }}" == "true" ]; then
+            echo "Adding error reports and TODO.md to commit."
+            git add TODO.md data/psi_error_reports/
+            COMMIT_MESSAGE_SUBJECT="docs: Log PSI errors, update TODO, and save state"
+            COMMIT_MESSAGE_BODY="Errors detected during PSI collection. Logs in data/psi_error_reports/, TODO updated. Processing state saved."
           else
-            # Updated message from fix/psi-commit-error
-            echo "data/psi-results.json not found. Skipping commit of results and state."
+            echo "No PSI errors. Committing processing state if changed."
+            COMMIT_MESSAGE_SUBJECT="chore: Update PSI processing state"
+            COMMIT_MESSAGE_BODY="Update PSI processing state after successful run."
+          fi
+
+          COMMIT_MESSAGE_BODY="${COMMIT_MESSAGE_BODY}\n\nWorkflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          if ! git diff --staged --quiet; then
+            echo "Changes detected, proceeding with commit."
+            git commit -m "${COMMIT_MESSAGE_SUBJECT}" -m "${COMMIT_MESSAGE_BODY}"
+            # Retry push operation to handle potential transient network issues or slight delays in branch protection rules
+            for i in 1 2 3; do
+              git push origin $ORIGINAL_BRANCH && break
+              echo "Push attempt $i failed. Retrying in 5 seconds..."
+              sleep 5
+            done || echo "Failed to push changes after multiple retries."
+          else
+            echo "No changes to commit (processing state, TODO.md, or error reports)."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
