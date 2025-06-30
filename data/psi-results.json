@@ -25450,5 +25450,1409 @@
     "bestPractices": 0.55,
     "timestamp": "2025-06-29T03:39:13.089Z",
     "ibge_code": "2200277"
+  },
+  {
+    "url": "http://www.barreirasdopiaui.pi.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.8,
+    "seo": 0.82,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:28:29.393Z",
+    "ibge_code": "2201309"
+  },
+  {
+    "url": "http://avelinolopes.pi.gov.br",
+    "performance": 0.78,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:28:29.566Z",
+    "ibge_code": "2201101"
+  },
+  {
+    "url": "http://barradalcantara.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:28:35.340Z",
+    "ibge_code": "2201176"
+  },
+  {
+    "url": "http://anisiodeabreu.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:28:36.067Z",
+    "ibge_code": "2200707"
+  },
+  {
+    "url": "http://aroeirasdoitaim.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:28:37.649Z",
+    "ibge_code": "2200954"
+  },
+  {
+    "url": "https://barras.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-30T03:28:40.260Z",
+    "ibge_code": "2201200"
+  },
+  {
+    "url": "http://aroazes.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:28:40.703Z",
+    "ibge_code": "2200905"
+  },
+  {
+    "url": "http://arraial.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:28:43.181Z",
+    "ibge_code": "2201002"
+  },
+  {
+    "url": "https://assuncaodopiaui.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.79,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:28:48.191Z",
+    "ibge_code": "2201051"
+  },
+  {
+    "url": "http://belavistadopiaui.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:28:50.201Z",
+    "ibge_code": "2201556"
+  },
+  {
+    "url": "http://belemdopiaui.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:28:57.007Z",
+    "ibge_code": "2201572"
+  },
+  {
+    "url": "https://batalha.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:28:58.312Z",
+    "ibge_code": "2201507"
+  },
+  {
+    "url": "http://barroduro.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:28:59.320Z",
+    "ibge_code": "2201408"
+  },
+  {
+    "url": "http://www.betaniadopiaui.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.74,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:29:04.034Z",
+    "ibge_code": "2201739"
+  },
+  {
+    "url": "https://bomjesus.pi.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:29:09.503Z",
+    "ibge_code": "2201903"
+  },
+  {
+    "url": "http://boahora.pi.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:29:09.952Z",
+    "ibge_code": "2201770"
+  },
+  {
+    "url": "https://bomprincipiodopiaui.pi.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-30T03:29:11.302Z",
+    "ibge_code": "2201919"
+  },
+  {
+    "url": "https://brasileira.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:29:20.078Z",
+    "ibge_code": "2201960"
+  },
+  {
+    "url": "http://bocaina.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.66,
+    "seo": 0.83,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:29:20.966Z",
+    "ibge_code": "2201804"
+  },
+  {
+    "url": "http://boqueiraodopiaui.pi.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:29:26.131Z",
+    "ibge_code": "2201945"
+  },
+  {
+    "url": "http://cabeceirasdopiaui.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.79,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:29:33.659Z",
+    "ibge_code": "2202059"
+  },
+  {
+    "url": "http://cajazeirasdopiaui.pi.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.86,
+    "seo": 0.66,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:29:40.165Z",
+    "ibge_code": "2202075"
+  },
+  {
+    "url": "http://cajueirodapraia.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.85,
+    "seo": 0.73,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:29:43.356Z",
+    "ibge_code": "2202083"
+  },
+  {
+    "url": "https://bertolinia.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.75,
+    "seo": 0.67,
+    "bestPractices": 0.54,
+    "timestamp": "2025-06-30T03:29:45.103Z",
+    "ibge_code": "2201705"
+  },
+  {
+    "url": "https://campoalegredofidalgo.pi.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.94,
+    "seo": 0.92,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-30T03:29:48.792Z",
+    "ibge_code": "2202117"
+  },
+  {
+    "url": "http://campolargo.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.82,
+    "seo": 0.91,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:29:52.315Z",
+    "ibge_code": "2202174"
+  },
+  {
+    "url": "http://canavieira.pi.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:29:59.512Z",
+    "ibge_code": "2202251"
+  },
+  {
+    "url": "http://www.buritidoslopes.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.85,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:30:00.031Z",
+    "ibge_code": "2202000"
+  },
+  {
+    "url": "https://cantodoburiti.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:30:01.083Z",
+    "ibge_code": "2202307"
+  },
+  {
+    "url": "https://campomaior.pi.gov.br",
+    "performance": 0.35,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:30:14.152Z",
+    "ibge_code": "2202208"
+  },
+  {
+    "url": "http://capitaogervasiooliveira.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:30:17.030Z",
+    "ibge_code": "2202455"
+  },
+  {
+    "url": "https://capitaodecampos.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:30:17.817Z",
+    "ibge_code": "2202406"
+  },
+  {
+    "url": "http://www.caracol.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:30:18.213Z",
+    "ibge_code": "2202505"
+  },
+  {
+    "url": "http://beneditinos.pi.gov.br",
+    "performance": 0.32,
+    "accessibility": 0.82,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:30:21.759Z",
+    "ibge_code": "2201606"
+  },
+  {
+    "url": "https://caxingo.pi.gov.br",
+    "performance": 0.49,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-30T03:30:23.639Z",
+    "ibge_code": "2202653"
+  },
+  {
+    "url": "http://cocal.pi.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:30:31.943Z",
+    "ibge_code": "2202703"
+  },
+  {
+    "url": "http://www.caraubas.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.62,
+    "timestamp": "2025-06-30T03:30:39.202Z",
+    "ibge_code": "2202539"
+  },
+  {
+    "url": "http://cocaldosalves.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:30:40.034Z",
+    "ibge_code": "2202729"
+  },
+  {
+    "url": "http://www.caridade.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:30:41.878Z",
+    "ibge_code": "2202554"
+  },
+  {
+    "url": "https://coivaras.pi.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.68,
+    "seo": 0.82,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:30:42.074Z",
+    "ibge_code": "2202737"
+  },
+  {
+    "url": "http://coroneljosedias.pi.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:30:48.304Z",
+    "ibge_code": "2202851"
+  },
+  {
+    "url": "http://curralinhos.pi.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:30:59.919Z",
+    "ibge_code": "2203255"
+  },
+  {
+    "url": "http://dirceuarcoverde.pi.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:31:07.616Z",
+    "ibge_code": "2203354"
+  },
+  {
+    "url": "http://domexpeditolopes.pi.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:08.519Z",
+    "ibge_code": "2203404"
+  },
+  {
+    "url": "https://dominocencio.pi.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:31:13.833Z",
+    "ibge_code": "2203453"
+  },
+  {
+    "url": "http://demervallobao.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:15.322Z",
+    "ibge_code": "2203305"
+  },
+  {
+    "url": "http://corrente.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:31:18.205Z",
+    "ibge_code": "2202901"
+  },
+  {
+    "url": "http://eliseumartins.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.83,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:31:18.241Z",
+    "ibge_code": "2203602"
+  },
+  {
+    "url": "https://farturadopiaui.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:31:24.654Z",
+    "ibge_code": "2203750"
+  },
+  {
+    "url": "http://esperantina.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:26.723Z",
+    "ibge_code": "2203701"
+  },
+  {
+    "url": "http://elesbaoveloso.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.71,
+    "seo": 0.73,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:31:31.282Z",
+    "ibge_code": "2203503"
+  },
+  {
+    "url": "http://francinopolis.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.69,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:36.337Z",
+    "ibge_code": "2204006"
+  },
+  {
+    "url": "http://franciscomacedo.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:39.132Z",
+    "ibge_code": "2204154"
+  },
+  {
+    "url": "http://www.floresdopiaui.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:31:39.159Z",
+    "ibge_code": "2203800"
+  },
+  {
+    "url": "http://florestadopiaui.pi.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.49,
+    "seo": 0.82,
+    "bestPractices": 0.41,
+    "timestamp": "2025-06-30T03:31:42.646Z",
+    "ibge_code": "2203859"
+  },
+  {
+    "url": "http://floriano.pi.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.8,
+    "seo": 0.85,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:46.536Z",
+    "ibge_code": "2203909"
+  },
+  {
+    "url": "http://gilbues.pi.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:31:49.788Z",
+    "ibge_code": "2204402"
+  },
+  {
+    "url": "https://guaribas.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:31:54.452Z",
+    "ibge_code": "2204550"
+  },
+  {
+    "url": "http://guadalupe.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:32:00.326Z",
+    "ibge_code": "2204501"
+  },
+  {
+    "url": "http://inhuma.pi.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:01.984Z",
+    "ibge_code": "2204709"
+  },
+  {
+    "url": "https://ilhagrande.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:32:05.257Z",
+    "ibge_code": "2204659"
+  },
+  {
+    "url": "http://geminiano.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:32:09.027Z",
+    "ibge_code": "2204352"
+  },
+  {
+    "url": "http://itaueira.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:32:11.604Z",
+    "ibge_code": "2205102"
+  },
+  {
+    "url": "http://isaiascoelho.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:32:12.145Z",
+    "ibge_code": "2204907"
+  },
+  {
+    "url": "http://hugonapoleao.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.49,
+    "seo": 0.82,
+    "bestPractices": 0.41,
+    "timestamp": "2025-06-30T03:32:13.064Z",
+    "ibge_code": "2204600"
+  },
+  {
+    "url": "http://ipiranga.pi.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:32:13.391Z",
+    "ibge_code": "2204808"
+  },
+  {
+    "url": "http://jacobinadopiaui.pi.gov.br",
+    "performance": 0.65,
+    "accessibility": 0.77,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:15.552Z",
+    "ibge_code": "2205151"
+  },
+  {
+    "url": "http://itainopolis.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:32:21.095Z",
+    "ibge_code": "2205003"
+  },
+  {
+    "url": "http://jaicos.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:27.238Z",
+    "ibge_code": "2205201"
+  },
+  {
+    "url": "http://jatobadopiaui.pi.gov.br",
+    "performance": 0.54,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:31.249Z",
+    "ibge_code": "2205276"
+  },
+  {
+    "url": "http://jerumenha.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:32:32.291Z",
+    "ibge_code": "2205300"
+  },
+  {
+    "url": "http://josedefreitas.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.77,
+    "seo": 0.85,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:35.311Z",
+    "ibge_code": "2205508"
+  },
+  {
+    "url": "https://jurema.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-30T03:32:44.480Z",
+    "ibge_code": "2205532"
+  },
+  {
+    "url": "http://www.joaocosta.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.86,
+    "seo": 0.85,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:32:48.076Z",
+    "ibge_code": "2205359"
+  },
+  {
+    "url": "http://lagoadositio.pi.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:32:50.071Z",
+    "ibge_code": "2205599"
+  },
+  {
+    "url": "http://lagoadopiaui.pi.gov.br",
+    "performance": 0.75,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:32:51.799Z",
+    "ibge_code": "2205581"
+  },
+  {
+    "url": "http://www.joaquimpires.pi.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.85,
+    "seo": 0.73,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:32:52.756Z",
+    "ibge_code": "2205409"
+  },
+  {
+    "url": "http://lagoadesaofrancisco.pi.gov.br",
+    "performance": 0.69,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:32:53.254Z",
+    "ibge_code": "2205573"
+  },
+  {
+    "url": "https://lagoinhadopiaui.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:32:57.962Z",
+    "ibge_code": "2205540"
+  },
+  {
+    "url": "http://landrisales.pi.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.72,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:33:00.285Z",
+    "ibge_code": "2205607"
+  },
+  {
+    "url": "http://www.lagoadobarro.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:33:04.302Z",
+    "ibge_code": "2205565"
+  },
+  {
+    "url": "http://www.matiasolimpio.pi.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:33:17.498Z",
+    "ibge_code": "2206100"
+  },
+  {
+    "url": "http://www.marcosparente.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:33:18.111Z",
+    "ibge_code": "2206001"
+  },
+  {
+    "url": "http://madeiro.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.89,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:33:20.078Z",
+    "ibge_code": "2205854"
+  },
+  {
+    "url": "http://www.luzilandia.pi.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.89,
+    "seo": 0.85,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-30T03:33:21.235Z",
+    "ibge_code": "2205805"
+  },
+  {
+    "url": "https://luiscorreia.pi.gov.br",
+    "performance": 0.51,
+    "accessibility": 0.64,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:33:29.997Z",
+    "ibge_code": "2205706"
+  },
+  {
+    "url": "http://www.miguelalves.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:33:33.626Z",
+    "ibge_code": "2206209"
+  },
+  {
+    "url": "http://montealegredopiaui.pi.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.96,
+    "seo": 0.91,
+    "bestPractices": 0.69,
+    "timestamp": "2025-06-30T03:33:33.772Z",
+    "ibge_code": "2206605"
+  },
+  {
+    "url": "https://monsenhorhipolito.pi.gov.br",
+    "performance": 0.99,
+    "accessibility": 0.88,
+    "seo": 0.82,
+    "bestPractices": 0.89,
+    "timestamp": "2025-06-30T03:33:42.202Z",
+    "ibge_code": "2206506"
+  },
+  {
+    "url": "https://nazaredopiaui.pi.gov.br",
+    "performance": 0.73,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-30T03:33:43.718Z",
+    "ibge_code": "2206704"
+  },
+  {
+    "url": "http://novosantoantonio.pi.gov.br",
+    "performance": 0.93,
+    "accessibility": 0.85,
+    "seo": 0.82,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:33:49.358Z",
+    "ibge_code": "2206951"
+  },
+  {
+    "url": "https://nossasenhoradosremedios.pi.gov.br",
+    "performance": 0.83,
+    "accessibility": 0.87,
+    "seo": 0.83,
+    "bestPractices": 1,
+    "timestamp": "2025-06-30T03:33:54.107Z",
+    "ibge_code": "2206803"
+  },
+  {
+    "url": "http://olhodaguadopiaui.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:33:56.608Z",
+    "ibge_code": "2207108"
+  },
+  {
+    "url": "http://padremarcos.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:33:59.208Z",
+    "ibge_code": "2207207"
+  },
+  {
+    "url": "http://pajeudopiaui.pi.gov.br",
+    "performance": 0.45,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:34:04.798Z",
+    "ibge_code": "2207355"
+  },
+  {
+    "url": "http://nossasenhoradenazare.pi.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:34:05.045Z",
+    "ibge_code": "2206753"
+  },
+  {
+    "url": "https://oeiras.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:34:06.383Z",
+    "ibge_code": "2207009"
+  },
+  {
+    "url": "http://palmeirais.pi.gov.br",
+    "performance": 0.64,
+    "accessibility": 0.85,
+    "seo": 1,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:34:08.804Z",
+    "ibge_code": "2207504"
+  },
+  {
+    "url": "https://parnagua.pi.gov.br",
+    "performance": 0.46,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:34:17.222Z",
+    "ibge_code": "2207603"
+  },
+  {
+    "url": "http://parnaiba.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.75,
+    "seo": 1,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:34:21.600Z",
+    "ibge_code": "2207702"
+  },
+  {
+    "url": "http://paqueta.pi.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.71,
+    "seo": 0.75,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:34:23.053Z",
+    "ibge_code": "2207553"
+  },
+  {
+    "url": "https://pimenteiras.pi.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.93,
+    "timestamp": "2025-06-30T03:34:39.053Z",
+    "ibge_code": "2208106"
+  },
+  {
+    "url": "http://pedrolaurentino.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:34:39.707Z",
+    "ibge_code": "2207934"
+  },
+  {
+    "url": "https://pedroii.pi.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.76,
+    "seo": 0.83,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:34:40.622Z",
+    "ibge_code": "2207900"
+  },
+  {
+    "url": "http://picos.pi.gov.br",
+    "performance": 0.5,
+    "accessibility": 0.52,
+    "seo": 0.77,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:34:44.394Z",
+    "ibge_code": "2208007"
+  },
+  {
+    "url": "http://piracuruca.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:34:49.200Z",
+    "ibge_code": "2208304"
+  },
+  {
+    "url": "https://porto.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.85,
+    "seo": 0.85,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:34:49.840Z",
+    "ibge_code": "2208502"
+  },
+  {
+    "url": "http://paulistana.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.86,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:34:51.792Z",
+    "ibge_code": "2207801"
+  },
+  {
+    "url": "http://pioix.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.49,
+    "seo": 0.82,
+    "bestPractices": 0.41,
+    "timestamp": "2025-06-30T03:34:56.812Z",
+    "ibge_code": "2208205"
+  },
+  {
+    "url": "http://www.portoalegredopiaui.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.88,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:35:14.877Z",
+    "ibge_code": "2208551"
+  },
+  {
+    "url": "http://regeneracao.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.73,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:35:17.024Z",
+    "ibge_code": "2208809"
+  },
+  {
+    "url": "https://ribeirogoncalves.pi.gov.br",
+    "performance": 0.59,
+    "accessibility": 0.72,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:35:24.081Z",
+    "ibge_code": "2208908"
+  },
+  {
+    "url": "http://www.ribeiradopiaui.pi.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.71,
+    "seo": 0.83,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:35:24.951Z",
+    "ibge_code": "2208874"
+  },
+  {
+    "url": "https://piripiri.pi.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.93,
+    "seo": 1,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:35:25.010Z",
+    "ibge_code": "2208403"
+  },
+  {
+    "url": "http://riograndedopiaui.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.49,
+    "seo": 0.75,
+    "bestPractices": 0.41,
+    "timestamp": "2025-06-30T03:35:37.342Z",
+    "ibge_code": "2209005"
+  },
+  {
+    "url": "http://santanadopiaui.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.76,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:35:40.518Z",
+    "ibge_code": "2209351"
+  },
+  {
+    "url": "http://santoantoniodosmilagres.pi.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.83,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:35:44.784Z",
+    "ibge_code": "2209450"
+  },
+  {
+    "url": "https://santoantoniodelisboa.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-30T03:35:50.959Z",
+    "ibge_code": "2209401"
+  },
+  {
+    "url": "http://santafilomena.pi.gov.br",
+    "performance": 0.55,
+    "accessibility": 0.78,
+    "seo": 0.75,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:35:51.035Z",
+    "ibge_code": "2209203"
+  },
+  {
+    "url": "http://sebastiaobarros.pi.gov.br",
+    "performance": 0.74,
+    "accessibility": 0.78,
+    "seo": 0.82,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:35:51.455Z",
+    "ibge_code": "2210623"
+  },
+  {
+    "url": "http://sebastiaoleal.pi.gov.br",
+    "performance": 0.41,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:35:55.636Z",
+    "ibge_code": "2210631"
+  },
+  {
+    "url": "https://sigefredopacheco.pi.gov.br",
+    "performance": 0.67,
+    "accessibility": 0.76,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:35:55.812Z",
+    "ibge_code": "2210656"
+  },
+  {
+    "url": "https://socorrodopiaui.pi.gov.br",
+    "performance": 0.56,
+    "accessibility": 0.78,
+    "seo": 0.83,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-30T03:36:10.270Z",
+    "ibge_code": "2210904"
+  },
+  {
+    "url": "https://saofelixdopiaui.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:36:25.766Z",
+    "ibge_code": "2209609"
+  },
+  {
+    "url": "http://saogoncalodopiaui.pi.gov.br",
+    "performance": 0.62,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:36:28.653Z",
+    "ibge_code": "2209807"
+  },
+  {
+    "url": "http://saofranciscodopiaui.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.49,
+    "seo": 0.82,
+    "bestPractices": 0.48,
+    "timestamp": "2025-06-30T03:36:29.284Z",
+    "ibge_code": "2209708"
+  },
+  {
+    "url": "http://saofranciscodopiaui.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.49,
+    "seo": 0.82,
+    "bestPractices": 0.48,
+    "timestamp": "2025-06-30T03:36:29.319Z",
+    "ibge_code": "2209708"
+  },
+  {
+    "url": "http://www.paudarcodopiaui.pi.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.87,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:36:30.430Z",
+    "ibge_code": "2207793"
+  },
+  {
+    "url": "http://saojosedopiaui.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:36:35.949Z",
+    "ibge_code": "2210201"
+  },
+  {
+    "url": "https://saojosedodivino.pi.gov.br",
+    "performance": 0.61,
+    "accessibility": 0.78,
+    "seo": 0.77,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:36:37.871Z",
+    "ibge_code": "2210052"
+  },
+  {
+    "url": "http://saojoaodacanabrava.pi.gov.br",
+    "performance": 0.43,
+    "accessibility": 0.81,
+    "seo": 0.83,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:36:38.728Z",
+    "ibge_code": "2209856"
+  },
+  {
+    "url": "https://saojoaodaserra.pi.gov.br",
+    "performance": 0.68,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 1,
+    "timestamp": "2025-06-30T03:36:45.180Z",
+    "ibge_code": "2209906"
+  },
+  {
+    "url": "http://www.sja.pi.gov.br",
+    "performance": 0.83,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:36:46.844Z",
+    "ibge_code": "2209971"
+  },
+  {
+    "url": "https://saojoaodavarjota.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.84,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:36:52.681Z",
+    "ibge_code": "2209955"
+  },
+  {
+    "url": "http://saojoaodafronteira.pi.gov.br",
+    "performance": 0.58,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:36:56.615Z",
+    "ibge_code": "2209872"
+  },
+  {
+    "url": "http://saojuliao.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:36:57.928Z",
+    "ibge_code": "2210300"
+  },
+  {
+    "url": "http://saolourencodopiaui.pi.gov.br",
+    "performance": 0.4,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:36:59.258Z",
+    "ibge_code": "2210359"
+  },
+  {
+    "url": "http://saomigueldabaixagrande.pi.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.75,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:37:02.725Z",
+    "ibge_code": "2210383"
+  },
+  {
+    "url": "http://saomigueldofidalgo.pi.gov.br",
+    "performance": 0.77,
+    "accessibility": 0.78,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:37:04.231Z",
+    "ibge_code": "2210391"
+  },
+  {
+    "url": "https://saomigueldotapuio.pi.gov.br",
+    "performance": 0.83,
+    "accessibility": 0.81,
+    "seo": 0.92,
+    "bestPractices": 0.71,
+    "timestamp": "2025-06-30T03:37:05.623Z",
+    "ibge_code": "2210409"
+  },
+  {
+    "url": "http://saojoaodopiaui.pi.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.83,
+    "seo": 0.85,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:37:10.254Z",
+    "ibge_code": "2210003"
+  },
+  {
+    "url": "http://saopedrodopiaui.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:37:12.375Z",
+    "ibge_code": "2210508"
+  },
+  {
+    "url": "http://saoluisdopiaui.pi.gov.br",
+    "performance": 0.33,
+    "accessibility": 0.75,
+    "seo": 0.67,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:37:20.979Z",
+    "ibge_code": "2210375"
+  },
+  {
+    "url": "http://tamborildopiaui.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.8,
+    "seo": 0.92,
+    "bestPractices": 0.76,
+    "timestamp": "2025-06-30T03:37:24.394Z",
+    "ibge_code": "2210953"
+  },
+  {
+    "url": "http://valencadopiaui.pi.gov.br",
+    "performance": 0.48,
+    "accessibility": 0.82,
+    "seo": 0.73,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:37:28.206Z",
+    "ibge_code": "2211308"
+  },
+  {
+    "url": "http://uniao.pi.gov.br",
+    "performance": 0.6,
+    "accessibility": 0.87,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:37:30.058Z",
+    "ibge_code": "2211100"
+  },
+  {
+    "url": "https://saoraimundononato.pi.gov.br",
+    "performance": 0.39,
+    "accessibility": 0.9,
+    "seo": 0.92,
+    "bestPractices": 0.96,
+    "timestamp": "2025-06-30T03:37:39.445Z",
+    "ibge_code": "2210607"
+  },
+  {
+    "url": "http://tanquedopiaui.pi.gov.br",
+    "performance": 0.42,
+    "accessibility": 0.75,
+    "seo": 0.75,
+    "bestPractices": 0.55,
+    "timestamp": "2025-06-30T03:37:44.526Z",
+    "ibge_code": "2210979"
+  },
+  {
+    "url": "http://veramendes.pi.gov.br",
+    "performance": 0.57,
+    "accessibility": 0.82,
+    "seo": 1,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:37:45.608Z",
+    "ibge_code": "2211506"
+  },
+  {
+    "url": "https://varzeagrande.pi.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.82,
+    "seo": 0.82,
+    "bestPractices": 0.75,
+    "timestamp": "2025-06-30T03:37:47.693Z",
+    "ibge_code": "2211407"
+  },
+  {
+    "url": "http://varzeabranca.pi.gov.br",
+    "performance": 0.53,
+    "accessibility": 0.85,
+    "seo": 0.92,
+    "bestPractices": 0.79,
+    "timestamp": "2025-06-30T03:37:50.534Z",
+    "ibge_code": "2211357"
+  },
+  {
+    "url": "https://urucui.pi.gov.br",
+    "performance": 0.38,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.61,
+    "timestamp": "2025-06-30T03:37:50.891Z",
+    "ibge_code": "2211209"
+  },
+  {
+    "url": "http://aguabranca.pi.gov.br",
+    "performance": 0.44,
+    "accessibility": 0.82,
+    "seo": 0.83,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:37:55.091Z",
+    "ibge_code": "2200202"
+  },
+  {
+    "url": "http://vilanovadopiaui.pi.gov.br",
+    "performance": 0.52,
+    "accessibility": 0.67,
+    "seo": 0.92,
+    "bestPractices": 0.72,
+    "timestamp": "2025-06-30T03:38:03.585Z",
+    "ibge_code": "2211605"
+  },
+  {
+    "url": "http://abatia.pr.gov.br",
+    "performance": 0.63,
+    "accessibility": 0.59,
+    "seo": 0.83,
+    "bestPractices": 0.59,
+    "timestamp": "2025-06-30T03:38:10.971Z",
+    "ibge_code": "4100103"
+  },
+  {
+    "url": "http://simoes.pi.gov.br",
+    "performance": 0.66,
+    "accessibility": 0.92,
+    "seo": 0.92,
+    "bestPractices": 0.83,
+    "timestamp": "2025-06-30T03:38:17.540Z",
+    "ibge_code": "2210706"
   }
 ]
