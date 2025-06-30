@@ -33,13 +33,15 @@ jobs:
         run: pip install internetarchive
 
       - name: Coletar dados PSI
-        timeout-minutes: 10
+        timeout-minutes: 350 # Increased from 10
         continue-on-error: true
         env:
+          PSI_KEY: ${{ secrets.PSI_KEY }} # Ensure PSI_KEY is explicitly available
           PSI_CONCURRENCY: 10
           PSI_MAX_RETRIES: 2
           PSI_RETRY_DELAY_MS: 1000
           PSI_REQUESTS_PER_MIN: 60
+          PSI_DEBUG_LOG: 'false' # Explicitly disable debug logging
         run: node collect-psi.js
 
       - name: Upload DuckDB database to Internet Archive
@@ -80,39 +82,40 @@ jobs:
             echo "WARNING: .github/TODO_TEMPLATE.md not found. TODO.md will only contain the error preamble." >> TODO.md
           fi
 
-      - name: Commit and Push Error Reports and TODO.md to Main Branch
-        if: env.HAS_PSI_ERRORS == 'true'
-        run: |
-          ORIGINAL_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-          echo "Committing error reports to branch: $ORIGINAL_BRANCH"
+      # This redundant commit step is removed as the next one handles all cases.
+      # - name: Commit and Push Error Reports and TODO.md to Main Branch
+      #   if: env.HAS_PSI_ERRORS == 'true'
+      #   run: |
+      #     ORIGINAL_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+      #     echo "Committing error reports to branch: $ORIGINAL_BRANCH"
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Ensure we are on the correct branch and it's up-to-date
-          git checkout $ORIGINAL_BRANCH
-          git pull origin $ORIGINAL_BRANCH
+      #     # Ensure we are on the correct branch and it's up-to-date
+      #     git checkout $ORIGINAL_BRANCH
+      #     git pull origin $ORIGINAL_BRANCH
 
-          # Added data/psi_processing_state.json from fix/psi-commit-error
-          git add TODO.md data/psi_error_reports/ data/psi_processing_state.json
+      #     # Added data/psi_processing_state.json from fix/psi-commit-error
+      #     git add TODO.md data/psi_error_reports/ data/psi_processing_state.json
 
-          if ! git diff --staged --quiet; then
-            # Updated commit message from fix/psi-commit-error
-            git commit -m "docs: Log PSI collection errors, update TODO, and save state
+      #     if ! git diff --staged --quiet; then
+      #       # Updated commit message from fix/psi-commit-error
+      #       git commit -m "docs: Log PSI collection errors, update TODO, and save state
 
-            Errors were detected during the scheduled PSI data collection.
-            Details have been archived to data/psi_error_reports/
-            TODO.md has been updated, and the latest processing state
-            has been saved to data/psi_processing_state.json.
+      #       Errors were detected during the scheduled PSI data collection.
+      #       Details have been archived to data/psi_error_reports/
+      #       TODO.md has been updated, and the latest processing state
+      #       has been saved to data/psi_processing_state.json.
 
-            Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            git push origin $ORIGINAL_BRANCH
-          else
-            # Updated message from fix/psi-commit-error
-            echo "No changes to TODO.md, error reports, or processing state to commit."
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #       Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #       git push origin $ORIGINAL_BRANCH
+      #     else
+      #       # Updated message from fix/psi-commit-error
+      #       echo "No changes to TODO.md, error reports, or processing state to commit."
+      #     fi
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and Push Data State and/or Error Reports
         if: always() # This step should always run to commit relevant files

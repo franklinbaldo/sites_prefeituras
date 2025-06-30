@@ -9,7 +9,8 @@ import duckdb from 'duckdb';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
 
-const ERROR_LOG_FILE = 'psi_errors.log';
+const ERROR_LOG_FILE = 'psi_errors.log'; // This file will now only contain ERROR level messages
+const ACTIVITY_LOG_FILE = 'psi_activity.log'; // Optional: For all INFO, WARNING, ERROR messages
 const PROCESSING_STATE_FILE = 'data/psi_processing_state.json';
 const DUCKDB_FILE = path.resolve(process.cwd(), 'data/psi_results.duckdb');
 const DUCKDB_TABLE_NAME = 'psi_metrics';
@@ -157,20 +158,25 @@ function logMessage(level, message, context = '') {
     console.log(consoleMessage); // Default for unknown levels
   }
 
-  // File Logging for INFO, WARNING, ERROR
-  if (['INFO', 'WARNING', 'ERROR'].includes(upperLevel)) {
-    logErrorToFile(fileMessage); // Pass the fully formatted message for the file
+  // File Logging
+  // True ERRORS go to ERROR_LOG_FILE for critical error tracking by workflow
+  if (upperLevel === 'ERROR') {
+    appendMessageToFile(ERROR_LOG_FILE, fileMessage);
   }
+  // Optionally, log INFO, WARNING, ERROR to a more comprehensive activity log
+  // if (['INFO', 'WARNING', 'ERROR'].includes(upperLevel)) {
+  //   appendMessageToFile(ACTIVITY_LOG_FILE, fileMessage);
+  // }
 }
 
-// Simplified function to append pre-formatted messages to a log file
-function logErrorToFile(formattedMessage) {
+// Generic function to append pre-formatted messages to a specified log file
+function appendMessageToFile(logFilePath, formattedMessage) {
   try {
-    fs.appendFileSync(ERROR_LOG_FILE, formattedMessage + '\n');
+    fs.appendFileSync(logFilePath, formattedMessage + '\n');
   } catch (err) {
     // If logging to file fails, log to console as a fallback
-    console.error(`Fallback: Failed to write to ${ERROR_LOG_FILE}: ${err.message}`);
-    console.error(`Fallback: Original error message: ${formattedMessage}`);
+    console.error(`Fallback: Failed to write to ${logFilePath}: ${err.message}`);
+    console.error(`Fallback: Original message for ${logFilePath}: ${formattedMessage}`);
   }
 }
 
@@ -252,6 +258,12 @@ async function fetchPSIWithRetry(url, fetchFn, maxRetries = 2, baseDelay = 1000)
 
 // Main logic of the script, now exportable and testable
 export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
+  logMessage('DEBUG', `Running with argv: ${JSON.stringify(argv)}`, 'init'); // Log argv
+  const isTestMode = argv.includes('--test');
+  if (isTestMode) {
+    logMessage('INFO', 'Script is running in TEST MODE (--test flag detected).', 'init');
+  }
+
   logMessage('INFO', 'PSI data collection script started.', 'main');
   API_KEY = currentApiKey; // Update API_KEY from parameter for testability
   if (!API_KEY) {
@@ -261,10 +273,10 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     logMessage('INFO', 'PSI_KEY environment variable is set.', 'init');
   }
 
-  const scriptStartTime = Date.now();
-  const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes
+  const scriptStartTime = Date.now(); // Keep for elapsed time calculations if ever needed, but not for timeout enforcement here.
 
-  const isTestMode = argv.includes('--test');
+  // const SCRIPT_TIMEOUT_MS = 9.5 * 60 * 1000; // 9.5 minutes - REMOVED, defer to workflow timeout
+
   const baseDir = process.cwd();
   const inputCsvFile = isTestMode
       ? path.resolve(baseDir, 'test_sites.csv')
@@ -276,7 +288,7 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
 
-  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output DB: ${DUCKDB_FILE}`, 'init');
+  logMessage('INFO', `Input: ${inputCsvFile}, Output DB: ${DUCKDB_FILE}`, 'init'); // Simplified: Test mode already logged
 
   await initDuckDB(); // Initialize DuckDB
 
@@ -318,16 +330,19 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
     logMessage('INFO', `Loaded ${allCsvUrls.length} URLs from ${inputCsvFile} after initial filter.`, 'readCsvFile');
 
     if (allCsvUrls.length === 0) {
-      const message = `Nenhuma URL válida (http/https) encontrada em ${inputCsvFile} na coluna 'url'.`;
+      const message = `No valid URLs (http/https) found in ${inputCsvFile}.`;
       logMessage('WARNING', message, 'readCsvFile');
-      // Se não há URLs válidas em allCsvUrls, não há o que processar.
-      // O script vai perceber que urlsToProcess está vazio mais adiante e reportar "Nenhum resultado para gravar."
+      // If no URLs, script will later note no results to save.
     }
   } catch (err) {
-    const errorMessage = `Erro ao ler ou processar o arquivo CSV ${inputCsvFile}: ${err.message}`;
-    // console.error automatically handled by logMessage
-    logMessage('ERROR', errorMessage, 'readCsvFile');
-    return;
+    const errorMessage = `Error reading or processing CSV file ${inputCsvFile}: ${err.message}`;
+    if (isTestMode && inputCsvFile.includes('test_sites.csv')) {
+        logMessage('WARNING', `[TEST MODE] ${errorMessage}. This may be expected if test_sites.csv is not set up.`, 'readCsvFile');
+    } else {
+        logMessage('ERROR', errorMessage, 'readCsvFile');
+    }
+    await closeDuckDB(); // Ensure DB connection is closed
+    return; // Or throw, depending on desired behavior for CI
   }
 
   // Prioritize URLs based on processingState
@@ -394,11 +409,12 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
 
   logMessage('INFO', `Starting concurrent processing of ${urlsToProcess.length} URLs with concurrency ${concurrency}.`, 'mainLoop');
   const tasks = urlsToProcess.map(url => limit(async () => {
-    const elapsedTime = Date.now() - scriptStartTime;
-    if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
-      logMessage('INFO', `Time limit approaching. Skipping ${url}.`, 'timeout');
-      return;
-    }
+    // REMOVED internal script timeout check here - defer to workflow step timeout
+    // const elapsedTime = Date.now() - scriptStartTime;
+    // if (elapsedTime >= SCRIPT_TIMEOUT_MS) {
+    //   logMessage('INFO', `Time limit approaching. Skipping ${url}.`, 'timeout');
+    //   return;
+    // }
 
     const attemptTimestamp = new Date().toISOString();
     if (!processingState[url]) {
