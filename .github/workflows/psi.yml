@@ -71,13 +71,14 @@ jobs:
       - name: Create/Update TODO.md if errors exist
         if: env.HAS_PSI_ERRORS == 'true'
         run: |
-          echo "## PSI Collection Error Reports (P0)" > TODO.md
-          echo "" >> TODO.md
-          echo "Errors may have been detected during scheduled PSI data collections." >> TODO.md
-          echo "Please check the \`data/psi_error_reports/\` directory for log files named \`psi_errors_<run_id>.log\`." >> TODO.md
-          echo "Review these logs and address any reported issues." >> TODO.md
-          echo "" >> TODO.md
-          echo "Workflow run that last updated this TODO: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> TODO.md
+          ERROR_PREAMBLE="## LATEST PSI COLLECTION ERROR REPORT\n\n**Date:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')\n**Workflow Run:** [${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})\n**Error Log Archived:** \`data/psi_error_reports/psi_errors_${{ github.run_id }}.log\`\n\n**Attention:** Errors were detected during the most recent automated PageSpeed Insights data collection. Please review the log file linked above and address any reported issues as per the guidelines in the main TODO content below.\n\n---\n\n"
+          echo -e "${ERROR_PREAMBLE}" > TODO.md
+          if [ -f .github/TODO_TEMPLATE.md ]; then
+            cat .github/TODO_TEMPLATE.md >> TODO.md
+            echo "TODO.md updated with latest error report and project tasks from template."
+          else
+            echo "WARNING: .github/TODO_TEMPLATE.md not found. TODO.md will only contain the error preamble." >> TODO.md
+          fi
 
       - name: Commit and Push Error Reports and TODO.md to Main Branch
         if: env.HAS_PSI_ERRORS == 'true'
