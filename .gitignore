@@ -1,2 +1,22 @@
 node_modules/
 accessibility-results.json
+
+# Files to be replaced by DuckDB and Internet Archive storage
+data/psi-results.json
+data/psi-results.csv
+data/test-psi-results.json # Assuming test JSON output is also not needed in git
+data/*.duckdb
+
+# General log files.
+# psi_errors.log is transient during the workflow run.
+# Specific run logs are archived to data/psi_error_reports/psi_errors_<run_id>.log and committed by the workflow.
+*.log
+!psi_errors.log # Keep if needed by any local script, though workflow copies it.
+
+# DO NOT ignore data/psi_error_reports/ as the workflow commits its contents.
+# DO NOT ignore psi_errors.log at the root if it's used by error reporting before being moved/archived.
+# However, the workflow copies psi_errors.log to data/psi_error_reports/ and then deletes the root one.
+# So, ignoring *.log but NOT data/psi_error_reports/ is correct.
+# And psi_errors.log itself at the root is temporary during a run.
+# data/psi_processing_state.json IS committed.
+# TODO.md IS committed.

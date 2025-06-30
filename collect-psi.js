@@ -5,11 +5,88 @@ import fetch from 'node-fetch';
 import { parse as csvParse } from 'csv-parse/sync';
 import pLimit from 'p-limit';
 import pThrottle from 'p-throttle';
+import duckdb from 'duckdb';
 
 let API_KEY = process.env.PSI_KEY; // Made non-const to allow modification in tests
 
 const ERROR_LOG_FILE = 'psi_errors.log';
 const PROCESSING_STATE_FILE = 'data/psi_processing_state.json';
+const DUCKDB_FILE = path.resolve(process.cwd(), 'data/psi_results.duckdb');
+const DUCKDB_TABLE_NAME = 'psi_metrics';
+
+// DuckDB database instance and connection
+let db;
+let conn;
+
+// Function to initialize DuckDB and create table if it doesn't exist
+async function initDuckDB() {
+  db = new duckdb.Database(DUCKDB_FILE, (err) => {
+    if (err) {
+      logMessage('ERROR', `Failed to open/create DuckDB database at ${DUCKDB_FILE}: ${err.message}`, 'duckdbInit');
+      process.exit(1); // Critical error, cannot proceed
+    }
+    logMessage('INFO', `DuckDB database opened/created at ${DUCKDB_FILE}`, 'duckdbInit');
+  });
+
+  conn = db.connect();
+
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS ${DUCKDB_TABLE_NAME} (
+      timestamp TIMESTAMPTZ,
+      url VARCHAR,
+      ibge_code VARCHAR,
+      performance FLOAT,
+      accessibility FLOAT,
+      seo FLOAT,
+      bestPractices FLOAT,
+      PRIMARY KEY (url, timestamp)
+    );
+  `;
+  // Using PRIMARY KEY (url, timestamp) to allow multiple records for the same URL over time,
+  // but prevent exact duplicate entries for the same URL at the exact same microsecond.
+
+  return new Promise((resolve, reject) => {
+    conn.run(createTableQuery, (err) => {
+      if (err) {
+        logMessage('ERROR', `Failed to create table ${DUCKDB_TABLE_NAME}: ${err.message}`, 'duckdbInit');
+        reject(err);
+      } else {
+        logMessage('INFO', `Table ${DUCKDB_TABLE_NAME} is ready (created if not exists).`, 'duckdbInit');
+        resolve();
+      }
+    });
+  });
+}
+
+// Function to close DuckDB connection
+async function closeDuckDB() {
+  return new Promise((resolve, reject) => {
+    if (conn) {
+      conn.close((err) => {
+        if (err) {
+          logMessage('ERROR', `Error closing DuckDB connection: ${err.message}`, 'duckdbClose');
+          return reject(err);
+        }
+        logMessage('INFO', 'DuckDB connection closed.', 'duckdbClose');
+        if (db) {
+          db.close((err_db) => {
+            if (err_db) {
+              logMessage('ERROR', `Error closing DuckDB database: ${err_db.message}`, 'duckdbClose');
+              return reject(err_db);
+            }
+            logMessage('INFO', 'DuckDB database closed.', 'duckdbClose');
+            resolve();
+          });
+        } else {
+          resolve();
+        }
+      });
+    } else {
+      resolve();
+    }
+  });
+}
+
 
 // Function to save processing state
 function saveProcessingState(stateObject, filePath) {
@@ -25,17 +102,27 @@ function saveProcessingState(stateObject, filePath) {
   }
 }
 
-// Save a single result immediately to JSON; CSV will be generated at the end
-function persistResult(resultObj, jsonFile, existingResults) {
-  existingResults.push(resultObj);
-  fs.writeFileSync(jsonFile, JSON.stringify(existingResults, null, 2));
-}
-
-function writeCsvFile(resultsArray, csvFile) {
-  const csvHeader = 'timestamp,url,ibge_code,performance,accessibility,seo,bestPractices';
-  const lines = resultsArray.map(r => `${r.timestamp},${r.url},${r.ibge_code},${r.performance},${r.accessibility},${r.seo},${r.bestPractices}`);
-  fs.writeFileSync(csvFile, csvHeader + '\n' + lines.join('\n') + '\n');
-  logMessage('INFO', `CSV results written to ${csvFile}`, 'writeCsv');
+// Function to insert a result into DuckDB
+async function insertResultToDuckDB(resultObj) {
+  const { timestamp, url, ibge_code, performance, accessibility, seo, bestPractices } = resultObj;
+  const insertQuery = `
+    INSERT INTO ${DUCKDB_TABLE_NAME} (timestamp, url, ibge_code, performance, accessibility, seo, bestPractices)
+    VALUES (?, ?, ?, ?, ?, ?, ?);
+  `;
+  return new Promise((resolve, reject) => {
+    conn.run(insertQuery, [timestamp, url, ibge_code, performance, accessibility, seo, bestPractices], (err) => {
+      if (err) {
+        // Log error, but don't let it stop the entire process for other URLs.
+        // The error might be due to constraint violation if somehow a duplicate is attempted,
+        // or other DB issues.
+        logMessage('ERROR', `Failed to insert result for ${url} into DuckDB: ${err.message}`, 'duckdbInsert');
+        reject(err); // Reject so the calling function knows there was an issue with this specific insert
+      } else {
+        logMessage('DEBUG', `Result for ${url} inserted into DuckDB.`, 'duckdbInsert');
+        resolve();
+      }
+    });
+  });
 }
 
 // Function to log messages to console and file
@@ -182,13 +269,16 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const inputCsvFile = isTestMode
       ? path.resolve(baseDir, 'test_sites.csv')
       : path.resolve(baseDir, 'sites_das_prefeituras_brasileiras.csv');
-  const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json';
-  const outputCsvFile = isTestMode ? 'data/test-psi-results.csv' : 'data/psi-results.csv';
+  // const outputJsonFile = isTestMode ? 'data/test-psi-results.json' : 'data/psi-results.json'; // No longer primary output
+  // const outputCsvFile = isTestMode ? 'data/test-psi-results.csv' : 'data/psi-results.csv'; // No longer primary output
 
-  const outDir = path.resolve('data');
-  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
+  const outDir = path.dirname(DUCKDB_FILE); // Ensure data directory exists for DuckDB file
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output: ${outputJsonFile}, CSV: ${outputCsvFile}`, 'init');
+
+  logMessage('INFO', `Running in ${isTestMode ? 'TEST' : 'PRODUCTION'} mode. Input: ${inputCsvFile}, Output DB: ${DUCKDB_FILE}`, 'init');
+
+  await initDuckDB(); // Initialize DuckDB
 
   let processingState = {};
   try {
@@ -289,18 +379,18 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
 
   const throttledFetch = throttle((url) => fetchPSIWithRetry(url, fetchPSI, maxRetries, retryDelay));
 
-  const results = [];
+  // const results = []; // No longer accumulating in memory for JSON/CSV
   let processedInThisRunCount = 0;
 
-  let existingResults = [];
-  if (fs.existsSync(outputJsonFile)) {
-    try {
-      existingResults = JSON.parse(fs.readFileSync(outputJsonFile, 'utf-8'));
-    } catch (err) {
-      logMessage('WARNING', `Error reading existing results from ${outputJsonFile}: ${err.message}`, 'loadResults');
-      existingResults = [];
-    }
-  }
+  // let existingResults = []; // No longer needed for JSON output
+  // if (fs.existsSync(outputJsonFile)) {
+  //   try {
+  //     existingResults = JSON.parse(fs.readFileSync(outputJsonFile, 'utf-8'));
+  //   } catch (err) {
+  //     logMessage('WARNING', `Error reading existing results from ${outputJsonFile}: ${err.message}`, 'loadResults');
+  //     existingResults = [];
+  //   }
+  // }
 
   logMessage('INFO', `Starting concurrent processing of ${urlsToProcess.length} URLs with concurrency ${concurrency}.`, 'mainLoop');
   const tasks = urlsToProcess.map(url => limit(async () => {
@@ -322,29 +412,42 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
       const data = await throttledFetch(url);
       logMessage('INFO', `✅ ${url} → ${data.performance}`, 'fetchPSISuccess');
       const resultObj = { ...data, ibge_code: urlToIbge[url] };
-      results.push(resultObj);
-      processedInThisRunCount++;
-      processingState[url].last_success = new Date().toISOString();
-      saveProcessingState(processingState, PROCESSING_STATE_FILE);
-      persistResult(resultObj, outputJsonFile, existingResults);
+      // results.push(resultObj); // No longer accumulating in memory
+      try {
+        await insertResultToDuckDB(resultObj);
+        processedInThisRunCount++;
+        processingState[url].last_success = new Date().toISOString();
+        // persistResult(resultObj, outputJsonFile, existingResults); // Removed
+      } catch (dbErr) {
+        // Error already logged by insertResultToDuckDB, just note that this specific URL's success state won't be updated
+        logMessage('WARNING', `Result for ${url} not marked as success in state file due to DB insert error.`, 'mainLoop');
+      }
+      saveProcessingState(processingState, PROCESSING_STATE_FILE); // Save state regardless of DB insert outcome for this particular URL
     } catch (err) {
       logMessage('ERROR', `Error for URL ${url}: ${err.message}`, 'fetchPSI');
-      saveProcessingState(processingState, PROCESSING_STATE_FILE);
+      // Note: processingState for last_attempt was already saved before try block
+      // No need to save processingState here again unless an error in throttledFetch should clear last_success
     }
   }));
 
   await Promise.all(tasks);
 
   logMessage('INFO', `Processed ${processedInThisRunCount} URLs in this run.`, 'summary');
-  writeCsvFile(existingResults, outputCsvFile);
-  saveProcessingState(processingState, PROCESSING_STATE_FILE);
+  // writeCsvFile(existingResults, outputCsvFile); // Removed
+  saveProcessingState(processingState, PROCESSING_STATE_FILE); // Final save of processing state
+  await closeDuckDB(); // Close DuckDB connection
   logMessage('INFO', 'PSI data collection script finished.', 'main');
 }
 
 // This allows the script to still be run directly using `node collect-psi.js`
 if (process.argv[1] && process.argv[1].endsWith('collect-psi.js')) {
   (async () => {
-    await runMainLogic(process.argv, process.env.PSI_KEY);
-    // logMessage('INFO', 'PSI data collection script finished (direct invocation).', 'main'); // Already logged at the end of runMainLogic
+    try {
+      await runMainLogic(process.argv, process.env.PSI_KEY);
+    } catch (e) {
+      logMessage('ERROR', `Unhandled error in main execution: ${e.message}`, 'mainCrash');
+      await closeDuckDB(); // Attempt to close DB even on crash
+      process.exit(1);
+    }
   })();
 }
