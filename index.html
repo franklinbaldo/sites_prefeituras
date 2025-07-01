@@ -1,154 +1,113 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabela de Acessibilidade de Sites de Prefeituras Brasileiras</title>
-    <!-- <link rel="stylesheet" href="css/styles.css"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Acessibilidade Municipal - Comparador de Sites de Prefeituras</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="container">
-    <header>
-        <hgroup>
-            <h1>Auditoria de Sites de Prefeituras Brasileiras</h1>
-            <h2>Performance, Acessibilidade, SEO e Boas Práticas</h2>
-        </hgroup>
-        <nav>
-            <ul>
-                <li><a href="about.html" role="button" class="secondary">Saiba mais sobre o projeto</a></li>
-            </ul>
-        </nav>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Acessibilidade Municipal</h1>
+            <p class="hero-subtitle">Compare a acessibilidade digital dos sites de prefeituras brasileiras</p>
+            <div class="search-container">
+                <input type="text" id="citySearch" placeholder="Digite o nome da cidade ou estado..." class="search-input">
+                <button class="search-btn" onclick="searchCity()">Buscar</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
     </header>
 
-    <section id="project-description">
-        <p>Este projeto apresenta dados de performance, acessibilidade, SEO e boas práticas dos sites das prefeituras do Brasil, coletados via PageSpeed Insights. Use os campos de busca e ordenação para explorar as informações na tabela abaixo. Gráficos de distribuição de pontuações também são apresentados.</p>
-    </section>
-
-    <main>
-        <article id="charts-container">
-            <hgroup>
-                <h2>Distribuição das Pontuações</h2>
-                <h3>Visualização gráfica das métricas coletadas</h3>
-            </hgroup>
-            <div class="grid">
-                <div>
-                    <canvas id="performanceChart" role="img" aria-label="Gráfico de distribuição de pontuações de Performance"></canvas>
-                    <div id="performanceChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
-                </div>
-                <div>
-                    <canvas id="accessibilityChart" role="img" aria-label="Gráfico de distribuição de pontuações de Acessibilidade"></canvas>
-                    <div id="accessibilityChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
-                </div>
-            </div>
-            <div class="grid">
-                <div>
-                    <canvas id="seoChart" role="img" aria-label="Gráfico de distribuição de pontuações de SEO"></canvas>
-                    <div id="seoChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
-                </div>
-                <div>
-                    <canvas id="bestPracticesChart" role="img" aria-label="Gráfico de distribuição de pontuações de Boas Práticas"></canvas>
-                    <div id="bestPracticesChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
+    <main class="main-content">
+        <section class="stats-section">
+            <div class="container">
+                <h2>Panorama Nacional</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="5570">0</div>
+                        <div class="stat-label">Municípios</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="2847">0</div>
+                        <div class="stat-label">Sites Analisados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="34">0</div>
+                        <div class="stat-label">% Conformes WCAG</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="7.2">0</div>
+                        <div class="stat-label">Nota Média</div>
+                    </div>
                 </div>
             </div>
-        </article>
-
-        <section id="table-controls-container">
-            <label for="table-filter" class="sr-only">Filtrar por URL ou código IBGE</label>
-            <input type="search" id="table-filter" name="table-filter" placeholder="Filtrar por URL ou código IBGE">
-            <button id="export-data-btn">Exportar Dados (JSON/CSV)</button>
         </section>
 
-        <section id="table-container">
-            <h2>Resultados Detalhados</h2>
-            <figure>
-                <table id="psi-results-table" role="grid">
-                    <caption class="sr-only">Resultados detalhados da auditoria de sites. A tabela mostra URL, pontuações de Performance, Acessibilidade, SEO, Boas Práticas e o Timestamp da coleta.</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">URL</th>
-                            <th scope="col">Performance</th>
-                            <th scope="col">Accessibility</th>
-                            <th scope="col">SEO</th>
-                            <th scope="col">Best Practices</th>
-                            <th scope="col">Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data will be populated by js/main.js -->
-                    </tbody>
-                </table>
-            </figure>
+        <section class="ranking-section">
+            <div class="container">
+                <h2>Ranking das Melhores Prefeituras</h2>
+                <div class="ranking-controls">
+                    <select id="stateFilter" class="filter-select">
+                        <option value="">Todos os Estados</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="PR">Paraná</option>
+                    </select>
+                    <select id="populationFilter" class="filter-select">
+                        <option value="">Todos os Tamanhos</option>
+                        <option value="big">Grandes (>500k)</option>
+                        <option value="medium">Médias (100k-500k)</option>
+                        <option value="small">Pequenas (<100k)</option>
+                    </select>
+                </div>
+                <div class="ranking-list" id="rankingList">
+                    <!-- Rankings will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="methodology-section">
+            <div class="container">
+                <h2>Metodologia</h2>
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <div class="methodology-icon">🎯</div>
+                        <h3>WCAG 2.1</h3>
+                        <p>Análise baseada nas diretrizes internacionais de acessibilidade web</p>
+                    </div>
+                    <div class="methodology-card">
+                        <div class="methodology-icon">🤖</div>
+                        <h3>Testes Automatizados</h3>
+                        <p>Ferramentas como axe-core e Lighthouse para análise técnica</p>
+                    </div>
+                    <div class="methodology-card">
+                        <div class="methodology-icon">👥</div>
+                        <h3>Avaliação Manual</h3>
+                        <p>Testes com usuários reais e especialistas em acessibilidade</p>
+                    </div>
+                    <div class="methodology-card">
+                        <div class="methodology-icon">📱</div>
+                        <h3>Responsividade</h3>
+                        <p>Compatibilidade com diferentes dispositivos e tecnologias assistivas</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <script src="js/data-processor.js"></script>
-    <script src="js/chart-generator.js"></script> <!-- Added chart generator -->
-    <script src="js/main.js"></script>
-
-    <style>
-        /* Essential custom styles */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Score background colors for table cells */
-        .score-good {
-            background-color: #c8e6c9; /* Consider PicoCSS success color variables if available/desired */
-            color: #1b5e20; /* Ensure text contrast */
-        }
-        .score-ok {
-            background-color: #fff3cd; /* Consider PicoCSS warning color variables */
-            color: #664d03; /* Ensure text contrast */
-        }
-        .score-bad {
-            background-color: #f8d7da; /* Consider PicoCSS danger color variables */
-            color: #58151c; /* Ensure text contrast */
-        }
-
-        /* Chart styling */
-        /* Ensure canvas is responsive within its grid container */
-        canvas {
-            max-width: 100%;
-            height: auto !important; /* Important to override potential inline styles from Chart.js if needed */
-            border: 1px solid var(--card-border-color, var(--border-color, #e1e1e1)); /* Use Pico variable */
-            border-radius: var(--border-radius);
-        }
-        #charts-container article > div { /* The .grid divs */
-            margin-bottom: var(--spacing);
-        }
-        #charts-container hgroup {
-            margin-bottom: var(--spacing);
-        }
-
-        /* Fallback message styling */
-        .chart-fallback-message {
-            padding: var(--spacing);
-            text-align: center;
-            color: var(--muted-color);
-            font-style: italic;
-            border: 1px dashed var(--muted-border-color);
-            border-radius: var(--border-radius);
-        }
-
-    </style>
-
-    <footer>
-        <small>
-            © 2024 Acessibilidade Brasil. Todos os direitos reservados.
-            <br>
-            <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a> |
-            <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a> |
-            <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
-        </small>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Acessibilidade Municipal. Contribuindo para um Brasil digital mais inclusivo.</p>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
