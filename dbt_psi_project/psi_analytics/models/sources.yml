@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: psi_data # This name is used as the schema in {{ source('psi_data', 'psi_metrics') }}
+    schema: main # Explicitly state that tables for this source are in the 'main' schema of DuckDB
+    tables:
+      - name: psi_metrics
+        description: "Table containing PageSpeed Insights scores for Brazilian city hall websites, collected for different strategies (mobile, desktop)."
+        columns:
+          - name: url
+            description: "The audited URL."
+            tests:
+              - not_null
+          - name: timestamp
+            description: "Timestamp of the audit."
+            tests:
+              - not_null
+          - name: strategy
+            description: "The PSI strategy used ('mobile' or 'desktop')."
+            # No explicit not_null here, but it's part of the unique key.
+          - name: ibge_code
+            description: "IBGE code for the city."
+          - name: performance
+            description: "Performance score (0-1)."
+          - name: accessibility
+            description: "Accessibility score (0-1)."
+          - name: seo
+            description: "SEO score (0-1)."
+          - name: bestPractices
+            description: "Best Practices score (0-1)."
+        # The unique combination test is now handled by a custom SQL file in the tests/ directory:
+        # tests/source_psi_metrics_unique_combination.sql
