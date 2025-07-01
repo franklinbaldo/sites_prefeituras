@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre o Projeto - Acessibilidade</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Link to existing stylesheet -->
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
-<body>
+<body class="container">
     <header>
-        <h1>Sobre o Projeto</h1>
+        <hgroup>
+            <h1>Sobre o Projeto</h1>
+            <h2>Entenda a motivação e metodologia da auditoria de acessibilidade.</h2>
+        </hgroup>
+        <nav>
+            <ul>
+                <li><a href="index.html" role="button" class="secondary">Voltar à Página Inicial</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <nav>
-        <a href="index.html">Voltar à Página Inicial</a>
-    </nav>
 
     <main>
         <section id="goals">
@@ -48,14 +53,23 @@
     </main>
 
     <footer>
-    <p class="footer-copyright">© 2024 Acessibilidade Brasil. Todos os direitos reservados.</p>
-    <div class="footer-links">
-        <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a>
-        <span class="footer-link-separator">|</span>
-        <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a>
-        <span class="footer-link-separator">|</span>
-        <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
-    </div>
+        <small>
+            © 2024 Acessibilidade Brasil. Todos os direitos reservados.
+            <br>
+            <a href="https://github.com/usuario/nome-do-repositorio" id="repo-link">Ver no GitHub</a> |
+            <a href="https://github.com/usuario/nome-do-repositorio/issues" id="report-issue-link">Reportar um Problema</a> |
+            <a href="about.html#data-sources" id="data-sources-link">Fontes dos Dados</a>
+        </small>
     </footer>
+    <style>
+        /* Minimal custom styles for about.html if needed */
+        /* PicoCSS primarily handles the styling */
+        section {
+            margin-bottom: var(--spacing-large); /* Add some space between sections */
+        }
+        h2 {
+            margin-top: var(--spacing-large);
+        }
+    </style>
 </body>
 </html>
