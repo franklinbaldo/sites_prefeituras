@@ -2,13 +2,23 @@
 
 const appChartGenerator = {
     createScoreDistributionChart: function(canvasId, data, metricName, label) {
-        const ctx = document.getElementById(canvasId).getContext('2d');
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        const fallbackMessageId = canvasId + 'FallbackMessage';
+        const fallbackElement = document.getElementById(fallbackMessageId);
+
+        // Clear previous state
+        if (fallbackElement) fallbackElement.style.display = 'none';
+        canvas.style.display = 'block';
+
 
         if (!data || data.length === 0) {
             console.warn(`No data provided for chart: ${label}`);
-            ctx.font = "16px Arial";
-            ctx.textAlign = "center";
-            ctx.fillText("Dados não disponíveis para este gráfico.", ctx.canvas.width / 2, ctx.canvas.height / 2);
+            if (fallbackElement) {
+                fallbackElement.textContent = "Dados não disponíveis para este gráfico.";
+                fallbackElement.style.display = 'block';
+            }
+            canvas.style.display = 'none';
             return null;
         }
 
@@ -16,9 +26,11 @@ const appChartGenerator = {
 
         if (scores.length === 0) {
             console.warn(`No valid scores found for metric ${metricName} in chart: ${label}`);
-            ctx.font = "16px Arial";
-            ctx.textAlign = "center";
-            ctx.fillText("Pontuações não disponíveis para este gráfico.", ctx.canvas.width / 2, ctx.canvas.height / 2);
+            if (fallbackElement) {
+                fallbackElement.textContent = "Pontuações não disponíveis para este gráfico.";
+                fallbackElement.style.display = 'block';
+            }
+            canvas.style.display = 'none';
             return null;
         }
 
@@ -75,23 +87,29 @@ const appChartGenerator = {
     },
 
     generateAllCharts: function(psiData) {
+        const chartConfigs = [
+            { id: 'performanceChart', metric: 'performance', label: 'Distribuição de Pontuações de Performance' },
+            { id: 'accessibilityChart', metric: 'accessibility', label: 'Distribuição de Pontuações de Acessibilidade' },
+            { id: 'seoChart', metric: 'seo', label: 'Distribuição de Pontuações de SEO' },
+            { id: 'bestPracticesChart', metric: 'bestPractices', label: 'Distribuição de Pontuações de Boas Práticas' }
+        ];
+
         if (!psiData || psiData.length === 0) {
             console.warn("No PSI data available to generate charts.");
-            // Optionally display a message on all chart canvases
-            ['performanceChart', 'accessibilityChart', 'seoChart', 'bestPracticesChart'].forEach(id => {
-                const ctx = document.getElementById(id)?.getContext('2d');
-                if (ctx) {
-                    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear previous content
-                    ctx.font = "16px Arial";
-                    ctx.textAlign = "center";
-                    ctx.fillText("Dados gerais não disponíveis.", ctx.canvas.width / 2, ctx.canvas.height / 2);
+            chartConfigs.forEach(config => {
+                const canvas = document.getElementById(config.id);
+                const fallbackElement = document.getElementById(config.id + 'FallbackMessage');
+                if (canvas) canvas.style.display = 'none';
+                if (fallbackElement) {
+                    fallbackElement.textContent = "Dados gerais não disponíveis para gráficos.";
+                    fallbackElement.style.display = 'block';
                 }
             });
             return;
         }
-        this.createScoreDistributionChart('performanceChart', psiData, 'performance', 'Distribuição de Pontuações de Performance');
-        this.createScoreDistributionChart('accessibilityChart', psiData, 'accessibility', 'Distribuição de Pontuações de Acessibilidade');
-        this.createScoreDistributionChart('seoChart', psiData, 'seo', 'Distribuição de Pontuações de SEO');
-        this.createScoreDistributionChart('bestPracticesChart', psiData, 'bestPractices', 'Distribuição de Pontuações de Boas Práticas');
+
+        chartConfigs.forEach(config => {
+            this.createScoreDistributionChart(config.id, psiData, config.metric, config.label);
+        });
     }
 };

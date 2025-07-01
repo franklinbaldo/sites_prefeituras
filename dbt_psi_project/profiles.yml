@@ -1,0 +1,15 @@
+psi_analytics: # This is the profile name, matches the project name
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/psi_results.duckdb # Relative to the dbt_psi_project directory
+      # extensions:
+      #   - httpfs
+      #   - parquet
+      # main_thread_only: True # Example of a DuckDB specific setting
+
+# Note: dbt will look for a profile matching your project's name (psi_analytics)
+# in the profiles.yml loaded via --profiles-dir or DBT_PROFILES_DIR.
+# A 'default' profile is not strictly necessary here if we ensure
+# the project's profile 'psi_analytics' is correctly defined and targeted.

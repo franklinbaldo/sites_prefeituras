@@ -24,23 +24,28 @@
             <h2>Distribuição das Pontuações</h2>
             <div class="chart-row">
                 <div class="chart-wrapper">
-                    <canvas id="performanceChart"></canvas>
+                    <canvas id="performanceChart" role="img" aria-label="Gráfico de distribuição de pontuações de Performance"></canvas>
+                    <div id="performanceChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
                 </div>
                 <div class="chart-wrapper">
-                    <canvas id="accessibilityChart"></canvas>
+                    <canvas id="accessibilityChart" role="img" aria-label="Gráfico de distribuição de pontuações de Acessibilidade"></canvas>
+                    <div id="accessibilityChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-wrapper">
-                    <canvas id="seoChart"></canvas>
+                    <canvas id="seoChart" role="img" aria-label="Gráfico de distribuição de pontuações de SEO"></canvas>
+                    <div id="seoChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
                 </div>
                 <div class="chart-wrapper">
-                    <canvas id="bestPracticesChart"></canvas>
+                    <canvas id="bestPracticesChart" role="img" aria-label="Gráfico de distribuição de pontuações de Boas Práticas"></canvas>
+                    <div id="bestPracticesChartFallbackMessage" class="chart-fallback-message" style="display: none;"></div>
                 </div>
             </div>
         </div>
 
         <div id="table-controls-container">
+            <label for="table-filter" class="sr-only">Filtrar por URL ou código IBGE</label>
             <input type="text" id="table-filter" placeholder="Filtrar por URL ou código IBGE">
             <button id="export-data-btn">Exportar Dados (JSON/CSV)</button>
         </div>
@@ -48,6 +53,7 @@
         <div id="table-container">
             <h2>Resultados Detalhados</h2>
             <table id="psi-results-table">
+                <caption class="sr-only">Resultados detalhados da auditoria de sites. A tabela mostra URL, pontuações de Performance, Acessibilidade, SEO, Boas Práticas e o Timestamp da coleta.</caption>
                 <thead>
                     <tr>
                         <th>URL</th>

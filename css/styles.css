@@ -5,6 +5,27 @@ body {
     line-height: 1.6; /* Improve readability */
 }
 
+/* Utility class to visually hide content but make it available to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* General focus style for improved visibility */
+a:focus, button:focus, input[type="text"]:focus, input[type="checkbox"]:focus, input[type="radio"]:focus, select:focus, textarea:focus {
+    outline: 2px solid #0056b3; /* Or a color that fits your theme and has good contrast */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.3); /* Optional: softer glow */
+}
+
+
 header {
     background-color: #f4f4f4; /* Light grey background */
     padding: 1em 0;
@@ -83,6 +104,13 @@ main {
     height: auto !important; /* Important to override potential inline styles from Chart.js if needed */
 }
 
+.chart-fallback-message {
+    padding: 20px;
+    text-align: center;
+    color: #555;
+    font-style: italic;
+}
+
 
 /* Renamed controls-container to table-controls-container for clarity */
 #table-controls-container {
@@ -102,7 +130,7 @@ main {
     padding: 10px 20px;
     font-size: 1em;
     color: white;
-    background-color: #007bff; /* Blue color, common for actions */
+    background-color: #0056b3; /* Adjusted for contrast - WCAG AA */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -110,7 +138,7 @@ main {
 }
 
 #export-data-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #004085; /* Darker blue on hover */
 }
 
 /* Header navigation on index.html */
@@ -121,7 +149,7 @@ main {
 }
 
 .header-nav a {
-    color: #007bff;
+    color: #0056b3; /* Adjusted for contrast - WCAG AA */
     text-decoration: none;
     font-size: 0.9em;
 }
