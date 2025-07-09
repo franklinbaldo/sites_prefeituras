@@ -5,7 +5,6 @@ accessibility-results.json
 data/psi-results.json
 data/psi-results.csv
 data/test-psi-results.json # Assuming test JSON output is also not needed in git
-data/*.duckdb
 
 # General log files.
 # psi_errors.log is transient during the workflow run.
