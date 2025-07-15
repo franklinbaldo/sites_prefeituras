@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import fetch from 'node-fetch';
-import { parse as csvParse } from 'csv-parse/sync';
+import { parse as csvParse } from 'csv-parse';
 import pLimit from 'p-limit';
 import pThrottle from 'p-throttle';
 import duckdb from 'duckdb';
@@ -33,17 +33,17 @@ function loadConfiguration(configFilePath) {
   const defaultConfig = {
     "psi_api_key_env_var": "PSI_KEY",
     "psi_api_categories": ["performance", "accessibility", "best-practices", "seo"],
-    psi_requests_per_min": 60,
-    psi_concurrency": 4,
-    psi_max_retries": 2,
-    psi_retry_delay_ms": 1000,
-    psi_debug_log_env_var": "PSI_DEBUG_LOG", // Name of env var for debug logging
-    input_csv_file": "sites_das_prefeituras_brasileiras.csv",
-    test_input_csv_file": "test_sites.csv",
-    duckdb_file": "data/psi_results.duckdb",
-    processing_state_file": "data/psi_processing_state.json",
-    error_log_file": "psi_errors.log",
-    strategies_to_run": ["mobile", "desktop"]
+    "psi_requests_per_min": 60,
+    "psi_concurrency": 4,
+    "psi_max_retries": 2,
+    "psi_retry_delay_ms": 1000,
+    "psi_debug_log_env_var": "PSI_DEBUG_LOG", // Name of env var for debug logging
+    "input_csv_file": "sites_das_prefeituras_brasileiras.csv",
+    "test_input_csv_file": "test_sites.csv",
+    "duckdb_file": "data/psi_results.duckdb",
+    "processing_state_file": "data/psi_processing_state.json",
+    "error_log_file": "psi_errors.log",
+    "strategies_to_run": ["mobile", "desktop"]
   };
 
   try {
@@ -372,6 +372,7 @@ async function scriptMockFetchPSI(url, strategy = 'mobile') {
 // Wrapper to retry PSI fetches on transient errors
 // Now needs to pass strategy to fetchFn
 async function fetchPSIWithRetry(url, strategy, fetchFn, maxRetries = 2, baseDelay = 1000) {
+  let delay = baseDelay;
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       return await fetchFn(url, strategy); // Pass strategy to the actual fetch function
@@ -379,13 +380,13 @@ async function fetchPSIWithRetry(url, strategy, fetchFn, maxRetries = 2, baseDel
       // Check if it's a PsiError and if it's marked as retryable
       // Also, ensure we haven't exceeded maxRetries
       if (err instanceof PsiError && err.isRetryable && attempt < maxRetries) {
-        const delay = baseDelay * Math.pow(2, attempt);
         logMessage(
           'WARNING',
           `Retrying ${url} in ${delay}ms due to ${err.category} (Code: ${err.code}, Attempt: ${attempt + 1}/${maxRetries}): ${err.message}`,
           'retry'
         );
         await new Promise(res => setTimeout(res, delay));
+        delay *= 2; // Exponential backoff
       } else if (err instanceof PsiError) {
         // Non-retryable PsiError or max retries reached
         logMessage(
@@ -409,47 +410,44 @@ async function fetchPSIWithRetry(url, strategy, fetchFn, maxRetries = 2, baseDel
 
 // Exported for testing
 export async function loadAndPrioritizeUrls(inputCsvFile, processingState, fsUtils, isTestMode = false) {
-  let allCsvUrls;
+  let allCsvUrls = [];
   let urlToIbgeMap = {}; // Changed name for clarity
 
-  try {
-    const csv = fsUtils.readFileSync(inputCsvFile, 'utf-8');
-    const rows = fsUtils.parse(csv, { columns: true, skip_empty_lines: true });
+  const parser = fs.createReadStream(inputCsvFile)
+    .pipe(csvParse({
+      columns: true,
+      skip_empty_lines: true
+    }));
 
-    const sample = rows[0] || {};
-    let urlField = Object.keys(sample).find(k => k.toLowerCase().includes('url'));
-    if (!urlField) {
-      urlField = Object.keys(sample).find(k => k.toLowerCase().includes('endere'));
-    }
-    const ibgeField = Object.keys(sample).find(k => k.toLowerCase().includes('ibge'));
+  let urlField, ibgeField;
 
+  for await (const row of parser) {
     if (!urlField || !ibgeField) {
-      logMessage('ERROR', `Could not determine URL or IBGE field from CSV headers: ${Object.keys(sample).join(', ')}`, 'readCsvFile');
-      return { urlsToProcess: null, urlToIbgeMap: null }; // Critical error
-    }
+      const sample = Object.keys(row);
+      urlField = sample.find(k => k.toLowerCase().includes('url'));
+      if (!urlField) {
+        urlField = sample.find(k => k.toLowerCase().includes('endere'));
+      }
+      ibgeField = sample.find(k => k.toLowerCase().includes('ibge'));
 
-    allCsvUrls = [];
-    for (const row of rows) {
-      const url = row[urlField];
-      const ibge = row[ibgeField];
-      if (url && url.startsWith('http')) {
-        allCsvUrls.push(url);
-        urlToIbgeMap[url] = ibge;
+      if (!urlField || !ibgeField) {
+        logMessage('ERROR', `Could not determine URL or IBGE field from CSV headers: ${sample.join(', ')}`, 'readCsvFile');
+        return { urlsToProcess: null, urlToIbgeMap: null }; // Critical error
       }
     }
-    logMessage('INFO', `Loaded ${allCsvUrls.length} URLs from ${inputCsvFile} after initial filter.`, 'readCsvFile');
 
-    if (allCsvUrls.length === 0) {
-      logMessage('WARNING', `No valid URLs (http/https) found in ${inputCsvFile}.`, 'readCsvFile');
+    const url = row[urlField];
+    const ibge = row[ibgeField];
+    if (url && url.startsWith('http')) {
+      allCsvUrls.push(url);
+      urlToIbgeMap[url] = ibge;
     }
-  } catch (err) {
-    const errorMessage = `Error reading or processing CSV file ${inputCsvFile}: ${err.message}`;
-    if (isTestMode && inputCsvFile.includes('test_sites.csv')) {
-        logMessage('WARNING', `[TEST MODE] ${errorMessage}. This may be expected if test_sites.csv is not set up.`, 'readCsvFile');
-    } else {
-        logMessage('ERROR', errorMessage, 'readCsvFile');
-    }
-    return { urlsToProcess: null, urlToIbgeMap: null }; // Critical error
+  }
+
+  logMessage('INFO', `Loaded ${allCsvUrls.length} URLs from ${inputCsvFile} after initial filter.`, 'readCsvFile');
+
+  if (allCsvUrls.length === 0) {
+    logMessage('WARNING', `No valid URLs (http/https) found in ${inputCsvFile}.`, 'readCsvFile');
   }
 
   let urlsToProcess = [];
@@ -549,7 +547,6 @@ export async function runMainLogic(argv, currentApiKey, externalFetchPSI) {
   const { urlsToProcess, urlToIbgeMap } = await loadAndPrioritizeUrls(
     inputCsvFile, // This is already resolved
     processingState,
-    { readFileSync: fs.readFileSync, parse: csvParse }, // Inject dependencies
     isTestMode
   );
 

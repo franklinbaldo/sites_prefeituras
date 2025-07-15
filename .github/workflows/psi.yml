@@ -1,4 +1,4 @@
-name: 🚀 Coleta PSI
+name: 🚀 Coleta PSI e Testes
 
 on:
   schedule:
@@ -6,7 +6,70 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [python, node, docs]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        if: matrix.project == 'python'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Cache pip dependencies
+        if: matrix.project == 'python'
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install Python dependencies
+        if: matrix.project == 'python'
+        run: pip install -e .
+      - name: Run Python tests
+        if: matrix.project == 'python'
+        run: pytest
+
+      - name: Setup Node
+        if: matrix.project == 'node'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Cache npm dependencies
+        if: matrix.project == 'node'
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node dependencies
+        if: matrix.project == 'node'
+        working-directory: ./collector
+        run: npm ci
+      - name: Run Node tests
+        if: matrix.project == 'node'
+        working-directory: ./collector
+        run: npm test
+
+      - name: Set up Python for docs
+        if: matrix.project == 'docs'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install MkDocs
+        if: matrix.project == 'docs'
+        run: pip install mkdocs-material
+      - name: Build docs
+        if: matrix.project == 'docs'
+        run: mkdocs build
+
+  collect:
+    needs: test
     runs-on: ubuntu-latest
     env:
       PSI_KEY: ${{ secrets.PSI_KEY }}
@@ -22,6 +85,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node dependencies
+        working-directory: ./collector
         run: npm ci
 
       - name: Set up Python
@@ -30,32 +94,32 @@ jobs:
           python-version: '3.x' # Use a recent Python 3 version
 
       - name: Install Python dependencies (Internet Archive client)
-        run: pip install internetarchive duckdb
+        run: pip install -e .
 
       - name: Coletar dados PSI
         timeout-minutes: 350 # Increased from 10
         continue-on-error: true
         env:
           PSI_KEY: ${{ secrets.PSI_KEY }} # Ensure PSI_KEY is explicitly available
-          PSI_CONCURRENCY: 10
+          PSI_CONCURRENCY: 15
           PSI_MAX_RETRIES: 2
           PSI_RETRY_DELAY_MS: 1000
           PSI_REQUESTS_PER_MIN: 60
           PSI_DEBUG_LOG: 'false' # Explicitly disable debug logging
+        working-directory: ./collector
         run: node collect-psi.js
 
       - name: Upload DuckDB database to Internet Archive
-        if: success() # Only run if PSI collection was successful (or at least didn't hard fail script)
+        if: success()
         env:
           IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
           IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
-          # DUCKDB_FILE_PATH and IA_ITEM_IDENTIFIER are already in job env
-        run: python upload_to_ia.py
+        run: python src/psi_auditor/upload_to_ia.py
 
       - name: Generate JSON for Web Visualization
-        if: success() # Only run if PSI collection and IA upload were generally successful
+        if: success()
         run: |
-          python generate_viewable_json.py ${{ env.DUCKDB_FILE_PATH }} data/psi-latest-viewable-results.json
+          python src/psi_auditor/generate_viewable_json.py ${{ env.DUCKDB_FILE_PATH }} data/psi-latest-viewable-results.json
         # This script uses the DUCKDB_FILE_PATH which is the result of collect-psi.js
         # It runs before error handling for psi_errors.log, as it depends on the main script's success.
 

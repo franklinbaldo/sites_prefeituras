@@ -1,0 +1,10 @@
+site_name: PSI Auditor
+theme:
+  name: material
+  features: ['navigation.tabs', 'search.highlight']
+plugins:
+  - search
+nav:
+  - Visão Geral: index.md
+  - Uso CLI: cli.md
+  - Arquitetura: arq.md

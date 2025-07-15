@@ -20,14 +20,14 @@
   "homepage": "https://github.com/franklinbaldo/sites_prefeituras#readme",
   "dependencies": {
     "csv-parse": "^5.5.6",
+    "duckdb": "^0.10.2",
     "node-fetch": "^3.3.2",
     "p-limit": "^4.0.0",
-    "p-throttle": "^5.0.0",
-    "duckdb": "^0.10.2"
+    "p-throttle": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
-    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-env": "^7.28.0",
     "babel-jest": "^30.0.0-beta.3",
     "jest": "^29.7.0"
   }
