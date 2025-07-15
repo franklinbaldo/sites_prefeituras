@@ -7,24 +7,57 @@ let currentFilters = {
 
 // Function to fetch PSI data
 async function fetchPsiData() {
-  try {
-    const response = await fetch("data/psi-results.json"); // Assuming this is the correct path
-    if (!response.ok) {
-      if (response.status === 404) {
-        console.warn(
-          "data/psi-results.json not found. Using sample data or displaying empty.",
-        );
-        // Fallback to sample data or handle as needed
-        return transformPsiData([]); // Return empty transformed data
-      }
-      throw new Error(`HTTP error! status: ${response.status}`);
+  const urlParams = new URLSearchParams(window.location.search);
+  const useHttpfs = urlParams.get('httpfs') === 'true';
+
+  if (useHttpfs) {
+    try {
+      const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm');
+      const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
+      const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
+      const worker = new Worker(bundle.mainWorker);
+      const logger = new duckdb.ConsoleLogger();
+      const db = new duckdb.AsyncDuckDB(logger, worker);
+      await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+      await db.open({
+          path: ':memory:',
+      });
+      const conn = await db.connect();
+
+      await conn.run("INSTALL httpfs; LOAD httpfs;");
+      await conn.run(`
+        CREATE VIEW v AS
+        SELECT * FROM read_parquet('https://archive.org/download/psi_brazilian_city_audits/psi_results_latest.parquet');
+      `);
+
+      const result = await conn.query("SELECT * FROM v LIMIT 100;");
+      await conn.close();
+      await db.terminate();
+      return transformPsiData(result.toArray().map(Object.fromEntries));
+    } catch (error) {
+      console.error("Error fetching or parsing PSI data using HTTPFS:", error);
+      return transformPsiData([]);
     }
-    const rawData = await response.json();
-    return transformPsiData(rawData);
-  } catch (error) {
-    console.error("Error fetching or parsing PSI data:", error);
-    // Fallback to sample data or handle as needed
-    return transformPsiData([]); // Return empty transformed data on error
+  } else {
+    try {
+      const response = await fetch("data/psi-latest-viewable-results.json"); // Assuming this is the correct path
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.warn(
+            "data/psi-latest-viewable-results.json not found. Using sample data or displaying empty.",
+          );
+          // Fallback to sample data or handle as needed
+          return transformPsiData([]); // Return empty transformed data
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const rawData = await response.json();
+      return transformPsiData(rawData);
+    } catch (error) {
+      console.error("Error fetching or parsing PSI data:", error);
+      // Fallback to sample data or handle as needed
+      return transformPsiData([]); // Return empty transformed data on error
+    }
   }
 }
 
@@ -154,30 +187,25 @@ function getBadgeText(score) {
 
 // Render ranking list
 function renderRanking(data) {
-  const rankingList = document.getElementById("rankingList");
-  if (!rankingList) return;
-
-  if (!data || data.length === 0) {
-    rankingList.innerHTML =
-      '<p style="text-align: center; padding: 2rem;">Nenhum dado encontrado para os filtros selecionados.</p>';
-    return;
-  }
-
-  rankingList.innerHTML = data
-    .map(
-      (city) => `
-        <div class="ranking-item">
-            <div class="ranking-position">${city.rank}°</div>
-            <div class="ranking-city">
-                <div class="city-name"><a href="${city.url}" target="_blank" title="Visitar site: ${city.name}">${city.name}</a></div>
-                <div class="city-state">${city.state} (IBGE: ${city.ibge_code || "N/A"})</div>
-            </div>
-            <div class="ranking-score ${getScoreClass(city.score)}">${city.score.toFixed(1)}</div>
-            <div class="ranking-badge ${getBadgeClass(city.score)}">${getBadgeText(city.score)}</div>
-        </div>
-    `,
-    )
-    .join("");
+  const table = new Tabulator("#ranking-table", {
+    data: data,
+    layout: "fitColumns",
+    pagination: "local",
+    paginationSize: 50,
+    columns: [
+      { title: "Rank", field: "rank", width: 80 },
+      { title: "Cidade", field: "name", formatter: "link", formatterParams: { urlField: "url" } },
+      { title: "Estado", field: "state" },
+      { title: "Score", field: "score", hozAlign: "center", formatter: "progress", formatterParams: {
+          min: 0,
+          max: 100,
+          color: ["red", "orange", "green"],
+          legend: function(value){
+              return value.toFixed(1);
+          }
+      }},
+    ],
+  });
 }
 
 // Apply all filters and search term
@@ -271,6 +299,12 @@ async function initializeApp() {
   renderRanking(allMunicipalityData); // Initial render with all (transformed) data
   initStatsAnimation(allMunicipalityData); // Initialize stats with data
   setupFilters(); // Setup filter event listeners
+
+  const chartWorker = new Worker('js/chart-worker.js');
+  chartWorker.postMessage(allMunicipalityData);
+  chartWorker.onmessage = function(event) {
+    console.log(event.data);
+  };
 
   const searchInput = document.getElementById("citySearch");
   if (searchInput) {

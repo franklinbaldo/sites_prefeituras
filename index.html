@@ -3,6 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acessibilidade Municipal - Comparador de Sites de Prefeituras</title>
+    <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,9 +69,7 @@
                         <option value="small">Pequenas (<100k)</option>
                     </select>
                 </div>
-                <div class="ranking-list" id="rankingList">
-                    <!-- Rankings will be populated by JavaScript -->
-                </div>
+                <div id="ranking-table"></div>
             </div>
         </section>
 

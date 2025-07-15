@@ -1,0 +1,7 @@
+[project]
+name = "psi_auditor"
+version = "0.1.0"
+dependencies = [
+    "duckdb",
+    "internetarchive",
+]
