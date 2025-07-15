@@ -7,57 +7,32 @@ let currentFilters = {
 
 // Function to fetch PSI data
 async function fetchPsiData() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const useHttpfs = urlParams.get('httpfs') === 'true';
+  try {
+    const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm');
+    const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
+    const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
+    const worker = new Worker(bundle.mainWorker);
+    const logger = new duckdb.ConsoleLogger();
+    const db = new duckdb.AsyncDuckDB(logger, worker);
+    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+    await db.open({
+        path: ':memory:',
+    });
+    const conn = await db.connect();
 
-  if (useHttpfs) {
-    try {
-      const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm');
-      const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
-      const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
-      const worker = new Worker(bundle.mainWorker);
-      const logger = new duckdb.ConsoleLogger();
-      const db = new duckdb.AsyncDuckDB(logger, worker);
-      await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
-      await db.open({
-          path: ':memory:',
-      });
-      const conn = await db.connect();
+    await conn.run("INSTALL httpfs; LOAD httpfs;");
+    await conn.run(`
+      CREATE VIEW v AS
+      SELECT * FROM read_parquet('https://archive.org/download/psi_brazilian_city_audits/psi_results_latest.parquet');
+    `);
 
-      await conn.run("INSTALL httpfs; LOAD httpfs;");
-      await conn.run(`
-        CREATE VIEW v AS
-        SELECT * FROM read_parquet('https://archive.org/download/psi_brazilian_city_audits/psi_results_latest.parquet');
-      `);
-
-      const result = await conn.query("SELECT * FROM v LIMIT 100;");
-      await conn.close();
-      await db.terminate();
-      return transformPsiData(result.toArray().map(Object.fromEntries));
-    } catch (error) {
-      console.error("Error fetching or parsing PSI data using HTTPFS:", error);
-      return transformPsiData([]);
-    }
-  } else {
-    try {
-      const response = await fetch("data/psi-latest-viewable-results.json"); // Assuming this is the correct path
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.warn(
-            "data/psi-latest-viewable-results.json not found. Using sample data or displaying empty.",
-          );
-          // Fallback to sample data or handle as needed
-          return transformPsiData([]); // Return empty transformed data
-        }
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const rawData = await response.json();
-      return transformPsiData(rawData);
-    } catch (error) {
-      console.error("Error fetching or parsing PSI data:", error);
-      // Fallback to sample data or handle as needed
-      return transformPsiData([]); // Return empty transformed data on error
-    }
+    const result = await conn.query("SELECT * FROM v;");
+    await conn.close();
+    await db.terminate();
+    return transformPsiData(result.toArray().map(Object.fromEntries));
+  } catch (error) {
+    console.error("Error fetching or parsing PSI data using HTTPFS:", error);
+    return transformPsiData([]);
   }
 }
 

@@ -1,115 +1,34 @@
-site_name: Sites Prefeituras - Auditoria Python
-site_description: Auditoria automatizada de sites de prefeituras brasileiras usando Python
-site_author: Franklin Baldo
-site_url: https://franklinbaldo.github.io/sites-prefeituras
-
-repo_name: sites_prefeituras
-repo_url: https://github.com/franklinbaldo/sites_prefeituras
-edit_uri: edit/python-migration/docs/
-
+site_name: Auditoria de Acessibilidade de Prefeituras
+site_description: Análise de acessibilidade digital dos sites de prefeituras brasileiras.
 theme:
   name: material
   language: pt
   palette:
-    # Palette toggle for light mode
     - scheme: default
-      primary: blue
-      accent: blue
       toggle:
         icon: material/brightness-7
-        name: Mudar para modo escuro
-    # Palette toggle for dark mode
+        name: Switch to dark mode
     - scheme: slate
-      primary: blue
-      accent: blue
       toggle:
         icon: material/brightness-4
-        name: Mudar para modo claro
+        name: Switch to light mode
   features:
     - navigation.tabs
     - navigation.sections
-    - navigation.expand
+    - toc.integrate
     - navigation.top
-    - navigation.tracking
-    - search.highlight
-    - search.share
     - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
     - content.code.copy
-    - content.code.annotate
-    - content.action.edit
-    - content.action.view
-    - toc.follow
-
-plugins:
-  - search:
-      lang: pt
-  - mermaid2
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: timeago
-
-markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets:
-      check_paths: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - attr_list
-  - md_in_html
-  - tables
-  - toc:
-      permalink: true
-      title: Nesta página
-
 nav:
-  - Home: index.md
-  - 🚀 Início Rápido:
-    - Instalação: inicio/instalacao.md
-    - Primeiro Uso: inicio/primeiro-uso.md
-    - Configuração: inicio/configuracao.md
-  - 📊 Análise:
-    - Metodologia: analise/metodologia.md
-    - Métricas: analise/metricas.md
-    - Resultados: analise/resultados.md
-    - Relatórios: analise/relatorios.md
-  - 🔧 API:
-    - Referência: api/referencia.md
-    - Exemplos: api/exemplos.md
-    - Autenticação: api/autenticacao.md
-  - 💾 Dados:
-    - Coleta: dados/coleta.md
-    - Estrutura: dados/estrutura.md
-    - Armazenamento: dados/armazenamento.md
-    - Export: dados/export.md
-  - 🏗️ Arquitetura:
-    - Visão Geral: arquitetura/visao-geral.md
-    - Componentes: arquitetura/componentes.md
-    - Fluxo de Dados: arquitetura/fluxo-dados.md
-  - 👨‍💻 Desenvolvimento:
-    - Setup: desenvolvimento/setup.md
-    - Contribuindo: desenvolvimento/contribuindo.md
-    - Testes: desenvolvimento/testes.md
-    - Deploy: desenvolvimento/deploy.md
-
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/franklinbaldo
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/franklinbaldo
-  version:
-    provider: mike
+  - Início: index.md
+extra_css:
+  - css/style.css
+extra_javascript:
+  - js/script.js
+  - https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js
+plugins:
+  - search
+  - mermaid2

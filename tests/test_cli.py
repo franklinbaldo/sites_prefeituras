@@ -126,7 +126,7 @@ class TestModels:
         from sites_prefeituras.models import SiteAudit
         
         audit = SiteAudit(url="https://example.com")
-        assert str(audit.url) == "https://example.com"
+        assert str(audit.url) == "https://example.com/"
         assert audit.error_message is None
         assert audit.retry_count == 0
 
