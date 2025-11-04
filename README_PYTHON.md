@@ -68,10 +68,9 @@ graph TD
 - [x] Comando de limpeza de arquivos JS
 
 ### 🚧 Em Desenvolvimento
-- [ ] Interface web com FastAPI
 - [ ] Upload para Internet Archive
-- [ ] Dashboard de visualização
-- [ ] CI/CD GitHub Actions
+- [ ] Visualização de dados via MkDocs + DuckDB-wasm (leitura direta do IA via HTTP)
+- [ ] CI/CD GitHub Actions (migração completa para Python)
 - [ ] Containerização Docker
 
 ## 🔧 Comandos Disponíveis

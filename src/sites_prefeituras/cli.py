@@ -104,10 +104,12 @@ def serve(
 ) -> None:
     """Inicia servidor web para visualização dos dados."""
     console.print(f"🚀 Iniciando servidor em [bold]http://{host}:{port}[/bold]")
-    
-    # TODO: Implementar servidor web com FastAPI
-    console.print("⚠️ Servidor web ainda não implementado")
-    console.print("Use 'uv run mkdocs serve' para documentação")
+
+    # NOTE: Visualização será via MkDocs com DuckDB-wasm
+    # Os dados serão consultados diretamente do Internet Archive via HTTP
+    console.print("⚠️ Servidor de visualização ainda não implementado")
+    console.print("📚 Use 'uv run mkdocs serve' para visualizar a documentação")
+    console.print("🔮 Futura implementação: MkDocs + DuckDB-wasm + consultas HTTP ao IA")
 
 
 @app.command()
