@@ -41,13 +41,12 @@ sites_prefeituras/
 │       ├── cli.py           # Interface CLI
 │       ├── collector.py     # Coleta de dados
 │       ├── models.py        # Modelos Pydantic
-│       ├── storage.py       # Armazenamento DuckDB
-│       └── web.py           # Interface web
+│       └── storage.py       # Armazenamento DuckDB
 ├── tests/
 │   ├── test_cli.py         # Testes CLI
 │   ├── test_collector.py   # Testes coleta
 │   └── test_e2e.py         # Testes E2E
-├── docs/                   # Documentação MkDocs
+├── docs/                   # Documentação MkDocs (com visualização futura)
 ├── pyproject.toml         # Configuração Python
 └── mkdocs.yml            # Configuração docs
 ```

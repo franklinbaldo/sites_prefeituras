@@ -11,7 +11,7 @@ Este documento lista os arquivos JavaScript e Node.js que devem ser removidos du
 - `.nvmrc` - Versão do Node.js
 
 ### Arquivos de frontend estático
-- `index.html` - Interface web estática (será substituída por FastAPI)
+- `index.html` - Interface web estática (será substituída por MkDocs + DuckDB-wasm)
 - Qualquer arquivo `.js` na raiz do projeto
 
 ### Diretórios
@@ -77,7 +77,7 @@ rmdir collector/ 2>/dev/null || true
 | `npm install` | `uv sync` |
 | `node collector/collect-psi.js` | `uv run sites-prefeituras batch` |
 | `package.json` | `pyproject.toml` |
-| HTML estático | FastAPI (futuro) |
+| HTML estático | MkDocs + DuckDB-wasm (futuro) |
 
 ## ⚠️ Backup
 

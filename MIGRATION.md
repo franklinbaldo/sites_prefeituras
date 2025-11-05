@@ -85,7 +85,7 @@ uv run mkdocs serve
 - [ ] Implementar coletor async
 - [ ] Modelos Pydantic completos
 - [ ] Storage DuckDB otimizado
-- [ ] Interface web moderna
+- [ ] Visualização via MkDocs + DuckDB-wasm (HTTP para IA)
 - [ ] CI/CD atualizado
 - [ ] Deploy automatizado
 
@@ -93,7 +93,7 @@ uv run mkdocs serve
 
 1. **Implementar Core**: Coletor + Storage + Modelos
 2. **Testes Completos**: Cobertura E2E abrangente
-3. **Interface Web**: Dashboard moderno com FastAPI
+3. **Visualização de Dados**: Site MkDocs com DuckDB-wasm para consultas diretas no IA
 4. **CI/CD**: GitHub Actions para Python
 5. **Deploy**: Containerização e deploy automatizado
 
