@@ -142,58 +142,121 @@ jobs:
           cp collection.log data/psi_error_reports/collection_${TIMESTAMP}.log
           echo "Log arquivado em data/psi_error_reports/collection_${TIMESTAMP}.log"
 
-      - name: Export to JSON for web visualization
+      - name: Export data for web dashboard (static JSON)
         if: always()
         run: |
           if [ -f "$DATABASE_PATH" ]; then
-            # Gerar JSON com ultimos resultados para visualizacao web
-            uv run python -c "
-          from sites_prefeituras.storage import DuckDBStorage
-          import asyncio
-          import json
+            echo "Exportando dados para dashboard (JSON estatico)..."
 
-          async def export():
-              storage = DuckDBStorage('$DATABASE_PATH')
-              await storage.initialize()
+            # Usar CLI para exportar JSONs estaticos
+            uv run sites-prefeituras export-dashboard \
+              --db-path "$DATABASE_PATH" \
+              --output-dir "docs/data" \
+              || echo "Dashboard export failed, skipping..."
 
-              # Exportar ultimos 1000 resultados
-              results = storage.conn.execute('''
-                  SELECT url, timestamp,
-                         mobile_performance, mobile_accessibility, mobile_seo, mobile_best_practices,
-                         desktop_performance, desktop_accessibility, desktop_seo, desktop_best_practices,
-                         error_message
-                  FROM audit_summaries
-                  ORDER BY timestamp DESC
-                  LIMIT 1000
-              ''').fetchall()
+            # Listar arquivos gerados
+            if [ -d "docs/data" ]; then
+              echo "Arquivos gerados:"
+              ls -la docs/data/
+            fi
+          fi
 
-              data = []
-              for r in results:
-                  data.append({
-                      'url': r[0],
-                      'timestamp': str(r[1]),
-                      'mobile': {'performance': r[2], 'accessibility': r[3], 'seo': r[4], 'bestPractices': r[5]},
-                      'desktop': {'performance': r[6], 'accessibility': r[7], 'seo': r[8], 'bestPractices': r[9]},
-                      'error': r[10]
-                  })
+      - name: Update and export quarantine list
+        if: always()
+        run: |
+          if [ -f "$DATABASE_PATH" ]; then
+            echo "Atualizando lista de quarentena..."
 
-              with open('data/psi-latest-viewable-results.json', 'w') as f:
-                  json.dump(data, f, indent=2)
+            # Atualizar quarentena (sites com 3+ dias de falha)
+            uv run sites-prefeituras quarantine --update --min-days 3 --db-path "$DATABASE_PATH" || true
 
-              print(f'Exported {len(data)} results')
-              await storage.close()
+            # Exportar para JSON (para repositorio e Internet Archive)
+            QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
+            uv run sites-prefeituras quarantine --export-json "data/quarantine/quarantine-${QUARANTINE_DATE}.json" --db-path "$DATABASE_PATH" || true
+            uv run sites-prefeituras quarantine --export-json "data/quarantine/quarantine-latest.json" --db-path "$DATABASE_PATH" || true
+            uv run sites-prefeituras quarantine --export-csv "data/quarantine/quarantine-latest.csv" --db-path "$DATABASE_PATH" || true
 
-          asyncio.run(export())
-          " || echo "Export failed, skipping..."
+            # Resumo para o step summary
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## Quarentena" >> $GITHUB_STEP_SUMMARY
+            if [ -f "data/quarantine/quarantine-latest.json" ]; then
+              QUARANTINE_COUNT=$(jq '.sites | length' data/quarantine/quarantine-latest.json 2>/dev/null || echo "0")
+              echo "Sites em quarentena: ${QUARANTINE_COUNT}" >> $GITHUB_STEP_SUMMARY
+            fi
           fi
 
       - name: Upload to Internet Archive
         if: success() && env.IA_ACCESS_KEY != '' && env.IA_SECRET_KEY != ''
         continue-on-error: true
+        env:
+          IA_ITEM_IDENTIFIER: psi_brazilian_city_audits
         run: |
           if [ -f "$DATABASE_PATH" ]; then
             echo "Uploading to Internet Archive..."
+
+            # Upload dados principais (particionados)
             uv run python src/psi_auditor/upload_to_ia.py || echo "IA upload failed"
+
+            # Upload JSONs do dashboard
+            if [ -d "docs/data" ]; then
+              echo "Uploading dashboard JSON files to Internet Archive..."
+              UPLOAD_DATE=$(date -u +'%Y-%m-%d')
+
+              uv run python -c "
+          import os
+          import glob
+          from internetarchive import upload
+
+          # Encontrar todos os JSONs do dashboard
+          json_files = {}
+          for f in glob.glob('docs/data/*.json'):
+              name = os.path.basename(f)
+              json_files[name] = f
+
+          if json_files:
+              upload(
+                  identifier='$IA_ITEM_IDENTIFIER',
+                  files=json_files,
+                  metadata={
+                      'title': 'PSI Dashboard Data (${UPLOAD_DATE})',
+                      'description': 'Dados JSON estaticos para dashboard de auditoria de sites de prefeituras',
+                      'mediatype': 'data',
+                  },
+                  access_key=os.getenv('IA_ACCESS_KEY'),
+                  secret_key=os.getenv('IA_SECRET_KEY'),
+                  verbose=True
+              )
+              print(f'Dashboard JSON files uploaded: {list(json_files.keys())}')
+          " || echo "Dashboard JSON upload failed"
+            fi
+
+            # Upload quarentena diario
+            if [ -f "data/quarantine/quarantine-latest.json" ]; then
+              echo "Uploading quarantine list to Internet Archive..."
+              QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
+
+              uv run python -c "
+          import os
+          from internetarchive import upload
+
+          upload(
+              identifier='$IA_ITEM_IDENTIFIER',
+              files={
+                  'quarantine-${QUARANTINE_DATE}.json': 'data/quarantine/quarantine-${QUARANTINE_DATE}.json',
+                  'quarantine-latest.json': 'data/quarantine/quarantine-latest.json',
+              },
+              metadata={
+                  'title': 'PSI Quarantine List (${QUARANTINE_DATE})',
+                  'description': 'Sites com falhas persistentes que precisam investigacao',
+                  'mediatype': 'data',
+              },
+              access_key=os.getenv('IA_ACCESS_KEY'),
+              secret_key=os.getenv('IA_SECRET_KEY'),
+              verbose=True
+          )
+          print('Quarantine uploaded to Internet Archive')
+          " || echo "Quarantine IA upload failed"
+            fi
           fi
 
       - name: Commit and push results
@@ -202,8 +265,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Add all data files
+          # Add all data files and dashboard JSONs
           git add data/ || true
+          git add docs/data/ || true
 
           # Check if there are changes
           if git diff --staged --quiet; then
@@ -244,6 +308,7 @@ jobs:
           name: psi-results-${{ github.run_id }}
           path: |
             data/output/
-            data/psi-latest-viewable-results.json
+            data/quarantine/
+            docs/data/
             collection.log
           retention-days: 30

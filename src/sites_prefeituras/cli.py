@@ -240,7 +240,238 @@ def cleanup(
         except Exception as e:
             console.print(f"❌ Erro ao remover {file_path}: {e}")
     
-    console.print("🎉 Limpeza concluída! Projeto agora é 100% Python")
+    console.print("Limpeza concluida! Projeto agora e 100% Python")
+
+
+@app.command()
+def metrics(
+    db_path: str = typer.Option("./data/sites_prefeituras.duckdb", help="Caminho do banco"),
+    by_state: bool = typer.Option(False, "--by-state", help="Agrupar por estado"),
+    worst: int = typer.Option(0, "--worst", help="Mostrar N piores sites em performance"),
+    best: int = typer.Option(0, "--best", help="Mostrar N melhores sites em acessibilidade"),
+    export_json: str = typer.Option(None, "--export", help="Exportar metricas para arquivo JSON"),
+) -> None:
+    """Mostra metricas agregadas das auditorias."""
+
+    async def show_metrics():
+        storage = DuckDBStorage(db_path)
+        await storage.initialize()
+
+        if by_state:
+            # Metricas por estado
+            state_metrics = await storage.get_metrics_by_state()
+
+            if not state_metrics:
+                console.print("[yellow]Nenhum dado por estado encontrado[/yellow]")
+                return
+
+            table = Table(title="Metricas por Estado")
+            table.add_column("Estado", style="cyan")
+            table.add_column("Sites", style="green")
+            table.add_column("Perf. Media", style="yellow")
+            table.add_column("Acess. Media", style="blue")
+
+            for s in state_metrics[:20]:
+                perf = f"{s['avg_performance']*100:.0f}%" if s['avg_performance'] else "N/A"
+                acc = f"{s['avg_accessibility']*100:.0f}%" if s['avg_accessibility'] else "N/A"
+                table.add_row(s['state'] or "??", str(s['site_count']), perf, acc)
+
+            console.print(table)
+
+        elif worst > 0:
+            # Piores sites
+            sites = await storage.get_worst_performing_sites(limit=worst)
+
+            table = Table(title=f"Top {worst} Piores Sites (Performance)")
+            table.add_column("#", style="dim")
+            table.add_column("URL", style="red")
+            table.add_column("Mobile", style="yellow")
+            table.add_column("Desktop", style="blue")
+
+            for i, s in enumerate(sites, 1):
+                mobile = f"{s['mobile_performance']*100:.0f}%" if s['mobile_performance'] else "N/A"
+                desktop = f"{s['desktop_performance']*100:.0f}%" if s['desktop_performance'] else "N/A"
+                url = s['url'][:60] + "..." if len(s['url']) > 60 else s['url']
+                table.add_row(str(i), url, mobile, desktop)
+
+            console.print(table)
+
+        elif best > 0:
+            # Melhores sites em acessibilidade
+            sites = await storage.get_best_accessibility_sites(limit=best)
+
+            table = Table(title=f"Top {best} Melhores Sites (Acessibilidade)")
+            table.add_column("#", style="dim")
+            table.add_column("URL", style="green")
+            table.add_column("Mobile", style="yellow")
+            table.add_column("Desktop", style="blue")
+
+            for i, s in enumerate(sites, 1):
+                mobile = f"{s['mobile_accessibility']*100:.0f}%" if s['mobile_accessibility'] else "N/A"
+                desktop = f"{s['desktop_accessibility']*100:.0f}%" if s['desktop_accessibility'] else "N/A"
+                url = s['url'][:60] + "..." if len(s['url']) > 60 else s['url']
+                table.add_row(str(i), url, mobile, desktop)
+
+            console.print(table)
+
+        else:
+            # Metricas gerais
+            m = await storage.get_aggregated_metrics()
+
+            table = Table(title="Metricas Agregadas")
+            table.add_column("Metrica", style="cyan")
+            table.add_column("Valor", style="green")
+
+            table.add_row("Total de auditorias", str(m['total_audits']))
+            table.add_row("Taxa de sucesso", f"{m['success_rate']*100:.1f}%")
+            table.add_row("Taxa de erro", f"{m['error_rate']*100:.1f}%")
+            table.add_row("", "")
+            table.add_row("Performance Mobile (media)", f"{m['avg_mobile_performance']*100:.1f}%" if m['avg_mobile_performance'] else "N/A")
+            table.add_row("Performance Desktop (media)", f"{m['avg_desktop_performance']*100:.1f}%" if m['avg_desktop_performance'] else "N/A")
+            table.add_row("Acessibilidade Mobile (media)", f"{m['avg_mobile_accessibility']*100:.1f}%" if m['avg_mobile_accessibility'] else "N/A")
+            table.add_row("Acessibilidade Desktop (media)", f"{m['avg_desktop_accessibility']*100:.1f}%" if m['avg_desktop_accessibility'] else "N/A")
+
+            console.print(table)
+
+            if export_json:
+                await storage.export_aggregated_metrics_json(Path(export_json))
+                console.print(f"Metricas exportadas para {export_json}")
+
+        await storage.close()
+
+    asyncio.run(show_metrics())
+
+
+@app.command()
+def quarantine(
+    db_path: str = typer.Option("./data/sites_prefeituras.duckdb", help="Caminho do banco"),
+    update: bool = typer.Option(False, "--update", help="Atualizar lista de quarentena"),
+    min_days: int = typer.Option(3, "--min-days", help="Minimo de dias com falha para quarentena"),
+    status: str = typer.Option(None, "--status", help="Filtrar por status"),
+    set_status: str = typer.Option(None, "--set-status", help="Definir status de uma URL"),
+    url: str = typer.Option(None, "--url", help="URL para operacoes"),
+    remove: bool = typer.Option(False, "--remove", help="Remover URL da quarentena"),
+    export_json: str = typer.Option(None, "--export-json", help="Exportar para JSON"),
+    export_csv: str = typer.Option(None, "--export-csv", help="Exportar para CSV"),
+) -> None:
+    """Gerencia sites em quarentena (falhas persistentes)."""
+
+    async def manage_quarantine():
+        storage = DuckDBStorage(db_path)
+        await storage.initialize()
+
+        if export_json:
+            # Exportar para JSON
+            result = await storage.export_quarantine_json(Path(export_json))
+            console.print(f"[green]Quarentena exportada: {result['file']} ({result['count']} sites)[/green]")
+            await storage.close()
+            return
+
+        if export_csv:
+            # Exportar para CSV
+            result = await storage.export_quarantine_csv(Path(export_csv))
+            console.print(f"[green]Quarentena exportada: {result['file']} ({result['count']} sites)[/green]")
+            await storage.close()
+            return
+
+        if update:
+            # Atualizar quarentena
+            result = await storage.update_quarantine(min_consecutive_days=min_days)
+            console.print(f"[green]Quarentena atualizada:[/green]")
+            console.print(f"  Adicionados: {result['added']}")
+            console.print(f"  Atualizados: {result['updated']}")
+
+        elif set_status and url:
+            # Definir status
+            success = await storage.update_quarantine_status(url, set_status)
+            if success:
+                console.print(f"[green]Status atualizado: {url} -> {set_status}[/green]")
+            else:
+                console.print(f"[red]URL nao encontrada na quarentena[/red]")
+
+        elif remove and url:
+            # Remover da quarentena
+            success = await storage.remove_from_quarantine(url)
+            if success:
+                console.print(f"[green]Removido da quarentena: {url}[/green]")
+            else:
+                console.print(f"[red]URL nao encontrada na quarentena[/red]")
+
+        else:
+            # Listar quarentena
+            stats = await storage.get_quarantine_stats()
+            sites = await storage.get_quarantined_sites(status=status)
+
+            # Stats
+            stats_table = Table(title="Estatisticas da Quarentena")
+            stats_table.add_column("Status", style="cyan")
+            stats_table.add_column("Quantidade", style="green")
+
+            stats_table.add_row("Total", str(stats['total']))
+            stats_table.add_row("Em quarentena", str(stats['quarantined']))
+            stats_table.add_row("Investigando", str(stats['investigating']))
+            stats_table.add_row("Resolvidos", str(stats['resolved']))
+            stats_table.add_row("URL errada", str(stats['wrong_url']))
+            stats_table.add_row("", "")
+            stats_table.add_row("Media de falhas", str(stats['avg_failures']))
+            stats_table.add_row("Max falhas", str(stats['max_failures']))
+
+            console.print(stats_table)
+
+            if sites:
+                console.print("")
+                sites_table = Table(title=f"Sites em Quarentena ({len(sites)})")
+                sites_table.add_column("URL", style="red", max_width=50)
+                sites_table.add_column("Falhas", style="yellow")
+                sites_table.add_column("Ultima Falha", style="dim")
+                sites_table.add_column("Status", style="cyan")
+                sites_table.add_column("Erro", style="dim", max_width=30)
+
+                for s in sites[:30]:
+                    url_display = s['url'][:47] + "..." if len(s['url']) > 50 else s['url']
+                    error = (s['last_error'] or "")[:27] + "..." if s['last_error'] and len(s['last_error']) > 30 else (s['last_error'] or "")
+                    sites_table.add_row(
+                        url_display,
+                        str(s['consecutive_failures']),
+                        s['last_failure'][:10] if s['last_failure'] else "",
+                        s['status'],
+                        error
+                    )
+
+                console.print(sites_table)
+
+                if len(sites) > 30:
+                    console.print(f"[dim]... e mais {len(sites) - 30} sites[/dim]")
+
+        await storage.close()
+
+    asyncio.run(manage_quarantine())
+
+
+@app.command("export-dashboard")
+def export_dashboard(
+    db_path: str = typer.Option("./data/sites_prefeituras.duckdb", help="Caminho do banco"),
+    output_dir: str = typer.Option("./docs/data", help="Diretorio de saida"),
+) -> None:
+    """Exporta JSONs estaticos para o dashboard (substitui DuckDB WASM)."""
+
+    async def do_export():
+        storage = DuckDBStorage(db_path)
+        await storage.initialize()
+
+        output_path = Path(output_dir)
+        stats = await storage.export_dashboard_json(output_path)
+
+        console.print(f"[green]Dashboard exportado:[/green]")
+        console.print(f"  Diretorio: {output_dir}")
+        console.print(f"  Total de sites: {stats.get('total_sites', 0)}")
+        console.print(f"  Arquivos gerados:")
+        for f in stats.get('files', []):
+            console.print(f"    - {Path(f).name}")
+
+        await storage.close()
+
+    asyncio.run(do_export())
 
 
 def _display_audit_result(audit) -> None:

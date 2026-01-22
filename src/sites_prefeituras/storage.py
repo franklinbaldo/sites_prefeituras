@@ -86,7 +86,25 @@ class DuckDBStorage:
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)")
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)")
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)")
-        
+
+        # Tabela de quarentena (sites com falhas persistentes)
+        self.conn.execute("""
+            CREATE TABLE IF NOT EXISTS quarantine (
+                id INTEGER PRIMARY KEY,
+                url VARCHAR NOT NULL UNIQUE,
+                first_failure TIMESTAMP NOT NULL,
+                last_failure TIMESTAMP NOT NULL,
+                consecutive_failures INTEGER DEFAULT 1,
+                last_error_message VARCHAR,
+                status VARCHAR DEFAULT 'quarantined',
+                notes VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)")
+        self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)")
+
         logger.info("Database tables initialized")
     
     async def save_audit(self, audit: SiteAudit) -> int:
@@ -247,7 +265,59 @@ class DuckDBStorage:
             summaries_file = output_dir / "audit_summaries.parquet"
             summaries_df.to_parquet(summaries_file)
         
-        console.print(f"✅ Dados exportados para {output_dir}")
+        console.print(f"Dados exportados para {output_dir}")
+
+    async def export_for_dashboard(self, output_file: Path) -> dict:
+        """
+        Exporta dados no formato esperado pelo dashboard WASM.
+
+        Gera arquivo Parquet com schema compativel com o dashboard:
+        - url, timestamp, accessibility_score, performance_score, seo_score, best_practices_score
+        - Formato flat para consulta direta via DuckDB WASM
+
+        Args:
+            output_file: Caminho do arquivo Parquet de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # Query com schema compativel com o dashboard
+        df = self.conn.execute("""
+            SELECT
+                url,
+                timestamp,
+                mobile_accessibility as accessibility_score,
+                mobile_performance as performance_score,
+                mobile_seo as seo_score,
+                mobile_best_practices as best_practices_score,
+                desktop_accessibility as desktop_accessibility_score,
+                desktop_performance as desktop_performance_score,
+                desktop_seo as desktop_seo_score,
+                desktop_best_practices as desktop_best_practices_score,
+                mobile_fcp as fcp,
+                mobile_lcp as lcp,
+                mobile_cls as cls,
+                has_errors,
+                error_message
+            FROM audit_summaries
+            WHERE timestamp = (
+                SELECT MAX(timestamp) FROM audit_summaries s2 WHERE s2.url = audit_summaries.url
+            )
+            ORDER BY mobile_accessibility DESC NULLS LAST
+        """).df()
+
+        if df.empty:
+            logger.warning("No data to export for dashboard")
+            return {"file": str(output_file), "count": 0}
+
+        df.to_parquet(output_file, index=False)
+
+        logger.info(f"Dashboard Parquet exported to {output_file}: {len(df)} sites")
+        console.print(f"Dashboard exportado: {output_file} ({len(df)} sites)")
+
+        return {"file": str(output_file), "count": len(df)}
     
     async def export_to_json(self, output_dir: Path) -> None:
         """Exporta dados para JSON (para visualização web)."""
@@ -461,6 +531,428 @@ class DuckDBStorage:
             json.dump(metrics, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Aggregated metrics exported to {output_file}")
+
+    # ========================================================================
+    # Sistema de Quarentena
+    # ========================================================================
+
+    async def update_quarantine(self, min_consecutive_days: int = 3) -> dict:
+        """
+        Atualiza a lista de quarentena baseado em falhas consecutivas.
+
+        Sites que falharam por N dias consecutivos sao adicionados a quarentena.
+        Isso ajuda a identificar URLs que podem ter mudado ou estao incorretas.
+
+        Args:
+            min_consecutive_days: Minimo de dias com falha para entrar em quarentena
+
+        Returns:
+            Estatisticas da atualizacao
+        """
+        # Encontrar sites com falhas consecutivas nos ultimos N dias
+        results = self.conn.execute("""
+            WITH daily_failures AS (
+                SELECT
+                    url,
+                    DATE(timestamp) as failure_date,
+                    error_message,
+                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
+                FROM audits
+                WHERE error_message IS NOT NULL
+            ),
+            consecutive_failures AS (
+                SELECT
+                    url,
+                    MIN(failure_date) as first_failure,
+                    MAX(failure_date) as last_failure,
+                    COUNT(DISTINCT failure_date) as failure_days,
+                    MAX(CASE WHEN rn = 1 THEN error_message END) as last_error
+                FROM daily_failures
+                WHERE failure_date >= CURRENT_DATE - INTERVAL ? DAY
+                GROUP BY url
+                HAVING COUNT(DISTINCT failure_date) >= ?
+            )
+            SELECT url, first_failure, last_failure, failure_days, last_error
+            FROM consecutive_failures
+        """, [min_consecutive_days * 2, min_consecutive_days]).fetchall()
+
+        added = 0
+        updated = 0
+
+        for url, first_failure, last_failure, failure_days, last_error in results:
+            # Verificar se ja existe na quarentena
+            existing = self.conn.execute(
+                "SELECT id, consecutive_failures FROM quarantine WHERE url = ?",
+                [url]
+            ).fetchone()
+
+            if existing:
+                # Atualizar registro existente
+                self.conn.execute("""
+                    UPDATE quarantine
+                    SET last_failure = ?,
+                        consecutive_failures = ?,
+                        last_error_message = ?,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE url = ?
+                """, [last_failure, failure_days, last_error, url])
+                updated += 1
+            else:
+                # Adicionar novo registro
+                self.conn.execute("""
+                    INSERT INTO quarantine (url, first_failure, last_failure,
+                                           consecutive_failures, last_error_message)
+                    VALUES (?, ?, ?, ?, ?)
+                """, [url, first_failure, last_failure, failure_days, last_error])
+                added += 1
+
+        logger.info(f"Quarantine updated: {added} added, {updated} updated")
+        return {"added": added, "updated": updated, "total_checked": len(results)}
+
+    async def get_quarantined_sites(
+        self,
+        status: Optional[str] = None,
+        min_failures: int = 0
+    ) -> list[dict]:
+        """
+        Retorna sites em quarentena.
+
+        Args:
+            status: Filtrar por status (quarantined, investigating, resolved)
+            min_failures: Minimo de falhas consecutivas
+
+        Returns:
+            Lista de sites em quarentena
+        """
+        query = """
+            SELECT
+                url,
+                first_failure,
+                last_failure,
+                consecutive_failures,
+                last_error_message,
+                status,
+                notes,
+                created_at
+            FROM quarantine
+            WHERE consecutive_failures >= ?
+        """
+        params = [min_failures]
+
+        if status:
+            query += " AND status = ?"
+            params.append(status)
+
+        query += " ORDER BY consecutive_failures DESC, last_failure DESC"
+
+        results = self.conn.execute(query, params).fetchall()
+
+        return [
+            {
+                "url": row[0],
+                "first_failure": row[1].isoformat() if row[1] else None,
+                "last_failure": row[2].isoformat() if row[2] else None,
+                "consecutive_failures": row[3],
+                "last_error": row[4],
+                "status": row[5],
+                "notes": row[6],
+                "created_at": row[7].isoformat() if row[7] else None,
+            }
+            for row in results
+        ]
+
+    async def update_quarantine_status(
+        self,
+        url: str,
+        status: str,
+        notes: Optional[str] = None
+    ) -> bool:
+        """
+        Atualiza status de um site na quarentena.
+
+        Args:
+            url: URL do site
+            status: Novo status (quarantined, investigating, resolved, wrong_url)
+            notes: Notas opcionais
+
+        Returns:
+            True se atualizado, False se nao encontrado
+        """
+        valid_statuses = ["quarantined", "investigating", "resolved", "wrong_url"]
+        if status not in valid_statuses:
+            raise ValueError(f"Status invalido. Use: {valid_statuses}")
+
+        result = self.conn.execute("""
+            UPDATE quarantine
+            SET status = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE url = ?
+            RETURNING id
+        """, [status, notes, url]).fetchone()
+
+        if result:
+            logger.info(f"Quarantine status updated: {url} -> {status}")
+            return True
+        return False
+
+    async def remove_from_quarantine(self, url: str) -> bool:
+        """Remove um site da quarentena."""
+        result = self.conn.execute(
+            "DELETE FROM quarantine WHERE url = ? RETURNING id",
+            [url]
+        ).fetchone()
+
+        if result:
+            logger.info(f"Removed from quarantine: {url}")
+            return True
+        return False
+
+    async def get_quarantine_stats(self) -> dict:
+        """Retorna estatisticas da quarentena."""
+        result = self.conn.execute("""
+            SELECT
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE status = 'quarantined') as quarantined,
+                COUNT(*) FILTER (WHERE status = 'investigating') as investigating,
+                COUNT(*) FILTER (WHERE status = 'resolved') as resolved,
+                COUNT(*) FILTER (WHERE status = 'wrong_url') as wrong_url,
+                AVG(consecutive_failures) as avg_failures,
+                MAX(consecutive_failures) as max_failures
+            FROM quarantine
+        """).fetchone()
+
+        return {
+            "total": result[0] or 0,
+            "quarantined": result[1] or 0,
+            "investigating": result[2] or 0,
+            "resolved": result[3] or 0,
+            "wrong_url": result[4] or 0,
+            "avg_failures": round(result[5], 1) if result[5] else 0,
+            "max_failures": result[6] or 0,
+        }
+
+    async def get_urls_to_skip_quarantine(self) -> set[str]:
+        """Retorna URLs em quarentena que devem ser puladas na coleta."""
+        results = self.conn.execute("""
+            SELECT url FROM quarantine
+            WHERE status IN ('quarantined', 'wrong_url')
+        """).fetchall()
+
+        return {row[0] for row in results}
+
+    async def export_quarantine_json(self, output_file: Path) -> dict:
+        """
+        Exporta lista de quarentena para JSON.
+
+        Args:
+            output_file: Caminho do arquivo de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        sites = await self.get_quarantined_sites()
+        stats = await self.get_quarantine_stats()
+
+        data = {
+            "generated_at": datetime.utcnow().isoformat(),
+            "stats": stats,
+            "sites": sites,
+        }
+
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        logger.info(f"Quarantine exported to {output_file}: {len(sites)} sites")
+        return {"file": str(output_file), "count": len(sites)}
+
+    async def export_quarantine_csv(self, output_file: Path) -> dict:
+        """
+        Exporta lista de quarentena para CSV.
+
+        Args:
+            output_file: Caminho do arquivo de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        import csv
+
+        sites = await self.get_quarantined_sites()
+
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w', encoding='utf-8', newline='') as f:
+            if sites:
+                writer = csv.DictWriter(f, fieldnames=sites[0].keys())
+                writer.writeheader()
+                writer.writerows(sites)
+
+        logger.info(f"Quarantine CSV exported to {output_file}: {len(sites)} sites")
+        return {"file": str(output_file), "count": len(sites)}
+
+    # ========================================================================
+    # Exportacao para Dashboard (JSON estatico - substitui WASM)
+    # ========================================================================
+
+    async def export_dashboard_json(self, output_dir: Path) -> dict:
+        """
+        Exporta todos os JSONs necessarios para o dashboard.
+
+        Substitui o DuckDB WASM por arquivos JSON estaticos.
+        Gera:
+        - summary.json: Metricas agregadas
+        - ranking.json: Ranking completo de sites
+        - by-state.json: Agrupado por estado
+        - top50.json: Melhores 50 sites
+        - worst50.json: Piores 50 sites
+
+        Args:
+            output_dir: Diretorio de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        output_dir.mkdir(parents=True, exist_ok=True)
+        generated_at = datetime.utcnow().isoformat()
+        stats = {"generated_at": generated_at, "files": []}
+
+        # 1. Summary - Metricas agregadas
+        summary = await self.get_aggregated_metrics()
+        summary["generated_at"] = generated_at
+        summary_file = output_dir / "summary.json"
+        with open(summary_file, 'w', encoding='utf-8') as f:
+            json.dump(summary, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(summary_file))
+
+        # 2. Ranking completo (ultimas auditorias de cada site)
+        ranking_data = self.conn.execute("""
+            WITH latest AS (
+                SELECT
+                    url,
+                    timestamp,
+                    mobile_accessibility,
+                    mobile_performance,
+                    mobile_seo,
+                    mobile_best_practices,
+                    desktop_accessibility,
+                    desktop_performance,
+                    mobile_fcp,
+                    mobile_lcp,
+                    mobile_cls,
+                    has_errors,
+                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
+                FROM audit_summaries
+                WHERE NOT has_errors
+            )
+            SELECT
+                url,
+                timestamp,
+                mobile_accessibility as accessibility_score,
+                mobile_performance as performance_score,
+                mobile_seo as seo_score,
+                mobile_best_practices as best_practices_score,
+                desktop_accessibility,
+                desktop_performance,
+                mobile_fcp as fcp,
+                mobile_lcp as lcp,
+                mobile_cls as cls,
+                RANK() OVER (ORDER BY mobile_accessibility DESC NULLS LAST) as rank
+            FROM latest
+            WHERE rn = 1
+            ORDER BY mobile_accessibility DESC NULLS LAST
+        """).fetchall()
+
+        ranking = [
+            {
+                "url": row[0],
+                "name": self._extract_name_from_url(row[0]),
+                "state": self._extract_state_from_url(row[0]),
+                "timestamp": row[1].isoformat() if row[1] else None,
+                "score": round((row[2] or 0) * 100, 1),  # accessibility 0-100
+                "performance": round((row[3] or 0) * 100, 1),
+                "seo": round((row[4] or 0) * 100, 1),
+                "best_practices": round((row[5] or 0) * 100, 1),
+                "desktop_accessibility": round((row[6] or 0) * 100, 1) if row[6] else None,
+                "desktop_performance": round((row[7] or 0) * 100, 1) if row[7] else None,
+                "fcp": row[8],
+                "lcp": row[9],
+                "cls": row[10],
+                "rank": row[11],
+            }
+            for row in ranking_data
+        ]
+
+        ranking_file = output_dir / "ranking.json"
+        ranking_output = {
+            "generated_at": generated_at,
+            "total": len(ranking),
+            "sites": ranking,
+        }
+        with open(ranking_file, 'w', encoding='utf-8') as f:
+            json.dump(ranking_output, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(ranking_file))
+        stats["total_sites"] = len(ranking)
+
+        # 3. Top 50 e Worst 50
+        top50 = ranking[:50]
+        worst50 = sorted(ranking, key=lambda x: x["score"])[:50]
+
+        top50_file = output_dir / "top50.json"
+        with open(top50_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "sites": top50}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(top50_file))
+
+        worst50_file = output_dir / "worst50.json"
+        with open(worst50_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "sites": worst50}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(worst50_file))
+
+        # 4. Por estado
+        by_state = await self.get_metrics_by_state()
+        by_state_file = output_dir / "by-state.json"
+        with open(by_state_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "states": by_state}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(by_state_file))
+
+        # 5. Quarentena
+        quarantine = await self.get_quarantined_sites()
+        quarantine_stats = await self.get_quarantine_stats()
+        quarantine_file = output_dir / "quarantine.json"
+        with open(quarantine_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                "generated_at": generated_at,
+                "stats": quarantine_stats,
+                "sites": quarantine,
+            }, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(quarantine_file))
+
+        logger.info(f"Dashboard JSON exported to {output_dir}: {len(stats['files'])} files")
+        console.print(f"Dashboard JSON exportado: {output_dir} ({len(ranking)} sites)")
+
+        return stats
+
+    def _extract_name_from_url(self, url: str) -> str:
+        """Extrai nome amigavel de uma URL."""
+        try:
+            from urllib.parse import urlparse
+            parsed = urlparse(url)
+            hostname = parsed.hostname or url
+            # Remove www. e .gov.br
+            name = hostname.replace("www.", "")
+            # Remove sufixos comuns
+            for suffix in [".gov.br", ".org.br", ".com.br"]:
+                if name.endswith(suffix):
+                    name = name[:-len(suffix)]
+            return name
+        except Exception:
+            return url
+
+    def _extract_state_from_url(self, url: str) -> str:
+        """Extrai estado de uma URL .gov.br."""
+        import re
+        match = re.search(r'\.([a-z]{2})\.gov\.br', url.lower())
+        if match:
+            return match.group(1).upper()
+        return "N/A"
 
     async def close(self) -> None:
         """Fecha conexao com banco."""
