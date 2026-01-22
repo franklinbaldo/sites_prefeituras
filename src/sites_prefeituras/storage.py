@@ -687,6 +687,56 @@ class DuckDBStorage:
 
         return {row[0] for row in results}
 
+    async def export_quarantine_json(self, output_file: Path) -> dict:
+        """
+        Exporta lista de quarentena para JSON.
+
+        Args:
+            output_file: Caminho do arquivo de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        sites = await self.get_quarantined_sites()
+        stats = await self.get_quarantine_stats()
+
+        data = {
+            "generated_at": datetime.utcnow().isoformat(),
+            "stats": stats,
+            "sites": sites,
+        }
+
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        logger.info(f"Quarantine exported to {output_file}: {len(sites)} sites")
+        return {"file": str(output_file), "count": len(sites)}
+
+    async def export_quarantine_csv(self, output_file: Path) -> dict:
+        """
+        Exporta lista de quarentena para CSV.
+
+        Args:
+            output_file: Caminho do arquivo de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        import csv
+
+        sites = await self.get_quarantined_sites()
+
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, 'w', encoding='utf-8', newline='') as f:
+            if sites:
+                writer = csv.DictWriter(f, fieldnames=sites[0].keys())
+                writer.writeheader()
+                writer.writerows(sites)
+
+        logger.info(f"Quarantine CSV exported to {output_file}: {len(sites)} sites")
+        return {"file": str(output_file), "count": len(sites)}
+
     async def close(self) -> None:
         """Fecha conexao com banco."""
         if self.conn:

@@ -187,13 +187,70 @@ jobs:
           " || echo "Export failed, skipping..."
           fi
 
+      - name: Update and export quarantine list
+        if: always()
+        run: |
+          if [ -f "$DATABASE_PATH" ]; then
+            echo "Atualizando lista de quarentena..."
+
+            # Atualizar quarentena (sites com 3+ dias de falha)
+            uv run sites-prefeituras quarantine --update --min-days 3 --db-path "$DATABASE_PATH" || true
+
+            # Exportar para JSON (para repositorio e Internet Archive)
+            QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
+            uv run sites-prefeituras quarantine --export-json "data/quarantine/quarantine-${QUARANTINE_DATE}.json" --db-path "$DATABASE_PATH" || true
+            uv run sites-prefeituras quarantine --export-json "data/quarantine/quarantine-latest.json" --db-path "$DATABASE_PATH" || true
+            uv run sites-prefeituras quarantine --export-csv "data/quarantine/quarantine-latest.csv" --db-path "$DATABASE_PATH" || true
+
+            # Resumo para o step summary
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## Quarentena" >> $GITHUB_STEP_SUMMARY
+            if [ -f "data/quarantine/quarantine-latest.json" ]; then
+              QUARANTINE_COUNT=$(jq '.sites | length' data/quarantine/quarantine-latest.json 2>/dev/null || echo "0")
+              echo "Sites em quarentena: ${QUARANTINE_COUNT}" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
       - name: Upload to Internet Archive
         if: success() && env.IA_ACCESS_KEY != '' && env.IA_SECRET_KEY != ''
         continue-on-error: true
+        env:
+          IA_ITEM_IDENTIFIER: psi_brazilian_city_audits
         run: |
           if [ -f "$DATABASE_PATH" ]; then
             echo "Uploading to Internet Archive..."
+
+            # Upload dados principais
             uv run python src/psi_auditor/upload_to_ia.py || echo "IA upload failed"
+
+            # Upload quarentena separadamente
+            if [ -f "data/quarantine/quarantine-latest.json" ]; then
+              echo "Uploading quarantine list to Internet Archive..."
+              QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
+
+              uv run python -c "
+          import os
+          from datetime import datetime
+          from internetarchive import upload
+
+          upload(
+              identifier='$IA_ITEM_IDENTIFIER',
+              files={
+                  'quarantine-${QUARANTINE_DATE}.json': 'data/quarantine/quarantine-${QUARANTINE_DATE}.json',
+                  'quarantine-latest.json': 'data/quarantine/quarantine-latest.json',
+              },
+              metadata={
+                  'title': 'PSI Quarantine List (${QUARANTINE_DATE})',
+                  'description': 'Sites com falhas persistentes que precisam investigacao',
+                  'mediatype': 'data',
+              },
+              access_key=os.getenv('IA_ACCESS_KEY'),
+              secret_key=os.getenv('IA_SECRET_KEY'),
+              verbose=True
+          )
+          print('Quarantine uploaded to Internet Archive')
+          " || echo "Quarantine IA upload failed"
+            fi
           fi
 
       - name: Commit and push results
@@ -244,6 +301,7 @@ jobs:
           name: psi-results-${{ github.run_id }}
           path: |
             data/output/
+            data/quarantine/
             data/psi-latest-viewable-results.json
             collection.log
           retention-days: 30

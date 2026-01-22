@@ -351,12 +351,28 @@ def quarantine(
     set_status: str = typer.Option(None, "--set-status", help="Definir status de uma URL"),
     url: str = typer.Option(None, "--url", help="URL para operacoes"),
     remove: bool = typer.Option(False, "--remove", help="Remover URL da quarentena"),
+    export_json: str = typer.Option(None, "--export-json", help="Exportar para JSON"),
+    export_csv: str = typer.Option(None, "--export-csv", help="Exportar para CSV"),
 ) -> None:
     """Gerencia sites em quarentena (falhas persistentes)."""
 
     async def manage_quarantine():
         storage = DuckDBStorage(db_path)
         await storage.initialize()
+
+        if export_json:
+            # Exportar para JSON
+            result = await storage.export_quarantine_json(Path(export_json))
+            console.print(f"[green]Quarentena exportada: {result['file']} ({result['count']} sites)[/green]")
+            await storage.close()
+            return
+
+        if export_csv:
+            # Exportar para CSV
+            result = await storage.export_quarantine_csv(Path(export_csv))
+            console.print(f"[green]Quarentena exportada: {result['file']} ({result['count']} sites)[/green]")
+            await storage.close()
+            return
 
         if update:
             # Atualizar quarentena
