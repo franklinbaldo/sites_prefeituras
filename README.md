@@ -1,55 +1,190 @@
-# Auditoria de Sites de Prefeituras Brasileiras com PageSpeed Insights
+# Auditoria de Sites de Prefeituras Brasileiras
 
-## Visão Geral
+[![CI](https://github.com/franklinbaldo/sites_prefeituras/actions/workflows/ci.yml/badge.svg)](https://github.com/franklinbaldo/sites_prefeituras/actions/workflows/ci.yml)
+[![Coleta PSI](https://github.com/franklinbaldo/sites_prefeituras/actions/workflows/collect-psi.yml/badge.svg)](https://github.com/franklinbaldo/sites_prefeituras/actions/workflows/collect-psi.yml)
 
-Este projeto audita automaticamente os sites das prefeituras brasileiras usando a API do Google PageSpeed Insights (PSI). Ele coleta métricas de desempenho, acessibilidade, SEO e melhores práticas, e armazena os dados em formato Parquet no Internet Archive.
+Sistema automatizado de auditoria de sites de prefeituras brasileiras usando Google PageSpeed Insights (PSI). Coleta metricas de desempenho, acessibilidade, SEO e melhores praticas para os 5.570 municipios do Brasil.
 
 ## Arquitetura
 
-A arquitetura do projeto é dividida em três componentes principais:
+```
+CSV (5570 municipios)
+        |
+        v
+[CLI Python] --async--> [PageSpeed Insights API]
+        |
+        v
+[DuckDB] --> [Parquet] --> [Internet Archive]
+        |
+        v
+[MkDocs + DuckDB-wasm] --> Visualizacao Web
+```
 
-1.  **Coletor**: Um script Node.js (`collector/collect-psi.js`) responsável por coletar os dados do PageSpeed Insights.
-2.  **Processamento de Dados**: Scripts Python (`src/psi_auditor/`) para processar os dados, gerar arquivos Parquet particionados e fazer upload para o Internet Archive.
-3.  **Front-end**: Uma página HTML estática (`index.html`) com JavaScript para visualizar os dados diretamente do Internet Archive usando DuckDB-wasm e HTTPFS.
+### Componentes
 
-Para mais detalhes, consulte a [documentação completa](https://TODO-ADD-LINK-TO-MKDOCS-SITE).
+| Componente | Tecnologia | Descricao |
+|------------|------------|-----------|
+| Coletor | Python + httpx | Requisicoes async com rate limiting |
+| Storage | DuckDB | Banco de dados local otimizado para analytics |
+| CLI | Typer + Rich | Interface de linha de comando |
+| Docs | MkDocs Material | Documentacao e visualizacao |
+| CI/CD | GitHub Actions | Coleta diaria automatizada |
 
-## Como Funciona
+## Inicio Rapido
 
-O projeto usa uma combinação de um arquivo de dados, uma Ação do GitHub e scripts Node.js e Python para coletar e apresentar dados da API do PageSpeed Insights.
+### Pre-requisitos
 
-### Fonte de Dados
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/) (gerenciador de pacotes)
+- Chave da API [PageSpeed Insights](https://developers.google.com/speed/docs/insights/v5/get-started)
 
-A lista primária de sites a serem auditados é proveniente do arquivo `sites_das_prefeituras_brasileiras.csv`.
+### Instalacao
 
-### Fluxo de Trabalho da Ação do GitHub
+```bash
+# Clonar repositorio
+git clone https://github.com/franklinbaldo/sites_prefeituras.git
+cd sites_prefeituras
 
-Uma Ação do GitHub, definida em `.github/workflows/psi.yml`, automatiza o processo de coleta e arquivamento de dados. Este fluxo de trabalho:
-- Executa em um cronograma (diariamente às 3 AM UTC).
-- Pode ser acionado manualmente.
-- Executa testes para os componentes Python, Node.js e de documentação em paralelo.
-- Coleta dados do PSI e os salva em um banco de dados DuckDB.
-- Exporta os dados para o formato Parquet, particionado por data e estratégia.
-- Faz o upload dos dados para o Internet Archive.
-- Gera um arquivo JSON para visualização da web.
+# Instalar dependencias
+uv sync
 
-### Coleta de Dados
+# Configurar API key
+export PSI_KEY="sua_chave_aqui"
+```
 
-O script `collector/collect-psi.js` é o núcleo da coleta de dados. Ele:
-- Lê URLs de `sites_das_prefeituras_brasileiras.csv` usando streaming.
-- Busca métricas do PSI para estratégias móveis e de desktop.
-- Implementa novas tentativas com backoff exponencial.
-- Armazena todos os dados coletados em um banco de dados DuckDB.
+### Uso
 
-### Armazenamento e Arquivamento de Resultados
+```bash
+# Auditar um site
+uv run sites-prefeituras audit https://www.prefeitura.sp.gov.br
 
-- **Armazenamento Primário de Dados**: Os resultados da auditoria são armazenados em um banco de dados DuckDB e exportados para o formato Parquet particionado.
-- **Arquivamento**: Após cada execução bem-sucedida do script de coleta de dados, os dados Parquet são enviados para o Internet Archive.
+# Auditoria em lote
+uv run sites-prefeituras batch sites_das_prefeituras_brasileiras.csv \
+  --max-concurrent 10 \
+  --requests-per-second 1.0
 
-## Acessando e Analisando os Dados
+# Ver estatisticas
+uv run sites-prefeituras stats
 
-Os dados coletados são armazenados em formato Parquet no Internet Archive. A página `index.html` neste repositório apresenta uma visão dos resultados mais recentes, consultando os dados diretamente do Internet Archive.
+# Limpar arquivos legados (se existirem)
+uv run sites-prefeituras cleanup --remove-js --confirm
+```
 
-## Contribuições
+## GitHub Actions
 
-Contribuições são bem-vindas! Por favor, envie um pull request com suas alterações.
+O projeto possui 3 workflows automatizados:
+
+### Coleta PSI (`collect-psi.yml`)
+
+Executa diariamente as 03:00 UTC:
+- Coleta metricas de todos os sites
+- Salva em DuckDB com cache entre execucoes
+- Exporta para Parquet e JSON
+- Upload para Internet Archive
+
+**Execucao manual:** Actions > "Coleta PSI" > Run workflow
+
+### CI (`ci.yml`)
+
+Executa em PRs e pushes:
+- Lint com ruff
+- Type checking com mypy
+- Testes com pytest + coverage
+- Build da documentacao
+
+### Docs (`docs.yml`)
+
+Deploy automatico da documentacao para GitHub Pages.
+
+## Configuracao de Secrets
+
+Configure os seguintes secrets no GitHub (Settings > Secrets > Actions):
+
+| Secret | Obrigatorio | Descricao |
+|--------|-------------|-----------|
+| `PSI_KEY` | Sim | Google PageSpeed Insights API Key |
+| `IA_ACCESS_KEY` | Nao | Internet Archive access key |
+| `IA_SECRET_KEY` | Nao | Internet Archive secret key |
+
+### Obtendo a PSI API Key
+
+1. Acesse [Google Cloud Console](https://console.cloud.google.com/)
+2. Crie um projeto ou selecione existente
+3. Ative a "PageSpeed Insights API"
+4. Crie uma credencial (API Key)
+5. Configure no GitHub como secret `PSI_KEY`
+
+## Estrutura do Projeto
+
+```
+sites_prefeituras/
+├── src/sites_prefeituras/    # Codigo principal
+│   ├── cli.py                # Interface de linha de comando
+│   ├── collector.py          # Coletor async PSI
+│   ├── models.py             # Modelos Pydantic
+│   └── storage.py            # Camada DuckDB
+├── tests/                    # Testes pytest
+├── docs/                     # Documentacao MkDocs
+├── data/                     # Dados coletados
+│   ├── sites_prefeituras.duckdb
+│   └── output/               # Exports Parquet/JSON
+├── .github/workflows/        # GitHub Actions
+│   ├── ci.yml                # Testes e lint
+│   ├── collect-psi.yml       # Coleta diaria
+│   └── docs.yml              # Deploy docs
+└── sites_das_prefeituras_brasileiras.csv  # Lista de sites
+```
+
+## Desenvolvimento
+
+```bash
+# Instalar dependencias de dev
+uv sync
+
+# Rodar testes
+uv run pytest
+
+# Rodar testes com coverage
+uv run pytest --cov=sites_prefeituras
+
+# Lint
+uv run ruff check src/
+
+# Type check
+uv run mypy src/
+
+# Documentacao local
+uv run mkdocs serve
+```
+
+## Dados
+
+### Fonte
+
+Lista de 5.570 municipios brasileiros em `sites_das_prefeituras_brasileiras.csv`.
+
+### Metricas Coletadas
+
+Para cada site (mobile e desktop):
+- **Performance**: FCP, LCP, CLS, TBT, Speed Index
+- **Accessibility**: Score de acessibilidade
+- **SEO**: Score de otimizacao para buscadores
+- **Best Practices**: Score de boas praticas
+
+### Acesso aos Dados
+
+Os dados sao arquivados no [Internet Archive](https://archive.org/details/psi_brazilian_city_audits) em formato Parquet.
+
+## Contribuicoes
+
+Contribuicoes sao bem-vindas! Por favor:
+
+1. Fork o repositorio
+2. Crie uma branch (`git checkout -b feature/minha-feature`)
+3. Commit suas alteracoes (`git commit -m 'Add feature'`)
+4. Push para a branch (`git push origin feature/minha-feature`)
+5. Abra um Pull Request
+
+## Licenca
+
+Este projeto esta sob a licenca MIT.
