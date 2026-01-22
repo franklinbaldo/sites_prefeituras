@@ -198,22 +198,6 @@ class DuckDBStorage:
             summary.has_errors, summary.error_message,
         ])
     
-    async def get_latest_summaries(self, limit: int = 100) -> List[AuditSummary]:
-        """Obtém resumos mais recentes."""
-        results = self.conn.execute("""
-            SELECT * FROM audit_summaries
-            ORDER BY timestamp DESC
-            LIMIT ?
-        """, [limit]).fetchall()
-
-        # Converter para objetos Pydantic
-        summaries = []
-        for row in results:
-            # TODO: Implementar conversão completa
-            pass
-
-        return summaries
-
     async def get_recently_audited_urls(self, hours: int = 24) -> set[str]:
         """Retorna URLs auditadas nas ultimas N horas (para coleta incremental)."""
         results = self.conn.execute("""
