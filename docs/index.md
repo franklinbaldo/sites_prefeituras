@@ -31,20 +31,20 @@
                 <h2>Panorama Nacional</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number" data-count="5570">0</div>
-                        <div class="stat-label">Municípios</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-count="2847">0</div>
+                        <div class="stat-number" data-stat="total" data-count="0">0</div>
                         <div class="stat-label">Sites Analisados</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" data-count="34">0</div>
-                        <div class="stat-label">% Conformes WCAG</div>
+                        <div class="stat-number" data-stat="avg-accessibility" data-count="0">0</div>
+                        <div class="stat-label">Acessibilidade Media</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" data-count="7.2">0</div>
-                        <div class="stat-label">Nota Média</div>
+                        <div class="stat-number" data-stat="avg-performance" data-count="0">0</div>
+                        <div class="stat-label">Performance Media</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="lastUpdated">-</div>
+                        <div class="stat-label">Ultima Atualizacao</div>
                     </div>
                 </div>
             </div>
@@ -52,20 +52,15 @@
 
         <section class="ranking-section">
             <div class="container">
-                <h2>Ranking das Melhores Prefeituras</h2>
+                <h2>Ranking de Acessibilidade</h2>
                 <div class="ranking-controls">
                     <select id="stateFilter" class="filter-select">
                         <option value="">Todos os Estados</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="PR">Paraná</option>
                     </select>
                     <select id="populationFilter" class="filter-select">
                         <option value="">Todos os Tamanhos</option>
                         <option value="big">Grandes (>500k)</option>
-                        <option value="medium">Médias (100k-500k)</option>
+                        <option value="medium">Medias (100k-500k)</option>
                         <option value="small">Pequenas (<100k)</option>
                     </select>
                 </div>
@@ -79,23 +74,23 @@
                 <div class="methodology-grid">
                     <div class="methodology-card">
                         <div class="methodology-icon">🎯</div>
-                        <h3>WCAG 2.1</h3>
-                        <p>Análise baseada nas diretrizes internacionais de acessibilidade web</p>
+                        <h3>PageSpeed Insights</h3>
+                        <p>Analise automatizada usando a API do Google PageSpeed Insights</p>
                     </div>
                     <div class="methodology-card">
                         <div class="methodology-icon">🤖</div>
-                        <h3>Testes Automatizados</h3>
-                        <p>Ferramentas como axe-core e Lighthouse para análise técnica</p>
+                        <h3>Coleta Diaria</h3>
+                        <p>Dados atualizados automaticamente via GitHub Actions</p>
                     </div>
                     <div class="methodology-card">
-                        <div class="methodology-icon">👥</div>
-                        <h3>Avaliação Manual</h3>
-                        <p>Testes com usuários reais e especialistas em acessibilidade</p>
+                        <div class="methodology-icon">📊</div>
+                        <h3>Metricas WCAG</h3>
+                        <p>Scores de acessibilidade, performance, SEO e boas praticas</p>
                     </div>
                     <div class="methodology-card">
                         <div class="methodology-icon">📱</div>
-                        <h3>Responsividade</h3>
-                        <p>Compatibilidade com diferentes dispositivos e tecnologias assistivas</p>
+                        <h3>Mobile First</h3>
+                        <p>Foco em dispositivos moveis, onde a maioria acessa</p>
                     </div>
                 </div>
             </div>
@@ -104,10 +99,14 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Acessibilidade Municipal. Contribuindo para um Brasil digital mais inclusivo.</p>
+            <p>&copy; 2024 Acessibilidade Municipal. Dados coletados com PageSpeed Insights.</p>
+            <p>
+                <a href="https://github.com/franklinbaldo/sites_prefeituras">GitHub</a> |
+                <a href="https://archive.org/details/psi_brazilian_city_audits">Internet Archive</a>
+            </p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
