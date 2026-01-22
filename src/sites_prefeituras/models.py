@@ -130,4 +130,3 @@ class BatchAuditConfig(BaseModel):
     # Export
     export_parquet: bool = True
     export_json: bool = True
-    upload_to_ia: bool = False

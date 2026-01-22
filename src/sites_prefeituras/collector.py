@@ -200,7 +200,6 @@ class BatchProcessor:
 
                 audit_count = 0
                 error_count = 0
-                skipped_count = 0
 
                 async for audit in collector.audit_from_csv(
                     csv_file, self.config, progress, task, skip_urls=skip_urls
@@ -222,13 +221,10 @@ class BatchProcessor:
         # Exportar dados
         if self.config.export_parquet:
             await self._export_parquet(output_dir)
-            
+
         if self.config.export_json:
             await self._export_json(output_dir)
-            
-        if self.config.upload_to_ia:
-            await self._upload_to_internet_archive(output_dir)
-        
+
         console.print(f"🎉 Processamento concluído!")
         console.print(f"📊 Total processado: {audit_count}")
         console.print(f"❌ Erros: {error_count}")
@@ -242,12 +238,6 @@ class BatchProcessor:
         """Exporta dados para formato JSON."""
         console.print("📄 Exportando para JSON...")
         await self.storage.export_to_json(output_dir)
-        
-    async def _upload_to_internet_archive(self, output_dir: Path) -> None:
-        """Upload para Internet Archive."""
-        console.print("☁️ Fazendo upload para Internet Archive...")
-        # TODO: Implementar upload para IA
-        logger.info("Internet Archive upload not implemented yet")
 
 
 # ============================================================================
@@ -307,10 +297,3 @@ async def audit_single_site(url: str, api_key: str) -> SiteAudit:
     """Audita um unico site - funcao de conveniencia."""
     async with PageSpeedCollector(api_key=api_key) as collector:
         return await collector.audit_site(url)
-
-
-async def audit_batch(csv_file: str, api_key: str, **kwargs) -> None:
-    """Audita sites em lote - funcao de conveniencia."""
-    config = BatchAuditConfig(csv_file=csv_file, **kwargs)
-    processor = BatchProcessor(config, api_key)
-    await processor.process()
