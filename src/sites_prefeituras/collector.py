@@ -200,7 +200,6 @@ class BatchProcessor:
 
                 audit_count = 0
                 error_count = 0
-                skipped_count = 0
 
                 async for audit in collector.audit_from_csv(
                     csv_file, self.config, progress, task, skip_urls=skip_urls
@@ -298,10 +297,3 @@ async def audit_single_site(url: str, api_key: str) -> SiteAudit:
     """Audita um unico site - funcao de conveniencia."""
     async with PageSpeedCollector(api_key=api_key) as collector:
         return await collector.audit_site(url)
-
-
-async def audit_batch(csv_file: str, api_key: str, **kwargs) -> None:
-    """Audita sites em lote - funcao de conveniencia."""
-    config = BatchAuditConfig(csv_file=csv_file, **kwargs)
-    processor = BatchProcessor(config, api_key)
-    await processor.process()

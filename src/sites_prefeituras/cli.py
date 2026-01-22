@@ -11,7 +11,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.json import JSON
 
-from .collector import audit_single_site, audit_batch, BatchProcessor
+from .collector import audit_single_site, BatchProcessor
 from .models import BatchAuditConfig
 from .storage import DuckDBStorage
 

@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import List, Optional
 
 import duckdb
-import pandas as pd
 from rich.console import Console
 
 from .models import SiteAudit, AuditSummary
@@ -211,19 +210,6 @@ class DuckDBStorage:
         logger.info(f"Found {len(urls)} URLs audited in last {hours} hours")
         return urls
 
-    async def get_failed_urls(self, hours: int = 24) -> set[str]:
-        """Retorna URLs que falharam nas ultimas N horas (para retry)."""
-        results = self.conn.execute("""
-            SELECT DISTINCT url
-            FROM audits
-            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL ? HOUR
-              AND error_message IS NOT NULL
-        """, [hours]).fetchall()
-
-        urls = {row[0] for row in results}
-        logger.info(f"Found {len(urls)} failed URLs in last {hours} hours")
-        return urls
-    
     async def export_to_parquet(self, output_dir: Path) -> None:
         """Exporta dados para arquivos Parquet particionados."""
         output_dir.mkdir(exist_ok=True)
@@ -251,58 +237,6 @@ class DuckDBStorage:
         
         console.print(f"Dados exportados para {output_dir}")
 
-    async def export_for_dashboard(self, output_file: Path) -> dict:
-        """
-        Exporta dados no formato esperado pelo dashboard WASM.
-
-        Gera arquivo Parquet com schema compativel com o dashboard:
-        - url, timestamp, accessibility_score, performance_score, seo_score, best_practices_score
-        - Formato flat para consulta direta via DuckDB WASM
-
-        Args:
-            output_file: Caminho do arquivo Parquet de saida
-
-        Returns:
-            Estatisticas da exportacao
-        """
-        output_file.parent.mkdir(parents=True, exist_ok=True)
-
-        # Query com schema compativel com o dashboard
-        df = self.conn.execute("""
-            SELECT
-                url,
-                timestamp,
-                mobile_accessibility as accessibility_score,
-                mobile_performance as performance_score,
-                mobile_seo as seo_score,
-                mobile_best_practices as best_practices_score,
-                desktop_accessibility as desktop_accessibility_score,
-                desktop_performance as desktop_performance_score,
-                desktop_seo as desktop_seo_score,
-                desktop_best_practices as desktop_best_practices_score,
-                mobile_fcp as fcp,
-                mobile_lcp as lcp,
-                mobile_cls as cls,
-                has_errors,
-                error_message
-            FROM audit_summaries
-            WHERE timestamp = (
-                SELECT MAX(timestamp) FROM audit_summaries s2 WHERE s2.url = audit_summaries.url
-            )
-            ORDER BY mobile_accessibility DESC NULLS LAST
-        """).df()
-
-        if df.empty:
-            logger.warning("No data to export for dashboard")
-            return {"file": str(output_file), "count": 0}
-
-        df.to_parquet(output_file, index=False)
-
-        logger.info(f"Dashboard Parquet exported to {output_file}: {len(df)} sites")
-        console.print(f"Dashboard exportado: {output_file} ({len(df)} sites)")
-
-        return {"file": str(output_file), "count": len(df)}
-    
     async def export_to_json(self, output_dir: Path) -> None:
         """Exporta dados para JSON (para visualização web)."""
         output_dir.mkdir(exist_ok=True)
