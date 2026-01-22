@@ -169,7 +169,7 @@ class DuckDBStorage:
         
         return summary
     
-    def _extract_metric_value(self, audit_data) -> Optional[float]:
+    def _extract_metric_value(self, audit_data: object) -> Optional[float]:
         """Extrai valor numérico de uma métrica."""
         if audit_data and hasattr(audit_data, 'numericValue'):
             return audit_data.numericValue
