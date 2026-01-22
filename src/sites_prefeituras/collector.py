@@ -250,15 +250,67 @@ class BatchProcessor:
         logger.info("Internet Archive upload not implemented yet")
 
 
-# Função de conveniência para uso direto
+# ============================================================================
+# Funcoes de processamento paralelo
+# ============================================================================
+
+def chunked(iterable: List, size: int):
+    """Divide uma lista em chunks de tamanho especificado."""
+    for i in range(0, len(iterable), size):
+        yield iterable[i:i + size]
+
+
+async def process_urls_in_chunks(
+    collector: PageSpeedCollector,
+    urls: List[str],
+    chunk_size: int = 10,
+) -> List[SiteAudit]:
+    """
+    Processa URLs em chunks paralelos, respeitando rate limit.
+
+    O throttler e semaphore do collector controlam o rate limit real.
+    O chunk_size controla quantas coroutines sao criadas por vez.
+
+    Args:
+        collector: Instancia do PageSpeedCollector (ja com rate limit configurado)
+        urls: Lista de URLs para auditar
+        chunk_size: Tamanho do chunk (quantas URLs processar em paralelo)
+
+    Returns:
+        Lista de SiteAudit com resultados
+    """
+    all_results: List[SiteAudit] = []
+
+    for chunk in chunked(urls, chunk_size):
+        # Criar tasks para todas URLs do chunk
+        tasks = [collector.audit_site(url) for url in chunk]
+
+        # Processar chunk em paralelo (rate limit controlado pelo throttler)
+        chunk_results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Processar resultados
+        for url, result in zip(chunk, chunk_results):
+            if isinstance(result, Exception):
+                logger.error(f"Error processing {url}: {result}")
+                all_results.append(SiteAudit(url=url, error_message=str(result)))
+            else:
+                all_results.append(result)
+
+    return all_results
+
+
+# ============================================================================
+# Funcoes de conveniencia
+# ============================================================================
+
 async def audit_single_site(url: str, api_key: str) -> SiteAudit:
-    """Audita um único site - função de conveniência."""
+    """Audita um unico site - funcao de conveniencia."""
     async with PageSpeedCollector(api_key=api_key) as collector:
         return await collector.audit_site(url)
 
 
 async def audit_batch(csv_file: str, api_key: str, **kwargs) -> None:
-    """Audita sites em lote - função de conveniência."""
+    """Audita sites em lote - funcao de conveniencia."""
     config = BatchAuditConfig(csv_file=csv_file, **kwargs)
     processor = BatchProcessor(config, api_key)
     await processor.process()
