@@ -183,18 +183,44 @@ class DuckDBStorage:
     async def get_latest_summaries(self, limit: int = 100) -> List[AuditSummary]:
         """Obtém resumos mais recentes."""
         results = self.conn.execute("""
-            SELECT * FROM audit_summaries 
-            ORDER BY timestamp DESC 
+            SELECT * FROM audit_summaries
+            ORDER BY timestamp DESC
             LIMIT ?
         """, [limit]).fetchall()
-        
+
         # Converter para objetos Pydantic
         summaries = []
         for row in results:
             # TODO: Implementar conversão completa
             pass
-        
+
         return summaries
+
+    async def get_recently_audited_urls(self, hours: int = 24) -> set[str]:
+        """Retorna URLs auditadas nas ultimas N horas (para coleta incremental)."""
+        results = self.conn.execute("""
+            SELECT DISTINCT url
+            FROM audits
+            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL ? HOUR
+              AND error_message IS NULL
+        """, [hours]).fetchall()
+
+        urls = {row[0] for row in results}
+        logger.info(f"Found {len(urls)} URLs audited in last {hours} hours")
+        return urls
+
+    async def get_failed_urls(self, hours: int = 24) -> set[str]:
+        """Retorna URLs que falharam nas ultimas N horas (para retry)."""
+        results = self.conn.execute("""
+            SELECT DISTINCT url
+            FROM audits
+            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL ? HOUR
+              AND error_message IS NOT NULL
+        """, [hours]).fetchall()
+
+        urls = {row[0] for row in results}
+        logger.info(f"Found {len(urls)} failed URLs in last {hours} hours")
+        return urls
     
     async def export_to_parquet(self, output_dir: Path) -> None:
         """Exporta dados para arquivos Parquet particionados."""

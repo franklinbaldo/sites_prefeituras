@@ -116,16 +116,17 @@ class BatchAuditConfig(BaseModel):
     """Configuração para auditoria em lote."""
     csv_file: str
     output_dir: str = "./output"
-    max_concurrent: int = 5
-    requests_per_second: float = 1.0
+    max_concurrent: int = 10
+    requests_per_second: float = 3.5
     retry_attempts: int = 3
     retry_delay: float = 2.0
     strategies: List[str] = Field(default=["mobile", "desktop"])
-    
+
     # Filtros
     url_column: str = "url"
     skip_existing: bool = True
-    
+    skip_recent_hours: int = 24  # Pular sites auditados nas ultimas N horas (0 = desativado)
+
     # Export
     export_parquet: bool = True
     export_json: bool = True

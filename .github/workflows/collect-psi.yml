@@ -5,20 +5,20 @@ on:
     - cron: '0 3 * * *'  # Todo dia as 03:00 UTC
   workflow_dispatch:
     inputs:
-      max_sites:
-        description: 'Maximo de sites para coletar (0 = todos)'
-        required: false
-        default: '0'
-        type: string
       max_concurrent:
         description: 'Requisicoes simultaneas'
         required: false
         default: '10'
         type: string
       requests_per_second:
-        description: 'Requisicoes por segundo'
+        description: 'Requisicoes por segundo (max 4.0)'
         required: false
-        default: '1.0'
+        default: '3.5'
+        type: string
+      skip_recent_hours:
+        description: 'Pular sites auditados nas ultimas N horas (0=todos)'
+        required: false
+        default: '24'
         type: string
 
 env:
@@ -55,7 +55,7 @@ jobs:
     name: Coletar Dados PSI
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 360  # 6 horas max para processar ~5500 sites
+    timeout-minutes: 120  # 2 horas (coleta incremental e mais rapida)
 
     steps:
       - uses: actions/checkout@v4
@@ -91,21 +91,22 @@ jobs:
         continue-on-error: true
         run: |
           # Configurar parametros
-          MAX_SITES="${{ github.event.inputs.max_sites || '0' }}"
           MAX_CONCURRENT="${{ github.event.inputs.max_concurrent || '10' }}"
-          RPS="${{ github.event.inputs.requests_per_second || '1.0' }}"
+          RPS="${{ github.event.inputs.requests_per_second || '3.5' }}"
+          SKIP_RECENT="${{ github.event.inputs.skip_recent_hours || '24' }}"
 
-          echo "Iniciando coleta PSI..."
-          echo "  Max sites: ${MAX_SITES}"
+          echo "Iniciando coleta PSI (otimizada)..."
           echo "  Max concurrent: ${MAX_CONCURRENT}"
           echo "  Requests/second: ${RPS}"
+          echo "  Skip recent: ${SKIP_RECENT}h"
 
-          # Executar coleta via CLI Python
+          # Executar coleta via CLI Python com coleta incremental
           uv run sites-prefeituras batch \
             sites_das_prefeituras_brasileiras.csv \
             --output-dir "$OUTPUT_DIR" \
             --max-concurrent "$MAX_CONCURRENT" \
             --requests-per-second "$RPS" \
+            --skip-recent "$SKIP_RECENT" \
             --url-column "url" \
             --export-parquet \
             --export-json \

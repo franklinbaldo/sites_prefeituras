@@ -96,26 +96,36 @@ class PageSpeedCollector:
         return audit
     
     async def audit_from_csv(
-        self, 
-        csv_file: Path, 
+        self,
+        csv_file: Path,
         config: BatchAuditConfig,
         progress: Optional[Progress] = None,
         task_id: Optional[TaskID] = None,
+        skip_urls: Optional[set[str]] = None,
     ) -> AsyncGenerator[SiteAudit, None]:
         """Audita sites a partir de arquivo CSV."""
-        urls = await self._read_urls_from_csv(csv_file, config.url_column)
-        
+        all_urls = await self._read_urls_from_csv(csv_file, config.url_column)
+
+        # Filtrar URLs já auditadas (coleta incremental)
+        if skip_urls:
+            urls = [u for u in all_urls if u not in skip_urls]
+            skipped = len(all_urls) - len(urls)
+            if skipped > 0:
+                logger.info(f"Skipped {skipped} recently audited URLs")
+        else:
+            urls = all_urls
+
         if progress and task_id:
             progress.update(task_id, total=len(urls))
-        
-        for i, url in enumerate(urls):
+
+        for url in urls:
             try:
                 audit = await self.audit_site(url)
                 yield audit
-                
+
                 if progress and task_id:
                     progress.update(task_id, advance=1)
-                    
+
             except Exception as e:
                 logger.error(f"Failed to audit {url}: {e}")
                 yield SiteAudit(url=url, error_message=str(e))
@@ -148,52 +158,65 @@ class PageSpeedCollector:
 
 class BatchProcessor:
     """Processador para auditorias em lote."""
-    
+
     def __init__(self, config: BatchAuditConfig, api_key: str):
         self.config = config
         self.api_key = api_key
         self.storage = DuckDBStorage()
-        
+
     async def process(self) -> None:
         """Executa processamento em lote completo."""
         csv_file = Path(self.config.csv_file)
         output_dir = Path(self.config.output_dir)
         output_dir.mkdir(exist_ok=True)
-        
-        console.print(f"🚀 Iniciando auditoria em lote de [bold]{csv_file}[/bold]")
-        console.print(f"📁 Saída: [bold]{output_dir}[/bold]")
-        
+
+        console.print(f"[bold]Iniciando auditoria em lote de {csv_file}[/bold]")
+        console.print(f"Saida: [bold]{output_dir}[/bold]")
+
         # Inicializar storage
         await self.storage.initialize()
-        
+
+        # Coleta incremental: buscar URLs já auditadas recentemente
+        skip_urls: set[str] = set()
+        if self.config.skip_recent_hours > 0:
+            skip_urls = await self.storage.get_recently_audited_urls(
+                hours=self.config.skip_recent_hours
+            )
+            if skip_urls:
+                console.print(
+                    f"[yellow]Pulando {len(skip_urls)} sites auditados nas ultimas "
+                    f"{self.config.skip_recent_hours}h[/yellow]"
+                )
+
         # Progress bar
         with Progress() as progress:
             task = progress.add_task("Auditando sites...", total=None)
-            
+
             async with PageSpeedCollector(
                 api_key=self.api_key,
                 requests_per_second=self.config.requests_per_second,
                 max_concurrent=self.config.max_concurrent,
             ) as collector:
-                
+
                 audit_count = 0
                 error_count = 0
-                
+                skipped_count = 0
+
                 async for audit in collector.audit_from_csv(
-                    csv_file, self.config, progress, task
+                    csv_file, self.config, progress, task, skip_urls=skip_urls
                 ):
                     # Salvar no DuckDB
                     await self.storage.save_audit(audit)
-                    
+
                     audit_count += 1
                     if audit.error_message:
                         error_count += 1
-                    
+
                     # Log progresso
-                    if audit_count % 10 == 0:
+                    if audit_count % 50 == 0:
                         console.print(
-                            f"✅ Processados: {audit_count} | "
-                            f"❌ Erros: {error_count}"
+                            f"Processados: {audit_count} | "
+                            f"Erros: {error_count}"
                         )
         
         # Exportar dados
