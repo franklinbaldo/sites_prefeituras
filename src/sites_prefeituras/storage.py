@@ -288,10 +288,182 @@ class DuckDBStorage:
         with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(json_data, f, indent=2, ensure_ascii=False)
         
-        console.print(f"✅ JSON exportado para {json_file}")
-    
+        console.print(f"JSON exportado para {json_file}")
+
+    # ========================================================================
+    # Metricas agregadas
+    # ========================================================================
+
+    async def get_aggregated_metrics(self) -> dict:
+        """Retorna metricas agregadas de todas as auditorias."""
+        result = self.conn.execute("""
+            SELECT
+                COUNT(*) as total_audits,
+                COUNT(*) FILTER (WHERE NOT has_errors) as successful_audits,
+                COUNT(*) FILTER (WHERE has_errors) as failed_audits,
+                AVG(mobile_performance) as avg_mobile_performance,
+                AVG(desktop_performance) as avg_desktop_performance,
+                AVG(mobile_accessibility) as avg_mobile_accessibility,
+                AVG(desktop_accessibility) as avg_desktop_accessibility,
+                AVG(mobile_seo) as avg_mobile_seo,
+                AVG(desktop_seo) as avg_desktop_seo,
+                AVG(mobile_best_practices) as avg_mobile_best_practices,
+                AVG(desktop_best_practices) as avg_desktop_best_practices,
+                STDDEV(mobile_performance) as std_mobile_performance,
+                STDDEV(desktop_performance) as std_desktop_performance,
+                MIN(mobile_performance) as min_mobile_performance,
+                MAX(mobile_performance) as max_mobile_performance
+            FROM audit_summaries
+        """).fetchone()
+
+        total = result[0] or 0
+        successful = result[1] or 0
+
+        return {
+            "total_audits": total,
+            "successful_audits": successful,
+            "failed_audits": result[2] or 0,
+            "success_rate": successful / total if total > 0 else 0,
+            "error_rate": (result[2] or 0) / total if total > 0 else 0,
+            "avg_mobile_performance": result[3],
+            "avg_desktop_performance": result[4],
+            "avg_mobile_accessibility": result[5],
+            "avg_desktop_accessibility": result[6],
+            "avg_mobile_seo": result[7],
+            "avg_desktop_seo": result[8],
+            "avg_mobile_best_practices": result[9],
+            "avg_desktop_best_practices": result[10],
+            "std_mobile_performance": result[11],
+            "std_desktop_performance": result[12],
+            "min_mobile_performance": result[13],
+            "max_mobile_performance": result[14],
+        }
+
+    async def get_metrics_by_state(self) -> list[dict]:
+        """Retorna metricas agregadas por estado (extraido da URL)."""
+        # Extrai estado do dominio (ex: prefeitura.sp.gov.br -> SP)
+        results = self.conn.execute("""
+            WITH state_extract AS (
+                SELECT
+                    url,
+                    UPPER(REGEXP_EXTRACT(url, '\.([a-z]{2})\.gov\.br', 1)) as state,
+                    mobile_performance,
+                    desktop_performance,
+                    mobile_accessibility,
+                    desktop_accessibility
+                FROM audit_summaries
+                WHERE NOT has_errors
+            )
+            SELECT
+                state,
+                COUNT(*) as site_count,
+                AVG(mobile_performance) as avg_performance,
+                AVG(mobile_accessibility) as avg_accessibility
+            FROM state_extract
+            WHERE state IS NOT NULL AND state != ''
+            GROUP BY state
+            ORDER BY avg_performance DESC
+        """).fetchall()
+
+        return [
+            {
+                "state": row[0],
+                "site_count": row[1],
+                "avg_performance": row[2],
+                "avg_accessibility": row[3],
+            }
+            for row in results
+        ]
+
+    async def get_worst_performing_sites(self, limit: int = 10) -> list[dict]:
+        """Retorna os sites com pior performance."""
+        results = self.conn.execute("""
+            SELECT
+                url,
+                mobile_performance,
+                desktop_performance,
+                mobile_accessibility,
+                timestamp
+            FROM audit_summaries
+            WHERE NOT has_errors AND mobile_performance IS NOT NULL
+            ORDER BY mobile_performance ASC
+            LIMIT ?
+        """, [limit]).fetchall()
+
+        return [
+            {
+                "url": row[0],
+                "mobile_performance": row[1],
+                "desktop_performance": row[2],
+                "mobile_accessibility": row[3],
+                "timestamp": row[4].isoformat() if row[4] else None,
+            }
+            for row in results
+        ]
+
+    async def get_best_accessibility_sites(self, limit: int = 10) -> list[dict]:
+        """Retorna os sites com melhor acessibilidade."""
+        results = self.conn.execute("""
+            SELECT
+                url,
+                mobile_accessibility,
+                desktop_accessibility,
+                mobile_performance,
+                timestamp
+            FROM audit_summaries
+            WHERE NOT has_errors AND mobile_accessibility IS NOT NULL
+            ORDER BY mobile_accessibility DESC
+            LIMIT ?
+        """, [limit]).fetchall()
+
+        return [
+            {
+                "url": row[0],
+                "mobile_accessibility": row[1],
+                "desktop_accessibility": row[2],
+                "mobile_performance": row[3],
+                "timestamp": row[4].isoformat() if row[4] else None,
+            }
+            for row in results
+        ]
+
+    async def get_temporal_evolution(self, url: str) -> list[dict]:
+        """Retorna evolucao temporal de metricas para uma URL."""
+        results = self.conn.execute("""
+            SELECT
+                timestamp,
+                mobile_performance,
+                desktop_performance,
+                mobile_accessibility,
+                desktop_accessibility
+            FROM audit_summaries
+            WHERE url = ? AND NOT has_errors
+            ORDER BY timestamp ASC
+        """, [url]).fetchall()
+
+        return [
+            {
+                "timestamp": row[0].isoformat() if row[0] else None,
+                "mobile_performance": row[1],
+                "desktop_performance": row[2],
+                "mobile_accessibility": row[3],
+                "desktop_accessibility": row[4],
+            }
+            for row in results
+        ]
+
+    async def export_aggregated_metrics_json(self, output_file: Path) -> None:
+        """Exporta metricas agregadas para JSON."""
+        metrics = await self.get_aggregated_metrics()
+        metrics["generated_at"] = datetime.utcnow().isoformat()
+
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(metrics, f, indent=2, ensure_ascii=False)
+
+        logger.info(f"Aggregated metrics exported to {output_file}")
+
     async def close(self) -> None:
-        """Fecha conexão com banco."""
+        """Fecha conexao com banco."""
         if self.conn:
             self.conn.close()
             self.conn = None
