@@ -448,6 +448,32 @@ def quarantine(
     asyncio.run(manage_quarantine())
 
 
+@app.command("export-dashboard")
+def export_dashboard(
+    db_path: str = typer.Option("./data/sites_prefeituras.duckdb", help="Caminho do banco"),
+    output_dir: str = typer.Option("./docs/data", help="Diretorio de saida"),
+) -> None:
+    """Exporta JSONs estaticos para o dashboard (substitui DuckDB WASM)."""
+
+    async def do_export():
+        storage = DuckDBStorage(db_path)
+        await storage.initialize()
+
+        output_path = Path(output_dir)
+        stats = await storage.export_dashboard_json(output_path)
+
+        console.print(f"[green]Dashboard exportado:[/green]")
+        console.print(f"  Diretorio: {output_dir}")
+        console.print(f"  Total de sites: {stats.get('total_sites', 0)}")
+        console.print(f"  Arquivos gerados:")
+        for f in stats.get('files', []):
+            console.print(f"    - {Path(f).name}")
+
+        await storage.close()
+
+    asyncio.run(do_export())
+
+
 def _display_audit_result(audit) -> None:
     """Exibe resultado da auditoria no console."""
     table = Table(title=f"📊 Auditoria: {audit.url}")

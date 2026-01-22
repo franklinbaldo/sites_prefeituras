@@ -5,99 +5,37 @@ let currentFilters = {
   population: "",
 };
 
-// Function to fetch PSI data
+// Base URL for JSON data files
+const DATA_BASE_URL = "./data";
+
+// Function to fetch PSI data from static JSON
 async function fetchPsiData() {
   try {
-    const duckdb = await import('https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.28.0/+esm');
-    const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
-    const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
-    const worker = new Worker(bundle.mainWorker);
-    const logger = new duckdb.ConsoleLogger();
-    const db = new duckdb.AsyncDuckDB(logger, worker);
-    await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
-    await db.open({
-        path: ':memory:',
-    });
-    const conn = await db.connect();
-
-    await conn.run("INSTALL httpfs; LOAD httpfs;");
-    await conn.run(`
-      CREATE VIEW v AS
-      SELECT * FROM read_parquet('https://archive.org/download/psi_brazilian_city_audits/psi_results_latest.parquet');
-    `);
-
-    const result = await conn.query("SELECT * FROM v;");
-    await conn.close();
-    await db.terminate();
-    return transformPsiData(result.toArray().map(Object.fromEntries));
+    const response = await fetch(`${DATA_BASE_URL}/ranking.json`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(`Loaded ${data.total} sites from ranking.json`);
+    return data.sites || [];
   } catch (error) {
-    console.error("Error fetching or parsing PSI data using HTTPFS:", error);
-    return transformPsiData([]);
+    console.error("Error fetching PSI data:", error);
+    return [];
   }
 }
 
-// Function to transform PSI data to the format expected by the new site
-// Expected format: { name: string, state: string, population: string, score: number, rank: number, ibge_code?: string, url?: string }
-function transformPsiData(rawData) {
-  if (!Array.isArray(rawData)) {
-    console.error("Raw data is not an array:", rawData);
-    return [];
+// Function to fetch summary metrics
+async function fetchSummary() {
+  try {
+    const response = await fetch(`${DATA_BASE_URL}/summary.json`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching summary:", error);
+    return null;
   }
-  // Sort data by accessibility_score in descending order to assign rank
-  // Items with null/undefined scores or errors should be ranked lower or handled
-  const sortedData = rawData
-    .filter((item) => item && typeof item.accessibility_score === "number") // Ensure score is a number
-    .sort((a, b) => b.accessibility_score - a.accessibility_score);
-
-  return sortedData.map((item, index) => {
-    // Basic population category example (can be refined)
-    let populationCategory = "medium"; // Default
-    // This part is tricky as psi-results.json doesn't have population numbers.
-    // We might need another data source or make assumptions.
-    // For now, let's leave it as 'medium' or try to infer from name if possible (unreliable).
-    // Or, if the old data had a way to get population, that logic would be needed.
-    // Since 'population' is used for filtering, it's important.
-    // For now, we will omit population or set a default.
-    // Let's assume a 'nome_municipio' and 'uf' exist or can be derived.
-    // The psi-results.json has 'url' and 'ibge_code'
-    // We need to map 'url' to 'name' and possibly extract 'state' from 'ibge_code' or 'url' if possible
-    // This transformation is highly dependent on the actual content of psi-results.json
-
-    let name = item.url; // Default to URL if no better name is found
-    let state = "N/A"; // Default state
-
-    // Attempt to extract a more friendly name from the URL
-    try {
-      const urlObj = new URL(item.url);
-      name = urlObj.hostname.replace(/^www\./, ""); // Remove www.
-    } catch (e) {
-      // keep item.url as name
-    }
-
-    // If 'ibge_code' is available and we have a mapping, we could get city name and state
-    // For now, this is a placeholder.
-    // Example: if item.ibge_code starts with '35', it's SP. This is a simplification.
-    if (item.ibge_code) {
-      const ibgeStr = String(item.ibge_code);
-      // This is a very simplified mapping. A real app would need a proper IBGE code to state mapping.
-      if (ibgeStr.startsWith("35")) state = "SP";
-      else if (ibgeStr.startsWith("33")) state = "RJ";
-      else if (ibgeStr.startsWith("31")) state = "MG";
-      else if (ibgeStr.startsWith("41")) state = "PR";
-      else if (ibgeStr.startsWith("43")) state = "RS";
-      // ... and so on for other states
-    }
-
-    return {
-      name: name, // Placeholder, ideally from IBGE code or URL parsing
-      state: state, // Placeholder, ideally from IBGE code
-      population: populationCategory, // Needs a proper source or logic
-      score: parseFloat((item.accessibility_score * 100).toFixed(1)), // Assuming score is 0-1, convert to 0-100
-      rank: index + 1,
-      ibge_code: item.ibge_code, // Keep original IBGE code
-      url: item.url, // Keep original URL
-    };
-  });
 }
 
 // Animation for counting numbers
@@ -122,7 +60,7 @@ function animateCounter(element, target, duration = 2000) {
 }
 
 // Initialize stats animation when section is visible
-function initStatsAnimation() {
+function initStatsAnimation(summary) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -136,7 +74,20 @@ function initStatsAnimation() {
     });
   });
 
-  observer.observe(document.querySelector(".stats-section"));
+  const statsSection = document.querySelector(".stats-section");
+  if (statsSection) {
+    // Update stats from summary data
+    if (summary) {
+      const totalSitesEl = document.querySelector('[data-stat="total"]');
+      const avgAccessEl = document.querySelector('[data-stat="avg-accessibility"]');
+      const avgPerfEl = document.querySelector('[data-stat="avg-performance"]');
+
+      if (totalSitesEl) totalSitesEl.dataset.count = summary.total_audits || 0;
+      if (avgAccessEl) avgAccessEl.dataset.count = ((summary.avg_mobile_accessibility || 0) * 100).toFixed(1);
+      if (avgPerfEl) avgPerfEl.dataset.count = ((summary.avg_mobile_performance || 0) * 100).toFixed(1);
+    }
+    observer.observe(statsSection);
+  }
 }
 
 // Get score class for styling (scores are 0-100)
@@ -186,7 +137,7 @@ function renderRanking(data) {
 // Apply all filters and search term
 function applyAllFiltersAndSearch() {
   const searchInput = document.getElementById("citySearch");
-  const searchTerm = searchInput.value.toLowerCase().trim();
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
   let filteredData = allMunicipalityData;
 
@@ -210,22 +161,17 @@ function applyAllFiltersAndSearch() {
       (city) =>
         city.name.toLowerCase().includes(searchTerm) ||
         city.state.toLowerCase().includes(searchTerm) ||
-        (city.ibge_code && String(city.ibge_code).includes(searchTerm)),
+        (city.url && city.url.toLowerCase().includes(searchTerm)),
     );
   }
-
-  // Re-rank based on the filtered data for display purposes if needed, or keep original rank.
-  // For now, we keep the original rank from the full dataset.
-  // If re-ranking is desired:
-  // filteredData.sort((a, b) => b.score - a.score).forEach((item, index) => item.rank = index + 1);
 
   renderRanking(filteredData);
 
   // If search was initiated, scroll to results
-  if (
+  if (searchInput && (
     document.activeElement === searchInput ||
     document.activeElement === document.querySelector(".search-btn")
-  ) {
+  )) {
     const rankingSection = document.querySelector(".ranking-section");
     if (rankingSection) {
       rankingSection.scrollIntoView({ behavior: "smooth" });
@@ -253,59 +199,73 @@ function setupFilters() {
   }
 }
 
+// Populate state filter with available states
+function populateStateFilter(data) {
+  const stateFilter = document.getElementById("stateFilter");
+  if (!stateFilter) return;
+
+  const states = [...new Set(data.map(item => item.state).filter(s => s && s !== "N/A"))].sort();
+
+  states.forEach(state => {
+    const option = document.createElement("option");
+    option.value = state;
+    option.textContent = state;
+    stateFilter.appendChild(option);
+  });
+}
+
 // Search functionality (called by button click or Enter key)
 function searchCity() {
-  applyAllFiltersAndSearch(); // This now handles search term
+  applyAllFiltersAndSearch();
 
-  // Scroll to results - moved to applyAllFiltersAndSearch to trigger only on explicit search
-  document.querySelector(".ranking-section").scrollIntoView({
-    behavior: "smooth",
-  });
+  const rankingSection = document.querySelector(".ranking-section");
+  if (rankingSection) {
+    rankingSection.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 // Main initialization function
 async function initializeApp() {
-  allMunicipalityData = await fetchPsiData();
+  // Fetch data in parallel
+  const [psiData, summary] = await Promise.all([
+    fetchPsiData(),
+    fetchSummary(),
+  ]);
 
-  // Populate state filter dynamically if desired, or ensure options in HTML are sufficient
-  // For now, assumes HTML options are static or manually maintained.
-  // Example: populateStateFilter(allMunicipalityData);
+  allMunicipalityData = psiData;
 
-  renderRanking(allMunicipalityData); // Initial render with all (transformed) data
-  initStatsAnimation(allMunicipalityData); // Initialize stats with data
-  setupFilters(); // Setup filter event listeners
+  // Populate state filter dynamically
+  populateStateFilter(allMunicipalityData);
 
-  const chartWorker = new Worker('js/chart-worker.js');
-  chartWorker.postMessage(allMunicipalityData);
-  chartWorker.onmessage = function(event) {
-    console.log(event.data);
-  };
+  renderRanking(allMunicipalityData);
+  initStatsAnimation(summary);
+  setupFilters();
 
+  // Setup search functionality
   const searchInput = document.getElementById("citySearch");
   if (searchInput) {
     searchInput.addEventListener("keypress", function (e) {
       if (e.key === "Enter") {
-        searchCity(); // searchCity now calls applyAllFiltersAndSearch
+        searchCity();
       }
     });
   }
 
   const searchButton = document.querySelector(".search-btn");
   if (searchButton) {
-    // Ensure the searchCity function is globally available or correctly referenced
-    // If searchCity is defined within DOMContentLoaded, it might not be global.
-    // We've defined it globally, so this should be fine.
-    // searchButton.onclick = searchCity; // This is already in HTML, but good for dynamic buttons
+    searchButton.addEventListener("click", searchCity);
   }
 
   // Smooth scrolling for scroll indicator
-  document
-    .querySelector(".scroll-indicator")
-    .addEventListener("click", function () {
-      document.querySelector(".stats-section").scrollIntoView({
-        behavior: "smooth",
-      });
+  const scrollIndicator = document.querySelector(".scroll-indicator");
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener("click", function () {
+      const statsSection = document.querySelector(".stats-section");
+      if (statsSection) {
+        statsSection.scrollIntoView({ behavior: "smooth" });
+      }
     });
+  }
 
   // Interactivity for methodology cards
   const methodologyCards = document.querySelectorAll(".methodology-card");
@@ -320,6 +280,17 @@ async function initializeApp() {
       });
     });
   }
+
+  // Update last updated info
+  if (summary && summary.generated_at) {
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+    if (lastUpdatedEl) {
+      const date = new Date(summary.generated_at);
+      lastUpdatedEl.textContent = date.toLocaleString("pt-BR");
+    }
+  }
+
+  console.log("Dashboard initialized with", allMunicipalityData.length, "sites");
 }
 
 // Run initialization when DOM is ready

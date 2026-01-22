@@ -789,6 +789,171 @@ class DuckDBStorage:
         logger.info(f"Quarantine CSV exported to {output_file}: {len(sites)} sites")
         return {"file": str(output_file), "count": len(sites)}
 
+    # ========================================================================
+    # Exportacao para Dashboard (JSON estatico - substitui WASM)
+    # ========================================================================
+
+    async def export_dashboard_json(self, output_dir: Path) -> dict:
+        """
+        Exporta todos os JSONs necessarios para o dashboard.
+
+        Substitui o DuckDB WASM por arquivos JSON estaticos.
+        Gera:
+        - summary.json: Metricas agregadas
+        - ranking.json: Ranking completo de sites
+        - by-state.json: Agrupado por estado
+        - top50.json: Melhores 50 sites
+        - worst50.json: Piores 50 sites
+
+        Args:
+            output_dir: Diretorio de saida
+
+        Returns:
+            Estatisticas da exportacao
+        """
+        output_dir.mkdir(parents=True, exist_ok=True)
+        generated_at = datetime.utcnow().isoformat()
+        stats = {"generated_at": generated_at, "files": []}
+
+        # 1. Summary - Metricas agregadas
+        summary = await self.get_aggregated_metrics()
+        summary["generated_at"] = generated_at
+        summary_file = output_dir / "summary.json"
+        with open(summary_file, 'w', encoding='utf-8') as f:
+            json.dump(summary, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(summary_file))
+
+        # 2. Ranking completo (ultimas auditorias de cada site)
+        ranking_data = self.conn.execute("""
+            WITH latest AS (
+                SELECT
+                    url,
+                    timestamp,
+                    mobile_accessibility,
+                    mobile_performance,
+                    mobile_seo,
+                    mobile_best_practices,
+                    desktop_accessibility,
+                    desktop_performance,
+                    mobile_fcp,
+                    mobile_lcp,
+                    mobile_cls,
+                    has_errors,
+                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
+                FROM audit_summaries
+                WHERE NOT has_errors
+            )
+            SELECT
+                url,
+                timestamp,
+                mobile_accessibility as accessibility_score,
+                mobile_performance as performance_score,
+                mobile_seo as seo_score,
+                mobile_best_practices as best_practices_score,
+                desktop_accessibility,
+                desktop_performance,
+                mobile_fcp as fcp,
+                mobile_lcp as lcp,
+                mobile_cls as cls,
+                RANK() OVER (ORDER BY mobile_accessibility DESC NULLS LAST) as rank
+            FROM latest
+            WHERE rn = 1
+            ORDER BY mobile_accessibility DESC NULLS LAST
+        """).fetchall()
+
+        ranking = [
+            {
+                "url": row[0],
+                "name": self._extract_name_from_url(row[0]),
+                "state": self._extract_state_from_url(row[0]),
+                "timestamp": row[1].isoformat() if row[1] else None,
+                "score": round((row[2] or 0) * 100, 1),  # accessibility 0-100
+                "performance": round((row[3] or 0) * 100, 1),
+                "seo": round((row[4] or 0) * 100, 1),
+                "best_practices": round((row[5] or 0) * 100, 1),
+                "desktop_accessibility": round((row[6] or 0) * 100, 1) if row[6] else None,
+                "desktop_performance": round((row[7] or 0) * 100, 1) if row[7] else None,
+                "fcp": row[8],
+                "lcp": row[9],
+                "cls": row[10],
+                "rank": row[11],
+            }
+            for row in ranking_data
+        ]
+
+        ranking_file = output_dir / "ranking.json"
+        ranking_output = {
+            "generated_at": generated_at,
+            "total": len(ranking),
+            "sites": ranking,
+        }
+        with open(ranking_file, 'w', encoding='utf-8') as f:
+            json.dump(ranking_output, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(ranking_file))
+        stats["total_sites"] = len(ranking)
+
+        # 3. Top 50 e Worst 50
+        top50 = ranking[:50]
+        worst50 = sorted(ranking, key=lambda x: x["score"])[:50]
+
+        top50_file = output_dir / "top50.json"
+        with open(top50_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "sites": top50}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(top50_file))
+
+        worst50_file = output_dir / "worst50.json"
+        with open(worst50_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "sites": worst50}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(worst50_file))
+
+        # 4. Por estado
+        by_state = await self.get_metrics_by_state()
+        by_state_file = output_dir / "by-state.json"
+        with open(by_state_file, 'w', encoding='utf-8') as f:
+            json.dump({"generated_at": generated_at, "states": by_state}, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(by_state_file))
+
+        # 5. Quarentena
+        quarantine = await self.get_quarantined_sites()
+        quarantine_stats = await self.get_quarantine_stats()
+        quarantine_file = output_dir / "quarantine.json"
+        with open(quarantine_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                "generated_at": generated_at,
+                "stats": quarantine_stats,
+                "sites": quarantine,
+            }, f, indent=2, ensure_ascii=False)
+        stats["files"].append(str(quarantine_file))
+
+        logger.info(f"Dashboard JSON exported to {output_dir}: {len(stats['files'])} files")
+        console.print(f"Dashboard JSON exportado: {output_dir} ({len(ranking)} sites)")
+
+        return stats
+
+    def _extract_name_from_url(self, url: str) -> str:
+        """Extrai nome amigavel de uma URL."""
+        try:
+            from urllib.parse import urlparse
+            parsed = urlparse(url)
+            hostname = parsed.hostname or url
+            # Remove www. e .gov.br
+            name = hostname.replace("www.", "")
+            # Remove sufixos comuns
+            for suffix in [".gov.br", ".org.br", ".com.br"]:
+                if name.endswith(suffix):
+                    name = name[:-len(suffix)]
+            return name
+        except Exception:
+            return url
+
+    def _extract_state_from_url(self, url: str) -> str:
+        """Extrai estado de uma URL .gov.br."""
+        import re
+        match = re.search(r'\.([a-z]{2})\.gov\.br', url.lower())
+        if match:
+            return match.group(1).upper()
+        return "N/A"
+
     async def close(self) -> None:
         """Fecha conexao com banco."""
         if self.conn:
