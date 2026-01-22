@@ -86,7 +86,25 @@ class DuckDBStorage:
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)")
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)")
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)")
-        
+
+        # Tabela de quarentena (sites com falhas persistentes)
+        self.conn.execute("""
+            CREATE TABLE IF NOT EXISTS quarantine (
+                id INTEGER PRIMARY KEY,
+                url VARCHAR NOT NULL UNIQUE,
+                first_failure TIMESTAMP NOT NULL,
+                last_failure TIMESTAMP NOT NULL,
+                consecutive_failures INTEGER DEFAULT 1,
+                last_error_message VARCHAR,
+                status VARCHAR DEFAULT 'quarantined',
+                notes VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)")
+        self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)")
+
         logger.info("Database tables initialized")
     
     async def save_audit(self, audit: SiteAudit) -> int:
@@ -461,6 +479,213 @@ class DuckDBStorage:
             json.dump(metrics, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Aggregated metrics exported to {output_file}")
+
+    # ========================================================================
+    # Sistema de Quarentena
+    # ========================================================================
+
+    async def update_quarantine(self, min_consecutive_days: int = 3) -> dict:
+        """
+        Atualiza a lista de quarentena baseado em falhas consecutivas.
+
+        Sites que falharam por N dias consecutivos sao adicionados a quarentena.
+        Isso ajuda a identificar URLs que podem ter mudado ou estao incorretas.
+
+        Args:
+            min_consecutive_days: Minimo de dias com falha para entrar em quarentena
+
+        Returns:
+            Estatisticas da atualizacao
+        """
+        # Encontrar sites com falhas consecutivas nos ultimos N dias
+        results = self.conn.execute("""
+            WITH daily_failures AS (
+                SELECT
+                    url,
+                    DATE(timestamp) as failure_date,
+                    error_message,
+                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
+                FROM audits
+                WHERE error_message IS NOT NULL
+            ),
+            consecutive_failures AS (
+                SELECT
+                    url,
+                    MIN(failure_date) as first_failure,
+                    MAX(failure_date) as last_failure,
+                    COUNT(DISTINCT failure_date) as failure_days,
+                    MAX(CASE WHEN rn = 1 THEN error_message END) as last_error
+                FROM daily_failures
+                WHERE failure_date >= CURRENT_DATE - INTERVAL ? DAY
+                GROUP BY url
+                HAVING COUNT(DISTINCT failure_date) >= ?
+            )
+            SELECT url, first_failure, last_failure, failure_days, last_error
+            FROM consecutive_failures
+        """, [min_consecutive_days * 2, min_consecutive_days]).fetchall()
+
+        added = 0
+        updated = 0
+
+        for url, first_failure, last_failure, failure_days, last_error in results:
+            # Verificar se ja existe na quarentena
+            existing = self.conn.execute(
+                "SELECT id, consecutive_failures FROM quarantine WHERE url = ?",
+                [url]
+            ).fetchone()
+
+            if existing:
+                # Atualizar registro existente
+                self.conn.execute("""
+                    UPDATE quarantine
+                    SET last_failure = ?,
+                        consecutive_failures = ?,
+                        last_error_message = ?,
+                        updated_at = CURRENT_TIMESTAMP
+                    WHERE url = ?
+                """, [last_failure, failure_days, last_error, url])
+                updated += 1
+            else:
+                # Adicionar novo registro
+                self.conn.execute("""
+                    INSERT INTO quarantine (url, first_failure, last_failure,
+                                           consecutive_failures, last_error_message)
+                    VALUES (?, ?, ?, ?, ?)
+                """, [url, first_failure, last_failure, failure_days, last_error])
+                added += 1
+
+        logger.info(f"Quarantine updated: {added} added, {updated} updated")
+        return {"added": added, "updated": updated, "total_checked": len(results)}
+
+    async def get_quarantined_sites(
+        self,
+        status: Optional[str] = None,
+        min_failures: int = 0
+    ) -> list[dict]:
+        """
+        Retorna sites em quarentena.
+
+        Args:
+            status: Filtrar por status (quarantined, investigating, resolved)
+            min_failures: Minimo de falhas consecutivas
+
+        Returns:
+            Lista de sites em quarentena
+        """
+        query = """
+            SELECT
+                url,
+                first_failure,
+                last_failure,
+                consecutive_failures,
+                last_error_message,
+                status,
+                notes,
+                created_at
+            FROM quarantine
+            WHERE consecutive_failures >= ?
+        """
+        params = [min_failures]
+
+        if status:
+            query += " AND status = ?"
+            params.append(status)
+
+        query += " ORDER BY consecutive_failures DESC, last_failure DESC"
+
+        results = self.conn.execute(query, params).fetchall()
+
+        return [
+            {
+                "url": row[0],
+                "first_failure": row[1].isoformat() if row[1] else None,
+                "last_failure": row[2].isoformat() if row[2] else None,
+                "consecutive_failures": row[3],
+                "last_error": row[4],
+                "status": row[5],
+                "notes": row[6],
+                "created_at": row[7].isoformat() if row[7] else None,
+            }
+            for row in results
+        ]
+
+    async def update_quarantine_status(
+        self,
+        url: str,
+        status: str,
+        notes: Optional[str] = None
+    ) -> bool:
+        """
+        Atualiza status de um site na quarentena.
+
+        Args:
+            url: URL do site
+            status: Novo status (quarantined, investigating, resolved, wrong_url)
+            notes: Notas opcionais
+
+        Returns:
+            True se atualizado, False se nao encontrado
+        """
+        valid_statuses = ["quarantined", "investigating", "resolved", "wrong_url"]
+        if status not in valid_statuses:
+            raise ValueError(f"Status invalido. Use: {valid_statuses}")
+
+        result = self.conn.execute("""
+            UPDATE quarantine
+            SET status = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE url = ?
+            RETURNING id
+        """, [status, notes, url]).fetchone()
+
+        if result:
+            logger.info(f"Quarantine status updated: {url} -> {status}")
+            return True
+        return False
+
+    async def remove_from_quarantine(self, url: str) -> bool:
+        """Remove um site da quarentena."""
+        result = self.conn.execute(
+            "DELETE FROM quarantine WHERE url = ? RETURNING id",
+            [url]
+        ).fetchone()
+
+        if result:
+            logger.info(f"Removed from quarantine: {url}")
+            return True
+        return False
+
+    async def get_quarantine_stats(self) -> dict:
+        """Retorna estatisticas da quarentena."""
+        result = self.conn.execute("""
+            SELECT
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE status = 'quarantined') as quarantined,
+                COUNT(*) FILTER (WHERE status = 'investigating') as investigating,
+                COUNT(*) FILTER (WHERE status = 'resolved') as resolved,
+                COUNT(*) FILTER (WHERE status = 'wrong_url') as wrong_url,
+                AVG(consecutive_failures) as avg_failures,
+                MAX(consecutive_failures) as max_failures
+            FROM quarantine
+        """).fetchone()
+
+        return {
+            "total": result[0] or 0,
+            "quarantined": result[1] or 0,
+            "investigating": result[2] or 0,
+            "resolved": result[3] or 0,
+            "wrong_url": result[4] or 0,
+            "avg_failures": round(result[5], 1) if result[5] else 0,
+            "max_failures": result[6] or 0,
+        }
+
+    async def get_urls_to_skip_quarantine(self) -> set[str]:
+        """Retorna URLs em quarentena que devem ser puladas na coleta."""
+        results = self.conn.execute("""
+            SELECT url FROM quarantine
+            WHERE status IN ('quarantined', 'wrong_url')
+        """).fetchall()
+
+        return {row[0] for row in results}
 
     async def close(self) -> None:
         """Fecha conexao com banco."""
