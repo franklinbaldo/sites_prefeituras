@@ -66,34 +66,46 @@ def audit(
 @app.command()
 def batch(
     csv_file: str = typer.Argument(..., help="Arquivo CSV com URLs"),
-    output_dir: str = typer.Option("./output", help="Diretório de saída"),
-    max_concurrent: int = typer.Option(5, help="Máximo de requisições simultâneas"),
-    requests_per_second: float = typer.Option(1.0, help="Taxa de requisições por segundo"),
+    output_dir: str = typer.Option("./output", help="Diretorio de saida"),
+    max_concurrent: int = typer.Option(10, help="Maximo de requisicoes simultaneas"),
+    requests_per_second: float = typer.Option(3.5, help="Taxa de requisicoes por segundo (max 4.0)"),
     url_column: str = typer.Option("url", help="Nome da coluna com URLs"),
+    skip_recent_hours: int = typer.Option(24, "--skip-recent", help="Pular sites auditados nas ultimas N horas (0=desativado)"),
     export_parquet: bool = typer.Option(True, help="Exportar para Parquet"),
     export_json: bool = typer.Option(True, help="Exportar para JSON"),
 ) -> None:
     """Executa auditoria em lote a partir de arquivo CSV."""
     api_key = get_api_key()
-    
+
     if not Path(csv_file).exists():
-        console.print(f"❌ [red]Arquivo não encontrado: {csv_file}[/red]")
+        console.print(f"[red]Arquivo nao encontrado: {csv_file}[/red]")
         raise typer.Exit(1)
-    
+
+    # Validar rate limit
+    if requests_per_second > 4.0:
+        console.print("[yellow]Aviso: rate limit ajustado para 4.0 req/s (limite da API)[/yellow]")
+        requests_per_second = 4.0
+
     config = BatchAuditConfig(
         csv_file=csv_file,
         output_dir=output_dir,
         max_concurrent=max_concurrent,
         requests_per_second=requests_per_second,
         url_column=url_column,
+        skip_recent_hours=skip_recent_hours,
         export_parquet=export_parquet,
         export_json=export_json,
     )
-    
+
+    console.print(f"[bold]Configuracao:[/bold]")
+    console.print(f"  Rate limit: {requests_per_second} req/s")
+    console.print(f"  Concorrencia: {max_concurrent}")
+    console.print(f"  Coleta incremental: {skip_recent_hours}h" if skip_recent_hours > 0 else "  Coleta incremental: desativada")
+
     async def run_batch():
         processor = BatchProcessor(config, api_key)
         await processor.process()
-    
+
     asyncio.run(run_batch())
 
 
