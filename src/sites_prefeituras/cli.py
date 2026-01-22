@@ -25,9 +25,10 @@ console = Console()
 
 def get_api_key() -> str:
     """Obtém chave da API do PageSpeed Insights."""
-    api_key = os.getenv("PAGESPEED_API_KEY")
+    # Aceita ambos os nomes para compatibilidade com GitHub Actions
+    api_key = os.getenv("PAGESPEED_API_KEY") or os.getenv("PSI_KEY")
     if not api_key:
-        console.print("❌ [red]PAGESPEED_API_KEY não configurada![/red]")
+        console.print("[red]PAGESPEED_API_KEY ou PSI_KEY nao configurada![/red]")
         console.print("Configure com: [bold]export PAGESPEED_API_KEY='sua_chave'[/bold]")
         raise typer.Exit(1)
     return api_key
