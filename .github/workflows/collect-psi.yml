@@ -237,7 +237,7 @@ jobs:
           key: psi-duckdb-${{ github.run_id }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: psi-results-${{ github.run_id }}
