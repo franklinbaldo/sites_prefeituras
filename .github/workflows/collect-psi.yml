@@ -1,0 +1,248 @@
+name: Coleta PSI (PageSpeed Insights)
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Todo dia as 03:00 UTC
+  workflow_dispatch:
+    inputs:
+      max_sites:
+        description: 'Maximo de sites para coletar (0 = todos)'
+        required: false
+        default: '0'
+        type: string
+      max_concurrent:
+        description: 'Requisicoes simultaneas'
+        required: false
+        default: '10'
+        type: string
+      requests_per_second:
+        description: 'Requisicoes por segundo'
+        required: false
+        default: '1.0'
+        type: string
+
+env:
+  PAGESPEED_API_KEY: ${{ secrets.PSI_KEY }}
+  IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+  IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
+  DATABASE_PATH: data/sites_prefeituras.duckdb
+  OUTPUT_DIR: data/output
+
+jobs:
+  validate:
+    name: Validar Configuracao
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PSI API Key
+        run: |
+          if [ -z "${{ secrets.PSI_KEY }}" ]; then
+            echo "::error::PSI_KEY secret nao configurado!"
+            echo "Configure o secret PSI_KEY com sua Google PageSpeed Insights API key"
+            exit 1
+          fi
+          echo "PSI_KEY configurado corretamente"
+
+      - name: Check Internet Archive Keys (opcional)
+        run: |
+          if [ -z "${{ secrets.IA_ACCESS_KEY }}" ] || [ -z "${{ secrets.IA_SECRET_KEY }}" ]; then
+            echo "::warning::IA_ACCESS_KEY ou IA_SECRET_KEY nao configurados"
+            echo "Upload para Internet Archive sera ignorado"
+          else
+            echo "Credenciais do Internet Archive configuradas"
+          fi
+
+  collect:
+    name: Coletar Dados PSI
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # 6 horas max para processar ~5500 sites
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necessario para commits
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Create output directories
+        run: mkdir -p data/output data/psi_error_reports
+
+      - name: Restore previous database (if exists)
+        uses: actions/cache@v4
+        with:
+          path: data/sites_prefeituras.duckdb
+          key: psi-duckdb-${{ github.run_id }}
+          restore-keys: |
+            psi-duckdb-
+
+      - name: Run PSI Collection
+        id: collect
+        continue-on-error: true
+        run: |
+          # Configurar parametros
+          MAX_SITES="${{ github.event.inputs.max_sites || '0' }}"
+          MAX_CONCURRENT="${{ github.event.inputs.max_concurrent || '10' }}"
+          RPS="${{ github.event.inputs.requests_per_second || '1.0' }}"
+
+          echo "Iniciando coleta PSI..."
+          echo "  Max sites: ${MAX_SITES}"
+          echo "  Max concurrent: ${MAX_CONCURRENT}"
+          echo "  Requests/second: ${RPS}"
+
+          # Executar coleta via CLI Python
+          uv run sites-prefeituras batch \
+            sites_das_prefeituras_brasileiras.csv \
+            --output-dir "$OUTPUT_DIR" \
+            --max-concurrent "$MAX_CONCURRENT" \
+            --requests-per-second "$RPS" \
+            --url-column "url" \
+            --export-parquet \
+            --export-json \
+            2>&1 | tee collection.log
+
+          # Verificar se houve erros
+          if grep -q "ERROR\|Exception\|Failed" collection.log; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate statistics
+        if: always()
+        run: |
+          echo "## Estatisticas da Coleta" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f "$DATABASE_PATH" ]; then
+            uv run sites-prefeituras stats --db-path "$DATABASE_PATH" || true
+
+            # Adicionar ao summary
+            echo "Database: $DATABASE_PATH" >> $GITHUB_STEP_SUMMARY
+            echo "Size: $(du -h $DATABASE_PATH | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Database nao encontrado" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Archive error logs
+        if: steps.collect.outputs.has_errors == 'true'
+        run: |
+          TIMESTAMP=$(date -u +'%Y%m%d_%H%M%S')
+          cp collection.log data/psi_error_reports/collection_${TIMESTAMP}.log
+          echo "Log arquivado em data/psi_error_reports/collection_${TIMESTAMP}.log"
+
+      - name: Export to JSON for web visualization
+        if: always()
+        run: |
+          if [ -f "$DATABASE_PATH" ]; then
+            # Gerar JSON com ultimos resultados para visualizacao web
+            uv run python -c "
+          from sites_prefeituras.storage import DuckDBStorage
+          import asyncio
+          import json
+
+          async def export():
+              storage = DuckDBStorage('$DATABASE_PATH')
+              await storage.initialize()
+
+              # Exportar ultimos 1000 resultados
+              results = storage.conn.execute('''
+                  SELECT url, timestamp,
+                         mobile_performance, mobile_accessibility, mobile_seo, mobile_best_practices,
+                         desktop_performance, desktop_accessibility, desktop_seo, desktop_best_practices,
+                         error_message
+                  FROM audit_summaries
+                  ORDER BY timestamp DESC
+                  LIMIT 1000
+              ''').fetchall()
+
+              data = []
+              for r in results:
+                  data.append({
+                      'url': r[0],
+                      'timestamp': str(r[1]),
+                      'mobile': {'performance': r[2], 'accessibility': r[3], 'seo': r[4], 'bestPractices': r[5]},
+                      'desktop': {'performance': r[6], 'accessibility': r[7], 'seo': r[8], 'bestPractices': r[9]},
+                      'error': r[10]
+                  })
+
+              with open('data/psi-latest-viewable-results.json', 'w') as f:
+                  json.dump(data, f, indent=2)
+
+              print(f'Exported {len(data)} results')
+              await storage.close()
+
+          asyncio.run(export())
+          " || echo "Export failed, skipping..."
+          fi
+
+      - name: Upload to Internet Archive
+        if: success() && env.IA_ACCESS_KEY != '' && env.IA_SECRET_KEY != ''
+        continue-on-error: true
+        run: |
+          if [ -f "$DATABASE_PATH" ]; then
+            echo "Uploading to Internet Archive..."
+            uv run python src/psi_auditor/upload_to_ia.py || echo "IA upload failed"
+          fi
+
+      - name: Commit and push results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add all data files
+          git add data/ || true
+
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "Nenhuma alteracao para commitar"
+            exit 0
+          fi
+
+          # Create commit message
+          TIMESTAMP=$(date -u +'%Y-%m-%d %H:%M UTC')
+          if [ "${{ steps.collect.outputs.has_errors }}" == "true" ]; then
+            COMMIT_MSG="chore(psi): coleta com erros - $TIMESTAMP"
+          else
+            COMMIT_MSG="chore(psi): coleta bem-sucedida - $TIMESTAMP"
+          fi
+
+          git commit -m "$COMMIT_MSG" -m "Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Push with retry
+          for i in 1 2 3 4; do
+            git push && break
+            echo "Push falhou, tentativa $i. Aguardando..."
+            sleep $((2 ** i))
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Save database cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: data/sites_prefeituras.duckdb
+          key: psi-duckdb-${{ github.run_id }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: psi-results-${{ github.run_id }}
+          path: |
+            data/output/
+            data/psi-latest-viewable-results.json
+            collection.log
+          retention-days: 30
