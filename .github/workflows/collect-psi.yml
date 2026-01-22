@@ -142,13 +142,15 @@ jobs:
           cp collection.log data/psi_error_reports/collection_${TIMESTAMP}.log
           echo "Log arquivado em data/psi_error_reports/collection_${TIMESTAMP}.log"
 
-      - name: Export to JSON for web visualization
+      - name: Export data for web and dashboard
         if: always()
         run: |
           if [ -f "$DATABASE_PATH" ]; then
-            # Gerar JSON com ultimos resultados para visualizacao web
+            echo "Exportando dados para visualizacao..."
+
             uv run python -c "
           from sites_prefeituras.storage import DuckDBStorage
+          from pathlib import Path
           import asyncio
           import json
 
@@ -156,7 +158,7 @@ jobs:
               storage = DuckDBStorage('$DATABASE_PATH')
               await storage.initialize()
 
-              # Exportar ultimos 1000 resultados
+              # 1. Exportar JSON para visualizacao web
               results = storage.conn.execute('''
                   SELECT url, timestamp,
                          mobile_performance, mobile_accessibility, mobile_seo, mobile_best_practices,
@@ -179,8 +181,12 @@ jobs:
 
               with open('data/psi-latest-viewable-results.json', 'w') as f:
                   json.dump(data, f, indent=2)
+              print(f'JSON exported: {len(data)} results')
 
-              print(f'Exported {len(data)} results')
+              # 2. Exportar Parquet para dashboard WASM
+              result = await storage.export_for_dashboard(Path('data/psi_results_latest.parquet'))
+              print(f'Parquet exported: {result[\"count\"]} sites')
+
               await storage.close()
 
           asyncio.run(export())
@@ -223,14 +229,39 @@ jobs:
             # Upload dados principais
             uv run python src/psi_auditor/upload_to_ia.py || echo "IA upload failed"
 
-            # Upload quarentena separadamente
+            # Upload Parquet para dashboard WASM
+            if [ -f "data/psi_results_latest.parquet" ]; then
+              echo "Uploading dashboard Parquet to Internet Archive..."
+
+              uv run python -c "
+          import os
+          from internetarchive import upload
+
+          upload(
+              identifier='$IA_ITEM_IDENTIFIER',
+              files={
+                  'psi_results_latest.parquet': 'data/psi_results_latest.parquet',
+              },
+              metadata={
+                  'title': 'PSI Results Latest (Parquet)',
+                  'description': 'Dados mais recentes para dashboard DuckDB WASM',
+                  'mediatype': 'data',
+              },
+              access_key=os.getenv('IA_ACCESS_KEY'),
+              secret_key=os.getenv('IA_SECRET_KEY'),
+              verbose=True
+          )
+          print('Dashboard Parquet uploaded to Internet Archive')
+          " || echo "Dashboard Parquet upload failed"
+            fi
+
+            # Upload quarentena
             if [ -f "data/quarantine/quarantine-latest.json" ]; then
               echo "Uploading quarantine list to Internet Archive..."
               QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
 
               uv run python -c "
           import os
-          from datetime import datetime
           from internetarchive import upload
 
           upload(
@@ -301,6 +332,7 @@ jobs:
           name: psi-results-${{ github.run_id }}
           path: |
             data/output/
+            data/psi_results_latest.parquet
             data/quarantine/
             data/psi-latest-viewable-results.json
             collection.log
