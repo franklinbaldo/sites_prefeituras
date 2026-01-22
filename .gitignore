@@ -1,4 +1,50 @@
-# MkDocs
-site/
+# Python
 *.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+.hypothesis/
+coverage.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Linting
+.ruff_cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+data/*.duckdb
+data/*.duckdb.wal
+data/psi_error_reports/
+site/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Dependencies
 uv.lock
