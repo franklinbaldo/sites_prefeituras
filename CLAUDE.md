@@ -66,7 +66,7 @@ uv run sites-prefeituras export-dashboard
 
 ### Sistema de Quarentena
 
-Sites com falhas persistentes (3+ dias consecutivos) sao automaticamente quarentenados. Status possiveis:
+Sites com falhas persistentes (3+ falhas no periodo de lookback) sao automaticamente quarentenados. Status possiveis:
 - `quarantined`: Em quarentena, sera pulado na coleta
 - `investigating`: Em investigacao manual
 - `resolved`: Problema resolvido

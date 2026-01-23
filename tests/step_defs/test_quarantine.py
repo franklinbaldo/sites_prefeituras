@@ -100,8 +100,8 @@ def given_intermittent_failures(quarantine_context, storage_sync):
     url = "https://site-intermitente.gov.br"
     quarantine_context["test_url"] = url
 
-    # Inserir falhas em dias alternados (nao consecutivos)
-    for idx, i in enumerate(range(0, 10, 2)):  # dias 0, 2, 4, 6, 8
+    # Inserir apenas 2 falhas (menos que o minimo de 3)
+    for idx, i in enumerate([0, 3]):  # apenas 2 falhas, nao atinge minimo
         storage_sync.conn.execute(
             """
             INSERT INTO audits (id, url, timestamp, error_message)

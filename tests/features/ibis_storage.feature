@@ -89,7 +89,7 @@ Funcionalidade: Camada de armazenamento com Ibis
   # Quarentena
   # ========================================================================
 
-  Cenario: Atualizar quarentena com falhas consecutivas via Ibis
+  Cenario: Atualizar quarentena com falhas persistentes via Ibis
     Dado auditorias com falhas em 5 dias consecutivos para "https://problema.gov.br"
     Quando eu atualizar a quarentena via Ibis com minimo de 3 dias
     Entao "https://problema.gov.br" deve entrar na quarentena

@@ -697,15 +697,16 @@ class DuckDBStorage:
         self, min_consecutive_days: int = 3
     ) -> QuarantineUpdateStats:
         """
-        Atualiza a lista de quarentena baseado em falhas consecutivas.
+        Atualiza a lista de quarentena baseado em falhas recentes.
 
-        Sites que falharam por N dias consecutivos sao adicionados a quarentena.
-        Isso ajuda a identificar URLs que podem ter mudado ou estao incorretas.
+        Sites que falharam N ou mais vezes no periodo de lookback sao adicionados
+        a quarentena. Isso ajuda a identificar URLs que podem ter mudado ou
+        estao incorretas.
 
         APPEND-ONLY: New records are inserted; existing records preserved for audit.
 
         Args:
-            min_consecutive_days: Minimo de dias com falha para entrar em quarentena
+            min_consecutive_days: Minimo de falhas para entrar em quarentena
 
         Returns:
             Estatisticas da atualizacao
@@ -714,64 +715,34 @@ class DuckDBStorage:
         min_failures = int(min_consecutive_days)
 
         def update_quarantine_sync() -> QuarantineUpdateStats:
-            # This complex query with window functions is best done via raw SQL
+            # Simple Ibis query: count failures in lookback period
             cutoff = datetime.utcnow() - timedelta(days=lookback_days)
             now = datetime.utcnow()
 
-            # Find sites with consecutive failures
-            query = f"""
-            WITH daily_failures AS (
-                SELECT DISTINCT
-                    url,
-                    DATE(timestamp) as failure_date,
-                    MAX(error_message) as error_message
-                FROM audits
-                WHERE error_message IS NOT NULL
-                  AND timestamp >= '{cutoff.strftime("%Y-%m-%d")}'
-                GROUP BY url, DATE(timestamp)
-            ),
-            numbered AS (
-                SELECT
-                    url,
-                    failure_date,
-                    error_message,
-                    failure_date - INTERVAL (ROW_NUMBER() OVER (
-                        PARTITION BY url ORDER BY failure_date
-                    )) DAY as grp
-                FROM daily_failures
-            ),
-            consecutive_sequences AS (
-                SELECT
-                    url,
-                    MIN(failure_date) as first_failure,
-                    MAX(failure_date) as last_failure,
-                    COUNT(*) as consecutive_days,
-                    MAX(error_message) as last_error
-                FROM numbered
-                GROUP BY url, grp
-                HAVING COUNT(*) >= {min_failures}
-            ),
-            best_sequence AS (
-                SELECT
-                    url,
-                    first_failure,
-                    last_failure,
-                    consecutive_days,
-                    last_error,
-                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY consecutive_days DESC) as rn
-                FROM consecutive_sequences
+            # Find sites with multiple failures using pure Ibis
+            t = self.audits
+            filtered = t.filter((t.error_message.notnull()) & (t.timestamp >= cutoff))
+            failures = (
+                filtered.group_by("url")
+                .aggregate(
+                    first_failure=filtered.timestamp.min(),
+                    last_failure=filtered.timestamp.max(),
+                    failure_count=filtered.count(),
+                    last_error=filtered.error_message.arbitrary(),
+                )
+                .filter(ibis._.failure_count >= min_failures)
+                .execute()
             )
-            SELECT url, first_failure, last_failure, consecutive_days, last_error
-            FROM best_sequence
-            WHERE rn = 1
-            """
-
-            results = self.con.raw_sql(query).fetchall()
 
             added = 0
             updated = 0
 
-            for url, first_failure, last_failure, failure_days, last_error in results:
+            for _, row in failures.iterrows():
+                url = row["url"]
+                first_failure = row["first_failure"]
+                last_failure = row["last_failure"]
+                failure_count = int(row["failure_count"])
+                last_error = row["last_error"]
                 # Check current state in quarantine using the current view
                 existing = (
                     self.quarantine_current.filter(self.quarantine_current.url == url)
@@ -787,7 +758,7 @@ class DuckDBStorage:
                     current_failures = current["consecutive_failures"]
 
                     # Only insert new version if failure count changed
-                    if current_failures != failure_days:
+                    if current_failures != failure_count:
                         next_id = self._get_next_id("quarantine")
                         next_version = int(current["version"]) + 1
                         # Preserve original first_failure from earliest record
@@ -798,7 +769,7 @@ class DuckDBStorage:
                             "url": [url],
                             "first_failure": [original_first],
                             "last_failure": [last_failure],
-                            "consecutive_failures": [failure_days],
+                            "consecutive_failures": [failure_count],
                             "last_error_message": [last_error],
                             "status": [current["status"]],  # Preserve status
                             "notes": [None],
@@ -817,7 +788,7 @@ class DuckDBStorage:
                         "url": [url],
                         "first_failure": [first_failure],
                         "last_failure": [last_failure],
-                        "consecutive_failures": [failure_days],
+                        "consecutive_failures": [failure_count],
                         "last_error_message": [last_error],
                         "status": ["quarantined"],
                         "notes": [None],
@@ -830,7 +801,7 @@ class DuckDBStorage:
                     added += 1
 
             return QuarantineUpdateStats(
-                added=added, updated=updated, total_checked=len(results)
+                added=added, updated=updated, total_checked=len(failures)
             )
 
         stats = await asyncio.to_thread(update_quarantine_sync)
@@ -1211,68 +1182,63 @@ class DuckDBStorage:
         """Export ranking data to JSON."""
 
         def query_ranking() -> list[dict]:
-            # Use window function for ranking - requires raw SQL for full support
-            query = """
-            WITH latest AS (
-                SELECT
-                    url,
-                    timestamp,
-                    mobile_accessibility,
-                    mobile_performance,
-                    mobile_seo,
-                    mobile_best_practices,
-                    desktop_accessibility,
-                    desktop_performance,
-                    mobile_fcp,
-                    mobile_lcp,
-                    mobile_cls,
-                    has_errors,
-                    ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
-                FROM audit_summaries
-                WHERE NOT has_errors
+            # Pure Ibis query: get latest audit per URL and sort by accessibility
+            t = self.summaries
+
+            # Get latest audit for each URL using window function
+            window = ibis.window(group_by="url", order_by=ibis.desc("timestamp"))
+            latest = (
+                t.filter(~t.has_errors)
+                .mutate(rn=ibis.row_number().over(window))
+                .filter(_.rn == 0)  # row_number() is 0-indexed in Ibis
+                .select(
+                    "url",
+                    "timestamp",
+                    "mobile_accessibility",
+                    "mobile_performance",
+                    "mobile_seo",
+                    "mobile_best_practices",
+                    "desktop_accessibility",
+                    "desktop_performance",
+                    "mobile_fcp",
+                    "mobile_lcp",
+                    "mobile_cls",
+                )
+                .order_by(ibis.desc("mobile_accessibility"))
+                .execute()
             )
-            SELECT
-                url,
-                timestamp,
-                mobile_accessibility as accessibility_score,
-                mobile_performance as performance_score,
-                mobile_seo as seo_score,
-                mobile_best_practices as best_practices_score,
-                desktop_accessibility,
-                desktop_performance,
-                mobile_fcp as fcp,
-                mobile_lcp as lcp,
-                mobile_cls as cls,
-                RANK() OVER (ORDER BY mobile_accessibility DESC NULLS LAST) as rank
-            FROM latest
-            WHERE rn = 1
-            ORDER BY mobile_accessibility DESC NULLS LAST
-            """
 
-            result = self.con.raw_sql(query).fetchall()
-
+            # Build ranking list with rank calculated from position
             return [
                 {
-                    "url": row[0],
-                    "name": self._extract_name_from_url(row[0]),
-                    "state": self._extract_state_from_url(row[0]),
-                    "timestamp": row[1].isoformat() if row[1] else None,
-                    "score": round((row[2] or 0) * 100, 1),
-                    "performance": round((row[3] or 0) * 100, 1),
-                    "seo": round((row[4] or 0) * 100, 1),
-                    "best_practices": round((row[5] or 0) * 100, 1),
-                    "desktop_accessibility": round((row[6] or 0) * 100, 1)
-                    if row[6]
+                    "url": row["url"],
+                    "name": self._extract_name_from_url(row["url"]),
+                    "state": self._extract_state_from_url(row["url"]),
+                    "timestamp": row["timestamp"].isoformat()
+                    if row["timestamp"]
                     else None,
-                    "desktop_performance": round((row[7] or 0) * 100, 1)
-                    if row[7]
+                    "score": round((row["mobile_accessibility"] or 0) * 100, 1),
+                    "performance": round((row["mobile_performance"] or 0) * 100, 1),
+                    "seo": round((row["mobile_seo"] or 0) * 100, 1),
+                    "best_practices": round(
+                        (row["mobile_best_practices"] or 0) * 100, 1
+                    ),
+                    "desktop_accessibility": round(
+                        (row["desktop_accessibility"] or 0) * 100, 1
+                    )
+                    if row["desktop_accessibility"]
                     else None,
-                    "fcp": row[8],
-                    "lcp": row[9],
-                    "cls": row[10],
-                    "rank": row[11],
+                    "desktop_performance": round(
+                        (row["desktop_performance"] or 0) * 100, 1
+                    )
+                    if row["desktop_performance"]
+                    else None,
+                    "fcp": row["mobile_fcp"],
+                    "lcp": row["mobile_lcp"],
+                    "cls": row["mobile_cls"],
+                    "rank": idx + 1,  # Rank is just position in sorted list
                 }
-                for row in result
+                for idx, (_, row) in enumerate(latest.iterrows())
             ]
 
         ranking = await asyncio.to_thread(query_ranking)
@@ -1401,12 +1367,15 @@ class _IbisConnectionWrapper:
     def __init__(self, ibis_con: ibis.BaseBackend):
         self._con = ibis_con
 
-    def execute(self, query: str, params: list | None = None) -> None:
+    def execute(self, query: str, params: list | None = None):
         """Execute SQL with optional parameters.
 
         Args:
             query: SQL query with ? placeholders
             params: List of parameter values to substitute
+
+        Returns:
+            Result cursor that supports fetchall()
         """
         if params:
             # Format query with parameters (simplified for tests)
@@ -1422,6 +1391,6 @@ class _IbisConnectionWrapper:
                 else:
                     # For datetime and other types
                     formatted_query = formatted_query.replace("?", f"'{param}'", 1)
-            self._con.raw_sql(formatted_query)
+            return self._con.raw_sql(formatted_query)
         else:
-            self._con.raw_sql(query)
+            return self._con.raw_sql(query)
