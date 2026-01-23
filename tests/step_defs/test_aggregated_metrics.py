@@ -1,13 +1,14 @@
 """Step definitions para metricas agregadas."""
 
+import asyncio
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
 
 import pytest
-from pytest_bdd import scenarios, given, when, then, parsers
+from pytest_bdd import given, parsers, scenarios, then, when
 
-from sites_prefeituras.models import SiteAudit, AuditSummary
+from sites_prefeituras.models import AuditSummary, SiteAudit
 from sites_prefeituras.storage import DuckDBStorage
 
 # Carrega os cenarios do arquivo .feature
@@ -17,6 +18,7 @@ scenarios("../features/aggregated_metrics.feature")
 # ============================================================================
 # Contexto
 # ============================================================================
+
 
 @pytest.fixture
 def metrics_context():
@@ -30,56 +32,62 @@ def metrics_context():
 
 
 @given("que existem auditorias no banco de dados")
-def audits_exist(metrics_context, storage):
-    metrics_context["storage"] = storage
+def audits_exist(metrics_context, storage_sync):
+    metrics_context["storage"] = storage_sync
 
 
 # ============================================================================
 # Cenario: Estatisticas gerais
 # ============================================================================
 
+
 @given(parsers.parse("{count:d} auditorias no banco de dados"))
-@pytest.mark.asyncio
-async def given_n_audits(metrics_context, count, storage):
-    metrics_context["storage"] = storage
+def given_n_audits(metrics_context, count, storage_sync):
+    metrics_context["storage"] = storage_sync
 
     # Inserir auditorias de teste
     for i in range(count):
         has_error = i % 10 == 0  # 10% com erro
-        await storage.conn.execute("""
-            INSERT INTO audits (url, timestamp, error_message)
-            VALUES (?, ?, ?)
-        """, [
-            f"https://prefeitura{i}.gov.br",
-            datetime.utcnow() - timedelta(hours=i),
-            "Timeout error" if has_error else None,
-        ])
+        storage_sync.conn.execute(
+            """
+            INSERT INTO audits (id, url, timestamp, error_message)
+            VALUES (?, ?, ?, ?)
+        """,
+            [
+                i + 1,
+                f"https://prefeitura{i}.gov.br",
+                datetime.utcnow() - timedelta(hours=i),
+                "Timeout error" if has_error else None,
+            ],
+        )
 
         # Inserir summary
-        await storage.conn.execute("""
-            INSERT INTO audit_summaries (
-                url, timestamp, mobile_performance, desktop_performance,
+        storage_sync.conn.execute(
+            """
+            INSERT INTO audit_summaries (id, url, timestamp, mobile_performance, desktop_performance,
                 mobile_accessibility, desktop_accessibility, has_errors, error_message
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """, [
-            f"https://prefeitura{i}.gov.br",
-            datetime.utcnow() - timedelta(hours=i),
-            0.5 + (i % 50) / 100,  # Performance varia de 0.5 a 1.0
-            0.6 + (i % 40) / 100,
-            0.7 + (i % 30) / 100,
-            0.8 + (i % 20) / 100,
-            has_error,
-            "Timeout error" if has_error else None,
-        ])
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+            [
+                i + 1,
+                f"https://prefeitura{i}.gov.br",
+                datetime.utcnow() - timedelta(hours=i),
+                0.5 + (i % 50) / 100,  # Performance varia de 0.5 a 1.0
+                0.6 + (i % 40) / 100,
+                0.7 + (i % 30) / 100,
+                0.8 + (i % 20) / 100,
+                has_error,
+                "Timeout error" if has_error else None,
+            ],
+        )
 
     metrics_context["audit_count"] = count
 
 
 @when('eu executar o comando "stats"')
-@pytest.mark.asyncio
-async def when_run_stats(metrics_context):
+def when_run_stats(metrics_context):
     storage = metrics_context["storage"]
-    metrics = await storage.get_aggregated_metrics()
+    metrics = asyncio.run(storage.get_aggregated_metrics())
     metrics_context["metrics"] = metrics
 
 
@@ -105,33 +113,35 @@ def then_error_rate(metrics_context):
 # Cenario: Medias de performance
 # ============================================================================
 
+
 @given(parsers.parse("{count:d} auditorias com scores de performance variados"))
-@pytest.mark.asyncio
-async def given_varied_performance(metrics_context, count, storage):
-    metrics_context["storage"] = storage
+def given_varied_performance(metrics_context, count, storage_sync):
+    metrics_context["storage"] = storage_sync
 
     for i in range(count):
-        await storage.conn.execute("""
-            INSERT INTO audit_summaries (
-                url, timestamp, mobile_performance, desktop_performance,
+        storage_sync.conn.execute(
+            """
+            INSERT INTO audit_summaries (id, url, timestamp, mobile_performance, desktop_performance,
                 mobile_accessibility, desktop_accessibility, has_errors
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, [
-            f"https://prefeitura{i}.gov.br",
-            datetime.utcnow(),
-            0.3 + (i % 70) / 100,  # 0.3 a 1.0
-            0.4 + (i % 60) / 100,
-            0.8,
-            0.85,
-            False,
-        ])
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+            [
+                i + 1,
+                f"https://prefeitura{i}.gov.br",
+                datetime.utcnow(),
+                0.3 + (i % 70) / 100,  # 0.3 a 1.0
+                0.4 + (i % 60) / 100,
+                0.8,
+                0.85,
+                False,
+            ],
+        )
 
 
 @when("eu solicitar as metricas agregadas")
-@pytest.mark.asyncio
-async def when_request_metrics(metrics_context):
+def when_request_metrics(metrics_context):
     storage = metrics_context["storage"]
-    metrics = await storage.get_aggregated_metrics()
+    metrics = asyncio.run(storage.get_aggregated_metrics())
     metrics_context["metrics"] = metrics
 
 
@@ -156,35 +166,39 @@ def then_std_dev(metrics_context):
 # Cenario: Agrupar por estado
 # ============================================================================
 
+
 @given("auditorias de sites de diferentes estados brasileiros")
-@pytest.mark.asyncio
-async def given_audits_by_state(metrics_context, storage):
-    metrics_context["storage"] = storage
+def given_audits_by_state(metrics_context, storage_sync):
+    metrics_context["storage"] = storage_sync
 
     states = ["SP", "RJ", "MG", "BA", "RS"]
+    id_counter = 1
     for i, state in enumerate(states):
         for j in range(10):
-            await storage.conn.execute("""
-                INSERT INTO audit_summaries (
-                    url, timestamp, mobile_performance, desktop_performance,
+            storage_sync.conn.execute(
+                """
+                INSERT INTO audit_summaries (id, url, timestamp, mobile_performance, desktop_performance,
                     mobile_accessibility, desktop_accessibility, has_errors
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, [
-                f"https://prefeitura{j}.{state.lower()}.gov.br",
-                datetime.utcnow(),
-                0.5 + (i * 0.1),  # Estados com performance diferente
-                0.6 + (i * 0.08),
-                0.7 + (i * 0.05),
-                0.8,
-                False,
-            ])
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+                [
+                    id_counter,
+                    f"https://prefeitura{j}.{state.lower()}.gov.br",
+                    datetime.utcnow(),
+                    0.5 + (i * 0.1),  # Estados com performance diferente
+                    0.6 + (i * 0.08),
+                    0.7 + (i * 0.05),
+                    0.8,
+                    False,
+                ],
+            )
+            id_counter += 1
 
 
 @when("eu solicitar metricas agrupadas por estado")
-@pytest.mark.asyncio
-async def when_request_by_state(metrics_context):
+def when_request_by_state(metrics_context):
     storage = metrics_context["storage"]
-    metrics = await storage.get_metrics_by_state()
+    metrics = asyncio.run(storage.get_metrics_by_state())
     metrics_context["metrics_by_state"] = metrics
 
 
@@ -206,11 +220,11 @@ def then_ranking_by_state(metrics_context):
 # Cenario: Piores sites
 # ============================================================================
 
+
 @when(parsers.parse("eu solicitar os {count:d} piores sites"))
-@pytest.mark.asyncio
-async def when_worst_sites(metrics_context, count):
+def when_worst_sites(metrics_context, count):
     storage = metrics_context["storage"]
-    sites = await storage.get_worst_performing_sites(limit=count)
+    sites = asyncio.run(storage.get_worst_performing_sites(limit=count))
     metrics_context["worst_sites"] = sites
 
 
@@ -231,11 +245,11 @@ def then_first_is_worst(metrics_context):
 # Cenario: Melhores sites em acessibilidade
 # ============================================================================
 
+
 @when(parsers.parse("eu solicitar os {count:d} melhores sites em acessibilidade"))
-@pytest.mark.asyncio
-async def when_best_accessibility(metrics_context, count):
+def when_best_accessibility(metrics_context, count):
     storage = metrics_context["storage"]
-    sites = await storage.get_best_accessibility_sites(limit=count)
+    sites = asyncio.run(storage.get_best_accessibility_sites(limit=count))
     metrics_context["best_sites"] = sites
 
 
@@ -256,34 +270,36 @@ def then_first_is_best(metrics_context):
 # Cenario: Exportar JSON
 # ============================================================================
 
+
 @given("auditorias no banco de dados")
-@pytest.mark.asyncio
-async def given_some_audits(metrics_context, storage):
-    metrics_context["storage"] = storage
+def given_some_audits(metrics_context, storage_sync):
+    metrics_context["storage"] = storage_sync
 
     for i in range(10):
-        await storage.conn.execute("""
-            INSERT INTO audit_summaries (
-                url, timestamp, mobile_performance, desktop_performance,
+        storage_sync.conn.execute(
+            """
+            INSERT INTO audit_summaries (id, url, timestamp, mobile_performance, desktop_performance,
                 mobile_accessibility, desktop_accessibility, has_errors
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, [
-            f"https://prefeitura{i}.gov.br",
-            datetime.utcnow(),
-            0.75,
-            0.80,
-            0.85,
-            0.90,
-            False,
-        ])
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+            [
+                i + 1,
+                f"https://prefeitura{i}.gov.br",
+                datetime.utcnow(),
+                0.75,
+                0.80,
+                0.85,
+                0.90,
+                False,
+            ],
+        )
 
 
 @when("eu exportar as metricas agregadas para JSON")
-@pytest.mark.asyncio
-async def when_export_json(metrics_context, output_dir):
+def when_export_json(metrics_context, output_dir):
     storage = metrics_context["storage"]
     output_file = output_dir / "metrics.json"
-    await storage.export_aggregated_metrics_json(output_file)
+    asyncio.run(storage.export_aggregated_metrics_json(output_file))
     metrics_context["output_file"] = output_file
 
 
@@ -309,38 +325,40 @@ def then_contains_date(metrics_context):
 # Cenario: Evolucao temporal
 # ============================================================================
 
+
 @given("auditorias de diferentes datas para o mesmo site")
-@pytest.mark.asyncio
-async def given_temporal_audits(metrics_context, storage):
-    metrics_context["storage"] = storage
+def given_temporal_audits(metrics_context, storage_sync):
+    metrics_context["storage"] = storage_sync
     url = "https://prefeitura-teste.gov.br"
 
     for i in range(30):
         # Performance melhora ao longo do tempo
-        await storage.conn.execute("""
-            INSERT INTO audit_summaries (
-                url, timestamp, mobile_performance, desktop_performance,
+        storage_sync.conn.execute(
+            """
+            INSERT INTO audit_summaries (id, url, timestamp, mobile_performance, desktop_performance,
                 mobile_accessibility, desktop_accessibility, has_errors
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, [
-            url,
-            datetime.utcnow() - timedelta(days=30-i),
-            0.5 + (i * 0.015),  # 0.5 -> 0.95
-            0.6 + (i * 0.012),
-            0.85,
-            0.90,
-            False,
-        ])
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+            [
+                i + 1,
+                url,
+                datetime.utcnow() - timedelta(days=30 - i),
+                0.5 + (i * 0.015),  # 0.5 -> 0.95
+                0.6 + (i * 0.012),
+                0.85,
+                0.90,
+                False,
+            ],
+        )
 
     metrics_context["test_url"] = url
 
 
 @when("eu solicitar a evolucao temporal")
-@pytest.mark.asyncio
-async def when_request_evolution(metrics_context):
+def when_request_evolution(metrics_context):
     storage = metrics_context["storage"]
     url = metrics_context["test_url"]
-    evolution = await storage.get_temporal_evolution(url)
+    evolution = asyncio.run(storage.get_temporal_evolution(url))
     metrics_context["evolution"] = evolution
 
 

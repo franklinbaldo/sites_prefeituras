@@ -32,11 +32,20 @@ def temp_db_path() -> Generator[str, None, None]:
 
 @pytest_asyncio.fixture
 async def storage(temp_db_path: str) -> AsyncGenerator[DuckDBStorage, None]:
-    """Storage inicializado para testes."""
+    """Storage inicializado para testes (async)."""
     db = DuckDBStorage(temp_db_path)
     await db.initialize()
     yield db
     await db.close()
+
+
+@pytest.fixture
+def storage_sync(temp_db_path: str) -> Generator[DuckDBStorage, None, None]:
+    """Storage inicializado para testes BDD (sync wrapper)."""
+    db = DuckDBStorage(temp_db_path)
+    asyncio.run(db.initialize())
+    yield db
+    asyncio.run(db.close())
 
 
 # ============================================================================
@@ -61,7 +70,7 @@ def create_psi_response(
         "loadingExperience": {},
         "originLoadingExperience": {},
         "analysisUTCTimestamp": "2025-01-22T12:00:00.000Z",
-        "version": {"major": 9, "minor": 0},
+        "version": {"major": "9", "minor": "0"},
         "lighthouseResult": {
             "requestedUrl": url,
             "finalUrl": url,
