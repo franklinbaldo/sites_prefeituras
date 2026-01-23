@@ -131,12 +131,22 @@ def given_site_with_status(quarantine_context, status, storage_sync):
     url = "https://site-em-quarentena.gov.br"
     quarantine_context["test_url"] = url
 
+    # Append-only design: include version and valid_from
     storage_sync.conn.execute(
         """
-        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     """,
-        [1, url, datetime.utcnow() - timedelta(days=5), datetime.utcnow(), 5, status],
+        [
+            1,
+            url,
+            datetime.utcnow() - timedelta(days=5),
+            datetime.utcnow(),
+            5,
+            status,
+            1,
+            datetime.utcnow(),
+        ],
     )
 
 
@@ -174,12 +184,21 @@ def given_site_in_quarantine(quarantine_context, storage_sync):
     url = "https://url-antiga.gov.br"
     quarantine_context["test_url"] = url
 
+    # Append-only design: include version and valid_from
     storage_sync.conn.execute(
         """
-        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-        VALUES (?, ?, ?, ?, ?, 'quarantined')
+        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+        VALUES (?, ?, ?, ?, ?, 'quarantined', ?, ?)
     """,
-        [1, url, datetime.utcnow() - timedelta(days=10), datetime.utcnow(), 10],
+        [
+            1,
+            url,
+            datetime.utcnow() - timedelta(days=10),
+            datetime.utcnow(),
+            10,
+            1,
+            datetime.utcnow(),
+        ],
     )
 
 
@@ -237,10 +256,11 @@ def given_sites_with_status(quarantine_context, count, status, storage_sync):
     for i in range(count):
         quarantine_context["id_counter"] += 1
         url = f"https://site-{status}-{i}.gov.br"
+        # Append-only design: include version and valid_from
         storage_sync.conn.execute(
             """
-            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
             [
                 quarantine_context["id_counter"],
@@ -249,6 +269,8 @@ def given_sites_with_status(quarantine_context, count, status, storage_sync):
                 datetime.utcnow(),
                 5,
                 status,
+                1,
+                datetime.utcnow(),
             ],
         )
 
@@ -265,10 +287,11 @@ def given_sites_with_status_no_count(quarantine_context, status, storage_sync):
     for _ in range(2):  # Default to 2 sites
         quarantine_context["id_counter"] += 1
         url = f"https://site-{status}-{quarantine_context['id_counter']}.gov.br"
+        # Append-only design: include version and valid_from
         storage_sync.conn.execute(
             """
-            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
             [
                 quarantine_context["id_counter"],
@@ -277,6 +300,8 @@ def given_sites_with_status_no_count(quarantine_context, status, storage_sync):
                 datetime.utcnow(),
                 5,
                 status,
+                1,
+                datetime.utcnow(),
             ],
         )
 
@@ -337,10 +362,11 @@ def given_various_status(quarantine_context, storage_sync):
 
     statuses = ["quarantined", "quarantined", "investigating", "resolved", "wrong_url"]
     for i, status in enumerate(statuses):
+        # Append-only design: include version and valid_from
         storage_sync.conn.execute(
             """
-            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """,
             [
                 i + 1,
@@ -349,6 +375,8 @@ def given_various_status(quarantine_context, storage_sync):
                 datetime.utcnow(),
                 i + 3,
                 status,
+                1,
+                datetime.utcnow(),
             ],
         )
 
@@ -395,11 +423,11 @@ def given_recovered_site(quarantine_context, storage_sync):
     url = "https://site-recuperado.gov.br"
     quarantine_context["test_url"] = url
 
-    # Site estava em quarentena
+    # Site estava em quarentena (append-only design: include version and valid_from)
     storage_sync.conn.execute(
         """
-        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
-        VALUES (?, ?, ?, ?, ?, 'quarantined')
+        INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status, version, valid_from)
+        VALUES (?, ?, ?, ?, ?, 'quarantined', ?, ?)
     """,
         [
             1,
@@ -407,6 +435,8 @@ def given_recovered_site(quarantine_context, storage_sync):
             datetime.utcnow() - timedelta(days=10),
             datetime.utcnow() - timedelta(days=2),
             8,
+            1,
+            datetime.utcnow() - timedelta(days=2),
         ],
     )
 

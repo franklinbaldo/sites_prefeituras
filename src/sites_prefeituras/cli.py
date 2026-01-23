@@ -154,24 +154,30 @@ def stats(
         storage = DuckDBStorage(db_path)
         await storage.initialize()
 
-        # Estatísticas básicas
-        total_audits = storage._fetch_scalar("SELECT COUNT(*) FROM audits")
-        total_errors = storage._fetch_scalar(
-            "SELECT COUNT(*) FROM audits WHERE error_message IS NOT NULL"
+        # Estatísticas básicas using Ibis
+        total_audits = storage.audits.count().execute()
+        total_errors = (
+            storage.audits.filter(storage.audits.error_message.notnull())
+            .count()
+            .execute()
         )
 
-        # Últimas auditorias
-        recent = (
-            storage._get_conn()
-            .execute("""
-            SELECT url, timestamp,
-                   CASE WHEN error_message IS NULL THEN '✅' ELSE '❌' END as status
-            FROM audits
-            ORDER BY timestamp DESC
-            LIMIT 10
-        """)
-            .fetchall()
+        # Últimas auditorias using Ibis
+        import ibis
+
+        recent_df = (
+            storage.audits.mutate(
+                status=ibis.ifelse(storage.audits.error_message.isnull(), "✅", "❌")
+            )
+            .select("url", "timestamp", "status")
+            .order_by(ibis.desc("timestamp"))
+            .limit(10)
+            .execute()
         )
+        recent = [
+            (row["url"], row["timestamp"], row["status"])
+            for _, row in recent_df.iterrows()
+        ]
 
         await storage.close()
 
