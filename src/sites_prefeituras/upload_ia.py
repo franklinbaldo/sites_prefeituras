@@ -6,12 +6,9 @@ This module handles uploading data to Internet Archive including:
 - PSI audit results (via legacy upload_to_ia.py)
 """
 
-import glob
 import os
-import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 import typer
 from internetarchive import upload
@@ -154,8 +151,8 @@ cli = typer.Typer(
 def upload_dashboard_cmd(
     dashboard_dir: str = typer.Argument(..., help="Directory containing dashboard JSON files"),
     item_identifier: str = typer.Option(..., "--item", help="Internet Archive item identifier"),
-    access_key: Optional[str] = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
-    secret_key: Optional[str] = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
+    access_key: str | None = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
+    secret_key: str | None = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
 ) -> None:
     """Upload dashboard JSON files to Internet Archive."""
     # Get credentials from environment if not provided
@@ -181,8 +178,8 @@ def upload_dashboard_cmd(
 def upload_quarantine_cmd(
     quarantine_files: list[str] = typer.Argument(..., help="Quarantine files to upload"),
     item_identifier: str = typer.Option(..., "--item", help="Internet Archive item identifier"),
-    access_key: Optional[str] = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
-    secret_key: Optional[str] = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
+    access_key: str | None = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
+    secret_key: str | None = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
 ) -> None:
     """Upload quarantine lists to Internet Archive."""
     # Get credentials from environment if not provided

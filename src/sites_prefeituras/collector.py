@@ -3,8 +3,8 @@
 import asyncio
 import csv
 import logging
+from collections.abc import AsyncGenerator, Iterator
 from pathlib import Path
-from typing import List, Optional, AsyncGenerator, Iterator
 from urllib.parse import urlparse
 
 import httpx
@@ -13,7 +13,7 @@ from rich.console import Console
 from rich.progress import Progress, TaskID
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from .models import PageSpeedInsightsResult, SiteAudit, BatchAuditConfig
+from .models import BatchAuditConfig, PageSpeedInsightsResult, SiteAudit
 from .storage import DuckDBStorage
 
 logger = logging.getLogger(__name__)
@@ -35,8 +35,8 @@ class PageSpeedCollector:
         self.semaphore: asyncio.Semaphore = asyncio.Semaphore(max_concurrent)
         self.timeout: float = timeout
         self.base_url: str = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-        self.client: Optional[httpx.AsyncClient] = None
-        
+        self.client: httpx.AsyncClient | None = None
+
     async def __aenter__(self) -> "PageSpeedCollector":
         """Context manager entry."""
         self.client = httpx.AsyncClient(timeout=self.timeout)
@@ -44,22 +44,22 @@ class PageSpeedCollector:
 
     async def __aexit__(
         self,
-        exc_type: Optional[type[BaseException]],
-        exc_val: Optional[BaseException],
-        exc_tb: object
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: object,
     ) -> None:
         """Context manager exit."""
         if self.client:
             await self.client.aclose()
-    
+
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=10),
         reraise=True
     )
     async def _fetch_pagespeed_data(
-        self, 
-        url: str, 
+        self,
+        url: str,
         strategy: str = "mobile"
     ) -> PageSpeedInsightsResult:
         """Busca dados do PageSpeed Insights para uma URL e estratégia."""
@@ -69,17 +69,16 @@ class PageSpeedCollector:
             "strategy": strategy,
             "category": ["performance", "accessibility", "best-practices", "seo"],
         }
-        
-        async with self.throttler:
-            async with self.semaphore:
-                logger.debug(f"Fetching PSI data for {url} ({strategy})")
-                
-                response = await self.client.get(self.base_url, params=params)
-                response.raise_for_status()
-                
-                data = response.json()
-                return PageSpeedInsightsResult(**data)
-    
+
+        async with self.throttler, self.semaphore:
+            logger.debug(f"Fetching PSI data for {url} ({strategy})")
+
+            response = await self.client.get(self.base_url, params=params)
+            response.raise_for_status()
+
+            data = response.json()
+            return PageSpeedInsightsResult(**data)
+
     async def audit_site(self, url: str) -> SiteAudit:
         """Audita um site completo (mobile + desktop)."""
         audit = SiteAudit(url=url)
@@ -110,14 +109,14 @@ class PageSpeedCollector:
             audit.error_message = f"Validation error: {e}"
 
         return audit
-    
+
     async def audit_from_csv(
         self,
         csv_file: Path,
         config: BatchAuditConfig,
-        progress: Optional[Progress] = None,
-        task_id: Optional[TaskID] = None,
-        skip_urls: Optional[set[str]] = None,
+        progress: Progress | None = None,
+        task_id: TaskID | None = None,
+        skip_urls: set[str] | None = None,
     ) -> AsyncGenerator[SiteAudit, None]:
         """Audita sites a partir de arquivo CSV."""
         all_urls = await self._read_urls_from_csv(csv_file, config.url_column)
@@ -145,12 +144,13 @@ class PageSpeedCollector:
             except Exception as e:
                 logger.error(f"Failed to audit {url}: {e}")
                 yield SiteAudit(url=url, error_message=str(e))
-    
-    async def _read_urls_from_csv(self, csv_file: Path, url_column: str) -> List[str]:
+
+    async def _read_urls_from_csv(self, csv_file: Path, url_column: str) -> list[str]:
         """Lê URLs de arquivo CSV."""
-        def read_csv_sync() -> List[str]:
+
+        def read_csv_sync() -> list[str]:
             urls = []
-            with open(csv_file, 'r', encoding='utf-8') as f:
+            with open(csv_file, encoding='utf-8') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     if url_column in row and row[url_column]:
@@ -235,7 +235,7 @@ class BatchProcessor:
                             f"Processados: {audit_count} | "
                             f"Erros: {error_count}"
                         )
-        
+
         # Exportar dados
         if self.config.export_parquet:
             await self._export_parquet(output_dir)
@@ -243,15 +243,15 @@ class BatchProcessor:
         if self.config.export_json:
             await self._export_json(output_dir)
 
-        console.print(f"🎉 Processamento concluído!")
+        console.print("🎉 Processamento concluído!")
         console.print(f"📊 Total processado: {audit_count}")
         console.print(f"❌ Erros: {error_count}")
-        
+
     async def _export_parquet(self, output_dir: Path) -> None:
         """Exporta dados para formato Parquet."""
         console.print("📦 Exportando para Parquet...")
         await self.storage.export_to_parquet(output_dir)
-        
+
     async def _export_json(self, output_dir: Path) -> None:
         """Exporta dados para formato JSON."""
         console.print("📄 Exportando para JSON...")
@@ -262,7 +262,7 @@ class BatchProcessor:
 # Funcoes de processamento paralelo
 # ============================================================================
 
-def chunked(iterable: List, size: int) -> Iterator[List]:
+def chunked(iterable: list, size: int) -> Iterator[list]:
     """
     Divide uma lista em chunks de tamanho especificado.
 
@@ -274,9 +274,9 @@ def chunked(iterable: List, size: int) -> Iterator[List]:
 
 async def process_urls_in_chunks(
     collector: PageSpeedCollector,
-    urls: List[str],
+    urls: list[str],
     chunk_size: int = 10,
-) -> List[SiteAudit]:
+) -> list[SiteAudit]:
     """
     Processa URLs em chunks paralelos, respeitando rate limit.
 
@@ -299,7 +299,7 @@ async def process_urls_in_chunks(
         - tests/step_defs/test_api_mock.py: Testes de mock da API
         - tests/step_defs/test_parallel_chunks.py: Testes de processamento paralelo
     """
-    all_results: List[SiteAudit] = []
+    all_results: list[SiteAudit] = []
 
     for chunk in chunked(urls, chunk_size):
         # Criar tasks para todas URLs do chunk
@@ -309,7 +309,7 @@ async def process_urls_in_chunks(
         chunk_results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Processar resultados
-        for url, result in zip(chunk, chunk_results):
+        for url, result in zip(chunk, chunk_results, strict=False):
             if isinstance(result, Exception):
                 logger.error(f"Error processing {url}: {result}")
                 all_results.append(SiteAudit(url=url, error_message=str(result)))
