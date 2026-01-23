@@ -4,7 +4,7 @@ import asyncio
 import csv
 import logging
 from pathlib import Path
-from typing import List, Optional, AsyncGenerator
+from typing import List, Optional, AsyncGenerator, Iterator
 from urllib.parse import urlparse
 
 import httpx
@@ -36,12 +36,12 @@ class PageSpeedCollector:
         self.timeout = timeout
         self.base_url = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
         
-    async def __aenter__(self):
+    async def __aenter__(self) -> "PageSpeedCollector":
         """Context manager entry."""
         self.client = httpx.AsyncClient(timeout=self.timeout)
         return self
         
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(self, exc_type: object, exc_val: object, exc_tb: object) -> None:
         """Context manager exit."""
         await self.client.aclose()
     
@@ -244,8 +244,12 @@ class BatchProcessor:
 # Funcoes de processamento paralelo
 # ============================================================================
 
-def chunked(iterable: List, size: int):
-    """Divide uma lista em chunks de tamanho especificado."""
+def chunked(iterable: List, size: int) -> Iterator[List]:
+    """
+    Divide uma lista em chunks de tamanho especificado.
+
+    Funcao auxiliar para process_urls_in_chunks() - mantida para testes.
+    """
     for i in range(0, len(iterable), size):
         yield iterable[i:i + size]
 
@@ -258,6 +262,10 @@ async def process_urls_in_chunks(
     """
     Processa URLs em chunks paralelos, respeitando rate limit.
 
+    NOTA: Esta funcao e mantida principalmente para testes. Para uso em producao,
+    utilize a classe BatchProcessor que oferece funcionalidades completas incluindo
+    coleta incremental, exportacao de dados e integracao com DuckDB.
+
     O throttler e semaphore do collector controlam o rate limit real.
     O chunk_size controla quantas coroutines sao criadas por vez.
 
@@ -268,6 +276,10 @@ async def process_urls_in_chunks(
 
     Returns:
         Lista de SiteAudit com resultados
+
+    Usado em:
+        - tests/step_defs/test_api_mock.py: Testes de mock da API
+        - tests/step_defs/test_parallel_chunks.py: Testes de processamento paralelo
     """
     all_results: List[SiteAudit] = []
 

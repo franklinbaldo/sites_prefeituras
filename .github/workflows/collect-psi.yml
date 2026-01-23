@@ -55,7 +55,11 @@ jobs:
     name: Coletar Dados PSI
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 120  # 2 horas (coleta incremental e mais rapida)
+    # Timeout de 120 minutos e suficiente porque:
+    # - Coleta incremental (skip-recent=24h) processa apenas ~100-200 sites
+    # - Coleta completa: 5.570 sites × 2 estrategias ÷ 3.5 req/s = ~53 min
+    # - 120 min fornece margem para retries e overhead
+    timeout-minutes: 120
 
     steps:
       - uses: actions/checkout@v4
@@ -194,40 +198,13 @@ jobs:
           if [ -f "$DATABASE_PATH" ]; then
             echo "Uploading to Internet Archive..."
 
-            # Upload dados principais (particionados)
-            uv run python src/psi_auditor/upload_to_ia.py || echo "IA upload failed"
-
             # Upload JSONs do dashboard
             if [ -d "docs/data" ]; then
               echo "Uploading dashboard JSON files to Internet Archive..."
-              UPLOAD_DATE=$(date -u +'%Y-%m-%d')
-
-              uv run python -c "
-          import os
-          import glob
-          from internetarchive import upload
-
-          # Encontrar todos os JSONs do dashboard
-          json_files = {}
-          for f in glob.glob('docs/data/*.json'):
-              name = os.path.basename(f)
-              json_files[name] = f
-
-          if json_files:
-              upload(
-                  identifier='$IA_ITEM_IDENTIFIER',
-                  files=json_files,
-                  metadata={
-                      'title': 'PSI Dashboard Data (${UPLOAD_DATE})',
-                      'description': 'Dados JSON estaticos para dashboard de auditoria de sites de prefeituras',
-                      'mediatype': 'data',
-                  },
-                  access_key=os.getenv('IA_ACCESS_KEY'),
-                  secret_key=os.getenv('IA_SECRET_KEY'),
-                  verbose=True
-              )
-              print(f'Dashboard JSON files uploaded: {list(json_files.keys())}')
-          " || echo "Dashboard JSON upload failed"
+              uv run python -m sites_prefeituras.upload_ia dashboard \
+                docs/data \
+                --item "$IA_ITEM_IDENTIFIER" \
+                || echo "Dashboard JSON upload failed"
             fi
 
             # Upload quarentena diario
@@ -235,27 +212,11 @@ jobs:
               echo "Uploading quarantine list to Internet Archive..."
               QUARANTINE_DATE=$(date -u +'%Y-%m-%d')
 
-              uv run python -c "
-          import os
-          from internetarchive import upload
-
-          upload(
-              identifier='$IA_ITEM_IDENTIFIER',
-              files={
-                  'quarantine-${QUARANTINE_DATE}.json': 'data/quarantine/quarantine-${QUARANTINE_DATE}.json',
-                  'quarantine-latest.json': 'data/quarantine/quarantine-latest.json',
-              },
-              metadata={
-                  'title': 'PSI Quarantine List (${QUARANTINE_DATE})',
-                  'description': 'Sites com falhas persistentes que precisam investigacao',
-                  'mediatype': 'data',
-              },
-              access_key=os.getenv('IA_ACCESS_KEY'),
-              secret_key=os.getenv('IA_SECRET_KEY'),
-              verbose=True
-          )
-          print('Quarantine uploaded to Internet Archive')
-          " || echo "Quarantine IA upload failed"
+              uv run python -m sites_prefeituras.upload_ia quarantine \
+                "data/quarantine/quarantine-${QUARANTINE_DATE}.json" \
+                "data/quarantine/quarantine-latest.json" \
+                --item "$IA_ITEM_IDENTIFIER" \
+                || echo "Quarantine IA upload failed"
             fi
           fi
 

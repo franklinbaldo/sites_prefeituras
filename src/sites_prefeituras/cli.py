@@ -12,7 +12,7 @@ from rich.table import Table
 from rich.json import JSON
 
 from .collector import audit_single_site, BatchProcessor
-from .models import BatchAuditConfig
+from .models import BatchAuditConfig, SiteAudit
 from .storage import DuckDBStorage
 
 app = typer.Typer(
@@ -44,8 +44,8 @@ def audit(
     api_key = get_api_key()
     
     console.print(f"🔍 Auditando: [bold blue]{url}[/bold blue]")
-    
-    async def run_audit():
+
+    async def run_audit() -> None:
         result = await audit_single_site(url, api_key)
         
         if save_to_db:
@@ -102,7 +102,7 @@ def batch(
     console.print(f"  Concorrencia: {max_concurrent}")
     console.print(f"  Coleta incremental: {skip_recent_hours}h" if skip_recent_hours > 0 else "  Coleta incremental: desativada")
 
-    async def run_batch():
+    async def run_batch() -> None:
         processor = BatchProcessor(config, api_key)
         await processor.process()
 
@@ -130,8 +130,8 @@ def stats(
     db_path: str = typer.Option("./data/sites_prefeituras.duckdb", help="Caminho do banco"),
 ) -> None:
     """Mostra estatísticas dos dados coletados."""
-    
-    async def show_stats():
+
+    async def show_stats() -> None:
         storage = DuckDBStorage(db_path)
         await storage.initialize()
         
@@ -253,7 +253,7 @@ def metrics(
 ) -> None:
     """Mostra metricas agregadas das auditorias."""
 
-    async def show_metrics():
+    async def show_metrics() -> None:
         storage = DuckDBStorage(db_path)
         await storage.initialize()
 
@@ -356,7 +356,7 @@ def quarantine(
 ) -> None:
     """Gerencia sites em quarentena (falhas persistentes)."""
 
-    async def manage_quarantine():
+    async def manage_quarantine() -> None:
         storage = DuckDBStorage(db_path)
         await storage.initialize()
 
@@ -455,7 +455,7 @@ def export_dashboard(
 ) -> None:
     """Exporta JSONs estaticos para o dashboard (substitui DuckDB WASM)."""
 
-    async def do_export():
+    async def do_export() -> None:
         storage = DuckDBStorage(db_path)
         await storage.initialize()
 
@@ -474,7 +474,7 @@ def export_dashboard(
     asyncio.run(do_export())
 
 
-def _display_audit_result(audit) -> None:
+def _display_audit_result(audit: "SiteAudit") -> None:
     """Exibe resultado da auditoria no console."""
     table = Table(title=f"📊 Auditoria: {audit.url}")
     table.add_column("Métrica", style="cyan")
