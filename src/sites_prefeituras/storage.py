@@ -358,12 +358,15 @@ class DuckDBStorage:
 
     async def get_recently_audited_urls(self, hours: int = 24) -> set[str]:
         """Retorna URLs auditadas nas ultimas N horas (para coleta incremental)."""
-        results = self.conn.execute("""
+        # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
+        # with validated integer to prevent SQL injection
+        hours_int = int(hours)
+        results = self.conn.execute(f"""
             SELECT DISTINCT url
             FROM audits
-            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL ? HOUR
+            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL '{hours_int}' HOUR
               AND error_message IS NULL
-        """, [hours]).fetchall()
+        """).fetchall()
 
         urls = {row[0] for row in results}
         logger.info(f"Found {len(urls)} URLs audited in last {hours} hours")
@@ -643,7 +646,11 @@ class DuckDBStorage:
         """
         def update_quarantine_sync() -> QuarantineUpdateStats:
             # Encontrar sites com falhas consecutivas nos ultimos N dias
-            results = self.conn.execute("""
+            # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
+            # with validated integers to prevent SQL injection
+            days_lookback = int(min_consecutive_days * 2)
+            min_failures = int(min_consecutive_days)
+            results = self.conn.execute(f"""
                 WITH daily_failures AS (
                     SELECT
                         url,
@@ -661,13 +668,13 @@ class DuckDBStorage:
                         COUNT(DISTINCT failure_date) as failure_days,
                         MAX(CASE WHEN rn = 1 THEN error_message END) as last_error
                     FROM daily_failures
-                    WHERE failure_date >= CURRENT_DATE - INTERVAL ? DAY
+                    WHERE failure_date >= CURRENT_DATE - INTERVAL '{days_lookback}' DAY
                     GROUP BY url
-                    HAVING COUNT(DISTINCT failure_date) >= ?
+                    HAVING COUNT(DISTINCT failure_date) >= {min_failures}
                 )
                 SELECT url, first_failure, last_failure, failure_days, last_error
                 FROM consecutive_failures
-            """, [min_consecutive_days * 2, min_consecutive_days]).fetchall()
+            """).fetchall()
 
             added = 0
             updated = 0
