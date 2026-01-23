@@ -3,11 +3,12 @@
 import asyncio
 import json
 import tempfile
+from collections.abc import AsyncGenerator, Generator
 from pathlib import Path
-from typing import Generator
 from unittest.mock import AsyncMock
 
 import pytest
+import pytest_asyncio
 import respx
 from httpx import Response
 
@@ -20,14 +21,17 @@ from sites_prefeituras.storage import DuckDBStorage
 
 @pytest.fixture
 def temp_db_path() -> Generator[str, None, None]:
-    """Cria banco de dados temporario para testes."""
-    with tempfile.NamedTemporaryFile(suffix=".duckdb", delete=False) as f:
-        yield f.name
-    Path(f.name).unlink(missing_ok=True)
+    """Cria caminho para banco de dados temporario para testes."""
+    # DuckDB needs either a non-existent path or a valid DB file
+    # Don't create the file - just generate a unique path
+    with tempfile.TemporaryDirectory() as temp_dir:
+        db_path = Path(temp_dir) / "test.duckdb"
+        yield str(db_path)
+        # Cleanup happens when TemporaryDirectory context exits
 
 
-@pytest.fixture
-async def storage(temp_db_path: str) -> DuckDBStorage:
+@pytest_asyncio.fixture
+async def storage(temp_db_path: str) -> AsyncGenerator[DuckDBStorage, None]:
     """Storage inicializado para testes."""
     db = DuckDBStorage(temp_db_path)
     await db.initialize()

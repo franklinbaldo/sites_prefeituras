@@ -7,14 +7,13 @@ import logging
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, TypedDict
+from typing import TypedDict
 from urllib.parse import urlparse
 
 import duckdb
 from rich.console import Console
 
-from .models import SiteAudit, AuditSummary, LighthouseAudit
-
+from .models import AuditSummary, LighthouseAudit, SiteAudit
 
 # ============================================================================
 # TypedDicts for structured return types
@@ -22,62 +21,68 @@ from .models import SiteAudit, AuditSummary, LighthouseAudit
 
 class AggregatedMetrics(TypedDict):
     """Structured type for aggregated metrics."""
+
     total_audits: int
     successful_audits: int
     failed_audits: int
     success_rate: float
     error_rate: float
-    avg_mobile_performance: Optional[float]
-    avg_desktop_performance: Optional[float]
-    avg_mobile_accessibility: Optional[float]
-    avg_desktop_accessibility: Optional[float]
-    avg_mobile_seo: Optional[float]
-    avg_desktop_seo: Optional[float]
-    avg_mobile_best_practices: Optional[float]
-    avg_desktop_best_practices: Optional[float]
-    std_mobile_performance: Optional[float]
-    std_desktop_performance: Optional[float]
-    min_mobile_performance: Optional[float]
-    max_mobile_performance: Optional[float]
+    avg_mobile_performance: float | None
+    avg_desktop_performance: float | None
+    avg_mobile_accessibility: float | None
+    avg_desktop_accessibility: float | None
+    avg_mobile_seo: float | None
+    avg_desktop_seo: float | None
+    avg_mobile_best_practices: float | None
+    avg_desktop_best_practices: float | None
+    std_mobile_performance: float | None
+    std_desktop_performance: float | None
+    min_mobile_performance: float | None
+    max_mobile_performance: float | None
 
 
 class StateMetrics(TypedDict):
     """Structured type for state metrics."""
+
     state: str
     site_count: int
-    avg_performance: Optional[float]
-    avg_accessibility: Optional[float]
+    avg_performance: float | None
+    avg_accessibility: float | None
 
 
 class SitePerformance(TypedDict):
     """Structured type for site performance data."""
+
     url: str
-    mobile_performance: Optional[float]
-    desktop_performance: Optional[float]
-    mobile_accessibility: Optional[float]
-    timestamp: Optional[str]
+    mobile_performance: float | None
+    desktop_performance: float | None
+    mobile_accessibility: float | None
+    timestamp: str | None
 
 
 class SiteAccessibility(TypedDict):
     """Structured type for site accessibility data."""
+
     url: str
-    mobile_accessibility: Optional[float]
-    desktop_accessibility: Optional[float]
-    mobile_performance: Optional[float]
-    timestamp: Optional[str]
+    mobile_accessibility: float | None
+    desktop_accessibility: float | None
+    mobile_performance: float | None
+    timestamp: str | None
 
 
 class TemporalData(TypedDict):
     """Structured type for temporal evolution data."""
-    timestamp: Optional[str]
-    mobile_performance: Optional[float]
-    desktop_performance: Optional[float]
-    mobile_accessibility: Optional[float]
-    desktop_accessibility: Optional[float]
+
+    timestamp: str | None
+    mobile_performance: float | None
+    desktop_performance: float | None
+    mobile_accessibility: float | None
+    desktop_accessibility: float | None
 
 
 class QuarantineUpdateStats(TypedDict):
     """Structured type for quarantine update statistics."""
+
     added: int
     updated: int
     total_checked: int
@@ -85,18 +90,20 @@ class QuarantineUpdateStats(TypedDict):
 
 class QuarantineSite(TypedDict):
     """Structured type for quarantined site data."""
+
     url: str
-    first_failure: Optional[str]
-    last_failure: Optional[str]
+    first_failure: str | None
+    last_failure: str | None
     consecutive_failures: int
-    last_error: Optional[str]
+    last_error: str | None
     status: str
-    notes: Optional[str]
-    created_at: Optional[str]
+    notes: str | None
+    created_at: str | None
 
 
 class QuarantineStats(TypedDict):
     """Structured type for quarantine statistics."""
+
     total: int
     quarantined: int
     investigating: int
@@ -108,14 +115,16 @@ class QuarantineStats(TypedDict):
 
 class ExportStats(TypedDict):
     """Structured type for export statistics."""
+
     file: str
     count: int
 
 
 class DashboardExportStats(TypedDict):
     """Structured type for dashboard export statistics."""
+
     generated_at: str
-    files: List[str]
+    files: list[str]
     total_sites: int
 
 logger = logging.getLogger(__name__)
@@ -128,14 +137,14 @@ class DuckDBStorage:
     def __init__(self, db_path: str = "./data/sites_prefeituras.duckdb") -> None:
         self.db_path: Path = Path(db_path)
         self.db_path.parent.mkdir(exist_ok=True)
-        self.conn: Optional[duckdb.DuckDBPyConnection] = None
+        self.conn: duckdb.DuckDBPyConnection | None = None
 
     async def initialize(self) -> None:
         """Inicializa o banco de dados e cria tabelas."""
         # Use asyncio.to_thread for blocking DuckDB connection
         self.conn = await asyncio.to_thread(duckdb.connect, str(self.db_path))
         await self._create_tables()
-        
+
     async def _create_tables(self) -> None:
         """Cria tabelas necessárias."""
         # Use asyncio.to_thread for blocking DuckDB operations
@@ -216,7 +225,7 @@ class DuckDBStorage:
 
         await asyncio.to_thread(create_tables)
         logger.info("Database tables initialized")
-    
+
     async def save_audit(self, audit: SiteAudit) -> int:
         """Salva uma auditoria completa."""
         # Inserir auditoria completa using asyncio.to_thread for blocking operation
@@ -242,7 +251,7 @@ class DuckDBStorage:
         await self._save_summary(summary)
 
         return audit_id
-    
+
     def _create_summary(self, audit: SiteAudit) -> AuditSummary:
         """Cria resumo a partir de auditoria completa."""
         summary = AuditSummary(
@@ -294,7 +303,7 @@ class DuckDBStorage:
 
     def _extract_category_scores(
         self, categories: dict
-    ) -> dict[str, Optional[float]]:
+    ) -> dict[str, float | None]:
         """Extract scores from Lighthouse categories."""
         return {
             "performance": categories.get("performance", {}).score,
@@ -305,7 +314,7 @@ class DuckDBStorage:
 
     def _extract_web_vitals(
         self, audits: dict[str, LighthouseAudit]
-    ) -> dict[str, Optional[float]]:
+    ) -> dict[str, float | None]:
         """Extract Core Web Vitals from Lighthouse audits."""
         return {
             "fcp": self._extract_metric_value(audits.get("first-contentful-paint")),
@@ -315,13 +324,13 @@ class DuckDBStorage:
         }
 
     def _extract_metric_value(
-        self, audit_data: Optional[LighthouseAudit]
-    ) -> Optional[float]:
+        self, audit_data: LighthouseAudit | None
+    ) -> float | None:
         """Extrai valor numérico de uma métrica."""
-        if audit_data and hasattr(audit_data, 'numericValue'):
+        if audit_data and hasattr(audit_data, "numericValue"):
             return audit_data.numericValue
         return None
-    
+
     async def _save_summary(self, summary: AuditSummary) -> None:
         """Salva resumo da auditoria."""
         def insert_summary() -> None:
@@ -346,7 +355,7 @@ class DuckDBStorage:
             ])
 
         await asyncio.to_thread(insert_summary)
-    
+
     async def get_recently_audited_urls(self, hours: int = 24) -> set[str]:
         """Retorna URLs auditadas nas ultimas N horas (para coleta incremental)."""
         results = self.conn.execute("""
@@ -363,37 +372,37 @@ class DuckDBStorage:
     async def export_to_parquet(self, output_dir: Path) -> None:
         """Exporta dados para arquivos Parquet particionados."""
         output_dir.mkdir(exist_ok=True)
-        
+
         # Export auditorias completas
         audits_df = self.conn.execute("""
-            SELECT 
+            SELECT
                 url, timestamp, error_message, retry_count,
                 DATE_TRUNC('day', timestamp) as date_partition
             FROM audits
         """).df()
-        
+
         if not audits_df.empty:
             # Particionar por data
             for date, group in audits_df.groupby('date_partition'):
                 date_str = date.strftime('%Y-%m-%d')
                 parquet_file = output_dir / f"audits_date={date_str}.parquet"
                 group.drop('date_partition', axis=1).to_parquet(parquet_file)
-        
+
         # Export resumos
         summaries_df = self.conn.execute("SELECT * FROM audit_summaries").df()
         if not summaries_df.empty:
             summaries_file = output_dir / "audit_summaries.parquet"
             summaries_df.to_parquet(summaries_file)
-        
+
         console.print(f"Dados exportados para {output_dir}")
 
     async def export_to_json(self, output_dir: Path) -> None:
         """Exporta dados para JSON (para visualização web)."""
         output_dir.mkdir(exist_ok=True)
-        
+
         # Export resumo para visualização
         summaries = self.conn.execute("""
-            SELECT 
+            SELECT
                 url, timestamp,
                 mobile_performance, desktop_performance,
                 mobile_accessibility, desktop_accessibility,
@@ -402,7 +411,7 @@ class DuckDBStorage:
             ORDER BY timestamp DESC
             LIMIT 1000
         """).fetchall()
-        
+
         # Converter para formato JSON amigável
         json_data = {
             "last_updated": datetime.utcnow().isoformat(),
@@ -421,11 +430,11 @@ class DuckDBStorage:
                 for row in summaries
             ]
         }
-        
+
         json_file = output_dir / "latest_audits.json"
         with open(json_file, 'w', encoding='utf-8') as f:
             json.dump(json_data, f, indent=2, ensure_ascii=False)
-        
+
         console.print(f"JSON exportado para {json_file}")
 
     # ========================================================================
@@ -479,11 +488,12 @@ class DuckDBStorage:
             max_mobile_performance=result[14],
         )
 
-    async def get_metrics_by_state(self) -> List[StateMetrics]:
+    async def get_metrics_by_state(self) -> list[StateMetrics]:
         """Retorna metricas agregadas por estado (extraido da URL)."""
+
         def query_by_state() -> list:
             # Extrai estado do dominio (ex: prefeitura.sp.gov.br -> SP)
-            return self.conn.execute("""
+            return self.conn.execute(r"""
                 WITH state_extract AS (
                     SELECT
                         url,
@@ -518,7 +528,7 @@ class DuckDBStorage:
             for row in results
         ]
 
-    async def get_worst_performing_sites(self, limit: int = 10) -> List[SitePerformance]:
+    async def get_worst_performing_sites(self, limit: int = 10) -> list[SitePerformance]:
         """Retorna os sites com pior performance."""
         def query_worst() -> list:
             return self.conn.execute("""
@@ -547,7 +557,7 @@ class DuckDBStorage:
             for row in results
         ]
 
-    async def get_best_accessibility_sites(self, limit: int = 10) -> List[SiteAccessibility]:
+    async def get_best_accessibility_sites(self, limit: int = 10) -> list[SiteAccessibility]:
         """Retorna os sites com melhor acessibilidade."""
         def query_best() -> list:
             return self.conn.execute("""
@@ -576,7 +586,7 @@ class DuckDBStorage:
             for row in results
         ]
 
-    async def get_temporal_evolution(self, url: str) -> List[TemporalData]:
+    async def get_temporal_evolution(self, url: str) -> list[TemporalData]:
         """Retorna evolucao temporal de metricas para uma URL."""
         def query_temporal() -> list:
             return self.conn.execute("""
@@ -699,9 +709,9 @@ class DuckDBStorage:
 
     async def get_quarantined_sites(
         self,
-        status: Optional[str] = None,
-        min_failures: int = 0
-    ) -> List[QuarantineSite]:
+        status: str | None = None,
+        min_failures: int = 0,
+    ) -> list[QuarantineSite]:
         """
         Retorna sites em quarentena.
 
@@ -726,7 +736,7 @@ class DuckDBStorage:
             FROM quarantine
             WHERE consecutive_failures >= ?
         """
-        params: List = [min_failures]
+        params: list = [min_failures]
 
         if status:
             query += " AND status = ?"
@@ -757,7 +767,7 @@ class DuckDBStorage:
         self,
         url: str,
         status: str,
-        notes: Optional[str] = None
+        notes: str | None = None,
     ) -> bool:
         """
         Atualiza status de um site na quarentena.
@@ -914,7 +924,7 @@ class DuckDBStorage:
         """
         output_dir.mkdir(parents=True, exist_ok=True)
         generated_at = datetime.utcnow().isoformat()
-        files: List[str] = []
+        files: list[str] = []
 
         # 1. Summary - Metricas agregadas
         summary_file = await self._export_summary(output_dir, generated_at)
@@ -962,7 +972,7 @@ class DuckDBStorage:
 
     async def _export_ranking(
         self, output_dir: Path, generated_at: str
-    ) -> tuple[List[dict], Path]:
+    ) -> tuple[list[dict], Path]:
         """Export ranking data to JSON."""
         def query_ranking() -> list:
             return self.conn.execute("""
@@ -1039,7 +1049,7 @@ class DuckDBStorage:
         return ranking, ranking_file
 
     async def _export_top_worst(
-        self, output_dir: Path, generated_at: str, ranking: List[dict]
+        self, output_dir: Path, generated_at: str, ranking: list[dict]
     ) -> tuple[Path, Path]:
         """Export top 50 and worst 50 sites to JSON."""
         top50 = ranking[:50]

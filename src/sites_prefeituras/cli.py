@@ -140,10 +140,10 @@ def stats(
 
         # Últimas auditorias
         recent = storage.conn.execute("""
-            SELECT url, timestamp, 
+            SELECT url, timestamp,
                    CASE WHEN error_message IS NULL THEN '✅' ELSE '❌' END as status
-            FROM audits 
-            ORDER BY timestamp DESC 
+            FROM audits
+            ORDER BY timestamp DESC
             LIMIT 10
         """).fetchall()
 

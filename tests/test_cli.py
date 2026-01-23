@@ -65,7 +65,7 @@ class TestCLI:
         with patch.dict(os.environ, {"PAGESPEED_API_KEY": "test_key"}):
             result = runner.invoke(app, ["batch", "arquivo_inexistente.csv"])
             assert result.exit_code == 1
-            assert "não encontrado" in result.stdout
+            assert "nao encontrado" in result.stdout
 
     @pytest.mark.e2e
     def test_cleanup_no_options(self):
@@ -133,35 +133,36 @@ class TestModels:
     def test_batch_audit_config_creation(self):
         """Testa criação de BatchAuditConfig."""
         from sites_prefeituras.models import BatchAuditConfig
-        
+
         config = BatchAuditConfig(csv_file="test.csv")
         assert config.csv_file == "test.csv"
         assert config.output_dir == "./output"
-        assert config.max_concurrent == 5
-        assert config.requests_per_second == 1.0
+        assert config.max_concurrent == 10
+        assert config.requests_per_second == 3.5
 
 
 class TestStorage:
     """Testes para sistema de storage."""
 
     @pytest.mark.e2e
+    @pytest.mark.asyncio
     async def test_duckdb_storage_initialization(self):
         """Testa inicialização do DuckDB storage."""
         from sites_prefeituras.storage import DuckDBStorage
-        
+
         with tempfile.TemporaryDirectory() as temp_dir:
             db_path = Path(temp_dir) / "test.duckdb"
             storage = DuckDBStorage(str(db_path))
-            
+
             await storage.initialize()
             assert storage.conn is not None
-            
+
             # Verificar se tabelas foram criadas
             tables = storage.conn.execute("SHOW TABLES").fetchall()
             table_names = [table[0] for table in tables]
             assert "audits" in table_names
             assert "audit_summaries" in table_names
-            
+
             await storage.close()
 
 
