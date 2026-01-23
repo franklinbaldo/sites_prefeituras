@@ -8,14 +8,14 @@ Funcionalidade: Sistema de quarentena para sites com falhas persistentes
   Contexto:
     Dado que existem auditorias no banco de dados
 
-  Cenario: Identificar sites com falhas consecutivas
+  Cenario: Identificar sites com falhas persistentes
     Dado auditorias de um site que falhou por 5 dias consecutivos
     Quando eu atualizar a quarentena com minimo de 3 dias
     Entao o site deve ser adicionado a quarentena
     E o status deve ser "quarantined"
     E o numero de falhas consecutivas deve ser 5
 
-  Cenario: Site com falhas intermitentes nao entra em quarentena
+  Cenario: Site com poucas falhas nao entra em quarentena
     Dado auditorias de um site com falhas em dias alternados
     Quando eu atualizar a quarentena com minimo de 3 dias
     Entao o site nao deve estar na quarentena
