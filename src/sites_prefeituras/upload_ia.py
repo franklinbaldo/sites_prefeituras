@@ -40,7 +40,9 @@ def upload_dashboard_json(
         dashboard_path = Path(dashboard_dir)
 
         if not dashboard_path.exists():
-            console.print(f"[yellow]Warning: Dashboard directory not found: {dashboard_dir}[/yellow]")
+            console.print(
+                f"[yellow]Warning: Dashboard directory not found: {dashboard_dir}[/yellow]"
+            )
             return False
 
         for json_file in dashboard_path.glob("*.json"):
@@ -48,7 +50,9 @@ def upload_dashboard_json(
             json_files[name] = str(json_file)
 
         if not json_files:
-            console.print(f"[yellow]Warning: No JSON files found in {dashboard_dir}[/yellow]")
+            console.print(
+                f"[yellow]Warning: No JSON files found in {dashboard_dir}[/yellow]"
+            )
             return False
 
         # Prepare metadata
@@ -62,7 +66,9 @@ def upload_dashboard_json(
         }
 
         # Upload to Internet Archive
-        console.print(f"[blue]Uploading {len(json_files)} dashboard JSON files to Internet Archive...[/blue]")
+        console.print(
+            f"[blue]Uploading {len(json_files)} dashboard JSON files to Internet Archive...[/blue]"
+        )
         upload(
             identifier=item_identifier,
             files=json_files,
@@ -72,11 +78,15 @@ def upload_dashboard_json(
             verbose=True,
         )
 
-        console.print(f"[green]Successfully uploaded dashboard files: {list(json_files.keys())}[/green]")
+        console.print(
+            f"[green]Successfully uploaded dashboard files: {list(json_files.keys())}[/green]"
+        )
         return True
 
     except Exception as e:
-        console.print(f"[red]Error uploading dashboard JSON to Internet Archive: {e}[/red]")
+        console.print(
+            f"[red]Error uploading dashboard JSON to Internet Archive: {e}[/red]"
+        )
         return False
 
 
@@ -103,7 +113,9 @@ def upload_quarantine(
         for file_path in quarantine_files:
             path = Path(file_path)
             if not path.exists():
-                console.print(f"[yellow]Warning: Quarantine file not found: {file_path}[/yellow]")
+                console.print(
+                    f"[yellow]Warning: Quarantine file not found: {file_path}[/yellow]"
+                )
                 continue
             files_to_upload[path.name] = str(path)
 
@@ -122,7 +134,9 @@ def upload_quarantine(
         }
 
         # Upload to Internet Archive
-        console.print(f"[blue]Uploading {len(files_to_upload)} quarantine files to Internet Archive...[/blue]")
+        console.print(
+            f"[blue]Uploading {len(files_to_upload)} quarantine files to Internet Archive...[/blue]"
+        )
         upload(
             identifier=item_identifier,
             files=files_to_upload,
@@ -132,7 +146,9 @@ def upload_quarantine(
             verbose=True,
         )
 
-        console.print(f"[green]Successfully uploaded quarantine files: {list(files_to_upload.keys())}[/green]")
+        console.print(
+            f"[green]Successfully uploaded quarantine files: {list(files_to_upload.keys())}[/green]"
+        )
         return True
 
     except Exception as e:
@@ -149,10 +165,18 @@ cli = typer.Typer(
 
 @cli.command(name="dashboard")
 def upload_dashboard_cmd(
-    dashboard_dir: str = typer.Argument(..., help="Directory containing dashboard JSON files"),
-    item_identifier: str = typer.Option(..., "--item", help="Internet Archive item identifier"),
-    access_key: str | None = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
-    secret_key: str | None = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
+    dashboard_dir: str = typer.Argument(
+        ..., help="Directory containing dashboard JSON files"
+    ),
+    item_identifier: str = typer.Option(
+        ..., "--item", help="Internet Archive item identifier"
+    ),
+    access_key: str | None = typer.Option(
+        None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"
+    ),
+    secret_key: str | None = typer.Option(
+        None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"
+    ),
 ) -> None:
     """Upload dashboard JSON files to Internet Archive."""
     # Get credentials from environment if not provided
@@ -160,7 +184,9 @@ def upload_dashboard_cmd(
     secret_key = secret_key or os.getenv("IA_SECRET_KEY")
 
     if not access_key or not secret_key:
-        console.print("[red]Error: IA_ACCESS_KEY and IA_SECRET_KEY must be provided[/red]")
+        console.print(
+            "[red]Error: IA_ACCESS_KEY and IA_SECRET_KEY must be provided[/red]"
+        )
         raise typer.Exit(1)
 
     success = upload_dashboard_json(
@@ -176,10 +202,18 @@ def upload_dashboard_cmd(
 
 @cli.command(name="quarantine")
 def upload_quarantine_cmd(
-    quarantine_files: list[str] = typer.Argument(..., help="Quarantine files to upload"),
-    item_identifier: str = typer.Option(..., "--item", help="Internet Archive item identifier"),
-    access_key: str | None = typer.Option(None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"),
-    secret_key: str | None = typer.Option(None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"),
+    quarantine_files: list[str] = typer.Argument(
+        ..., help="Quarantine files to upload"
+    ),
+    item_identifier: str = typer.Option(
+        ..., "--item", help="Internet Archive item identifier"
+    ),
+    access_key: str | None = typer.Option(
+        None, "--access-key", help="IA access key (or set IA_ACCESS_KEY env var)"
+    ),
+    secret_key: str | None = typer.Option(
+        None, "--secret-key", help="IA secret key (or set IA_SECRET_KEY env var)"
+    ),
 ) -> None:
     """Upload quarantine lists to Internet Archive."""
     # Get credentials from environment if not provided
@@ -187,7 +221,9 @@ def upload_quarantine_cmd(
     secret_key = secret_key or os.getenv("IA_SECRET_KEY")
 
     if not access_key or not secret_key:
-        console.print("[red]Error: IA_ACCESS_KEY and IA_SECRET_KEY must be provided[/red]")
+        console.print(
+            "[red]Error: IA_ACCESS_KEY and IA_SECRET_KEY must be provided[/red]"
+        )
         raise typer.Exit(1)
 
     success = upload_quarantine(

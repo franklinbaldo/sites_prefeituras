@@ -77,11 +77,13 @@ class TestCLI:
     @pytest.mark.e2e
     def test_cleanup_no_js_files(self):
         """Testa cleanup quando não há arquivos JS."""
-        with tempfile.TemporaryDirectory() as temp_dir:
-            with patch("pathlib.Path.cwd", return_value=Path(temp_dir)):
-                result = runner.invoke(app, ["cleanup", "--remove-js", "--confirm"])
-                assert result.exit_code == 0
-                assert "Nenhum arquivo JavaScript encontrado" in result.stdout
+        with (
+            tempfile.TemporaryDirectory() as temp_dir,
+            patch("pathlib.Path.cwd", return_value=Path(temp_dir)),
+        ):
+            result = runner.invoke(app, ["cleanup", "--remove-js", "--confirm"])
+            assert result.exit_code == 0
+            assert "Nenhum arquivo JavaScript encontrado" in result.stdout
 
     @pytest.mark.e2e
     def test_serve_command(self):
@@ -97,7 +99,7 @@ class TestBatchCSV:
 
     def test_batch_with_valid_csv(self):
         """Testa batch com CSV válido."""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as f:
             f.write("url\n")
             f.write("https://example.com\n")
             f.write("https://google.com\n")
@@ -106,12 +108,19 @@ class TestBatchCSV:
         try:
             with patch.dict(os.environ, {"PAGESPEED_API_KEY": "test_key"}):
                 # Teste apenas se o arquivo é encontrado (não executa auditoria real)
-                result = runner.invoke(app, [
-                    "batch", csv_file, 
-                    "--output-dir", "/tmp/test_output",
-                    "--max-concurrent", "1",
-                    "--requests-per-second", "0.1"
-                ])
+                result = runner.invoke(
+                    app,
+                    [
+                        "batch",
+                        csv_file,
+                        "--output-dir",
+                        "/tmp/test_output",
+                        "--max-concurrent",
+                        "1",
+                        "--requests-per-second",
+                        "0.1",
+                    ],
+                )
                 # Pode falhar na execução real, mas não deve falhar por arquivo não encontrado
                 assert "não encontrado" not in result.stdout
         finally:
@@ -124,7 +133,7 @@ class TestModels:
     def test_site_audit_creation(self):
         """Testa criação de SiteAudit."""
         from sites_prefeituras.models import SiteAudit
-        
+
         audit = SiteAudit(url="https://example.com")
         assert str(audit.url) == "https://example.com/"
         assert audit.error_message is None
@@ -175,12 +184,12 @@ class TestIntegration:
         # 1. Help funciona
         result = runner.invoke(app, ["--help"])
         assert result.exit_code == 0
-        
+
         # 2. Comandos individuais têm help
         for command in ["audit", "batch", "serve", "stats", "cleanup"]:
             result = runner.invoke(app, [command, "--help"])
             assert result.exit_code == 0
-        
+
         # 3. Cleanup sem arquivos JS
         result = runner.invoke(app, ["cleanup", "--remove-js", "--confirm"])
         assert result.exit_code == 0

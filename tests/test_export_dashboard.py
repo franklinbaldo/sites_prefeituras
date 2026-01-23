@@ -1,12 +1,9 @@
 """Tests for export-dashboard command and dashboard JSON generation."""
 
 import json
-from datetime import datetime, timedelta
-from pathlib import Path
 
 import pytest
 
-from sites_prefeituras.models import SiteAudit, PageSpeedInsightsResult
 from sites_prefeituras.storage import DuckDBStorage
 
 
@@ -77,7 +74,7 @@ async def test_export_dashboard_creates_six_files(tmp_path):
             "top50.json",
             "worst50.json",
             "by-state.json",
-            "quarantine.json"
+            "quarantine.json",
         ]
 
         for filename in required_files:
@@ -103,7 +100,14 @@ async def test_export_dashboard_files_are_valid_json(tmp_path):
         await storage.export_dashboard_json(output_dir)
 
         # Verify all files are valid JSON
-        for filename in ["summary.json", "ranking.json", "top50.json", "worst50.json", "by-state.json", "quarantine.json"]:
+        for filename in [
+            "summary.json",
+            "ranking.json",
+            "top50.json",
+            "worst50.json",
+            "by-state.json",
+            "quarantine.json",
+        ]:
             filepath = output_dir / filename
             with open(filepath) as f:
                 data = json.load(f)  # Will raise if invalid JSON

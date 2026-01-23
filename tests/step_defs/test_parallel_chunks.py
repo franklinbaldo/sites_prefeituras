@@ -2,15 +2,12 @@
 
 import asyncio
 import time
-from unittest.mock import MagicMock, patch
 
 import pytest
-import respx
 from httpx import Response
 from pytest_bdd import given, parsers, scenarios, then, when
 
 from sites_prefeituras.collector import PageSpeedCollector, process_urls_in_chunks
-from sites_prefeituras.models import BatchAuditConfig, SiteAudit
 from tests.conftest import create_psi_response
 
 # Carrega os cenarios do arquivo .feature
@@ -161,7 +158,9 @@ def given_urls_with_error(context, total, error_count, mock_psi_api):
         else:
             mock_psi_api.get(
                 "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-            ).mock(return_value=Response(500, json={"error": {"message": "Server Error"}}))
+            ).mock(
+                return_value=Response(500, json={"error": {"message": "Server Error"}})
+            )
 
 
 @then(parsers.parse("{count:d} URLs devem ter resultado de sucesso"))
@@ -192,7 +191,11 @@ def given_concurrent_limit(context, limit):
     context["max_concurrent"] = limit
 
 
-@then(parsers.parse("no maximo {limit:d} requisicoes HTTP devem estar ativas ao mesmo tempo"))
+@then(
+    parsers.parse(
+        "no maximo {limit:d} requisicoes HTTP devem estar ativas ao mesmo tempo"
+    )
+)
 def then_max_concurrent_respected(context, limit):
     # Isso e garantido pelo semaphore - se nao houve erro, foi respeitado
     assert context["max_concurrent"] == limit

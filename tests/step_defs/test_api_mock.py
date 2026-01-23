@@ -2,15 +2,12 @@
 
 import asyncio
 import time
-from pathlib import Path
 
 import pytest
-import respx
 from httpx import Response
 from pytest_bdd import given, parsers, scenarios, then, when
 
 from sites_prefeituras.collector import PageSpeedCollector, process_urls_in_chunks
-from sites_prefeituras.models import BatchAuditConfig
 from tests.conftest import create_psi_response
 
 # Carrega os cenarios do arquivo .feature
@@ -20,6 +17,7 @@ scenarios("../features/api_mock.feature")
 # ============================================================================
 # Contexto
 # ============================================================================
+
 
 @pytest.fixture
 def mock_context():
@@ -42,6 +40,7 @@ def api_is_mocked(mock_context, mock_psi_api):
 # Cenario: Sucesso mockado
 # ============================================================================
 
+
 @given(parsers.parse("uma resposta mockada com score de performance {score}"))
 def given_performance_score(mock_context, score):
     mock_context["performance"] = float(score)
@@ -52,16 +51,16 @@ def given_accessibility_score(mock_context, score, mock_psi_api):
     mock_context["accessibility"] = float(score)
 
     # Configurar o mock com os scores
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(return_value=Response(
-        200,
-        json=create_psi_response(
-            "https://exemplo.gov.br",
-            performance=mock_context["performance"],
-            accessibility=mock_context["accessibility"],
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        return_value=Response(
+            200,
+            json=create_psi_response(
+                "https://exemplo.gov.br",
+                performance=mock_context["performance"],
+                accessibility=mock_context["accessibility"],
+            ),
         )
-    ))
+    )
 
 
 @when(parsers.parse('eu auditar o site "{url}"'))
@@ -104,12 +103,14 @@ def then_no_error(mock_context):
 # Cenario: Timeout mockado
 # ============================================================================
 
+
 @given("uma resposta mockada que retorna timeout")
 def given_timeout_response(mock_context, mock_psi_api):
     import httpx
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(side_effect=httpx.TimeoutException("Connection timeout"))
+
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        side_effect=httpx.TimeoutException("Connection timeout")
+    )
 
 
 @then(parsers.parse('o resultado deve ter mensagem de erro contendo "{text}"'))
@@ -129,6 +130,7 @@ def then_retry_count(mock_context, count):
 # Cenario: Rate limit 429
 # ============================================================================
 
+
 @given("uma resposta mockada que retorna erro 429")
 def given_rate_limit_error(mock_context, mock_psi_api):
     # Primeira chamada retorna 429, depois sucesso
@@ -137,9 +139,9 @@ def given_rate_limit_error(mock_context, mock_psi_api):
         Response(429, json={"error": {"code": 429, "message": "Rate Limit Exceeded"}}),
         Response(200, json=create_psi_response("https://site.gov.br")),
     ]
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(side_effect=responses)
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        side_effect=responses
+    )
 
 
 @then("o sistema deve aguardar antes de tentar novamente")
@@ -161,11 +163,12 @@ def then_exponential_backoff(mock_context):
 # Cenario: JSON invalido
 # ============================================================================
 
+
 @given("uma resposta mockada com JSON invalido")
 def given_invalid_json(mock_context, mock_psi_api):
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(return_value=Response(200, content=b"not valid json {{{"))
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        return_value=Response(200, content=b"not valid json {{{")
+    )
 
 
 @then("o resultado deve ter mensagem de erro")
@@ -183,6 +186,7 @@ def then_error_logged(mock_context):
 # Cenario: Batch com mix
 # ============================================================================
 
+
 @given(parsers.parse("{count:d} respostas mockadas de sucesso"))
 def given_success_responses(mock_context, count):
     mock_context["success_count"] = count
@@ -196,14 +200,16 @@ def given_error_responses(mock_context, count, mock_psi_api):
     responses = []
 
     for i in range(mock_context["success_count"]):
-        responses.append(Response(200, json=create_psi_response(f"https://site{i}.gov.br")))
+        responses.append(
+            Response(200, json=create_psi_response(f"https://site{i}.gov.br"))
+        )
 
-    for i in range(count):
+    for _ in range(count):
         responses.append(Response(500, json={"error": {"message": "Server Error"}}))
 
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(side_effect=responses)
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        side_effect=responses
+    )
 
     mock_context["urls"] = [f"https://site{i}.gov.br" for i in range(total)]
 
@@ -243,11 +249,12 @@ def then_all_saved(mock_context, count):
 # Cenario: Sem requisicoes reais
 # ============================================================================
 
+
 @given("que o mock esta ativo")
 def given_mock_active(mock_context, mock_psi_api):
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(return_value=Response(200, json=create_psi_response("https://any.gov.br")))
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        return_value=Response(200, json=create_psi_response("https://any.gov.br"))
+    )
 
 
 @when("eu auditar qualquer site")
@@ -276,19 +283,20 @@ def then_fast_completion(mock_context, seconds):
 # Cenario: Core Web Vitals
 # ============================================================================
 
+
 @given("uma resposta mockada com metricas CWV")
 def given_cwv_response(mock_context, mock_psi_api):
-    mock_psi_api.get(
-        "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
-    ).mock(return_value=Response(
-        200,
-        json=create_psi_response(
-            "https://site.gov.br",
-            fcp=1500,
-            lcp=2500,
-            cls=0.05,
+    mock_psi_api.get("https://www.googleapis.com/pagespeedonline/v5/runPagespeed").mock(
+        return_value=Response(
+            200,
+            json=create_psi_response(
+                "https://site.gov.br",
+                fcp=1500,
+                lcp=2500,
+                cls=0.05,
+            ),
         )
-    ))
+    )
 
 
 @then("o resultado deve conter FCP")
@@ -318,6 +326,7 @@ def then_has_cls(mock_context):
 # ============================================================================
 # Cenario: Fluxo completo
 # ============================================================================
+
 
 @given(parsers.parse("respostas mockadas para {count:d} sites"))
 def given_mock_responses(mock_context, count, mock_psi_api):

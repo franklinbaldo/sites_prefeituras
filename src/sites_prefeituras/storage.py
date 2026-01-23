@@ -19,7 +19,8 @@ from .models import AuditSummary, LighthouseAudit, SiteAudit
 # TypedDicts for structured return types
 # ============================================================================
 
-class AggregatedMetrics(TypedDict):
+
+class AggregatedMetrics(TypedDict, total=False):
     """Structured type for aggregated metrics."""
 
     total_audits: int
@@ -39,6 +40,7 @@ class AggregatedMetrics(TypedDict):
     std_desktop_performance: float | None
     min_mobile_performance: float | None
     max_mobile_performance: float | None
+    generated_at: str
 
 
 class StateMetrics(TypedDict):
@@ -127,6 +129,7 @@ class DashboardExportStats(TypedDict):
     files: list[str]
     total_sites: int
 
+
 logger = logging.getLogger(__name__)
 console = Console()
 
@@ -139,6 +142,19 @@ class DuckDBStorage:
         self.db_path.parent.mkdir(exist_ok=True)
         self.conn: duckdb.DuckDBPyConnection | None = None
 
+    def _get_conn(self) -> duckdb.DuckDBPyConnection:
+        """Get connection, raising if not initialized."""
+        if self.conn is None:
+            raise RuntimeError("Database not initialized. Call initialize() first.")
+        return self.conn
+
+    def _fetch_scalar(self, query: str, default: int = 0) -> int:
+        """Execute query and return single scalar value."""
+        result = self._get_conn().execute(query).fetchone()
+        if result is None:
+            return default
+        return int(result[0])
+
     async def initialize(self) -> None:
         """Inicializa o banco de dados e cria tabelas."""
         # Use asyncio.to_thread for blocking DuckDB connection
@@ -147,10 +163,11 @@ class DuckDBStorage:
 
     async def _create_tables(self) -> None:
         """Cria tabelas necessárias."""
+
         # Use asyncio.to_thread for blocking DuckDB operations
         def create_tables() -> None:
             # Tabela principal de auditorias
-            self.conn.execute("""
+            self._get_conn().execute("""
                 CREATE TABLE IF NOT EXISTS audits (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL,
@@ -164,7 +181,7 @@ class DuckDBStorage:
             """)
 
             # Tabela de resumos (para consultas rápidas)
-            self.conn.execute("""
+            self._get_conn().execute("""
                 CREATE TABLE IF NOT EXISTS audit_summaries (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL,
@@ -201,12 +218,18 @@ class DuckDBStorage:
             """)
 
             # Índices para performance
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)")
+            self._get_conn().execute(
+                "CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)"
+            )
+            self._get_conn().execute(
+                "CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)"
+            )
+            self._get_conn().execute(
+                "CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)"
+            )
 
             # Tabela de quarentena (sites com falhas persistentes)
-            self.conn.execute("""
+            self._get_conn().execute("""
                 CREATE TABLE IF NOT EXISTS quarantine (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL UNIQUE,
@@ -220,32 +243,42 @@ class DuckDBStorage:
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)")
+            self._get_conn().execute(
+                "CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)"
+            )
+            self._get_conn().execute(
+                "CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)"
+            )
 
         await asyncio.to_thread(create_tables)
         logger.info("Database tables initialized")
 
     async def save_audit(self, audit: SiteAudit) -> int:
         """Salva uma auditoria completa."""
+
         # Inserir auditoria completa using asyncio.to_thread for blocking operation
         def insert_audit() -> int:
             # DuckDB requires explicit ID - get next ID first
-            next_id = self.conn.execute(
-                "SELECT COALESCE(MAX(id), 0) + 1 FROM audits"
-            ).fetchone()[0]
-            self.conn.execute("""
+            next_id = self._fetch_scalar("SELECT COALESCE(MAX(id), 0) + 1 FROM audits")
+            self._get_conn().execute(
+                """
                 INSERT INTO audits (id, url, timestamp, mobile_result, desktop_result, error_message, retry_count)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, [
-                next_id,
-                str(audit.url),
-                audit.timestamp,
-                audit.mobile_result.model_dump_json() if audit.mobile_result else None,
-                audit.desktop_result.model_dump_json() if audit.desktop_result else None,
-                audit.error_message,
-                audit.retry_count,
-            ])
+            """,
+                [
+                    next_id,
+                    str(audit.url),
+                    audit.timestamp,
+                    audit.mobile_result.model_dump_json()
+                    if audit.mobile_result
+                    else None,
+                    audit.desktop_result.model_dump_json()
+                    if audit.desktop_result
+                    else None,
+                    audit.error_message,
+                    audit.retry_count,
+                ],
+            )
             return next_id
 
         audit_id = await asyncio.to_thread(insert_audit)
@@ -305,9 +338,7 @@ class DuckDBStorage:
 
         return summary
 
-    def _extract_category_scores(
-        self, categories: dict
-    ) -> dict[str, float | None]:
+    def _extract_category_scores(self, categories: dict) -> dict[str, float | None]:
         """Extract scores from Lighthouse categories."""
         return {
             "performance": categories.get("performance", {}).score,
@@ -327,9 +358,7 @@ class DuckDBStorage:
             "fid": self._extract_metric_value(audits.get("max-potential-fid")),
         }
 
-    def _extract_metric_value(
-        self, audit_data: LighthouseAudit | None
-    ) -> float | None:
+    def _extract_metric_value(self, audit_data: LighthouseAudit | None) -> float | None:
         """Extrai valor numérico de uma métrica."""
         if audit_data and hasattr(audit_data, "numericValue"):
             return audit_data.numericValue
@@ -337,12 +366,14 @@ class DuckDBStorage:
 
     async def _save_summary(self, summary: AuditSummary) -> None:
         """Salva resumo da auditoria."""
+
         def insert_summary() -> None:
             # DuckDB requires explicit ID - get next ID first
-            next_id = self.conn.execute(
+            next_id = self._fetch_scalar(
                 "SELECT COALESCE(MAX(id), 0) + 1 FROM audit_summaries"
-            ).fetchone()[0]
-            self.conn.execute("""
+            )
+            self._get_conn().execute(
+                """
                 INSERT INTO audit_summaries (
                     id, url, timestamp,
                     mobile_performance, mobile_accessibility, mobile_best_practices, mobile_seo,
@@ -351,17 +382,31 @@ class DuckDBStorage:
                     desktop_fcp, desktop_lcp, desktop_cls, desktop_fid,
                     has_errors, error_message
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, [
-                next_id,
-                str(summary.url), summary.timestamp,
-                summary.mobile_performance, summary.mobile_accessibility,
-                summary.mobile_best_practices, summary.mobile_seo,
-                summary.desktop_performance, summary.desktop_accessibility,
-                summary.desktop_best_practices, summary.desktop_seo,
-                summary.mobile_fcp, summary.mobile_lcp, summary.mobile_cls, summary.mobile_fid,
-                summary.desktop_fcp, summary.desktop_lcp, summary.desktop_cls, summary.desktop_fid,
-                summary.has_errors, summary.error_message,
-            ])
+            """,
+                [
+                    next_id,
+                    str(summary.url),
+                    summary.timestamp,
+                    summary.mobile_performance,
+                    summary.mobile_accessibility,
+                    summary.mobile_best_practices,
+                    summary.mobile_seo,
+                    summary.desktop_performance,
+                    summary.desktop_accessibility,
+                    summary.desktop_best_practices,
+                    summary.desktop_seo,
+                    summary.mobile_fcp,
+                    summary.mobile_lcp,
+                    summary.mobile_cls,
+                    summary.mobile_fid,
+                    summary.desktop_fcp,
+                    summary.desktop_lcp,
+                    summary.desktop_cls,
+                    summary.desktop_fid,
+                    summary.has_errors,
+                    summary.error_message,
+                ],
+            )
 
         await asyncio.to_thread(insert_summary)
 
@@ -378,7 +423,7 @@ class DuckDBStorage:
         """
 
         def execute_query() -> list:
-            return self.conn.execute(query).fetchall()
+            return self._get_conn().execute(query).fetchall()
 
         results = await asyncio.to_thread(execute_query)
         urls = {row[0] for row in results}
@@ -390,22 +435,26 @@ class DuckDBStorage:
         output_dir.mkdir(exist_ok=True)
 
         # Export auditorias completas
-        audits_df = self.conn.execute("""
+        audits_df = (
+            self._get_conn()
+            .execute("""
             SELECT
                 url, timestamp, error_message, retry_count,
                 DATE_TRUNC('day', timestamp) as date_partition
             FROM audits
-        """).df()
+        """)
+            .df()
+        )
 
         if not audits_df.empty:
             # Particionar por data
-            for date, group in audits_df.groupby('date_partition'):
-                date_str = date.strftime('%Y-%m-%d')
+            for date, group in audits_df.groupby("date_partition"):
+                date_str = date.strftime("%Y-%m-%d")
                 parquet_file = output_dir / f"audits_date={date_str}.parquet"
-                group.drop('date_partition', axis=1).to_parquet(parquet_file)
+                group.drop("date_partition", axis=1).to_parquet(parquet_file)
 
         # Export resumos
-        summaries_df = self.conn.execute("SELECT * FROM audit_summaries").df()
+        summaries_df = self._get_conn().execute("SELECT * FROM audit_summaries").df()
         if not summaries_df.empty:
             summaries_file = output_dir / "audit_summaries.parquet"
             summaries_df.to_parquet(summaries_file)
@@ -417,7 +466,9 @@ class DuckDBStorage:
         output_dir.mkdir(exist_ok=True)
 
         # Export resumo para visualização
-        summaries = self.conn.execute("""
+        summaries = (
+            self._get_conn()
+            .execute("""
             SELECT
                 url, timestamp,
                 mobile_performance, desktop_performance,
@@ -426,7 +477,9 @@ class DuckDBStorage:
             FROM audit_summaries
             ORDER BY timestamp DESC
             LIMIT 1000
-        """).fetchall()
+        """)
+            .fetchall()
+        )
 
         # Converter para formato JSON amigável
         json_data = {
@@ -444,11 +497,11 @@ class DuckDBStorage:
                     "error_message": row[7],
                 }
                 for row in summaries
-            ]
+            ],
         }
 
         json_file = output_dir / "latest_audits.json"
-        with open(json_file, 'w', encoding='utf-8') as f:
+        with open(json_file, "w", encoding="utf-8") as f:
             json.dump(json_data, f, indent=2, ensure_ascii=False)
 
         console.print(f"JSON exportado para {json_file}")
@@ -459,8 +512,11 @@ class DuckDBStorage:
 
     async def get_aggregated_metrics(self) -> AggregatedMetrics:
         """Retorna metricas agregadas de todas as auditorias."""
-        def query_metrics() -> tuple:
-            return self.conn.execute("""
+
+        def query_metrics() -> tuple[int, ...]:
+            result = (
+                self._get_conn()
+                .execute("""
                 SELECT
                     COUNT(*) as total_audits,
                     COUNT(*) FILTER (WHERE NOT has_errors) as successful_audits,
@@ -478,7 +534,10 @@ class DuckDBStorage:
                     MIN(mobile_performance) as min_mobile_performance,
                     MAX(mobile_performance) as max_mobile_performance
                 FROM audit_summaries
-            """).fetchone()
+            """)
+                .fetchone()
+            )
+            return result if result is not None else (0,) * 15
 
         result = await asyncio.to_thread(query_metrics)
         total = result[0] or 0
@@ -509,7 +568,9 @@ class DuckDBStorage:
 
         def query_by_state() -> list:
             # Extrai estado do dominio (ex: prefeitura.sp.gov.br -> SP)
-            return self.conn.execute(r"""
+            return (
+                self._get_conn()
+                .execute(r"""
                 WITH state_extract AS (
                     SELECT
                         url,
@@ -530,7 +591,9 @@ class DuckDBStorage:
                 WHERE state IS NOT NULL AND state != ''
                 GROUP BY state
                 ORDER BY avg_performance DESC
-            """).fetchall()
+            """)
+                .fetchall()
+            )
 
         results = await asyncio.to_thread(query_by_state)
 
@@ -544,10 +607,16 @@ class DuckDBStorage:
             for row in results
         ]
 
-    async def get_worst_performing_sites(self, limit: int = 10) -> list[SitePerformance]:
+    async def get_worst_performing_sites(
+        self, limit: int = 10
+    ) -> list[SitePerformance]:
         """Retorna os sites com pior performance."""
+
         def query_worst() -> list:
-            return self.conn.execute("""
+            return (
+                self._get_conn()
+                .execute(
+                    """
                 SELECT
                     url,
                     mobile_performance,
@@ -558,7 +627,11 @@ class DuckDBStorage:
                 WHERE NOT has_errors AND mobile_performance IS NOT NULL
                 ORDER BY mobile_performance ASC
                 LIMIT ?
-            """, [limit]).fetchall()
+            """,
+                    [limit],
+                )
+                .fetchall()
+            )
 
         results = await asyncio.to_thread(query_worst)
 
@@ -573,10 +646,16 @@ class DuckDBStorage:
             for row in results
         ]
 
-    async def get_best_accessibility_sites(self, limit: int = 10) -> list[SiteAccessibility]:
+    async def get_best_accessibility_sites(
+        self, limit: int = 10
+    ) -> list[SiteAccessibility]:
         """Retorna os sites com melhor acessibilidade."""
+
         def query_best() -> list:
-            return self.conn.execute("""
+            return (
+                self._get_conn()
+                .execute(
+                    """
                 SELECT
                     url,
                     mobile_accessibility,
@@ -587,7 +666,11 @@ class DuckDBStorage:
                 WHERE NOT has_errors AND mobile_accessibility IS NOT NULL
                 ORDER BY mobile_accessibility DESC
                 LIMIT ?
-            """, [limit]).fetchall()
+            """,
+                    [limit],
+                )
+                .fetchall()
+            )
 
         results = await asyncio.to_thread(query_best)
 
@@ -604,8 +687,12 @@ class DuckDBStorage:
 
     async def get_temporal_evolution(self, url: str) -> list[TemporalData]:
         """Retorna evolucao temporal de metricas para uma URL."""
+
         def query_temporal() -> list:
-            return self.conn.execute("""
+            return (
+                self._get_conn()
+                .execute(
+                    """
                 SELECT
                     timestamp,
                     mobile_performance,
@@ -615,7 +702,11 @@ class DuckDBStorage:
                 FROM audit_summaries
                 WHERE url = ? AND NOT has_errors
                 ORDER BY timestamp ASC
-            """, [url]).fetchall()
+            """,
+                    [url],
+                )
+                .fetchall()
+            )
 
         results = await asyncio.to_thread(query_temporal)
 
@@ -635,7 +726,7 @@ class DuckDBStorage:
         metrics = await self.get_aggregated_metrics()
         metrics["generated_at"] = datetime.utcnow().isoformat()
 
-        with open(output_file, 'w', encoding='utf-8') as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             json.dump(metrics, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Aggregated metrics exported to {output_file}")
@@ -644,7 +735,9 @@ class DuckDBStorage:
     # Sistema de Quarentena
     # ========================================================================
 
-    async def update_quarantine(self, min_consecutive_days: int = 3) -> QuarantineUpdateStats:
+    async def update_quarantine(
+        self, min_consecutive_days: int = 3
+    ) -> QuarantineUpdateStats:
         """
         Atualiza a lista de quarentena baseado em falhas consecutivas.
 
@@ -666,7 +759,9 @@ class DuckDBStorage:
             # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
             # with validated integers to prevent SQL injection
             min_failures = int(min_consecutive_days)
-            results = self.conn.execute(f"""
+            results = (
+                self._get_conn()
+                .execute(f"""
                 WITH daily_failures AS (
                     SELECT DISTINCT
                         url,
@@ -714,39 +809,58 @@ class DuckDBStorage:
                 SELECT url, first_failure, last_failure, consecutive_days, last_error
                 FROM best_sequence
                 WHERE rn = 1
-            """).fetchall()
+            """)
+                .fetchall()
+            )
 
             added = 0
             updated = 0
 
             for url, first_failure, last_failure, failure_days, last_error in results:
                 # Verificar se ja existe na quarentena
-                existing = self.conn.execute(
-                    "SELECT id, consecutive_failures FROM quarantine WHERE url = ?",
-                    [url]
-                ).fetchone()
+                existing = (
+                    self._get_conn()
+                    .execute(
+                        "SELECT id, consecutive_failures FROM quarantine WHERE url = ?",
+                        [url],
+                    )
+                    .fetchone()
+                )
 
                 if existing:
                     # Atualizar registro existente
-                    self.conn.execute("""
+                    self._get_conn().execute(
+                        """
                         UPDATE quarantine
                         SET last_failure = ?,
                             consecutive_failures = ?,
                             last_error_message = ?,
                             updated_at = CURRENT_TIMESTAMP
                         WHERE url = ?
-                    """, [last_failure, failure_days, last_error, url])
+                    """,
+                        [last_failure, failure_days, last_error, url],
+                    )
                     updated += 1
                 else:
                     # Adicionar novo registro - get next ID
-                    next_id = self.conn.execute(
+                    next_id = self._fetch_scalar(
                         "SELECT COALESCE(MAX(id), 0) + 1 FROM quarantine"
-                    ).fetchone()[0]
-                    self.conn.execute("""
+                    )
+                    self._get_conn().execute(
+                        """
                         INSERT INTO quarantine (id, url, first_failure, last_failure,
                                                consecutive_failures, last_error_message)
                         VALUES (?, ?, ?, ?, ?, ?)
-                    """, [next_id, url, first_failure, last_failure, failure_days, last_error])
+                    """,
+                        [
+                            next_id,
+                            url,
+                            first_failure,
+                            last_failure,
+                            failure_days,
+                            last_error,
+                        ],
+                    )
                     added += 1
 
             return QuarantineUpdateStats(
@@ -754,7 +868,9 @@ class DuckDBStorage:
             )
 
         stats = await asyncio.to_thread(update_quarantine_sync)
-        logger.info(f"Quarantine updated: {stats['added']} added, {stats['updated']} updated")
+        logger.info(
+            f"Quarantine updated: {stats['added']} added, {stats['updated']} updated"
+        )
         return stats
 
     async def get_quarantined_sites(
@@ -795,7 +911,7 @@ class DuckDBStorage:
         query += " ORDER BY consecutive_failures DESC, last_failure DESC"
 
         def execute_query() -> list:
-            return self.conn.execute(query, params).fetchall()
+            return self._get_conn().execute(query, params).fetchall()
 
         results = await asyncio.to_thread(execute_query)
 
@@ -834,12 +950,19 @@ class DuckDBStorage:
         if status not in valid_statuses:
             raise ValueError(f"Status invalido. Use: {valid_statuses}")
 
-        result = self.conn.execute("""
+        result = (
+            self._get_conn()
+            .execute(
+                """
             UPDATE quarantine
             SET status = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
             WHERE url = ?
             RETURNING id
-        """, [status, notes, url]).fetchone()
+        """,
+                [status, notes, url],
+            )
+            .fetchone()
+        )
 
         if result:
             logger.info(f"Quarantine status updated: {url} -> {status}")
@@ -848,10 +971,11 @@ class DuckDBStorage:
 
     async def remove_from_quarantine(self, url: str) -> bool:
         """Remove um site da quarentena."""
-        result = self.conn.execute(
-            "DELETE FROM quarantine WHERE url = ? RETURNING id",
-            [url]
-        ).fetchone()
+        result = (
+            self._get_conn()
+            .execute("DELETE FROM quarantine WHERE url = ? RETURNING id", [url])
+            .fetchone()
+        )
 
         if result:
             logger.info(f"Removed from quarantine: {url}")
@@ -860,8 +984,11 @@ class DuckDBStorage:
 
     async def get_quarantine_stats(self) -> QuarantineStats:
         """Retorna estatisticas da quarentena."""
-        def query_stats() -> tuple:
-            return self.conn.execute("""
+
+        def query_stats() -> tuple[int, ...]:
+            result = (
+                self._get_conn()
+                .execute("""
                 SELECT
                     COUNT(*) as total,
                     COUNT(*) FILTER (WHERE status = 'quarantined') as quarantined,
@@ -871,7 +998,10 @@ class DuckDBStorage:
                     AVG(consecutive_failures) as avg_failures,
                     MAX(consecutive_failures) as max_failures
                 FROM quarantine
-            """).fetchone()
+            """)
+                .fetchone()
+            )
+            return result if result is not None else (0,) * 7
 
         result = await asyncio.to_thread(query_stats)
 
@@ -887,10 +1017,14 @@ class DuckDBStorage:
 
     async def get_urls_to_skip_quarantine(self) -> set[str]:
         """Retorna URLs em quarentena que devem ser puladas na coleta."""
-        results = self.conn.execute("""
+        results = (
+            self._get_conn()
+            .execute("""
             SELECT url FROM quarantine
             WHERE status IN ('quarantined', 'wrong_url')
-        """).fetchall()
+        """)
+            .fetchall()
+        )
 
         return {row[0] for row in results}
 
@@ -916,7 +1050,7 @@ class DuckDBStorage:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         def write_json() -> None:
-            with open(output_file, 'w', encoding='utf-8') as f:
+            with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_json)
@@ -939,7 +1073,7 @@ class DuckDBStorage:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         def write_csv() -> None:
-            with open(output_file, 'w', encoding='utf-8', newline='') as f:
+            with open(output_file, "w", encoding="utf-8", newline="") as f:
                 if sites:
                     writer = csv.DictWriter(f, fieldnames=list(sites[0].keys()))
                     writer.writeheader()
@@ -995,7 +1129,9 @@ class DuckDBStorage:
         files.append(str(by_state_file))
 
         # 5. Quarentena
-        quarantine_file = await self._export_quarantine_dashboard(output_dir, generated_at)
+        quarantine_file = await self._export_quarantine_dashboard(
+            output_dir, generated_at
+        )
         files.append(str(quarantine_file))
 
         logger.info(f"Dashboard JSON exported to {output_dir}: {len(files)} files")
@@ -1014,7 +1150,7 @@ class DuckDBStorage:
         summary_file = output_dir / "summary.json"
 
         def write_file() -> None:
-            with open(summary_file, 'w', encoding='utf-8') as f:
+            with open(summary_file, "w", encoding="utf-8") as f:
                 json.dump(summary, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_file)
@@ -1024,8 +1160,11 @@ class DuckDBStorage:
         self, output_dir: Path, generated_at: str
     ) -> tuple[list[dict], Path]:
         """Export ranking data to JSON."""
+
         def query_ranking() -> list:
-            return self.conn.execute("""
+            return (
+                self._get_conn()
+                .execute("""
                 WITH latest AS (
                     SELECT
                         url,
@@ -1060,7 +1199,9 @@ class DuckDBStorage:
                 FROM latest
                 WHERE rn = 1
                 ORDER BY mobile_accessibility DESC NULLS LAST
-            """).fetchall()
+            """)
+                .fetchall()
+            )
 
         ranking_data = await asyncio.to_thread(query_ranking)
 
@@ -1074,8 +1215,12 @@ class DuckDBStorage:
                 "performance": round((row[3] or 0) * 100, 1),
                 "seo": round((row[4] or 0) * 100, 1),
                 "best_practices": round((row[5] or 0) * 100, 1),
-                "desktop_accessibility": round((row[6] or 0) * 100, 1) if row[6] else None,
-                "desktop_performance": round((row[7] or 0) * 100, 1) if row[7] else None,
+                "desktop_accessibility": round((row[6] or 0) * 100, 1)
+                if row[6]
+                else None,
+                "desktop_performance": round((row[7] or 0) * 100, 1)
+                if row[7]
+                else None,
                 "fcp": row[8],
                 "lcp": row[9],
                 "cls": row[10],
@@ -1092,7 +1237,7 @@ class DuckDBStorage:
         }
 
         def write_file() -> None:
-            with open(ranking_file, 'w', encoding='utf-8') as f:
+            with open(ranking_file, "w", encoding="utf-8") as f:
                 json.dump(ranking_output, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_file)
@@ -1109,15 +1254,19 @@ class DuckDBStorage:
         worst50_file = output_dir / "worst50.json"
 
         def write_files() -> None:
-            with open(top50_file, 'w', encoding='utf-8') as f:
+            with open(top50_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "sites": top50},
-                    f, indent=2, ensure_ascii=False
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
                 )
-            with open(worst50_file, 'w', encoding='utf-8') as f:
+            with open(worst50_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "sites": worst50},
-                    f, indent=2, ensure_ascii=False
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
                 )
 
         await asyncio.to_thread(write_files)
@@ -1129,10 +1278,12 @@ class DuckDBStorage:
         by_state_file = output_dir / "by-state.json"
 
         def write_file() -> None:
-            with open(by_state_file, 'w', encoding='utf-8') as f:
+            with open(by_state_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "states": by_state},
-                    f, indent=2, ensure_ascii=False
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
                 )
 
         await asyncio.to_thread(write_file)
@@ -1147,12 +1298,17 @@ class DuckDBStorage:
         quarantine_file = output_dir / "quarantine.json"
 
         def write_file() -> None:
-            with open(quarantine_file, 'w', encoding='utf-8') as f:
-                json.dump({
-                    "generated_at": generated_at,
-                    "stats": quarantine_stats,
-                    "sites": quarantine,
-                }, f, indent=2, ensure_ascii=False)
+            with open(quarantine_file, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "generated_at": generated_at,
+                        "stats": quarantine_stats,
+                        "sites": quarantine,
+                    },
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
 
         await asyncio.to_thread(write_file)
         return quarantine_file
@@ -1167,7 +1323,7 @@ class DuckDBStorage:
             # Remove sufixos comuns
             for suffix in [".gov.br", ".org.br", ".com.br"]:
                 if name.endswith(suffix):
-                    name = name[:-len(suffix)]
+                    name = name[: -len(suffix)]
             return name
         except ValueError:
             # Invalid URL format
@@ -1175,7 +1331,7 @@ class DuckDBStorage:
 
     def _extract_state_from_url(self, url: str) -> str:
         """Extrai estado de uma URL .gov.br."""
-        match = re.search(r'\.([a-z]{2})\.gov\.br', url.lower())
+        match = re.search(r"\.([a-z]{2})\.gov\.br", url.lower())
         if match:
             return match.group(1).upper()
         return "N/A"

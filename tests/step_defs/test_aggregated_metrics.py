@@ -3,13 +3,9 @@
 import asyncio
 import json
 from datetime import datetime, timedelta
-from pathlib import Path
 
 import pytest
 from pytest_bdd import given, parsers, scenarios, then, when
-
-from sites_prefeituras.models import AuditSummary, SiteAudit
-from sites_prefeituras.storage import DuckDBStorage
 
 # Carrega os cenarios do arquivo .feature
 scenarios("../features/aggregated_metrics.feature")
