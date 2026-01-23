@@ -1,12 +1,13 @@
 """Step definitions para testes com mock da API PSI."""
 
+import asyncio
 import time
 from pathlib import Path
 
 import pytest
 import respx
 from httpx import Response
-from pytest_bdd import scenarios, given, when, then, parsers
+from pytest_bdd import given, parsers, scenarios, then, when
 
 from sites_prefeituras.collector import PageSpeedCollector, process_urls_in_chunks
 from sites_prefeituras.models import BatchAuditConfig
@@ -64,14 +65,13 @@ def given_accessibility_score(mock_context, score, mock_psi_api):
 
 
 @when(parsers.parse('eu auditar o site "{url}"'))
-@pytest.mark.asyncio
-async def when_audit_site(mock_context, url, api_key):
+def when_audit_site(mock_context, url, api_key):
+    async def _audit():
+        async with PageSpeedCollector(api_key=api_key) as collector:
+            return await collector.audit_site(url)
+
     mock_context["start_time"] = time.time()
-
-    async with PageSpeedCollector(api_key=api_key) as collector:
-        result = await collector.audit_site(url)
-        mock_context["result"] = result
-
+    mock_context["result"] = asyncio.run(_audit())
     mock_context["elapsed"] = time.time() - mock_context["start_time"]
 
 
@@ -209,15 +209,16 @@ def given_error_responses(mock_context, count, mock_psi_api):
 
 
 @when(parsers.parse("eu processar um batch de {count:d} sites"))
-@pytest.mark.asyncio
-async def when_process_batch(mock_context, count, api_key):
-    async with PageSpeedCollector(api_key=api_key) as collector:
-        results = await process_urls_in_chunks(
-            collector,
-            mock_context["urls"][:count],
-            chunk_size=count,
-        )
-        mock_context["results"] = results
+def when_process_batch(mock_context, count, api_key):
+    async def _process():
+        async with PageSpeedCollector(api_key=api_key) as collector:
+            return await process_urls_in_chunks(
+                collector,
+                mock_context["urls"][:count],
+                chunk_size=count,
+            )
+
+    mock_context["results"] = asyncio.run(_process())
 
 
 @then(parsers.parse("{count:d} sites devem ter resultado de sucesso"))
@@ -250,14 +251,13 @@ def given_mock_active(mock_context, mock_psi_api):
 
 
 @when("eu auditar qualquer site")
-@pytest.mark.asyncio
-async def when_audit_any(mock_context, api_key):
+def when_audit_any(mock_context, api_key):
+    async def _audit():
+        async with PageSpeedCollector(api_key=api_key) as collector:
+            return await collector.audit_site("https://any.gov.br")
+
     mock_context["start_time"] = time.time()
-
-    async with PageSpeedCollector(api_key=api_key) as collector:
-        result = await collector.audit_site("https://any.gov.br")
-        mock_context["result"] = result
-
+    mock_context["result"] = asyncio.run(_audit())
     mock_context["elapsed"] = time.time() - mock_context["start_time"]
 
 
@@ -330,25 +330,27 @@ def given_mock_responses(mock_context, count, mock_psi_api):
 
 
 @when("eu executar o comando batch com mock")
-@pytest.mark.asyncio
-async def when_run_batch_mock(mock_context, api_key, storage, output_dir):
-    async with PageSpeedCollector(api_key=api_key) as collector:
-        results = await process_urls_in_chunks(
-            collector,
-            mock_context["urls"],
-            chunk_size=5,
-        )
+def when_run_batch_mock(mock_context, api_key, storage_sync, output_dir):
+    async def _run_batch(storage):
+        async with PageSpeedCollector(api_key=api_key) as collector:
+            results = await process_urls_in_chunks(
+                collector,
+                mock_context["urls"],
+                chunk_size=5,
+            )
 
-        for result in results:
-            await storage.save_audit(result)
+            for result in results:
+                await storage.save_audit(result)
 
-        mock_context["results"] = results
-        mock_context["storage"] = storage
-        mock_context["output_dir"] = output_dir
+            mock_context["results"] = results
+            mock_context["storage"] = storage
+            mock_context["output_dir"] = output_dir
 
-    # Exportar
-    await storage.export_to_parquet(output_dir)
-    await storage.export_to_json(output_dir)
+        # Exportar
+        await storage.export_to_parquet(output_dir)
+        await storage.export_to_json(output_dir)
+
+    asyncio.run(_run_batch(storage_sync))
 
 
 @then(parsers.parse("o banco de dados deve conter {count:d} registros"))
