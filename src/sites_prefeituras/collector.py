@@ -22,28 +22,35 @@ console = Console()
 
 class PageSpeedCollector:
     """Coletor async para PageSpeed Insights API."""
-    
+
     def __init__(
         self,
         api_key: str,
         requests_per_second: float = 1.0,
         max_concurrent: int = 5,
         timeout: float = 60.0,
-    ):
-        self.api_key = api_key
-        self.throttler = Throttler(rate_limit=requests_per_second)
-        self.semaphore = asyncio.Semaphore(max_concurrent)
-        self.timeout = timeout
-        self.base_url = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+    ) -> None:
+        self.api_key: str = api_key
+        self.throttler: Throttler = Throttler(rate_limit=requests_per_second)
+        self.semaphore: asyncio.Semaphore = asyncio.Semaphore(max_concurrent)
+        self.timeout: float = timeout
+        self.base_url: str = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+        self.client: Optional[httpx.AsyncClient] = None
         
     async def __aenter__(self) -> "PageSpeedCollector":
         """Context manager entry."""
         self.client = httpx.AsyncClient(timeout=self.timeout)
         return self
-        
-    async def __aexit__(self, exc_type: object, exc_val: object, exc_tb: object) -> None:
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: object
+    ) -> None:
         """Context manager exit."""
-        await self.client.aclose()
+        if self.client:
+            await self.client.aclose()
     
     @retry(
         stop=stop_after_attempt(3),
@@ -76,23 +83,32 @@ class PageSpeedCollector:
     async def audit_site(self, url: str) -> SiteAudit:
         """Audita um site completo (mobile + desktop)."""
         audit = SiteAudit(url=url)
-        
+
         try:
             # Buscar dados mobile e desktop em paralelo
             tasks = [
                 self._fetch_pagespeed_data(url, "mobile"),
                 self._fetch_pagespeed_data(url, "desktop"),
             ]
-            
+
             mobile_result, desktop_result = await asyncio.gather(*tasks)
-            
+
             audit.mobile_result = mobile_result
             audit.desktop_result = desktop_result
-            
-        except Exception as e:
-            logger.error(f"Error auditing {url}: {e}")
-            audit.error_message = str(e)
-            
+
+        except httpx.HTTPStatusError as e:
+            logger.error(f"HTTP error auditing {url}: {e.response.status_code}")
+            audit.error_message = f"HTTP {e.response.status_code}: {e.response.reason_phrase}"
+        except httpx.TimeoutException as e:
+            logger.error(f"Timeout auditing {url}: {e}")
+            audit.error_message = f"Timeout: {e}"
+        except httpx.RequestError as e:
+            logger.error(f"Request error auditing {url}: {e}")
+            audit.error_message = f"Request error: {e}"
+        except ValueError as e:
+            logger.error(f"Validation error auditing {url}: {e}")
+            audit.error_message = f"Validation error: {e}"
+
         return audit
     
     async def audit_from_csv(
@@ -132,37 +148,39 @@ class PageSpeedCollector:
     
     async def _read_urls_from_csv(self, csv_file: Path, url_column: str) -> List[str]:
         """Lê URLs de arquivo CSV."""
-        urls = []
-        
-        with open(csv_file, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if url_column in row and row[url_column]:
-                    url = row[url_column].strip()
-                    if self._is_valid_url(url):
-                        urls.append(url)
-                    else:
-                        logger.warning(f"Invalid URL skipped: {url}")
-        
+        def read_csv_sync() -> List[str]:
+            urls = []
+            with open(csv_file, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if url_column in row and row[url_column]:
+                        url = row[url_column].strip()
+                        if self._is_valid_url(url):
+                            urls.append(url)
+                        else:
+                            logger.warning(f"Invalid URL skipped: {url}")
+            return urls
+
+        urls = await asyncio.to_thread(read_csv_sync)
         logger.info(f"Loaded {len(urls)} valid URLs from {csv_file}")
         return urls
-    
+
     def _is_valid_url(self, url: str) -> bool:
         """Valida se uma URL é válida."""
         try:
             result = urlparse(url)
-            return all([result.scheme, result.netloc])
-        except Exception:
+            return bool(result.scheme and result.netloc)
+        except ValueError:
             return False
 
 
 class BatchProcessor:
     """Processador para auditorias em lote."""
 
-    def __init__(self, config: BatchAuditConfig, api_key: str):
-        self.config = config
-        self.api_key = api_key
-        self.storage = DuckDBStorage()
+    def __init__(self, config: BatchAuditConfig, api_key: str) -> None:
+        self.config: BatchAuditConfig = config
+        self.api_key: str = api_key
+        self.storage: DuckDBStorage = DuckDBStorage()
 
     async def process(self) -> None:
         """Executa processamento em lote completo."""
