@@ -2,15 +2,15 @@
 
 import asyncio
 import time
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 import respx
 from httpx import Response
-from pytest_bdd import scenarios, given, when, then, parsers
+from pytest_bdd import given, parsers, scenarios, then, when
 
 from sites_prefeituras.collector import PageSpeedCollector, process_urls_in_chunks
-from sites_prefeituras.models import SiteAudit, BatchAuditConfig
+from sites_prefeituras.models import BatchAuditConfig, SiteAudit
 from tests.conftest import create_psi_response
 
 # Carrega os cenarios do arquivo .feature
@@ -20,6 +20,7 @@ scenarios("../features/parallel_chunks.feature")
 # ============================================================================
 # Contexto
 # ============================================================================
+
 
 @pytest.fixture
 def context():
@@ -51,6 +52,7 @@ def requests_per_site(context):
 # Cenario: Processar chunk de URLs em paralelo
 # ============================================================================
 
+
 @given(parsers.parse("uma lista de {count:d} URLs para auditar"))
 def given_url_list(context, count):
     context["urls"] = [f"https://prefeitura{i}.gov.br" for i in range(count)]
@@ -62,28 +64,27 @@ def given_chunk_size(context, size):
 
 
 @when("eu processar as URLs em chunks paralelos")
-@pytest.mark.asyncio
-async def when_process_chunks(context, mock_psi_api, api_key):
+def when_process_chunks(context, mock_psi_api, api_key):
     # Configurar mock para todas as URLs
     for url in context["urls"]:
         mock_psi_api.get(
             "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
         ).mock(return_value=Response(200, json=create_psi_response(url)))
 
+    async def _process():
+        async with PageSpeedCollector(
+            api_key=api_key,
+            requests_per_second=context["rate_limit"],
+            max_concurrent=context["max_concurrent"],
+        ) as collector:
+            return await process_urls_in_chunks(
+                collector,
+                context["urls"],
+                chunk_size=context["chunk_size"],
+            )
+
     context["start_time"] = time.time()
-
-    async with PageSpeedCollector(
-        api_key=api_key,
-        requests_per_second=context["rate_limit"],
-        max_concurrent=context["max_concurrent"],
-    ) as collector:
-        results = await process_urls_in_chunks(
-            collector,
-            context["urls"],
-            chunk_size=context["chunk_size"],
-        )
-        context["results"] = results
-
+    context["results"] = asyncio.run(_process())
     context["end_time"] = time.time()
 
 
@@ -96,7 +97,9 @@ def then_parallel_processing(context, count):
 @then(parsers.parse("o rate limit de {rate} req/s deve ser respeitado"))
 def then_rate_limit_respected(context, rate):
     # O throttler garante isso - verificamos que nao houve erro 429
-    errors = [r for r in context["results"] if r.error_message and "429" in r.error_message]
+    errors = [
+        r for r in context["results"] if r.error_message and "429" in r.error_message
+    ]
     assert len(errors) == 0
 
 
@@ -108,6 +111,7 @@ def then_all_urls_audited(context, count):
 # ============================================================================
 # Cenario: Rate limit respeitado
 # ============================================================================
+
 
 @given(parsers.parse("um rate limit de {rate} requisicoes por segundo"))
 def given_rate_limit(context, rate):
@@ -130,13 +134,18 @@ def then_expected_time(context, formula):
 
 @then("nenhum erro de rate limit deve ocorrer")
 def then_no_rate_limit_errors(context):
-    errors = [r for r in context["results"] if r.error_message and "429" in str(r.error_message)]
+    errors = [
+        r
+        for r in context["results"]
+        if r.error_message and "429" in str(r.error_message)
+    ]
     assert len(errors) == 0
 
 
 # ============================================================================
 # Cenario: Falha em uma URL
 # ============================================================================
+
 
 @given(parsers.parse("uma lista de {total:d} URLs onde {error_count:d} retorna erro"))
 def given_urls_with_error(context, total, error_count, mock_psi_api):
@@ -176,6 +185,7 @@ def then_processing_continues(context):
 # ============================================================================
 # Cenario: Semaforo de concorrencia
 # ============================================================================
+
 
 @given(parsers.parse("um limite de {limit:d} conexoes simultaneas"))
 def given_concurrent_limit(context, limit):

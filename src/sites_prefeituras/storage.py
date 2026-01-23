@@ -230,19 +230,23 @@ class DuckDBStorage:
         """Salva uma auditoria completa."""
         # Inserir auditoria completa using asyncio.to_thread for blocking operation
         def insert_audit() -> int:
-            result = self.conn.execute("""
-                INSERT INTO audits (url, timestamp, mobile_result, desktop_result, error_message, retry_count)
-                VALUES (?, ?, ?, ?, ?, ?)
-                RETURNING id
+            # DuckDB requires explicit ID - get next ID first
+            next_id = self.conn.execute(
+                "SELECT COALESCE(MAX(id), 0) + 1 FROM audits"
+            ).fetchone()[0]
+            self.conn.execute("""
+                INSERT INTO audits (id, url, timestamp, mobile_result, desktop_result, error_message, retry_count)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             """, [
+                next_id,
                 str(audit.url),
                 audit.timestamp,
                 audit.mobile_result.model_dump_json() if audit.mobile_result else None,
                 audit.desktop_result.model_dump_json() if audit.desktop_result else None,
                 audit.error_message,
                 audit.retry_count,
-            ]).fetchone()
-            return result[0] if result else 0
+            ])
+            return next_id
 
         audit_id = await asyncio.to_thread(insert_audit)
 
@@ -334,16 +338,21 @@ class DuckDBStorage:
     async def _save_summary(self, summary: AuditSummary) -> None:
         """Salva resumo da auditoria."""
         def insert_summary() -> None:
+            # DuckDB requires explicit ID - get next ID first
+            next_id = self.conn.execute(
+                "SELECT COALESCE(MAX(id), 0) + 1 FROM audit_summaries"
+            ).fetchone()[0]
             self.conn.execute("""
                 INSERT INTO audit_summaries (
-                    url, timestamp,
+                    id, url, timestamp,
                     mobile_performance, mobile_accessibility, mobile_best_practices, mobile_seo,
                     desktop_performance, desktop_accessibility, desktop_best_practices, desktop_seo,
                     mobile_fcp, mobile_lcp, mobile_cls, mobile_fid,
                     desktop_fcp, desktop_lcp, desktop_cls, desktop_fid,
                     has_errors, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, [
+                next_id,
                 str(summary.url), summary.timestamp,
                 summary.mobile_performance, summary.mobile_accessibility,
                 summary.mobile_best_practices, summary.mobile_seo,
@@ -361,13 +370,17 @@ class DuckDBStorage:
         # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
         # with validated integer to prevent SQL injection
         hours_int = int(hours)
-        results = self.conn.execute(f"""
+        query = f"""
             SELECT DISTINCT url
             FROM audits
             WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL '{hours_int}' HOUR
               AND error_message IS NULL
-        """).fetchall()
+        """
 
+        def execute_query() -> list:
+            return self.conn.execute(query).fetchall()
+
+        results = await asyncio.to_thread(execute_query)
         urls = {row[0] for row in results}
         logger.info(f"Found {len(urls)} URLs audited in last {hours} hours")
         return urls
@@ -644,36 +657,63 @@ class DuckDBStorage:
         Returns:
             Estatisticas da atualizacao
         """
+        # DuckDB doesn't support parameterized intervals, use safe string formatting
+        lookback_days = int(min_consecutive_days * 2)
+
         def update_quarantine_sync() -> QuarantineUpdateStats:
-            # Encontrar sites com falhas consecutivas nos ultimos N dias
+            # Encontrar sites com falhas em dias consecutivos nos ultimos N dias
+            # Using date arithmetic to identify consecutive sequences
             # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
             # with validated integers to prevent SQL injection
-            days_lookback = int(min_consecutive_days * 2)
             min_failures = int(min_consecutive_days)
             results = self.conn.execute(f"""
                 WITH daily_failures AS (
-                    SELECT
+                    SELECT DISTINCT
                         url,
                         DATE(timestamp) as failure_date,
-                        error_message,
-                        ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
+                        MAX(error_message) as error_message
                     FROM audits
                     WHERE error_message IS NOT NULL
+                      AND timestamp >= CURRENT_DATE - INTERVAL '{lookback_days}' DAY
+                    GROUP BY url, DATE(timestamp)
                 ),
-                consecutive_failures AS (
+                -- Assign group IDs to consecutive dates (date - row_number gives same value)
+                numbered AS (
+                    SELECT
+                        url,
+                        failure_date,
+                        error_message,
+                        failure_date - INTERVAL (ROW_NUMBER() OVER (
+                            PARTITION BY url ORDER BY failure_date
+                        )) DAY as grp
+                    FROM daily_failures
+                ),
+                -- Find consecutive sequences with >= min_consecutive_days
+                consecutive_sequences AS (
                     SELECT
                         url,
                         MIN(failure_date) as first_failure,
                         MAX(failure_date) as last_failure,
-                        COUNT(DISTINCT failure_date) as failure_days,
-                        MAX(CASE WHEN rn = 1 THEN error_message END) as last_error
-                    FROM daily_failures
-                    WHERE failure_date >= CURRENT_DATE - INTERVAL '{days_lookback}' DAY
-                    GROUP BY url
-                    HAVING COUNT(DISTINCT failure_date) >= {min_failures}
+                        COUNT(*) as consecutive_days,
+                        MAX(error_message) as last_error
+                    FROM numbered
+                    GROUP BY url, grp
+                    HAVING COUNT(*) >= {min_failures}
+                ),
+                -- Get the longest sequence per URL
+                best_sequence AS (
+                    SELECT
+                        url,
+                        first_failure,
+                        last_failure,
+                        consecutive_days,
+                        last_error,
+                        ROW_NUMBER() OVER (PARTITION BY url ORDER BY consecutive_days DESC) as rn
+                    FROM consecutive_sequences
                 )
-                SELECT url, first_failure, last_failure, failure_days, last_error
-                FROM consecutive_failures
+                SELECT url, first_failure, last_failure, consecutive_days, last_error
+                FROM best_sequence
+                WHERE rn = 1
             """).fetchall()
 
             added = 0
@@ -698,12 +738,15 @@ class DuckDBStorage:
                     """, [last_failure, failure_days, last_error, url])
                     updated += 1
                 else:
-                    # Adicionar novo registro
+                    # Adicionar novo registro - get next ID
+                    next_id = self.conn.execute(
+                        "SELECT COALESCE(MAX(id), 0) + 1 FROM quarantine"
+                    ).fetchone()[0]
                     self.conn.execute("""
-                        INSERT INTO quarantine (url, first_failure, last_failure,
+                        INSERT INTO quarantine (id, url, first_failure, last_failure,
                                                consecutive_failures, last_error_message)
-                        VALUES (?, ?, ?, ?, ?)
-                    """, [url, first_failure, last_failure, failure_days, last_error])
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    """, [next_id, url, first_failure, last_failure, failure_days, last_error])
                     added += 1
 
             return QuarantineUpdateStats(
