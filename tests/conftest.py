@@ -5,6 +5,7 @@ import tempfile
 from collections.abc import AsyncGenerator, Generator
 from pathlib import Path
 
+import ibis
 import pytest
 import pytest_asyncio
 import respx
@@ -12,7 +13,7 @@ import respx
 from sites_prefeituras.storage import DuckDBStorage
 
 # ============================================================================
-# Fixtures de banco de dados
+# Fixtures de banco de dados (Ibis)
 # ============================================================================
 
 
@@ -38,11 +39,46 @@ async def storage(temp_db_path: str) -> AsyncGenerator[DuckDBStorage, None]:
 
 @pytest.fixture
 def storage_sync(temp_db_path: str) -> Generator[DuckDBStorage, None, None]:
-    """Storage inicializado para testes BDD (sync wrapper)."""
+    """Storage inicializado para testes BDD (sync wrapper).
+
+    The storage uses Ibis with DuckDB backend.
+    Use storage_sync.con.raw_sql() for direct SQL execution in tests.
+    """
     db = DuckDBStorage(temp_db_path)
     asyncio.run(db.initialize())
     yield db
     asyncio.run(db.close())
+
+
+# Helper for backward compatibility - allows conn.execute() pattern
+class IbisConnectionWrapper:
+    """Wrapper to provide conn.execute() interface for Ibis backend."""
+
+    def __init__(self, ibis_con: ibis.BaseBackend):
+        self._con = ibis_con
+
+    def execute(self, query: str, params: list | None = None) -> None:
+        """Execute SQL with optional parameters (for backward compatibility)."""
+        if params:
+            # Ibis raw_sql doesn't support parameterized queries directly
+            # We need to format the query safely
+            # This is a simplified approach for tests only
+            formatted_query = query
+            for param in params:
+                if param is None:
+                    formatted_query = formatted_query.replace("?", "NULL", 1)
+                elif isinstance(param, str):
+                    # Escape single quotes
+                    safe_param = param.replace("'", "''")
+                    formatted_query = formatted_query.replace("?", f"'{safe_param}'", 1)
+                elif isinstance(param, (int, float)):
+                    formatted_query = formatted_query.replace("?", str(param), 1)
+                else:
+                    # For datetime and other types
+                    formatted_query = formatted_query.replace("?", f"'{param}'", 1)
+            self._con.raw_sql(formatted_query)
+        else:
+            self._con.raw_sql(query)
 
 
 # ============================================================================
