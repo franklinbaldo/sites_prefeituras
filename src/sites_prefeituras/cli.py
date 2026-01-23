@@ -1,17 +1,16 @@
 """Interface de linha de comando para Sites Prefeituras."""
 
 import asyncio
-import json
 import os
+import shutil
 from pathlib import Path
-from typing import Optional
 
 import typer
 from rich.console import Console
-from rich.table import Table
 from rich.json import JSON
+from rich.table import Table
 
-from .collector import audit_single_site, BatchProcessor
+from .collector import BatchProcessor, audit_single_site
 from .models import BatchAuditConfig, SiteAudit
 from .storage import DuckDBStorage
 
@@ -42,24 +41,24 @@ def audit(
 ) -> None:
     """Executa auditoria de um site específico."""
     api_key = get_api_key()
-    
+
     console.print(f"🔍 Auditando: [bold blue]{url}[/bold blue]")
 
     async def run_audit() -> None:
         result = await audit_single_site(url, api_key)
-        
+
         if save_to_db:
             storage = DuckDBStorage()
             await storage.initialize()
             audit_id = await storage.save_audit(result)
             await storage.close()
             console.print(f"💾 Salvo no banco com ID: {audit_id}")
-        
+
         if output == "console":
             _display_audit_result(result)
         elif output == "json":
             console.print(JSON(result.model_dump_json()))
-    
+
     asyncio.run(run_audit())
 
 
@@ -97,7 +96,7 @@ def batch(
         export_json=export_json,
     )
 
-    console.print(f"[bold]Configuracao:[/bold]")
+    console.print("[bold]Configuracao:[/bold]")
     console.print(f"  Rate limit: {requests_per_second} req/s")
     console.print(f"  Concorrencia: {max_concurrent}")
     console.print(f"  Coleta incremental: {skip_recent_hours}h" if skip_recent_hours > 0 else "  Coleta incremental: desativada")
@@ -134,11 +133,11 @@ def stats(
     async def show_stats() -> None:
         storage = DuckDBStorage(db_path)
         await storage.initialize()
-        
+
         # Estatísticas básicas
         total_audits = storage.conn.execute("SELECT COUNT(*) FROM audits").fetchone()[0]
         total_errors = storage.conn.execute("SELECT COUNT(*) FROM audits WHERE error_message IS NOT NULL").fetchone()[0]
-        
+
         # Últimas auditorias
         recent = storage.conn.execute("""
             SELECT url, timestamp, 
@@ -147,33 +146,33 @@ def stats(
             ORDER BY timestamp DESC 
             LIMIT 10
         """).fetchall()
-        
+
         await storage.close()
-        
+
         # Exibir estatísticas
         table = Table(title="📊 Estatísticas do Banco de Dados")
         table.add_column("Métrica", style="cyan")
         table.add_column("Valor", style="green")
-        
+
         table.add_row("Total de Auditorias", str(total_audits))
         table.add_row("Auditorias com Erro", str(total_errors))
         table.add_row("Taxa de Sucesso", f"{((total_audits - total_errors) / total_audits * 100):.1f}%" if total_audits > 0 else "0%")
-        
+
         console.print(table)
-        
+
         # Últimas auditorias
         if recent:
             recent_table = Table(title="🕒 Últimas Auditorias")
             recent_table.add_column("URL", style="blue")
             recent_table.add_column("Timestamp", style="yellow")
             recent_table.add_column("Status", style="green")
-            
+
             for url, timestamp, status in recent:
-                recent_table.add_row(url[:50] + "..." if len(url) > 50 else url, 
+                recent_table.add_row(url[:50] + "..." if len(url) > 50 else url,
                                    str(timestamp), status)
-            
+
             console.print(recent_table)
-    
+
     asyncio.run(show_stats())
 
 
@@ -184,13 +183,13 @@ def cleanup(
     confirm: bool = typer.Option(False, "--confirm", help="Confirma remoção sem perguntar"),
 ) -> None:
     """Limpa arquivos JavaScript e dependências Node.js."""
-    
+
     if not remove_js and not remove_node_modules:
         console.print("ℹ️ Use --remove-js e/ou --remove-node-modules para especificar o que remover")
         return
-    
+
     files_to_remove = []
-    
+
     if remove_js:
         # Arquivos JavaScript a serem removidos
         js_files = [
@@ -201,45 +200,46 @@ def cleanup(
             "index.html",  # HTML estático antigo
         ]
         files_to_remove.extend(js_files)
-    
+
     if remove_node_modules:
         files_to_remove.append("node_modules/")
-    
+
     # Verificar quais arquivos existem
     existing_files = []
     for file_path in files_to_remove:
         full_path = Path(file_path)
         if full_path.exists():
             existing_files.append(str(full_path))
-    
+
     if not existing_files:
         console.print("✅ Nenhum arquivo JavaScript encontrado para remover")
         return
-    
+
     # Mostrar arquivos que serão removidos
     console.print("🗑️ Arquivos que serão removidos:")
     for file_path in existing_files:
         console.print(f"  - {file_path}")
-    
+
     if not confirm:
         confirm_removal = typer.confirm("Confirma a remoção destes arquivos?")
         if not confirm_removal:
             console.print("❌ Operação cancelada")
             return
-    
+
     # Remover arquivos
     for file_path in existing_files:
         try:
             path = Path(file_path)
             if path.is_dir():
-                import shutil
                 shutil.rmtree(path)
             else:
                 path.unlink()
-            console.print(f"✅ Removido: {file_path}")
-        except Exception as e:
-            console.print(f"❌ Erro ao remover {file_path}: {e}")
-    
+            console.print(f"Removido: {file_path}")
+        except PermissionError as e:
+            console.print(f"[red]Erro de permissao ao remover {file_path}: {e}[/red]")
+        except OSError as e:
+            console.print(f"[red]Erro ao remover {file_path}: {e}[/red]")
+
     console.print("Limpeza concluida! Projeto agora e 100% Python")
 
 
@@ -377,7 +377,7 @@ def quarantine(
         if update:
             # Atualizar quarentena
             result = await storage.update_quarantine(min_consecutive_days=min_days)
-            console.print(f"[green]Quarentena atualizada:[/green]")
+            console.print("[green]Quarentena atualizada:[/green]")
             console.print(f"  Adicionados: {result['added']}")
             console.print(f"  Atualizados: {result['updated']}")
 
@@ -387,7 +387,7 @@ def quarantine(
             if success:
                 console.print(f"[green]Status atualizado: {url} -> {set_status}[/green]")
             else:
-                console.print(f"[red]URL nao encontrada na quarentena[/red]")
+                console.print("[red]URL nao encontrada na quarentena[/red]")
 
         elif remove and url:
             # Remover da quarentena
@@ -395,7 +395,7 @@ def quarantine(
             if success:
                 console.print(f"[green]Removido da quarentena: {url}[/green]")
             else:
-                console.print(f"[red]URL nao encontrada na quarentena[/red]")
+                console.print("[red]URL nao encontrada na quarentena[/red]")
 
         else:
             # Listar quarentena
@@ -462,10 +462,10 @@ def export_dashboard(
         output_path = Path(output_dir)
         stats = await storage.export_dashboard_json(output_path)
 
-        console.print(f"[green]Dashboard exportado:[/green]")
+        console.print("[green]Dashboard exportado:[/green]")
         console.print(f"  Diretorio: {output_dir}")
         console.print(f"  Total de sites: {stats.get('total_sites', 0)}")
-        console.print(f"  Arquivos gerados:")
+        console.print("  Arquivos gerados:")
         for f in stats.get('files', []):
             console.print(f"    - {Path(f).name}")
 
@@ -474,34 +474,43 @@ def export_dashboard(
     asyncio.run(do_export())
 
 
+def _format_score(categories: dict, category_name: str) -> str:
+    """Format a category score for display."""
+    category = categories.get(category_name, {})
+    score = category.score if category else None
+    if score is not None:
+        return f"{score * 100:.0f}"
+    return "N/A"
+
+
 def _display_audit_result(audit: "SiteAudit") -> None:
     """Exibe resultado da auditoria no console."""
-    table = Table(title=f"📊 Auditoria: {audit.url}")
-    table.add_column("Métrica", style="cyan")
+    table = Table(title=f"Auditoria: {audit.url}")
+    table.add_column("Metrica", style="cyan")
     table.add_column("Mobile", style="green")
     table.add_column("Desktop", style="blue")
-    
+
     if audit.error_message:
-        console.print(f"❌ [red]Erro: {audit.error_message}[/red]")
+        console.print(f"[red]Erro: {audit.error_message}[/red]")
         return
-    
+
     # Extrair scores se disponíveis
-    mobile_perf = desktop_perf = "N/A"
-    mobile_acc = desktop_acc = "N/A"
-    
+    mobile_perf = mobile_acc = "N/A"
+    desktop_perf = desktop_acc = "N/A"
+
     if audit.mobile_result:
         cats = audit.mobile_result.lighthouseResult.categories
-        mobile_perf = f"{cats.get('performance', {}).score * 100:.0f}" if cats.get('performance', {}).score else "N/A"
-        mobile_acc = f"{cats.get('accessibility', {}).score * 100:.0f}" if cats.get('accessibility', {}).score else "N/A"
-    
+        mobile_perf = _format_score(cats, 'performance')
+        mobile_acc = _format_score(cats, 'accessibility')
+
     if audit.desktop_result:
         cats = audit.desktop_result.lighthouseResult.categories
-        desktop_perf = f"{cats.get('performance', {}).score * 100:.0f}" if cats.get('performance', {}).score else "N/A"
-        desktop_acc = f"{cats.get('accessibility', {}).score * 100:.0f}" if cats.get('accessibility', {}).score else "N/A"
-    
+        desktop_perf = _format_score(cats, 'performance')
+        desktop_acc = _format_score(cats, 'accessibility')
+
     table.add_row("Performance", mobile_perf, desktop_perf)
     table.add_row("Accessibility", mobile_acc, desktop_acc)
-    
+
     console.print(table)
 
 
