@@ -30,7 +30,15 @@ class PageSpeedCollector:
         max_concurrent: int = 5,
         timeout: float = 60.0,
     ) -> None:
-        self.api_key: str = api_key
+        # Clean API key (remove whitespace/newlines that might come from env vars)
+        cleaned_key = api_key.strip()
+        if cleaned_key != api_key:
+            logger.warning("API key contained leading/trailing whitespace - cleaned")
+        if not cleaned_key:
+            raise ValueError("API key is empty")
+        if len(cleaned_key) < 10:
+            logger.warning(f"API key seems too short ({len(cleaned_key)} chars)")
+        self.api_key: str = cleaned_key
         self.throttler: Throttler = Throttler(rate_limit=int(requests_per_second))
         self.semaphore: asyncio.Semaphore = asyncio.Semaphore(max_concurrent)
         self.timeout: float = timeout
@@ -97,10 +105,21 @@ class PageSpeedCollector:
             audit.desktop_result = desktop_result
 
         except httpx.HTTPStatusError as e:
-            logger.error(f"HTTP error auditing {url}: {e.response.status_code}")
-            audit.error_message = (
-                f"HTTP {e.response.status_code}: {e.response.reason_phrase}"
+            # Log detailed error response for debugging
+            error_body = ""
+            try:
+                error_data = e.response.json()
+                if "error" in error_data:
+                    error_body = error_data["error"].get("message", str(error_data))
+                else:
+                    error_body = str(error_data)[:200]
+            except Exception:
+                error_body = e.response.text[:200] if e.response.text else ""
+
+            logger.error(
+                f"HTTP error auditing {url}: {e.response.status_code} - {error_body}"
             )
+            audit.error_message = f"HTTP {e.response.status_code}: {error_body or e.response.reason_phrase}"
         except httpx.TimeoutException as e:
             logger.error(f"Timeout auditing {url}: {e}")
             audit.error_message = f"Timeout: {e}"
