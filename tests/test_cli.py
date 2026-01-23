@@ -157,8 +157,8 @@ class TestStorage:
             await storage.initialize()
             assert storage.conn is not None
 
-            # Verificar se tabelas foram criadas
-            tables = storage.conn.execute("SHOW TABLES").fetchall()
+            # Verificar se tabelas foram criadas (using Ibis raw_sql)
+            tables = storage.conn.raw_sql("SHOW TABLES").fetchall()
             table_names = [table[0] for table in tables]
             assert "audits" in table_names
             assert "audit_summaries" in table_names

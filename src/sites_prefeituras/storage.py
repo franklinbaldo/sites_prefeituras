@@ -1,16 +1,17 @@
-"""Sistema de armazenamento com DuckDB - substitui a lógica Node.js."""
+"""Sistema de armazenamento com DuckDB via Ibis - substitui a lógica Node.js."""
 
 import asyncio
 import csv
 import json
 import logging
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import TypedDict
 from urllib.parse import urlparse
 
-import duckdb
+import ibis
+import ibis.backends.duckdb
 from rich.console import Console
 
 from .models import AuditSummary, LighthouseAudit, SiteAudit
@@ -18,6 +19,7 @@ from .models import AuditSummary, LighthouseAudit, SiteAudit
 # ============================================================================
 # TypedDicts for structured return types
 # ============================================================================
+
 
 class AggregatedMetrics(TypedDict):
     """Structured type for aggregated metrics."""
@@ -127,30 +129,101 @@ class DashboardExportStats(TypedDict):
     files: list[str]
     total_sites: int
 
+
 logger = logging.getLogger(__name__)
 console = Console()
 
+# ============================================================================
+# Ibis Schema Definitions
+# ============================================================================
+
+AUDITS_SCHEMA = ibis.schema(
+    {
+        "id": "int64",
+        "url": "string",
+        "timestamp": "timestamp",
+        "mobile_result": "string",  # JSON stored as string
+        "desktop_result": "string",  # JSON stored as string
+        "error_message": "string",
+        "retry_count": "int64",
+        "created_at": "timestamp",
+    }
+)
+
+AUDIT_SUMMARIES_SCHEMA = ibis.schema(
+    {
+        "id": "int64",
+        "url": "string",
+        "timestamp": "timestamp",
+        # Scores principais (0-1)
+        "mobile_performance": "float64",
+        "mobile_accessibility": "float64",
+        "mobile_best_practices": "float64",
+        "mobile_seo": "float64",
+        "desktop_performance": "float64",
+        "desktop_accessibility": "float64",
+        "desktop_best_practices": "float64",
+        "desktop_seo": "float64",
+        # Core Web Vitals
+        "mobile_fcp": "float64",
+        "mobile_lcp": "float64",
+        "mobile_cls": "float64",
+        "mobile_fid": "float64",
+        "desktop_fcp": "float64",
+        "desktop_lcp": "float64",
+        "desktop_cls": "float64",
+        "desktop_fid": "float64",
+        # Status
+        "has_errors": "boolean",
+        "error_message": "string",
+        "created_at": "timestamp",
+    }
+)
+
+QUARANTINE_SCHEMA = ibis.schema(
+    {
+        "id": "int64",
+        "url": "string",
+        "first_failure": "timestamp",
+        "last_failure": "timestamp",
+        "consecutive_failures": "int64",
+        "last_error_message": "string",
+        "status": "string",
+        "notes": "string",
+        "created_at": "timestamp",
+        "updated_at": "timestamp",
+    }
+)
+
 
 class DuckDBStorage:
-    """Sistema de armazenamento usando DuckDB."""
+    """Sistema de armazenamento usando DuckDB via Ibis."""
 
     def __init__(self, db_path: str = "./data/sites_prefeituras.duckdb") -> None:
         self.db_path: Path = Path(db_path)
         self.db_path.parent.mkdir(exist_ok=True)
-        self.conn: duckdb.DuckDBPyConnection | None = None
+        self.con: ibis.backends.duckdb.Backend | None = None
+
+    @property
+    def conn(self) -> ibis.backends.duckdb.Backend | None:
+        """Backward-compatible alias for con."""
+        return self.con
 
     async def initialize(self) -> None:
         """Inicializa o banco de dados e cria tabelas."""
-        # Use asyncio.to_thread for blocking DuckDB connection
-        self.conn = await asyncio.to_thread(duckdb.connect, str(self.db_path))
+
+        def connect() -> ibis.backends.duckdb.Backend:
+            return ibis.duckdb.connect(str(self.db_path))
+
+        self.con = await asyncio.to_thread(connect)
         await self._create_tables()
 
     async def _create_tables(self) -> None:
-        """Cria tabelas necessárias."""
-        # Use asyncio.to_thread for blocking DuckDB operations
+        """Cria tabelas necessárias usando Ibis."""
+
         def create_tables() -> None:
-            # Tabela principal de auditorias
-            self.conn.execute("""
+            # Create audits table
+            self.con.raw_sql("""
                 CREATE TABLE IF NOT EXISTS audits (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL,
@@ -163,50 +236,36 @@ class DuckDBStorage:
                 )
             """)
 
-            # Tabela de resumos (para consultas rápidas)
-            self.conn.execute("""
+            # Create audit_summaries table
+            self.con.raw_sql("""
                 CREATE TABLE IF NOT EXISTS audit_summaries (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL,
                     timestamp TIMESTAMP NOT NULL,
-
-                    -- Scores principais (0-1)
                     mobile_performance DOUBLE,
                     mobile_accessibility DOUBLE,
                     mobile_best_practices DOUBLE,
                     mobile_seo DOUBLE,
-
                     desktop_performance DOUBLE,
                     desktop_accessibility DOUBLE,
                     desktop_best_practices DOUBLE,
                     desktop_seo DOUBLE,
-
-                    -- Core Web Vitals
                     mobile_fcp DOUBLE,
                     mobile_lcp DOUBLE,
                     mobile_cls DOUBLE,
                     mobile_fid DOUBLE,
-
                     desktop_fcp DOUBLE,
                     desktop_lcp DOUBLE,
                     desktop_cls DOUBLE,
                     desktop_fid DOUBLE,
-
-                    -- Status
                     has_errors BOOLEAN DEFAULT FALSE,
                     error_message VARCHAR,
-
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
 
-            # Índices para performance
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)")
-
-            # Tabela de quarentena (sites com falhas persistentes)
-            self.conn.execute("""
+            # Create quarantine table
+            self.con.raw_sql("""
                 CREATE TABLE IF NOT EXISTS quarantine (
                     id INTEGER PRIMARY KEY,
                     url VARCHAR NOT NULL UNIQUE,
@@ -220,21 +279,49 @@ class DuckDBStorage:
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)")
-            self.conn.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)")
+
+            # Create indexes
+            self.con.raw_sql(
+                "CREATE INDEX IF NOT EXISTS idx_audits_url ON audits(url)"
+            )
+            self.con.raw_sql(
+                "CREATE INDEX IF NOT EXISTS idx_audits_timestamp ON audits(timestamp)"
+            )
+            self.con.raw_sql(
+                "CREATE INDEX IF NOT EXISTS idx_summaries_url ON audit_summaries(url)"
+            )
+            self.con.raw_sql(
+                "CREATE INDEX IF NOT EXISTS idx_quarantine_url ON quarantine(url)"
+            )
+            self.con.raw_sql(
+                "CREATE INDEX IF NOT EXISTS idx_quarantine_status ON quarantine(status)"
+            )
 
         await asyncio.to_thread(create_tables)
         logger.info("Database tables initialized")
 
+    def _audits_table(self) -> ibis.Table:
+        """Return the audits table."""
+        return self.con.table("audits")
+
+    def _summaries_table(self) -> ibis.Table:
+        """Return the audit_summaries table."""
+        return self.con.table("audit_summaries")
+
+    def _quarantine_table(self) -> ibis.Table:
+        """Return the quarantine table."""
+        return self.con.table("quarantine")
+
     async def save_audit(self, audit: SiteAudit) -> int:
         """Salva uma auditoria completa."""
-        # Inserir auditoria completa using asyncio.to_thread for blocking operation
+
         def insert_audit() -> int:
-            result = self.conn.execute("""
+            # Insert using raw SQL for RETURNING support
+            result = self.con.raw_sql("""
                 INSERT INTO audits (url, timestamp, mobile_result, desktop_result, error_message, retry_count)
-                VALUES (?, ?, ?, ?, ?, ?)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id
-            """, [
+            """, parameters=[
                 str(audit.url),
                 audit.timestamp,
                 audit.mobile_result.model_dump_json() if audit.mobile_result else None,
@@ -333,8 +420,9 @@ class DuckDBStorage:
 
     async def _save_summary(self, summary: AuditSummary) -> None:
         """Salva resumo da auditoria."""
+
         def insert_summary() -> None:
-            self.conn.execute("""
+            self.con.raw_sql("""
                 INSERT INTO audit_summaries (
                     url, timestamp,
                     mobile_performance, mobile_accessibility, mobile_best_practices, mobile_seo,
@@ -342,8 +430,8 @@ class DuckDBStorage:
                     mobile_fcp, mobile_lcp, mobile_cls, mobile_fid,
                     desktop_fcp, desktop_lcp, desktop_cls, desktop_fid,
                     has_errors, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, [
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
+            """, parameters=[
                 str(summary.url), summary.timestamp,
                 summary.mobile_performance, summary.mobile_accessibility,
                 summary.mobile_best_practices, summary.mobile_seo,
@@ -358,17 +446,23 @@ class DuckDBStorage:
 
     async def get_recently_audited_urls(self, hours: int = 24) -> set[str]:
         """Retorna URLs auditadas nas ultimas N horas (para coleta incremental)."""
-        # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
-        # with validated integer to prevent SQL injection
-        hours_int = int(hours)
-        results = self.conn.execute(f"""
-            SELECT DISTINCT url
-            FROM audits
-            WHERE timestamp > CURRENT_TIMESTAMP - INTERVAL '{hours_int}' HOUR
-              AND error_message IS NULL
-        """).fetchall()
 
-        urls = {row[0] for row in results}
+        def query_urls() -> set[str]:
+            cutoff = datetime.utcnow() - timedelta(hours=hours)
+            audits = self._audits_table()
+
+            result = (
+                audits.filter(
+                    (audits.timestamp > cutoff) & (audits.error_message.isnull())
+                )
+                .select("url")
+                .distinct()
+                .to_pandas()
+            )
+
+            return set(result["url"].tolist())
+
+        urls = await asyncio.to_thread(query_urls)
         logger.info(f"Found {len(urls)} URLs audited in last {hours} hours")
         return urls
 
@@ -376,69 +470,72 @@ class DuckDBStorage:
         """Exporta dados para arquivos Parquet particionados."""
         output_dir.mkdir(exist_ok=True)
 
-        # Export auditorias completas
-        audits_df = self.conn.execute("""
-            SELECT
-                url, timestamp, error_message, retry_count,
-                DATE_TRUNC('day', timestamp) as date_partition
-            FROM audits
-        """).df()
+        def export() -> None:
+            audits = self._audits_table()
+            audits_df = (
+                audits.mutate(
+                    date_partition=audits.timestamp.truncate("D")
+                )
+                .select("url", "timestamp", "error_message", "retry_count", "date_partition")
+                .to_pandas()
+            )
 
-        if not audits_df.empty:
-            # Particionar por data
-            for date, group in audits_df.groupby('date_partition'):
-                date_str = date.strftime('%Y-%m-%d')
-                parquet_file = output_dir / f"audits_date={date_str}.parquet"
-                group.drop('date_partition', axis=1).to_parquet(parquet_file)
+            if not audits_df.empty:
+                for date, group in audits_df.groupby("date_partition"):
+                    date_str = date.strftime("%Y-%m-%d")
+                    parquet_file = output_dir / f"audits_date={date_str}.parquet"
+                    group.drop("date_partition", axis=1).to_parquet(parquet_file)
 
-        # Export resumos
-        summaries_df = self.conn.execute("SELECT * FROM audit_summaries").df()
-        if not summaries_df.empty:
-            summaries_file = output_dir / "audit_summaries.parquet"
-            summaries_df.to_parquet(summaries_file)
+            summaries_df = self._summaries_table().to_pandas()
+            if not summaries_df.empty:
+                summaries_file = output_dir / "audit_summaries.parquet"
+                summaries_df.to_parquet(summaries_file)
 
+        await asyncio.to_thread(export)
         console.print(f"Dados exportados para {output_dir}")
 
     async def export_to_json(self, output_dir: Path) -> None:
         """Exporta dados para JSON (para visualização web)."""
         output_dir.mkdir(exist_ok=True)
 
-        # Export resumo para visualização
-        summaries = self.conn.execute("""
-            SELECT
-                url, timestamp,
-                mobile_performance, desktop_performance,
-                mobile_accessibility, desktop_accessibility,
-                has_errors, error_message
-            FROM audit_summaries
-            ORDER BY timestamp DESC
-            LIMIT 1000
-        """).fetchall()
+        def export() -> None:
+            summaries = self._summaries_table()
+            result = (
+                summaries.select(
+                    "url", "timestamp",
+                    "mobile_performance", "desktop_performance",
+                    "mobile_accessibility", "desktop_accessibility",
+                    "has_errors", "error_message"
+                )
+                .order_by(ibis.desc("timestamp"))
+                .limit(1000)
+                .to_pandas()
+            )
 
-        # Converter para formato JSON amigável
-        json_data = {
-            "last_updated": datetime.utcnow().isoformat(),
-            "total_sites": len(summaries),
-            "audits": [
-                {
-                    "url": row[0],
-                    "timestamp": row[1].isoformat() if row[1] else None,
-                    "mobile_performance": row[2],
-                    "desktop_performance": row[3],
-                    "mobile_accessibility": row[4],
-                    "desktop_accessibility": row[5],
-                    "has_errors": row[6],
-                    "error_message": row[7],
-                }
-                for row in summaries
-            ]
-        }
+            json_data = {
+                "last_updated": datetime.utcnow().isoformat(),
+                "total_sites": len(result),
+                "audits": [
+                    {
+                        "url": row["url"],
+                        "timestamp": row["timestamp"].isoformat() if row["timestamp"] else None,
+                        "mobile_performance": row["mobile_performance"],
+                        "desktop_performance": row["desktop_performance"],
+                        "mobile_accessibility": row["mobile_accessibility"],
+                        "desktop_accessibility": row["desktop_accessibility"],
+                        "has_errors": row["has_errors"],
+                        "error_message": row["error_message"],
+                    }
+                    for _, row in result.iterrows()
+                ]
+            }
 
-        json_file = output_dir / "latest_audits.json"
-        with open(json_file, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, indent=2, ensure_ascii=False)
+            json_file = output_dir / "latest_audits.json"
+            with open(json_file, "w", encoding="utf-8") as f:
+                json.dump(json_data, f, indent=2, ensure_ascii=False)
 
-        console.print(f"JSON exportado para {json_file}")
+        await asyncio.to_thread(export)
+        console.print(f"JSON exportado para {output_dir}")
 
     # ========================================================================
     # Metricas agregadas
@@ -446,183 +543,192 @@ class DuckDBStorage:
 
     async def get_aggregated_metrics(self) -> AggregatedMetrics:
         """Retorna metricas agregadas de todas as auditorias."""
-        def query_metrics() -> tuple:
-            return self.conn.execute("""
-                SELECT
-                    COUNT(*) as total_audits,
-                    COUNT(*) FILTER (WHERE NOT has_errors) as successful_audits,
-                    COUNT(*) FILTER (WHERE has_errors) as failed_audits,
-                    AVG(mobile_performance) as avg_mobile_performance,
-                    AVG(desktop_performance) as avg_desktop_performance,
-                    AVG(mobile_accessibility) as avg_mobile_accessibility,
-                    AVG(desktop_accessibility) as avg_desktop_accessibility,
-                    AVG(mobile_seo) as avg_mobile_seo,
-                    AVG(desktop_seo) as avg_desktop_seo,
-                    AVG(mobile_best_practices) as avg_mobile_best_practices,
-                    AVG(desktop_best_practices) as avg_desktop_best_practices,
-                    STDDEV(mobile_performance) as std_mobile_performance,
-                    STDDEV(desktop_performance) as std_desktop_performance,
-                    MIN(mobile_performance) as min_mobile_performance,
-                    MAX(mobile_performance) as max_mobile_performance
-                FROM audit_summaries
-            """).fetchone()
 
-        result = await asyncio.to_thread(query_metrics)
-        total = result[0] or 0
-        successful = result[1] or 0
+        def query_metrics() -> AggregatedMetrics:
+            summaries = self._summaries_table()
 
-        return AggregatedMetrics(
-            total_audits=total,
-            successful_audits=successful,
-            failed_audits=result[2] or 0,
-            success_rate=successful / total if total > 0 else 0,
-            error_rate=(result[2] or 0) / total if total > 0 else 0,
-            avg_mobile_performance=result[3],
-            avg_desktop_performance=result[4],
-            avg_mobile_accessibility=result[5],
-            avg_desktop_accessibility=result[6],
-            avg_mobile_seo=result[7],
-            avg_desktop_seo=result[8],
-            avg_mobile_best_practices=result[9],
-            avg_desktop_best_practices=result[10],
-            std_mobile_performance=result[11],
-            std_desktop_performance=result[12],
-            min_mobile_performance=result[13],
-            max_mobile_performance=result[14],
-        )
+            result = summaries.aggregate(
+                total_audits=summaries.count(),
+                successful_audits=summaries.has_errors.isin([False]).sum(),
+                failed_audits=summaries.has_errors.sum(),
+                avg_mobile_performance=summaries.mobile_performance.mean(),
+                avg_desktop_performance=summaries.desktop_performance.mean(),
+                avg_mobile_accessibility=summaries.mobile_accessibility.mean(),
+                avg_desktop_accessibility=summaries.desktop_accessibility.mean(),
+                avg_mobile_seo=summaries.mobile_seo.mean(),
+                avg_desktop_seo=summaries.desktop_seo.mean(),
+                avg_mobile_best_practices=summaries.mobile_best_practices.mean(),
+                avg_desktop_best_practices=summaries.desktop_best_practices.mean(),
+                std_mobile_performance=summaries.mobile_performance.std(),
+                std_desktop_performance=summaries.desktop_performance.std(),
+                min_mobile_performance=summaries.mobile_performance.min(),
+                max_mobile_performance=summaries.mobile_performance.max(),
+            ).to_pandas()
+
+            row = result.iloc[0] if not result.empty else {}
+            total = int(row.get("total_audits", 0) or 0)
+            successful = int(row.get("successful_audits", 0) or 0)
+            failed = int(row.get("failed_audits", 0) or 0)
+
+            return AggregatedMetrics(
+                total_audits=total,
+                successful_audits=successful,
+                failed_audits=failed,
+                success_rate=successful / total if total > 0 else 0,
+                error_rate=failed / total if total > 0 else 0,
+                avg_mobile_performance=row.get("avg_mobile_performance"),
+                avg_desktop_performance=row.get("avg_desktop_performance"),
+                avg_mobile_accessibility=row.get("avg_mobile_accessibility"),
+                avg_desktop_accessibility=row.get("avg_desktop_accessibility"),
+                avg_mobile_seo=row.get("avg_mobile_seo"),
+                avg_desktop_seo=row.get("avg_desktop_seo"),
+                avg_mobile_best_practices=row.get("avg_mobile_best_practices"),
+                avg_desktop_best_practices=row.get("avg_desktop_best_practices"),
+                std_mobile_performance=row.get("std_mobile_performance"),
+                std_desktop_performance=row.get("std_desktop_performance"),
+                min_mobile_performance=row.get("min_mobile_performance"),
+                max_mobile_performance=row.get("max_mobile_performance"),
+            )
+
+        return await asyncio.to_thread(query_metrics)
 
     async def get_metrics_by_state(self) -> list[StateMetrics]:
         """Retorna metricas agregadas por estado (extraido da URL)."""
 
-        def query_by_state() -> list:
-            # Extrai estado do dominio (ex: prefeitura.sp.gov.br -> SP)
-            return self.conn.execute(r"""
-                WITH state_extract AS (
-                    SELECT
-                        url,
-                        UPPER(REGEXP_EXTRACT(url, '\.([a-z]{2})\.gov\.br', 1)) as state,
-                        mobile_performance,
-                        desktop_performance,
-                        mobile_accessibility,
-                        desktop_accessibility
-                    FROM audit_summaries
-                    WHERE NOT has_errors
-                )
-                SELECT
-                    state,
-                    COUNT(*) as site_count,
-                    AVG(mobile_performance) as avg_performance,
-                    AVG(mobile_accessibility) as avg_accessibility
-                FROM state_extract
-                WHERE state IS NOT NULL AND state != ''
-                GROUP BY state
-                ORDER BY avg_performance DESC
-            """).fetchall()
+        def query_by_state() -> list[StateMetrics]:
+            summaries = self._summaries_table()
 
-        results = await asyncio.to_thread(query_by_state)
+            # Extract state from URL using regex
+            state_expr = summaries.url.re_extract(r"\.([a-z]{2})\.gov\.br", 1).upper()
 
-        return [
-            StateMetrics(
-                state=row[0],
-                site_count=row[1],
-                avg_performance=row[2],
-                avg_accessibility=row[3],
+            with_state = summaries.filter(~summaries.has_errors).mutate(state=state_expr)
+            filtered = with_state.filter(
+                with_state.state.notnull() & (with_state.state != "")
             )
-            for row in results
-        ]
+            result = (
+                filtered.group_by("state")
+                .aggregate(
+                    site_count=filtered.count(),
+                    avg_performance=filtered.mobile_performance.mean(),
+                    avg_accessibility=filtered.mobile_accessibility.mean(),
+                )
+                .order_by(ibis.desc("avg_performance"))
+                .to_pandas()
+            )
+
+            return [
+                StateMetrics(
+                    state=row["state"],
+                    site_count=int(row["site_count"]),
+                    avg_performance=row["avg_performance"],
+                    avg_accessibility=row["avg_accessibility"],
+                )
+                for _, row in result.iterrows()
+            ]
+
+        return await asyncio.to_thread(query_by_state)
 
     async def get_worst_performing_sites(self, limit: int = 10) -> list[SitePerformance]:
         """Retorna os sites com pior performance."""
-        def query_worst() -> list:
-            return self.conn.execute("""
-                SELECT
-                    url,
-                    mobile_performance,
-                    desktop_performance,
-                    mobile_accessibility,
-                    timestamp
-                FROM audit_summaries
-                WHERE NOT has_errors AND mobile_performance IS NOT NULL
-                ORDER BY mobile_performance ASC
-                LIMIT ?
-            """, [limit]).fetchall()
 
-        results = await asyncio.to_thread(query_worst)
+        def query_worst() -> list[SitePerformance]:
+            summaries = self._summaries_table()
 
-        return [
-            SitePerformance(
-                url=row[0],
-                mobile_performance=row[1],
-                desktop_performance=row[2],
-                mobile_accessibility=row[3],
-                timestamp=row[4].isoformat() if row[4] else None,
+            result = (
+                summaries.filter(
+                    ~summaries.has_errors & summaries.mobile_performance.notnull()
+                )
+                .select(
+                    "url", "mobile_performance", "desktop_performance",
+                    "mobile_accessibility", "timestamp"
+                )
+                .order_by("mobile_performance")
+                .limit(limit)
+                .to_pandas()
             )
-            for row in results
-        ]
+
+            return [
+                SitePerformance(
+                    url=row["url"],
+                    mobile_performance=row["mobile_performance"],
+                    desktop_performance=row["desktop_performance"],
+                    mobile_accessibility=row["mobile_accessibility"],
+                    timestamp=row["timestamp"].isoformat() if row["timestamp"] else None,
+                )
+                for _, row in result.iterrows()
+            ]
+
+        return await asyncio.to_thread(query_worst)
 
     async def get_best_accessibility_sites(self, limit: int = 10) -> list[SiteAccessibility]:
         """Retorna os sites com melhor acessibilidade."""
-        def query_best() -> list:
-            return self.conn.execute("""
-                SELECT
-                    url,
-                    mobile_accessibility,
-                    desktop_accessibility,
-                    mobile_performance,
-                    timestamp
-                FROM audit_summaries
-                WHERE NOT has_errors AND mobile_accessibility IS NOT NULL
-                ORDER BY mobile_accessibility DESC
-                LIMIT ?
-            """, [limit]).fetchall()
 
-        results = await asyncio.to_thread(query_best)
+        def query_best() -> list[SiteAccessibility]:
+            summaries = self._summaries_table()
 
-        return [
-            SiteAccessibility(
-                url=row[0],
-                mobile_accessibility=row[1],
-                desktop_accessibility=row[2],
-                mobile_performance=row[3],
-                timestamp=row[4].isoformat() if row[4] else None,
+            result = (
+                summaries.filter(
+                    ~summaries.has_errors & summaries.mobile_accessibility.notnull()
+                )
+                .select(
+                    "url", "mobile_accessibility", "desktop_accessibility",
+                    "mobile_performance", "timestamp"
+                )
+                .order_by(ibis.desc("mobile_accessibility"))
+                .limit(limit)
+                .to_pandas()
             )
-            for row in results
-        ]
+
+            return [
+                SiteAccessibility(
+                    url=row["url"],
+                    mobile_accessibility=row["mobile_accessibility"],
+                    desktop_accessibility=row["desktop_accessibility"],
+                    mobile_performance=row["mobile_performance"],
+                    timestamp=row["timestamp"].isoformat() if row["timestamp"] else None,
+                )
+                for _, row in result.iterrows()
+            ]
+
+        return await asyncio.to_thread(query_best)
 
     async def get_temporal_evolution(self, url: str) -> list[TemporalData]:
         """Retorna evolucao temporal de metricas para uma URL."""
-        def query_temporal() -> list:
-            return self.conn.execute("""
-                SELECT
-                    timestamp,
-                    mobile_performance,
-                    desktop_performance,
-                    mobile_accessibility,
-                    desktop_accessibility
-                FROM audit_summaries
-                WHERE url = ? AND NOT has_errors
-                ORDER BY timestamp ASC
-            """, [url]).fetchall()
 
-        results = await asyncio.to_thread(query_temporal)
+        def query_temporal() -> list[TemporalData]:
+            summaries = self._summaries_table()
 
-        return [
-            TemporalData(
-                timestamp=row[0].isoformat() if row[0] else None,
-                mobile_performance=row[1],
-                desktop_performance=row[2],
-                mobile_accessibility=row[3],
-                desktop_accessibility=row[4],
+            result = (
+                summaries.filter(
+                    (summaries.url == url) & ~summaries.has_errors
+                )
+                .select(
+                    "timestamp", "mobile_performance", "desktop_performance",
+                    "mobile_accessibility", "desktop_accessibility"
+                )
+                .order_by("timestamp")
+                .to_pandas()
             )
-            for row in results
-        ]
+
+            return [
+                TemporalData(
+                    timestamp=row["timestamp"].isoformat() if row["timestamp"] else None,
+                    mobile_performance=row["mobile_performance"],
+                    desktop_performance=row["desktop_performance"],
+                    mobile_accessibility=row["mobile_accessibility"],
+                    desktop_accessibility=row["desktop_accessibility"],
+                )
+                for _, row in result.iterrows()
+            ]
+
+        return await asyncio.to_thread(query_temporal)
 
     async def export_aggregated_metrics_json(self, output_file: Path) -> None:
         """Exporta metricas agregadas para JSON."""
-        metrics = await self.get_aggregated_metrics()
+        metrics = dict(await self.get_aggregated_metrics())
         metrics["generated_at"] = datetime.utcnow().isoformat()
 
-        with open(output_file, 'w', encoding='utf-8') as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             json.dump(metrics, f, indent=2, ensure_ascii=False)
 
         logger.info(f"Aggregated metrics exported to {output_file}")
@@ -644,70 +750,83 @@ class DuckDBStorage:
         Returns:
             Estatisticas da atualizacao
         """
+
         def update_quarantine_sync() -> QuarantineUpdateStats:
-            # Encontrar sites com falhas consecutivas nos ultimos N dias
-            # DuckDB doesn't support parameterized INTERVAL, so we use string formatting
-            # with validated integers to prevent SQL injection
-            days_lookback = int(min_consecutive_days * 2)
-            min_failures = int(min_consecutive_days)
-            results = self.conn.execute(f"""
-                WITH daily_failures AS (
-                    SELECT
-                        url,
-                        DATE(timestamp) as failure_date,
-                        error_message,
-                        ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
-                    FROM audits
-                    WHERE error_message IS NOT NULL
-                ),
-                consecutive_failures AS (
-                    SELECT
-                        url,
-                        MIN(failure_date) as first_failure,
-                        MAX(failure_date) as last_failure,
-                        COUNT(DISTINCT failure_date) as failure_days,
-                        MAX(CASE WHEN rn = 1 THEN error_message END) as last_error
-                    FROM daily_failures
-                    WHERE failure_date >= CURRENT_DATE - INTERVAL '{days_lookback}' DAY
-                    GROUP BY url
-                    HAVING COUNT(DISTINCT failure_date) >= {min_failures}
+            audits = self._audits_table()
+            cutoff_date = datetime.utcnow().date() - timedelta(days=min_consecutive_days * 2)
+
+            # Find sites with failures
+            failures_base = audits.filter(audits.error_message.notnull())
+            failures = failures_base.mutate(failure_date=failures_base.timestamp.date())
+            failures = failures.filter(failures.failure_date >= cutoff_date)
+
+            # Group by URL to get failure stats
+            failure_stats_query = failures.group_by("url").aggregate(
+                first_failure=failures.failure_date.min(),
+                last_failure=failures.failure_date.max(),
+                failure_days=failures.failure_date.nunique(),
+            )
+            failure_stats = (
+                failure_stats_query.filter(
+                    failure_stats_query.failure_days >= min_consecutive_days
                 )
-                SELECT url, first_failure, last_failure, failure_days, last_error
-                FROM consecutive_failures
-            """).fetchall()
+                .to_pandas()
+            )
+
+            # Get last error for each URL
+            failures_with_rn = failures.mutate(
+                rn=ibis.row_number().over(
+                    ibis.window(group_by="url", order_by=ibis.desc("timestamp"))
+                )
+            )
+            last_errors = (
+                failures_with_rn.filter(failures_with_rn.rn == 0)
+                .select("url", last_error="error_message")
+                .to_pandas()
+            )
+
+            # Merge failure stats with last errors
+            if not failure_stats.empty and not last_errors.empty:
+                failure_stats = failure_stats.merge(last_errors, on="url", how="left")
+            elif not failure_stats.empty:
+                failure_stats["last_error"] = None
 
             added = 0
             updated = 0
 
-            for url, first_failure, last_failure, failure_days, last_error in results:
-                # Verificar se ja existe na quarentena
-                existing = self.conn.execute(
-                    "SELECT id, consecutive_failures FROM quarantine WHERE url = ?",
-                    [url]
-                ).fetchone()
+            for _, row in failure_stats.iterrows():
+                url = row["url"]
+                first_failure = row["first_failure"]
+                last_failure = row["last_failure"]
+                failure_days = int(row["failure_days"])
+                last_error = row.get("last_error")
 
-                if existing:
-                    # Atualizar registro existente
-                    self.conn.execute("""
+                # Check if URL exists in quarantine
+                quarantine = self._quarantine_table()
+                existing = quarantine.filter(quarantine.url == url).to_pandas()
+
+                if not existing.empty:
+                    # Update existing record
+                    self.con.raw_sql("""
                         UPDATE quarantine
-                        SET last_failure = ?,
-                            consecutive_failures = ?,
-                            last_error_message = ?,
+                        SET last_failure = $1,
+                            consecutive_failures = $2,
+                            last_error_message = $3,
                             updated_at = CURRENT_TIMESTAMP
-                        WHERE url = ?
-                    """, [last_failure, failure_days, last_error, url])
+                        WHERE url = $4
+                    """, parameters=[last_failure, failure_days, last_error, url])
                     updated += 1
                 else:
-                    # Adicionar novo registro
-                    self.conn.execute("""
+                    # Add new record
+                    self.con.raw_sql("""
                         INSERT INTO quarantine (url, first_failure, last_failure,
                                                consecutive_failures, last_error_message)
-                        VALUES (?, ?, ?, ?, ?)
-                    """, [url, first_failure, last_failure, failure_days, last_error])
+                        VALUES ($1, $2, $3, $4, $5)
+                    """, parameters=[url, first_failure, last_failure, failure_days, last_error])
                     added += 1
 
             return QuarantineUpdateStats(
-                added=added, updated=updated, total_checked=len(results)
+                added=added, updated=updated, total_checked=len(failure_stats)
             )
 
         stats = await asyncio.to_thread(update_quarantine_sync)
@@ -729,46 +848,40 @@ class DuckDBStorage:
         Returns:
             Lista de sites em quarentena
         """
-        # Build query outside the sync function
-        query = """
-            SELECT
-                url,
-                first_failure,
-                last_failure,
-                consecutive_failures,
-                last_error_message,
-                status,
-                notes,
-                created_at
-            FROM quarantine
-            WHERE consecutive_failures >= ?
-        """
-        params: list = [min_failures]
 
-        if status:
-            query += " AND status = ?"
-            params.append(status)
+        def query_quarantine() -> list[QuarantineSite]:
+            quarantine = self._quarantine_table()
 
-        query += " ORDER BY consecutive_failures DESC, last_failure DESC"
+            query = quarantine.filter(quarantine.consecutive_failures >= min_failures)
 
-        def execute_query() -> list:
-            return self.conn.execute(query, params).fetchall()
+            if status:
+                query = query.filter(quarantine.status == status)
 
-        results = await asyncio.to_thread(execute_query)
-
-        return [
-            QuarantineSite(
-                url=row[0],
-                first_failure=row[1].isoformat() if row[1] else None,
-                last_failure=row[2].isoformat() if row[2] else None,
-                consecutive_failures=row[3],
-                last_error=row[4],
-                status=row[5],
-                notes=row[6],
-                created_at=row[7].isoformat() if row[7] else None,
+            result = (
+                query.select(
+                    "url", "first_failure", "last_failure",
+                    "consecutive_failures", "last_error_message",
+                    "status", "notes", "created_at"
+                )
+                .order_by(ibis.desc("consecutive_failures"), ibis.desc("last_failure"))
+                .to_pandas()
             )
-            for row in results
-        ]
+
+            return [
+                QuarantineSite(
+                    url=row["url"],
+                    first_failure=row["first_failure"].isoformat() if row["first_failure"] else None,
+                    last_failure=row["last_failure"].isoformat() if row["last_failure"] else None,
+                    consecutive_failures=int(row["consecutive_failures"]),
+                    last_error=row["last_error_message"],
+                    status=row["status"],
+                    notes=row["notes"],
+                    created_at=row["created_at"].isoformat() if row["created_at"] else None,
+                )
+                for _, row in result.iterrows()
+            ]
+
+        return await asyncio.to_thread(query_quarantine)
 
     async def update_quarantine_status(
         self,
@@ -791,65 +904,82 @@ class DuckDBStorage:
         if status not in valid_statuses:
             raise ValueError(f"Status invalido. Use: {valid_statuses}")
 
-        result = self.conn.execute("""
-            UPDATE quarantine
-            SET status = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE url = ?
-            RETURNING id
-        """, [status, notes, url]).fetchone()
+        def update_status() -> bool:
+            result = self.con.raw_sql("""
+                UPDATE quarantine
+                SET status = $1, notes = $2, updated_at = CURRENT_TIMESTAMP
+                WHERE url = $3
+                RETURNING id
+            """, parameters=[status, notes, url]).fetchone()
 
-        if result:
-            logger.info(f"Quarantine status updated: {url} -> {status}")
-            return True
-        return False
+            if result:
+                logger.info(f"Quarantine status updated: {url} -> {status}")
+                return True
+            return False
+
+        return await asyncio.to_thread(update_status)
 
     async def remove_from_quarantine(self, url: str) -> bool:
         """Remove um site da quarentena."""
-        result = self.conn.execute(
-            "DELETE FROM quarantine WHERE url = ? RETURNING id",
-            [url]
-        ).fetchone()
 
-        if result:
-            logger.info(f"Removed from quarantine: {url}")
-            return True
-        return False
+        def remove() -> bool:
+            result = self.con.raw_sql(
+                "DELETE FROM quarantine WHERE url = $1 RETURNING id",
+                parameters=[url]
+            ).fetchone()
+
+            if result:
+                logger.info(f"Removed from quarantine: {url}")
+                return True
+            return False
+
+        return await asyncio.to_thread(remove)
 
     async def get_quarantine_stats(self) -> QuarantineStats:
         """Retorna estatisticas da quarentena."""
-        def query_stats() -> tuple:
-            return self.conn.execute("""
-                SELECT
-                    COUNT(*) as total,
-                    COUNT(*) FILTER (WHERE status = 'quarantined') as quarantined,
-                    COUNT(*) FILTER (WHERE status = 'investigating') as investigating,
-                    COUNT(*) FILTER (WHERE status = 'resolved') as resolved,
-                    COUNT(*) FILTER (WHERE status = 'wrong_url') as wrong_url,
-                    AVG(consecutive_failures) as avg_failures,
-                    MAX(consecutive_failures) as max_failures
-                FROM quarantine
-            """).fetchone()
 
-        result = await asyncio.to_thread(query_stats)
+        def query_stats() -> QuarantineStats:
+            quarantine = self._quarantine_table()
 
-        return QuarantineStats(
-            total=result[0] or 0,
-            quarantined=result[1] or 0,
-            investigating=result[2] or 0,
-            resolved=result[3] or 0,
-            wrong_url=result[4] or 0,
-            avg_failures=round(result[5], 1) if result[5] else 0,
-            max_failures=result[6] or 0,
-        )
+            result = quarantine.aggregate(
+                total=quarantine.count(),
+                quarantined=(quarantine.status == "quarantined").sum(),
+                investigating=(quarantine.status == "investigating").sum(),
+                resolved=(quarantine.status == "resolved").sum(),
+                wrong_url=(quarantine.status == "wrong_url").sum(),
+                avg_failures=quarantine.consecutive_failures.mean(),
+                max_failures=quarantine.consecutive_failures.max(),
+            ).to_pandas()
+
+            row = result.iloc[0] if not result.empty else {}
+
+            return QuarantineStats(
+                total=int(row.get("total", 0) or 0),
+                quarantined=int(row.get("quarantined", 0) or 0),
+                investigating=int(row.get("investigating", 0) or 0),
+                resolved=int(row.get("resolved", 0) or 0),
+                wrong_url=int(row.get("wrong_url", 0) or 0),
+                avg_failures=round(row.get("avg_failures", 0) or 0, 1),
+                max_failures=int(row.get("max_failures", 0) or 0),
+            )
+
+        return await asyncio.to_thread(query_stats)
 
     async def get_urls_to_skip_quarantine(self) -> set[str]:
         """Retorna URLs em quarentena que devem ser puladas na coleta."""
-        results = self.conn.execute("""
-            SELECT url FROM quarantine
-            WHERE status IN ('quarantined', 'wrong_url')
-        """).fetchall()
 
-        return {row[0] for row in results}
+        def query_urls() -> set[str]:
+            quarantine = self._quarantine_table()
+
+            result = (
+                quarantine.filter(quarantine.status.isin(["quarantined", "wrong_url"]))
+                .select("url")
+                .to_pandas()
+            )
+
+            return set(result["url"].tolist())
+
+        return await asyncio.to_thread(query_urls)
 
     async def export_quarantine_json(self, output_file: Path) -> ExportStats:
         """
@@ -873,7 +1003,7 @@ class DuckDBStorage:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         def write_json() -> None:
-            with open(output_file, 'w', encoding='utf-8') as f:
+            with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_json)
@@ -896,7 +1026,7 @@ class DuckDBStorage:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         def write_csv() -> None:
-            with open(output_file, 'w', encoding='utf-8', newline='') as f:
+            with open(output_file, "w", encoding="utf-8", newline="") as f:
                 if sites:
                     writer = csv.DictWriter(f, fieldnames=list(sites[0].keys()))
                     writer.writeheader()
@@ -971,7 +1101,7 @@ class DuckDBStorage:
         summary_file = output_dir / "summary.json"
 
         def write_file() -> None:
-            with open(summary_file, 'w', encoding='utf-8') as f:
+            with open(summary_file, "w", encoding="utf-8") as f:
                 json.dump(summary, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_file)
@@ -981,65 +1111,59 @@ class DuckDBStorage:
         self, output_dir: Path, generated_at: str
     ) -> tuple[list[dict], Path]:
         """Export ranking data to JSON."""
-        def query_ranking() -> list:
-            return self.conn.execute("""
-                WITH latest AS (
-                    SELECT
-                        url,
-                        timestamp,
-                        mobile_accessibility,
-                        mobile_performance,
-                        mobile_seo,
-                        mobile_best_practices,
-                        desktop_accessibility,
-                        desktop_performance,
-                        mobile_fcp,
-                        mobile_lcp,
-                        mobile_cls,
-                        has_errors,
-                        ROW_NUMBER() OVER (PARTITION BY url ORDER BY timestamp DESC) as rn
-                    FROM audit_summaries
-                    WHERE NOT has_errors
+
+        def query_ranking() -> list[dict]:
+            summaries = self._summaries_table()
+
+            # Get latest audit per URL
+            with_rn = summaries.filter(~summaries.has_errors).mutate(
+                rn=ibis.row_number().over(
+                    ibis.window(group_by="url", order_by=ibis.desc("timestamp"))
                 )
-                SELECT
-                    url,
-                    timestamp,
-                    mobile_accessibility as accessibility_score,
-                    mobile_performance as performance_score,
-                    mobile_seo as seo_score,
-                    mobile_best_practices as best_practices_score,
-                    desktop_accessibility,
-                    desktop_performance,
-                    mobile_fcp as fcp,
-                    mobile_lcp as lcp,
-                    mobile_cls as cls,
-                    RANK() OVER (ORDER BY mobile_accessibility DESC NULLS LAST) as rank
-                FROM latest
-                WHERE rn = 1
-                ORDER BY mobile_accessibility DESC NULLS LAST
-            """).fetchall()
+            )
+            latest = (
+                with_rn.filter(with_rn.rn == 0)
+                .select(
+                    "url", "timestamp",
+                    "mobile_accessibility", "mobile_performance",
+                    "mobile_seo", "mobile_best_practices",
+                    "desktop_accessibility", "desktop_performance",
+                    "mobile_fcp", "mobile_lcp", "mobile_cls"
+                )
+            )
 
-        ranking_data = await asyncio.to_thread(query_ranking)
+            # Add rank
+            ranked = (
+                latest.mutate(
+                    rank=ibis.rank().over(
+                        ibis.window(order_by=ibis.desc("mobile_accessibility"))
+                    ) + 1
+                )
+                .order_by(ibis.desc("mobile_accessibility"))
+                .to_pandas()
+            )
 
-        ranking = [
-            {
-                "url": row[0],
-                "name": self._extract_name_from_url(row[0]),
-                "state": self._extract_state_from_url(row[0]),
-                "timestamp": row[1].isoformat() if row[1] else None,
-                "score": round((row[2] or 0) * 100, 1),
-                "performance": round((row[3] or 0) * 100, 1),
-                "seo": round((row[4] or 0) * 100, 1),
-                "best_practices": round((row[5] or 0) * 100, 1),
-                "desktop_accessibility": round((row[6] or 0) * 100, 1) if row[6] else None,
-                "desktop_performance": round((row[7] or 0) * 100, 1) if row[7] else None,
-                "fcp": row[8],
-                "lcp": row[9],
-                "cls": row[10],
-                "rank": row[11],
-            }
-            for row in ranking_data
-        ]
+            return [
+                {
+                    "url": row["url"],
+                    "name": self._extract_name_from_url(row["url"]),
+                    "state": self._extract_state_from_url(row["url"]),
+                    "timestamp": row["timestamp"].isoformat() if row["timestamp"] else None,
+                    "score": round((row["mobile_accessibility"] or 0) * 100, 1),
+                    "performance": round((row["mobile_performance"] or 0) * 100, 1),
+                    "seo": round((row["mobile_seo"] or 0) * 100, 1),
+                    "best_practices": round((row["mobile_best_practices"] or 0) * 100, 1),
+                    "desktop_accessibility": round((row["desktop_accessibility"] or 0) * 100, 1) if row["desktop_accessibility"] else None,
+                    "desktop_performance": round((row["desktop_performance"] or 0) * 100, 1) if row["desktop_performance"] else None,
+                    "fcp": row["mobile_fcp"],
+                    "lcp": row["mobile_lcp"],
+                    "cls": row["mobile_cls"],
+                    "rank": int(row["rank"]),
+                }
+                for _, row in ranked.iterrows()
+            ]
+
+        ranking = await asyncio.to_thread(query_ranking)
 
         ranking_file = output_dir / "ranking.json"
         ranking_output = {
@@ -1049,7 +1173,7 @@ class DuckDBStorage:
         }
 
         def write_file() -> None:
-            with open(ranking_file, 'w', encoding='utf-8') as f:
+            with open(ranking_file, "w", encoding="utf-8") as f:
                 json.dump(ranking_output, f, indent=2, ensure_ascii=False)
 
         await asyncio.to_thread(write_file)
@@ -1066,12 +1190,12 @@ class DuckDBStorage:
         worst50_file = output_dir / "worst50.json"
 
         def write_files() -> None:
-            with open(top50_file, 'w', encoding='utf-8') as f:
+            with open(top50_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "sites": top50},
                     f, indent=2, ensure_ascii=False
                 )
-            with open(worst50_file, 'w', encoding='utf-8') as f:
+            with open(worst50_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "sites": worst50},
                     f, indent=2, ensure_ascii=False
@@ -1086,7 +1210,7 @@ class DuckDBStorage:
         by_state_file = output_dir / "by-state.json"
 
         def write_file() -> None:
-            with open(by_state_file, 'w', encoding='utf-8') as f:
+            with open(by_state_file, "w", encoding="utf-8") as f:
                 json.dump(
                     {"generated_at": generated_at, "states": by_state},
                     f, indent=2, ensure_ascii=False
@@ -1104,7 +1228,7 @@ class DuckDBStorage:
         quarantine_file = output_dir / "quarantine.json"
 
         def write_file() -> None:
-            with open(quarantine_file, 'w', encoding='utf-8') as f:
+            with open(quarantine_file, "w", encoding="utf-8") as f:
                 json.dump({
                     "generated_at": generated_at,
                     "stats": quarantine_stats,
@@ -1124,7 +1248,7 @@ class DuckDBStorage:
             # Remove sufixos comuns
             for suffix in [".gov.br", ".org.br", ".com.br"]:
                 if name.endswith(suffix):
-                    name = name[:-len(suffix)]
+                    name = name[: -len(suffix)]
             return name
         except ValueError:
             # Invalid URL format
@@ -1132,13 +1256,13 @@ class DuckDBStorage:
 
     def _extract_state_from_url(self, url: str) -> str:
         """Extrai estado de uma URL .gov.br."""
-        match = re.search(r'\.([a-z]{2})\.gov\.br', url.lower())
+        match = re.search(r"\.([a-z]{2})\.gov\.br", url.lower())
         if match:
             return match.group(1).upper()
         return "N/A"
 
     async def close(self) -> None:
         """Fecha conexao com banco."""
-        if self.conn:
-            self.conn.close()
-            self.conn = None
+        if self.con:
+            self.con.disconnect()
+            self.con = None
