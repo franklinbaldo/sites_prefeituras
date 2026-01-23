@@ -31,10 +31,12 @@ class PageSpeedCollector:
         timeout: float = 60.0,
     ) -> None:
         self.api_key: str = api_key
-        self.throttler: Throttler = Throttler(rate_limit=requests_per_second)
+        self.throttler: Throttler = Throttler(rate_limit=int(requests_per_second))
         self.semaphore: asyncio.Semaphore = asyncio.Semaphore(max_concurrent)
         self.timeout: float = timeout
-        self.base_url: str = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+        self.base_url: str = (
+            "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
+        )
         self.client: httpx.AsyncClient | None = None
 
     async def __aenter__(self) -> "PageSpeedCollector":
@@ -55,12 +57,10 @@ class PageSpeedCollector:
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=2, max=10),
-        reraise=True
+        reraise=True,
     )
     async def _fetch_pagespeed_data(
-        self,
-        url: str,
-        strategy: str = "mobile"
+        self, url: str, strategy: str = "mobile"
     ) -> PageSpeedInsightsResult:
         """Busca dados do PageSpeed Insights para uma URL e estratégia."""
         params = {
@@ -72,7 +72,8 @@ class PageSpeedCollector:
 
         async with self.throttler, self.semaphore:
             logger.debug(f"Fetching PSI data for {url} ({strategy})")
-
+            if self.client is None:
+                raise RuntimeError("Client not initialized. Use async with context.")
             response = await self.client.get(self.base_url, params=params)
             response.raise_for_status()
 
@@ -81,7 +82,7 @@ class PageSpeedCollector:
 
     async def audit_site(self, url: str) -> SiteAudit:
         """Audita um site completo (mobile + desktop)."""
-        audit = SiteAudit(url=url)
+        audit = SiteAudit(url=url)  # type: ignore[arg-type]
 
         try:
             # Buscar dados mobile e desktop em paralelo
@@ -97,7 +98,9 @@ class PageSpeedCollector:
 
         except httpx.HTTPStatusError as e:
             logger.error(f"HTTP error auditing {url}: {e.response.status_code}")
-            audit.error_message = f"HTTP {e.response.status_code}: {e.response.reason_phrase}"
+            audit.error_message = (
+                f"HTTP {e.response.status_code}: {e.response.reason_phrase}"
+            )
         except httpx.TimeoutException as e:
             logger.error(f"Timeout auditing {url}: {e}")
             audit.error_message = f"Timeout: {e}"
@@ -143,14 +146,14 @@ class PageSpeedCollector:
 
             except Exception as e:
                 logger.error(f"Failed to audit {url}: {e}")
-                yield SiteAudit(url=url, error_message=str(e))
+                yield SiteAudit(url=url, error_message=str(e))  # type: ignore[arg-type]
 
     async def _read_urls_from_csv(self, csv_file: Path, url_column: str) -> list[str]:
         """Lê URLs de arquivo CSV."""
 
         def read_csv_sync() -> list[str]:
             urls = []
-            with open(csv_file, encoding='utf-8') as f:
+            with open(csv_file, encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     if url_column in row and row[url_column]:
@@ -215,7 +218,6 @@ class BatchProcessor:
                 requests_per_second=self.config.requests_per_second,
                 max_concurrent=self.config.max_concurrent,
             ) as collector:
-
                 audit_count = 0
                 error_count = 0
 
@@ -232,8 +234,7 @@ class BatchProcessor:
                     # Log progresso
                     if audit_count % 50 == 0:
                         console.print(
-                            f"Processados: {audit_count} | "
-                            f"Erros: {error_count}"
+                            f"Processados: {audit_count} | Erros: {error_count}"
                         )
 
         # Exportar dados
@@ -262,6 +263,7 @@ class BatchProcessor:
 # Funcoes de processamento paralelo
 # ============================================================================
 
+
 def chunked(iterable: list, size: int) -> Iterator[list]:
     """
     Divide uma lista em chunks de tamanho especificado.
@@ -269,7 +271,7 @@ def chunked(iterable: list, size: int) -> Iterator[list]:
     Funcao auxiliar para process_urls_in_chunks() - mantida para testes.
     """
     for i in range(0, len(iterable), size):
-        yield iterable[i:i + size]
+        yield iterable[i : i + size]
 
 
 async def process_urls_in_chunks(
@@ -310,9 +312,11 @@ async def process_urls_in_chunks(
 
         # Processar resultados
         for url, result in zip(chunk, chunk_results, strict=False):
-            if isinstance(result, Exception):
+            if isinstance(result, BaseException):
                 logger.error(f"Error processing {url}: {result}")
-                all_results.append(SiteAudit(url=url, error_message=str(result)))
+                all_results.append(
+                    SiteAudit(url=url, error_message=str(result))  # type: ignore[arg-type]
+                )
             else:
                 all_results.append(result)
 
@@ -322,6 +326,7 @@ async def process_urls_in_chunks(
 # ============================================================================
 # Funcoes de conveniencia
 # ============================================================================
+
 
 async def audit_single_site(url: str, api_key: str) -> SiteAudit:
     """Audita um unico site - funcao de conveniencia."""

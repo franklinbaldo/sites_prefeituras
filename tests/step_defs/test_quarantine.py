@@ -6,8 +6,6 @@ from datetime import datetime, timedelta
 import pytest
 from pytest_bdd import given, parsers, scenarios, then, when
 
-from sites_prefeituras.storage import DuckDBStorage
-
 # Carrega os cenarios do arquivo .feature
 scenarios("../features/quarantine.feature")
 
@@ -244,7 +242,14 @@ def given_sites_with_status(quarantine_context, count, status, storage_sync):
             INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
             VALUES (?, ?, ?, ?, ?, ?)
         """,
-            [quarantine_context["id_counter"], url, datetime.utcnow() - timedelta(days=5), datetime.utcnow(), 5, status],
+            [
+                quarantine_context["id_counter"],
+                url,
+                datetime.utcnow() - timedelta(days=5),
+                datetime.utcnow(),
+                5,
+                status,
+            ],
         )
 
 
@@ -257,7 +262,7 @@ def given_sites_with_status_no_count(quarantine_context, status, storage_sync):
     if "id_counter" not in quarantine_context:
         quarantine_context["id_counter"] = 0
 
-    for i in range(2):  # Default to 2 sites
+    for _ in range(2):  # Default to 2 sites
         quarantine_context["id_counter"] += 1
         url = f"https://site-{status}-{quarantine_context['id_counter']}.gov.br"
         storage_sync.conn.execute(
@@ -265,7 +270,14 @@ def given_sites_with_status_no_count(quarantine_context, status, storage_sync):
             INSERT INTO quarantine (id, url, first_failure, last_failure, consecutive_failures, status)
             VALUES (?, ?, ?, ?, ?, ?)
         """,
-            [quarantine_context["id_counter"], url, datetime.utcnow() - timedelta(days=5), datetime.utcnow(), 5, status],
+            [
+                quarantine_context["id_counter"],
+                url,
+                datetime.utcnow() - timedelta(days=5),
+                datetime.utcnow(),
+                5,
+                status,
+            ],
         )
 
 

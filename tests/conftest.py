@@ -1,23 +1,20 @@
 """Fixtures compartilhadas para testes BDD."""
 
 import asyncio
-import json
 import tempfile
 from collections.abc import AsyncGenerator, Generator
 from pathlib import Path
-from unittest.mock import AsyncMock
 
 import pytest
 import pytest_asyncio
 import respx
-from httpx import Response
 
 from sites_prefeituras.storage import DuckDBStorage
-
 
 # ============================================================================
 # Fixtures de banco de dados
 # ============================================================================
+
 
 @pytest.fixture
 def temp_db_path() -> Generator[str, None, None]:
@@ -51,6 +48,7 @@ def storage_sync(temp_db_path: str) -> Generator[DuckDBStorage, None, None]:
 # ============================================================================
 # Fixtures de mock da API PSI
 # ============================================================================
+
 
 def create_psi_response(
     url: str,
@@ -167,6 +165,7 @@ def psi_error_response():
 # Fixtures de URLs de teste
 # ============================================================================
 
+
 @pytest.fixture
 def sample_urls() -> list[str]:
     """Lista de URLs de exemplo."""
@@ -190,6 +189,7 @@ def sample_csv(tmp_path: Path, sample_urls: list[str]) -> Path:
 # ============================================================================
 # Fixtures de configuracao
 # ============================================================================
+
 
 @pytest.fixture
 def api_key() -> str:

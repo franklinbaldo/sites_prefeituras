@@ -37,6 +37,7 @@ class LighthouseAudit(BaseModel):
     score: float | int | None = None
     scoreDisplayMode: str | None = None
     displayValue: str | None = None
+    numericValue: float | None = None
     explanation: str | None = None
     errorMessage: str | None = None
     warnings: list[str] | None = None
@@ -131,7 +132,9 @@ class BatchAuditConfig(BaseModel):
     # Filtros
     url_column: str = "url"
     skip_existing: bool = True
-    skip_recent_hours: int = 24  # Pular sites auditados nas ultimas N horas (0 = desativado)
+    skip_recent_hours: int = (
+        24  # Pular sites auditados nas ultimas N horas (0 = desativado)
+    )
 
     # Export
     export_parquet: bool = True
