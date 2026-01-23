@@ -1,0 +1,20 @@
+{
+  "total_audits": 0,
+  "successful_audits": 0,
+  "failed_audits": 0,
+  "success_rate": 0,
+  "error_rate": 0,
+  "avg_mobile_performance": null,
+  "avg_desktop_performance": null,
+  "avg_mobile_accessibility": null,
+  "avg_desktop_accessibility": null,
+  "avg_mobile_seo": null,
+  "avg_desktop_seo": null,
+  "avg_mobile_best_practices": null,
+  "avg_desktop_best_practices": null,
+  "std_mobile_performance": null,
+  "std_desktop_performance": null,
+  "min_mobile_performance": null,
+  "max_mobile_performance": null,
+  "generated_at": "2026-01-23T10:17:03.473604"
+}

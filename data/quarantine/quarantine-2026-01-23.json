@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-01-23T10:17:04.507793",
+  "stats": {
+    "total": 0,
+    "quarantined": 0,
+    "investigating": 0,
+    "resolved": 0,
+    "wrong_url": 0,
+    "avg_failures": 0,
+    "max_failures": 0
+  },
+  "sites": []
+}
