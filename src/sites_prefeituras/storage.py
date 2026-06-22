@@ -12,6 +12,7 @@ import csv
 import json
 import logging
 import re
+from typing import Any
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import TypedDict
@@ -737,7 +738,7 @@ class DuckDBStorage:
             added = 0
             updated = 0
 
-            for _, row in failures.iterrows():
+            for _idx, row in failures.iterrows():
                 url = row["url"]
                 first_failure = row["first_failure"]
                 last_failure = row["last_failure"]
@@ -1367,7 +1368,7 @@ class _IbisConnectionWrapper:
     def __init__(self, ibis_con: ibis.BaseBackend):
         self._con = ibis_con
 
-    def execute(self, query: str, params: list | None = None):
+    def execute(self, query: str, params: list | None = None) -> Any:
         """Execute SQL with optional parameters.
 
         Args:

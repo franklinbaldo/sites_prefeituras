@@ -8,7 +8,7 @@ codigo_ibge,uf,nome,url
 1200252,AC,Epitaciolândia,https://epitaciolandia.ac.gov.br
 1200302,AC,Feijó,https://feijo.ac.gov.br
 1200328,AC,Jordão,http://jordao.ac.gov.br
-1200344,AC,Manoel Urbano,
+1200344,AC,Manoel Urbano,https://manoelurbano.ac.gov.br/
 1200351,AC,Marechal Thaumaturgo,https://marechalthaumaturgo.ac.gov.br
 1200336,AC,Mâncio Lima,https://manciolima.ac.gov.br
 1200385,AC,Plácido de Castro,https://placidodecastro.ac.gov.br
@@ -79,10 +79,10 @@ codigo_ibge,uf,nome,url
 2705309,AL,Minador do Negrão,https://minadordonegrao.al.gov.br
 2705408,AL,Monteirópolis,https://monteiropolis.al.gov.br
 2705507,AL,Murici,http://murici.al.gov.br
-2705606,AL,Novo Lino,
+2705606,AL,Novo Lino,http://novolino.al.gov.br/
 2705903,AL,Olho d'Água Grande,https://olhodaguagrande.al.gov.br
 2705705,AL,Olho d'Água das Flores,https://www.olhodaguadasflores.al.gov.br
-2705804,AL,Olho d'Água do Casado,
+2705804,AL,Olho d'Água do Casado,http://olhodaguadocasado.al.gov.br/
 2706000,AL,Olivença,https://olivenca.al.gov.br
 2706109,AL,Ouro Branco,https://ourobranco.al.gov.br
 2706208,AL,Palestina,http://www.palestina.al.gov.br
@@ -1200,7 +1200,7 @@ codigo_ibge,uf,nome,url
 2104099,MA,Formosa da Serra Negra,http://formosadaserranegra.ma.gov.br
 2104107,MA,Fortaleza dos Nogueiras,http://fortalezadosnogueiras.ma.gov.br
 2104206,MA,Fortuna,http://fortuna.ma.gov.br
-2104305,MA,Godofredo Viana,
+2104305,MA,Godofredo Viana,https://godofredoviana.ma.gov.br/
 2104404,MA,Gonçalves Dias,http://goncalvesdias.ma.gov.br
 2104503,MA,Governador Archer,http://governadorarcher.ma.gov.br
 2104552,MA,Governador Edison Lobão,https://governadoredisonlobao.ma.gov.br
@@ -1216,7 +1216,7 @@ codigo_ibge,uf,nome,url
 2105203,MA,Igarapé Grande,https://igarapegrande.ma.gov.br
 2105153,MA,Igarapé do Meio,http://igarapedomeio.ma.gov.br
 2105302,MA,Imperatriz,https://imperatriz.ma.gov.br
-2105351,MA,Itaipava do Grajaú,
+2105351,MA,Itaipava do Grajaú,https://itaipava.ma.gov.br/
 2105401,MA,Itapecuru Mirim,http://itapecuru.ma.gov.br
 2105427,MA,Itinga do Maranhão,http://itinga.ma.gov.br
 2105450,MA,Jatobá,http://jatoba.ma.gov.br
@@ -1686,7 +1686,7 @@ codigo_ibge,uf,nome,url
 3130309,MG,Iguatama,https://iguatama.mg.gov.br
 3130408,MG,Ijaci,http://www.ijaci.mg.gov.br
 3130507,MG,Ilicínea,https://ilicinea.mg.gov.br
-3130556,MG,Imbé de Minas,
+3130556,MG,Imbé de Minas,http://www.imbedeminas.com.br/
 3130606,MG,Inconfidentes,https://inconfidentes.mg.gov.br
 3130655,MG,Indaiabira,https://indaiabira.mg.gov.br
 3130705,MG,Indianópolis,https://indianopolis.mg.gov.br
@@ -1744,7 +1744,7 @@ codigo_ibge,uf,nome,url
 3135407,MG,Jeceaba,https://jeceaba.mg.gov.br
 3135456,MG,Jenipapo de Minas,http://jenipapodeminas.mg.gov.br
 3135506,MG,Jequeri,http://www.jequeri.mg.gov.br
-3135605,MG,Jequitaí,
+3135605,MG,Jequitaí,https://jequitai.mg.gov.br/
 3135704,MG,Jequitibá,http://jequitiba.mg.gov.br
 3135803,MG,Jequitinhonha,https://jequitinhonha.mg.gov.br
 3135902,MG,Jesuânia,http://jesuania.mg.gov.br
@@ -2043,7 +2043,7 @@ codigo_ibge,uf,nome,url
 3160207,MG,Santo Antônio do Itambé,https://santoantoniodoitambe.mg.gov.br
 3160306,MG,Santo Antônio do Jacinto,http://www.santoantoniodojacinto.mg.gov.br
 3160405,MG,Santo Antônio do Monte,https://www.samonte.mg.gov.br
-3160454,MG,Santo Antônio do Retiro,
+3160454,MG,Santo Antônio do Retiro,http://santoantoniodoretiro.mg.gov.br/
 3160504,MG,Santo Antônio do Rio Abaixo,https://santoantoniodorioabaixo.mg.gov.br
 3160603,MG,Santo Hipólito,http://www.santohipolito.mg.gov.br
 3160702,MG,Santos Dumont,http://santosdumont.mg.gov.br
@@ -2117,7 +2117,7 @@ codigo_ibge,uf,nome,url
 3162575,MG,São João do Manteninha,https://saojoaodomanteninha.mg.gov.br
 3162609,MG,São João do Oriente,http://www.saojoaodooriente.mg.gov.br
 3162658,MG,São João do Pacuí,https://saojoaodopacui.mg.gov.br
-3162708,MG,São João do Paraíso,http://www.saojoaodoparaiso.ma.gov.br
+3162708,MG,São João do Paraíso,https://www.sjparaiso.mg.gov.br/
 3163706,MG,São Lourenço,https://saolourenco.mg.gov.br
 3163805,MG,São Miguel do Anta,http://saomigueldoanta.mg.gov.br
 3163904,MG,São Pedro da União,http://www.saopedrodauniao.mg.gov.br
@@ -2128,7 +2128,7 @@ codigo_ibge,uf,nome,url
 3164407,MG,São Sebastião da Bela Vista,https://saosebastiaodabelavista.mg.gov.br
 3164431,MG,São Sebastião da Vargem Alegre,https://saosebastiaodavargemalegre.mg.gov.br
 3164472,MG,São Sebastião do Anta,http://saosebastiaodoanta.mg.gov.br
-3164506,MG,São Sebastião do Maranhão,
+3164506,MG,São Sebastião do Maranhão,https://saosebastiaodomaranhao.mg.gov.br/
 3164605,MG,São Sebastião do Oeste,https://saosebastiaodooeste.mg.gov.br
 3164704,MG,São Sebastião do Paraíso,http://www.saosebastiaodoparaiso.mg.gov.br
 3164803,MG,São Sebastião do Rio Preto,https://saosebastiaodoriopreto.mg.gov.br
@@ -2165,7 +2165,7 @@ codigo_ibge,uf,nome,url
 3170107,MG,Uberaba,http://www.uberaba.mg.gov.br
 3170206,MG,Uberlândia,http://www.uberlandia.mg.gov.br
 3169901,MG,Ubá,http://www.uba.mg.gov.br
-3170305,MG,Umburatiba,
+3170305,MG,Umburatiba,https://www.umburatiba.mg.gov.br/
 3170404,MG,Unaí,http://www.prefeituraunai.mg.gov.br
 3170438,MG,União de Minas,http://www.uniaodeminas.mg.gov.br
 3170479,MG,Uruana de Minas,https://uruanademinas.mg.gov.br
@@ -3143,7 +3143,7 @@ codigo_ibge,uf,nome,url
 2208908,PI,Ribeiro Gonçalves,https://ribeirogoncalves.pi.gov.br
 2209005,PI,Rio Grande do Piauí,http://riograndedopiaui.pi.gov.br
 2209104,PI,Santa Cruz do Piauí,https://santacruzdopiaui.pi.gov.br
-2209153,PI,Santa Cruz dos Milagres,
+2209153,PI,Santa Cruz dos Milagres,https://santacruzdosmilagres.pi.gov.br/
 2209203,PI,Santa Filomena,http://santafilomena.pi.gov.br
 2209302,PI,Santa Luz,http://santaluz.pi.gov.br
 2209377,PI,Santa Rosa do Piauí,http://www.santarosadopiaui.pi.gov.br
@@ -3600,7 +3600,7 @@ codigo_ibge,uf,nome,url
 3300258,RJ,Arraial do Cabo,http://www.arraial.rj.gov.br
 3300407,RJ,Barra Mansa,https://barramansa.rj.gov.br
 3300308,RJ,Barra do Piraí,https://barradopirai.rj.gov.br
-3300456,RJ,Belford Roxo,
+3300456,RJ,Belford Roxo,https://prefeituradebelfordroxo.rj.gov.br/
 3300506,RJ,Bom Jardim,http://bomjardim.rj.gov.br
 3300605,RJ,Bom Jesus do Itabapoana,http://www.bomjesus.rj.gov.br
 3300704,RJ,Cabo Frio,http://www.cabofrio.rj.gov.br
@@ -3751,7 +3751,7 @@ codigo_ibge,uf,nome,url
 2406106,RN,Jucurutu,http://jucurutu.rn.gov.br
 2406155,RN,Jundiá,http://jundia.rn.gov.br
 2406502,RN,Lagoa Nova,http://www.lagoanova.rn.gov.br
-2406601,RN,Lagoa Salgada,
+2406601,RN,Lagoa Salgada,https://lagoasalgada.rn.gov.br/
 2406205,RN,Lagoa d'Anta,https://lagoadanta.rn.gov.br
 2406304,RN,Lagoa de Pedras,http://lagoadepedras.rn.gov.br
 2406403,RN,Lagoa de Velhos,https://www.governotransparente.com.br/6739489
@@ -5097,7 +5097,7 @@ codigo_ibge,uf,nome,url
 3527603,SP,Luís Antônio,http://www.luizantonio.sp.gov.br
 3528007,SP,Macatuba,http://www.macatuba.sp.gov.br
 3528106,SP,Macaubal,http://www.macaubal.sp.gov.br
-3528205,SP,Macedônia,
+3528205,SP,Macedônia,http://macedonia.sp.gov.br/
 3528304,SP,Magda,http://www.magda.sp.gov.br
 3528403,SP,Mairinque,http://mairinque.sp.gov.br
 3528502,SP,Mairiporã,http://mairipora.sp.gov.br
@@ -5296,7 +5296,7 @@ codigo_ibge,uf,nome,url
 3545803,SP,Santa Bárbara d'Oeste,http://www.santabarbara.sp.gov.br
 3546108,SP,Santa Clara d'Oeste,http://santaclaradoeste.sp.gov.br
 3546207,SP,Santa Cruz da Conceição,http://santacruzdaconceicao.sp.gov.br
-3546256,SP,Santa Cruz da Esperança,
+3546256,SP,Santa Cruz da Esperança,http://www.santacruzdaesperanca.sp.gov.br/
 3546306,SP,Santa Cruz das Palmeiras,http://www.scpalmeiras.sp.gov.br
 3546405,SP,Santa Cruz do Rio Pardo,https://santacruzdoriopardo.sp.gov.br
 3546504,SP,Santa Ernestina,https://santaernestina.sp.gov.br
