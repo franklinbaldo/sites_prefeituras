@@ -1367,7 +1367,7 @@ class _IbisConnectionWrapper:
     def __init__(self, ibis_con: ibis.BaseBackend):
         self._con = ibis_con
 
-    def execute(self, query: str, params: list | None = None):
+    def execute(self, query: str, params: list | None = None) -> None:
         """Execute SQL with optional parameters.
 
         Args:
@@ -1391,6 +1391,6 @@ class _IbisConnectionWrapper:
                 else:
                     # For datetime and other types
                     formatted_query = formatted_query.replace("?", f"'{param}'", 1)
-            return self._con.raw_sql(formatted_query)
+            self._con.raw_sql(formatted_query)
         else:
-            return self._con.raw_sql(query)
+            self._con.raw_sql(query)
