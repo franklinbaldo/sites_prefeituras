@@ -737,7 +737,7 @@ class DuckDBStorage:
             added = 0
             updated = 0
 
-            for _, row in failures.iterrows():
+            for _idx, row in failures.iterrows():
                 url = row["url"]
                 first_failure = row["first_failure"]
                 last_failure = row["last_failure"]
