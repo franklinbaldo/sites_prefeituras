@@ -12,10 +12,9 @@ import csv
 import json
 import logging
 import re
-from typing import Any
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import TypedDict
+from typing import Any, TypedDict
 from urllib.parse import urlparse
 
 import ibis
