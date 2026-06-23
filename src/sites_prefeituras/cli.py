@@ -163,7 +163,7 @@ def stats(
         )
 
         # Últimas auditorias using Ibis
-        import ibis
+        import ibis  # type: ignore
 
         recent_df = (
             storage.audits.mutate(

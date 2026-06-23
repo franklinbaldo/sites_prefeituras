@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, TypedDict
 from urllib.parse import urlparse
 
-import ibis
+import ibis  # type: ignore
 from ibis import _
 from rich.console import Console
 

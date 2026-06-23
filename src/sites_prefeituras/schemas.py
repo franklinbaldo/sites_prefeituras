@@ -7,9 +7,9 @@ Design Principles:
 - This enables full audit trail and time-travel queries
 """
 
-import ibis
+import ibis  # type: ignore
 from ibis import Schema
-from ibis.expr import datatypes as dt
+from ibis.expr import datatypes as dt  # type: ignore
 
 # ============================================================================
 # Table Schemas (Append-Only)
