@@ -64,7 +64,7 @@ function initStatsAnimation(summary) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const statNumbers = entry.target.querySelectorAll(".stat-number");
+        const statNumbers = entry.target.querySelectorAll(".stat-number[data-count]");
         statNumbers.forEach((stat) => {
           const target = parseFloat(stat.dataset.count);
           animateCounter(stat, target);
