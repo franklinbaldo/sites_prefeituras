@@ -131,6 +131,11 @@ body {
   transform: scale(1.02);
 }
 
+.search-input:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
 .search-btn {
   padding: 1rem 2rem;
   background: var(--primary-color);
@@ -281,6 +286,11 @@ body {
 .filter-select:focus {
   outline: none;
   border-color: var(--primary-color);
+}
+
+.filter-select:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 .ranking-list {
