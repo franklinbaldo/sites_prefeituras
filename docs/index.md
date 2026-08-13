@@ -2,18 +2,18 @@
     <div class="hero-content">
         <h1 class="hero-title">Acessibilidade Municipal</h1>
         <p class="hero-subtitle">Compare a acessibilidade digital dos sites de prefeituras brasileiras</p>
-        <div class="search-container">
+        <form class="search-container" id="citySearchForm" role="search">
             <input type="text" id="citySearch" placeholder="Digite o nome da cidade ou estado..." class="search-input">
-            <button class="search-btn" onclick="searchCity()">Buscar</button>
-        </div>
+            <button class="search-btn" type="submit">Buscar</button>
+        </form>
     </div>
-    <div class="scroll-indicator">
-        <div class="scroll-arrow"></div>
-    </div>
+    <a class="scroll-indicator" href="#panorama-nacional" aria-label="Ir para o panorama nacional">
+        <span class="scroll-arrow" aria-hidden="true"></span>
+    </a>
 </header>
 
 <main class="main-content">
-    <section class="stats-section">
+    <section class="stats-section" id="panorama-nacional">
         <div class="container">
             <h2>Panorama Nacional</h2>
             <div class="stats-grid">

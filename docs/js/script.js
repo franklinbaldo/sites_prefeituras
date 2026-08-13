@@ -214,7 +214,7 @@ function populateStateFilter(data) {
   });
 }
 
-// Search functionality (called by button click or Enter key)
+// Search functionality
 function searchCity() {
   applyAllFiltersAndSearch();
 
@@ -241,29 +241,12 @@ async function initializeApp() {
   initStatsAnimation(summary);
   setupFilters();
 
-  // Setup search functionality
-  const searchInput = document.getElementById("citySearch");
-  if (searchInput) {
-    searchInput.addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        searchCity();
-      }
-    });
-  }
-
-  const searchButton = document.querySelector(".search-btn");
-  if (searchButton) {
-    searchButton.addEventListener("click", searchCity);
-  }
-
-  // Smooth scrolling for scroll indicator
-  const scrollIndicator = document.querySelector(".scroll-indicator");
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener("click", function () {
-      const statsSection = document.querySelector(".stats-section");
-      if (statsSection) {
-        statsSection.scrollIntoView({ behavior: "smooth" });
-      }
+  // Native form submission covers both Enter and button activation exactly once.
+  const searchForm = document.getElementById("citySearchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      searchCity();
     });
   }
 
