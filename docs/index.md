@@ -17,6 +17,7 @@
     <section class="stats-section" id="panorama-nacional">
         <div class="container">
             <h2>Panorama Nacional</h2>
+            <p id="summaryStatus" class="dashboard-status" hidden></p>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" data-stat="total" data-count="0">0</div>
@@ -58,6 +59,7 @@
                     </select>
                 </label>
             </div>
+            <p id="rankingStatus" class="dashboard-status" hidden></p>
             <div id="ranking-table"></div>
         </div>
     </section>
