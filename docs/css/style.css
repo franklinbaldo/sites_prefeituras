@@ -260,6 +260,14 @@ body {
   flex-wrap: wrap;
 }
 
+.filter-control {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .filter-select {
   padding: 0.75rem 1.5rem;
   border: 2px solid var(--border-color);
@@ -415,6 +423,20 @@ body {
   padding: 2rem 0;
 }
 
+/* Accessible-only text remains available to assistive technology. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .search-container {
@@ -432,6 +454,7 @@ body {
     align-items: center;
   }
 
+  .filter-control,
   .filter-select {
     width: 100%;
     max-width: 300px;

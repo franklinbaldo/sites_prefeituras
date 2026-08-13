@@ -3,6 +3,7 @@
         <h1 class="hero-title">Acessibilidade Municipal</h1>
         <p class="hero-subtitle">Compare a acessibilidade digital dos sites de prefeituras brasileiras</p>
         <form class="search-container" id="citySearchForm" role="search">
+            <label for="citySearch" class="visually-hidden">Buscar por cidade ou estado</label>
             <input type="text" id="citySearch" placeholder="Digite o nome da cidade ou estado..." class="search-input">
             <button class="search-btn" type="submit">Buscar</button>
         </form>
@@ -30,7 +31,7 @@
                     <div class="stat-label">Performance Media</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="lastUpdated">-</div>
+                    <time class="stat-number" id="lastUpdated">-</time>
                     <div class="stat-label">Ultima Atualizacao</div>
                 </div>
             </div>
@@ -41,15 +42,21 @@
         <div class="container">
             <h2>Ranking de Acessibilidade</h2>
             <div class="ranking-controls">
-                <select id="stateFilter" class="filter-select">
-                    <option value="">Todos os Estados</option>
-                </select>
-                <select id="populationFilter" class="filter-select">
-                    <option value="">Todos os Tamanhos</option>
-                    <option value="big">Grandes (>500k)</option>
-                    <option value="medium">Medias (100k-500k)</option>
-                    <option value="small">Pequenas (<100k)</option>
-                </select>
+                <label class="filter-control" for="stateFilter">
+                    <span>Estado</span>
+                    <select id="stateFilter" class="filter-select">
+                        <option value="">Todos os Estados</option>
+                    </select>
+                </label>
+                <label class="filter-control" for="populationFilter">
+                    <span>Tamanho do município</span>
+                    <select id="populationFilter" class="filter-select">
+                        <option value="">Todos os Tamanhos</option>
+                        <option value="big">Grandes (>500k)</option>
+                        <option value="medium">Medias (100k-500k)</option>
+                        <option value="small">Pequenas (<100k)</option>
+                    </select>
+                </label>
             </div>
             <div id="ranking-table"></div>
         </div>

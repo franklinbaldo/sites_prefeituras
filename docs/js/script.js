@@ -264,11 +264,12 @@ async function initializeApp() {
     });
   }
 
-  // Update last updated info
+  // Update last updated info while preserving the exact timestamp.
   if (summary && summary.generated_at) {
     const lastUpdatedEl = document.getElementById("lastUpdated");
     if (lastUpdatedEl) {
       const date = new Date(summary.generated_at);
+      lastUpdatedEl.setAttribute("datetime", summary.generated_at);
       lastUpdatedEl.textContent = date.toLocaleString("pt-BR");
     }
   }
