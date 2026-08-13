@@ -25,10 +25,11 @@ theme:
 nav:
   - Início: index.md
 extra_css:
+  - https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator.min.css
   - css/style.css
 extra_javascript:
-  - js/script.js
   - https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js
+  - js/script.js
 plugins:
   - search
   - mermaid2
