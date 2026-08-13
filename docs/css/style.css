@@ -246,6 +246,21 @@ body {
   margin-top: 0.5rem;
 }
 
+.dashboard-status {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: white;
+  color: var(--text-secondary);
+}
+
+.dashboard-status[data-kind="error"] {
+  border-left: 4px solid var(--error-color);
+  color: var(--text-primary);
+}
+
 /* Ranking Section */
 .ranking-section {
   padding: 5rem 0;

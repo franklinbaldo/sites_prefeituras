@@ -1,5 +1,6 @@
 // Global variable to store fetched municipality data
 let allMunicipalityData = [];
+let rankingLoaded = false;
 let currentFilters = {
   state: "",
   population: "",
@@ -20,7 +21,7 @@ async function fetchPsiData() {
     return data.sites || [];
   } catch (error) {
     console.error("Error fetching PSI data:", error);
-    return [];
+    return null;
   }
 }
 
@@ -36,6 +37,24 @@ async function fetchSummary() {
     console.error("Error fetching summary:", error);
     return null;
   }
+}
+
+function setDashboardStatus(id, message = "", kind = "status") {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  if (!message) {
+    element.hidden = true;
+    element.textContent = "";
+    element.removeAttribute("role");
+    element.removeAttribute("data-kind");
+    return;
+  }
+
+  element.textContent = message;
+  element.hidden = false;
+  element.setAttribute("role", kind === "error" ? "alert" : "status");
+  element.dataset.kind = kind;
 }
 
 // Animation for counting numbers
@@ -76,17 +95,34 @@ function initStatsAnimation(summary) {
 
   const statsSection = document.querySelector(".stats-section");
   if (statsSection) {
-    // Update stats from summary data
-    if (summary) {
-      const totalSitesEl = document.querySelector('[data-stat="total"]');
-      const avgAccessEl = document.querySelector('[data-stat="avg-accessibility"]');
-      const avgPerfEl = document.querySelector('[data-stat="avg-performance"]');
+    const totalSitesEl = document.querySelector('[data-stat="total"]');
+    const avgAccessEl = document.querySelector('[data-stat="avg-accessibility"]');
+    const avgPerfEl = document.querySelector('[data-stat="avg-performance"]');
 
-      if (totalSitesEl) totalSitesEl.dataset.count = summary.total_audits || 0;
-      if (avgAccessEl) avgAccessEl.dataset.count = ((summary.avg_mobile_accessibility || 0) * 100).toFixed(1);
-      if (avgPerfEl) avgPerfEl.dataset.count = ((summary.avg_mobile_performance || 0) * 100).toFixed(1);
-    }
+    if (totalSitesEl) totalSitesEl.dataset.count = summary.total_audits || 0;
+    if (avgAccessEl) avgAccessEl.dataset.count = ((summary.avg_mobile_accessibility || 0) * 100).toFixed(1);
+    if (avgPerfEl) avgPerfEl.dataset.count = ((summary.avg_mobile_performance || 0) * 100).toFixed(1);
+
     observer.observe(statsSection);
+  }
+}
+
+function showSummaryUnavailable() {
+  setDashboardStatus(
+    "summaryStatus",
+    "Não foi possível carregar o panorama nacional agora. O ranking, quando disponível, continua independente.",
+    "error",
+  );
+
+  document.querySelectorAll(".stat-number[data-count]").forEach((element) => {
+    element.removeAttribute("data-count");
+    element.textContent = "—";
+  });
+
+  const lastUpdatedEl = document.getElementById("lastUpdated");
+  if (lastUpdatedEl) {
+    lastUpdatedEl.removeAttribute("datetime");
+    lastUpdatedEl.textContent = "—";
   }
 }
 
@@ -134,8 +170,21 @@ function renderRanking(data) {
   });
 }
 
+function updateRankingEmptyState(data) {
+  if (data.length === 0) {
+    setDashboardStatus(
+      "rankingStatus",
+      "Nenhum município corresponde aos filtros e à busca atuais.",
+    );
+  } else {
+    setDashboardStatus("rankingStatus");
+  }
+}
+
 // Apply all filters and search term
 function applyAllFiltersAndSearch() {
+  if (!rankingLoaded) return;
+
   const searchInput = document.getElementById("citySearch");
   const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
@@ -166,6 +215,7 @@ function applyAllFiltersAndSearch() {
   }
 
   renderRanking(filteredData);
+  updateRankingEmptyState(filteredData);
 
   // If search was initiated, scroll to results
   if (searchInput && (
@@ -226,19 +276,47 @@ function searchCity() {
 
 // Main initialization function
 async function initializeApp() {
-  // Fetch data in parallel
+  // Fetch the ranking and summary independently so one failure does not erase the other.
   const [psiData, summary] = await Promise.all([
     fetchPsiData(),
     fetchSummary(),
   ]);
 
-  allMunicipalityData = psiData;
+  const rankingTable = document.getElementById("ranking-table");
+  if (psiData === null) {
+    rankingLoaded = false;
+    if (rankingTable) rankingTable.hidden = true;
+    setDashboardStatus(
+      "rankingStatus",
+      "Não foi possível carregar o ranking agora. Tente novamente mais tarde.",
+      "error",
+    );
+  } else {
+    rankingLoaded = true;
+    allMunicipalityData = psiData;
+    if (rankingTable) rankingTable.hidden = false;
+    populateStateFilter(allMunicipalityData);
+    renderRanking(allMunicipalityData);
+    updateRankingEmptyState(allMunicipalityData);
+  }
 
-  // Populate state filter dynamically
-  populateStateFilter(allMunicipalityData);
+  if (summary === null) {
+    showSummaryUnavailable();
+  } else {
+    setDashboardStatus("summaryStatus");
+    initStatsAnimation(summary);
 
-  renderRanking(allMunicipalityData);
-  initStatsAnimation(summary);
+    // Update last updated info while preserving the exact timestamp.
+    if (summary.generated_at) {
+      const lastUpdatedEl = document.getElementById("lastUpdated");
+      if (lastUpdatedEl) {
+        const date = new Date(summary.generated_at);
+        lastUpdatedEl.setAttribute("datetime", summary.generated_at);
+        lastUpdatedEl.textContent = date.toLocaleString("pt-BR");
+      }
+    }
+  }
+
   setupFilters();
 
   // Native form submission covers both Enter and button activation exactly once.
@@ -264,17 +342,11 @@ async function initializeApp() {
     });
   }
 
-  // Update last updated info while preserving the exact timestamp.
-  if (summary && summary.generated_at) {
-    const lastUpdatedEl = document.getElementById("lastUpdated");
-    if (lastUpdatedEl) {
-      const date = new Date(summary.generated_at);
-      lastUpdatedEl.setAttribute("datetime", summary.generated_at);
-      lastUpdatedEl.textContent = date.toLocaleString("pt-BR");
-    }
-  }
-
-  console.log("Dashboard initialized with", allMunicipalityData.length, "sites");
+  console.log(
+    "Dashboard initialized with",
+    rankingLoaded ? allMunicipalityData.length : "unavailable",
+    "sites",
+  );
 }
 
 // Run initialization when DOM is ready
